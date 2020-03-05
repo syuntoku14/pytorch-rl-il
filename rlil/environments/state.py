@@ -16,8 +16,9 @@ class State:
         else:
             assert isinstance(
                 raw, torch.Tensor), "Input invalid raw type {}. raw must be torch.Tensor or list of torch.Tensor".format(type(raw))
-            assert 5 > len(
-                raw.shape) > 1, "State.raw.shape {} is invalid".format(raw.shape)
+            assert 5 > len(raw.shape), "State.raw.shape {} is invalid".format(raw.shape)
+            while 2 > len(raw.shape):
+                raw = raw.unsqueeze(0)
         self._raw = raw
 
         if mask is None:
