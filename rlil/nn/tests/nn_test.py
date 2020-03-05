@@ -26,12 +26,17 @@ class TestNN(unittest.TestCase):
             ),
         )
 
+    def test_linear0(self):
+        model = nn.Linear0(3, 3)
+        result = model(torch.tensor([[3.0, -2.0, 10]]))
+        tt.assert_equal(result, torch.tensor([[0.0, 0.0, 0.0]]))
+
     def test_list(self):
-        model = nn.Linear(2, 2)
-        net = nn.RLNetwork(model, (2,))
-        features = torch.randn((4, 2))
-        done = torch.tensor([1, 1, 0, 1], dtype=torch.bool)
-        out = net(State(features, done))
+        model=nn.Linear(2, 2)
+        net=nn.RLNetwork(model, (2,))
+        features=torch.randn((4, 2))
+        done=torch.tensor([1, 1, 0, 1], dtype=torch.bool)
+        out=net(State(features, done))
         tt.assert_almost_equal(
             out,
             torch.tensor(
@@ -44,9 +49,9 @@ class TestNN(unittest.TestCase):
             ),
         )
 
-        features = torch.randn(3, 2)
-        done = torch.tensor([1, 1, 1], dtype=torch.bool)
-        out = net(State(features, done))
+        features=torch.randn(3, 2)
+        done=torch.tensor([1, 1, 1], dtype=torch.bool)
+        out=net(State(features, done))
         tt.assert_almost_equal(
             out,
             torch.tensor(
@@ -59,21 +64,21 @@ class TestNN(unittest.TestCase):
         )
 
     def test_tanh_action_bound(self):
-        space = gym.spaces.Box(np.array([-1.0, 10.0]), np.array([1, 20]))
-        model = nn.TanhActionBound(space)
-        x = torch.tensor([[100.0, 100], [-100, -100], [-100, 100], [0, 0]])
+        space=gym.spaces.Box(np.array([-1.0, 10.0]), np.array([1, 20]))
+        model=nn.TanhActionBound(space)
+        x=torch.tensor([[100.0, 100], [-100, -100], [-100, 100], [0, 0]])
         tt.assert_almost_equal(
             model(x), torch.tensor([[1.0, 20], [-1, 10], [-1, 20], [0.0, 15]])
         )
 
     def test_categorical_dueling(self):
-        n_actions = 2
-        n_atoms = 3
-        value_model = nn.Linear(2, n_atoms)
-        advantage_model = nn.Linear(2, n_actions * n_atoms)
-        model = nn.CategoricalDueling(value_model, advantage_model)
-        x = torch.randn((2, 2))
-        out = model(x)
+        n_actions=2
+        n_atoms=3
+        value_model=nn.Linear(2, n_atoms)
+        advantage_model=nn.Linear(2, n_actions * n_atoms)
+        model=nn.CategoricalDueling(value_model, advantage_model)
+        x=torch.randn((2, 2))
+        out=model(x)
         self.assertEqual(out.shape, (2, 6))
         tt.assert_almost_equal(
             out,

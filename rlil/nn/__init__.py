@@ -19,6 +19,7 @@ class RLNetwork(nn.Module):
     def forward(self, state):
         return self.model(state.features.float()) * state.mask.float().unsqueeze(-1)
 
+
 class Aggregation(nn.Module):
     """len()
     Aggregation layer for the Dueling architecture.
@@ -68,10 +69,12 @@ class CategoricalDueling(nn.Module):
         batch_size = len(features)
         value_dist = self.value_model(features)
         atoms = value_dist.shape[1]
-        advantage_dist = self.advantage_model(features).view((batch_size, -1, atoms))
+        advantage_dist = self.advantage_model(
+            features).view((batch_size, -1, atoms))
         advantage_mean = advantage_dist.mean(dim=1, keepdim=True)
         return (
-            value_dist.view((batch_size, 1, atoms)) + advantage_dist - advantage_mean
+            value_dist.view((batch_size, 1, atoms)) +
+            advantage_dist - advantage_mean
         ).view((batch_size, -1))
 
 
@@ -103,9 +106,11 @@ class NoisyLinear(nn.Linear):
         self.sigma_weight = nn.Parameter(
             torch.Tensor(out_features, in_features).fill_(sigma_init)
         )
-        self.register_buffer("epsilon_weight", torch.zeros(out_features, in_features))
+        self.register_buffer(
+            "epsilon_weight", torch.zeros(out_features, in_features))
         if bias:
-            self.sigma_bias = nn.Parameter(torch.Tensor(out_features).fill_(sigma_init))
+            self.sigma_bias = nn.Parameter(
+                torch.Tensor(out_features).fill_(sigma_init))
             self.register_buffer("epsilon_bias", torch.zeros(out_features))
         self.reset_parameters()
 
@@ -125,6 +130,7 @@ class NoisyLinear(nn.Linear):
             torch.randn(self.epsilon_bias.size(), out=self.epsilon_bias)
             bias = bias + self.sigma_bias * self.epsilon_bias
         return F.linear(x, self.weight + self.sigma_weight * self.epsilon_weight, bias)
+
 
 class NoisyFactorizedLinear(nn.Linear):
     """
@@ -159,7 +165,7 @@ class NoisyFactorizedLinear(nn.Linear):
         torch.randn(self.epsilon_input.size(), out=self.epsilon_input)
         torch.randn(self.epsilon_output.size(), out=self.epsilon_output)
 
-        func = lambda x: torch.sign(x) * torch.sqrt(torch.abs(x))
+        def func(x): return torch.sign(x) * torch.sqrt(torch.abs(x))
         eps_in = func(self.epsilon_input)
         eps_out = func(self.epsilon_output)
 
@@ -168,6 +174,13 @@ class NoisyFactorizedLinear(nn.Linear):
             bias = bias + self.sigma_bias * eps_out.t()
         noise_v = torch.mul(eps_in, eps_out)
         return F.linear(input, self.weight + self.sigma_weight * noise_v, bias)
+
+
+class Linear0(nn.Linear):
+    def reset_parameters(self):
+        nn.init.constant_(self.weight, 0.0)
+        if self.bias is not None:
+            nn.init.constant_(self.bias, 0.0)
 
 
 class Scale(nn.Module):
@@ -192,15 +205,18 @@ class TanhActionBound(nn.Module):
     def forward(self, x):
         return torch.tanh(x) * self.weight + self.bias
 
+
 def td_loss(loss):
     def _loss(estimates, errors):
         return loss(estimates, errors + estimates.detach())
 
     return _loss
 
+
 def weighted_mse_loss(input, target, weight, reduction='mean'):
     loss = (weight * ((target - input) ** 2))
     return torch.mean(loss) if reduction == 'mean' else torch.sum(loss)
+
 
 def weighted_smooth_l1_loss(input, target, weight, reduction='mean'):
     t = torch.abs(input - target)
