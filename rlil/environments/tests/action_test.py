@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 import torch
 import torch_testing as tt
-from rlil.environments.action import Action
+from rlil.environments.action import Action, action_decorator
 
 
 class ActionTest(unittest.TestCase):
@@ -33,3 +33,11 @@ class ActionTest(unittest.TestCase):
     def test_len(self):
         action = Action(torch.randn(3, 4))
         self.assertEqual(len(action), 3)
+
+    def test_action_decorator(self):
+        @action_decorator
+        def act():
+            return torch.tensor([3, 4])
+        
+        action = act()
+        tt.assert_equal(action.raw, torch.tensor([3, 4]).unsqueeze(0))

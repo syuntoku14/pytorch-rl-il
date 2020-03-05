@@ -3,6 +3,13 @@ import torch
 import warnings
 
 
+def action_decorator(func):
+    def retfunc(*args, **kwargs):
+        action = func(*args, **kwargs)
+        action = Action(action)
+        return action
+    return retfunc
+
 class Action:
     def __init__(self, raw):
         """
