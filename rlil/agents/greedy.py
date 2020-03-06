@@ -38,8 +38,8 @@ class GreedyAgent(Agent):
         ret = self.policy(state)
         if isinstance(ret, torch.Tensor):
             if len(ret.shape) == 3:  # categorical dqn
-                return torch.argmax((ret * self.policy.atoms).sum(dim=2), dim=1)
-            return torch.argmax(self.policy(state), dim=1)
+                return torch.argmax((ret * self.policy.atoms).sum(dim=2), dim=1).unsqueeze(1)
+            return torch.argmax(self.policy(state), dim=1).unsqueeze(1)
         if isinstance(ret, torch.distributions.distribution.Distribution):
             return ret.sample()
         return ret  # unknown type, return it and pray!
