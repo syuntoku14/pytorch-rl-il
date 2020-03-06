@@ -10,7 +10,7 @@ docker run --rm -it --privileged \
 	--name rl \
 	--shm-size 16G \
 	--entrypoint "" \
-	syuntoku/rl_ws bash -c "umask 0002 && bash"
+	syuntoku/rl_ws:rlil bash -c "umask 0002 && bash"
 }
 
 run_docker_gpu() {
@@ -26,7 +26,7 @@ docker run --rm -it --privileged \
 	-e NVIDIA_DRIVER_CAPABILITIES=all \
 	--gpus=all \
 	--entrypoint "" \
-	syuntoku/rl_ws bash -c "umask 0002 && bash"
+	syuntoku/rl_ws:rlil bash -c "umask 0002 && bash"
 }
 
 getopts "n" OPT
