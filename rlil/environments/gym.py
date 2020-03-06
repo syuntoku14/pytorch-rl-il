@@ -130,7 +130,7 @@ class GymEnvironment(Environment):
         if isinstance(self.action_space, gym.spaces.Discrete):
             return action.raw.item()
         if isinstance(self.action_space, gym.spaces.Box):
-            return action.raw.squeeze().cpu().detach().numpy()
+            return action.raw.view(self._env.action_space.shape).cpu().detach().numpy()
         raise TypeError("Unknown action space type")
 
     def _convert_reward(self, reward):
