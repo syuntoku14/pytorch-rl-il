@@ -37,7 +37,7 @@ class ActionTest(unittest.TestCase):
     def test_action_decorator(self):
         @action_decorator
         def act():
-            return torch.tensor([3, 4])
+            return torch.tensor([3, 4]).unsqueeze(0)
         
         action = act()
         tt.assert_equal(action.raw, torch.tensor([3, 4]).unsqueeze(0))

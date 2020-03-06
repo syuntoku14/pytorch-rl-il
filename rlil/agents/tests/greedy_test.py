@@ -4,7 +4,7 @@ from rlil.agents import GreedyAgent
 from rlil.approximation import QNetwork
 from rlil.policies import SoftmaxPolicy, GaussianPolicy
 from rlil.environments import State, Action
-from rlil.logging import DummyWriter
+from rlil.writer import DummyWriter
 from rlil import nn
 import torch
 from torch.optim import Adam
@@ -23,7 +23,6 @@ class TestGreedy(unittest.TestCase):
         state = env.reset()
         while not env._state.done:
             action = agent.act(state, None)
-            print("action: ", action.raw)
             state, reward = env.step(action)
 
     def test_policy_discrete(self):
@@ -37,7 +36,6 @@ class TestGreedy(unittest.TestCase):
         state = env.reset()
         while not env._state.done:
             action = agent.act(state, None)
-            print("action: ", action.raw)
             state, reward = env.step(action)
 
     def test_policy_continuous(self):
@@ -51,5 +49,4 @@ class TestGreedy(unittest.TestCase):
         state = env.reset()
         while not env._state.done:
             action = agent.act(state, None)
-            print("action: ", action.raw)
             state, reward = env.step(action)

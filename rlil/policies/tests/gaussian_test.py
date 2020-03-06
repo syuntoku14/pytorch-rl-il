@@ -13,7 +13,7 @@ class TestGaussian(unittest.TestCase):
     def setUp(self):
 
         torch.manual_seed(2)
-        self.space = Box(np.array([-1, -1, -1]), np.array([1, 1, 1]))
+        self.space = Box(np.array([-1, -1, -1]), np.array([1, 1, 1]), dtype=np.float32)
         self.model = nn.Sequential(
             nn.Linear(STATE_DIM, ACTION_DIM * 2)
         )

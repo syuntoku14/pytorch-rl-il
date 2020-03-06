@@ -2,6 +2,8 @@ import numpy as np
 import torch
 import warnings
 
+# TODO: add to function
+# TODO: add action_space handler in Action
 
 def action_decorator(func):
     def retfunc(*args, **kwargs):
@@ -18,9 +20,7 @@ class Action:
         """
         assert isinstance(
             raw, torch.Tensor), "Input invalid raw type {}. raw must be torch.Tensor".format(type(raw))
-        if len(raw.shape) < 2:
-            while len(raw.shape) < 2:
-                raw = raw.unsqueeze(0)
+        assert len(raw.shape) > 1, "Action.raw.shape {} is invalid. Batch_size must be specified".format(raw.shape)
         self._raw = raw
 
     @classmethod

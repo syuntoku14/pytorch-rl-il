@@ -57,7 +57,7 @@ class TestQNetwork(unittest.TestCase):
             optimizer,
             target=FixedTarget(3)
         )
-        inputs = State(torch.tensor([1.]))
+        inputs = State(torch.tensor([1.]).unsqueeze(0))
 
         def loss(policy_value):
             target = policy_value - 1

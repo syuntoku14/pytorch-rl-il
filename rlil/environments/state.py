@@ -1,6 +1,8 @@
 import numpy as np
 import torch
 
+# TODO: State must be batched
+
 
 class State:
     def __init__(self, raw, mask=None, info=None):
@@ -13,12 +15,15 @@ class State:
         if type(raw) is list:
             assert 5 > len(raw[0].shape) > 1, "State.raw[0].shape {} is invalid".format(
                 raw[0].shape)
+            assert len(raw[0].shape) > 1, "State.raw[0].shape {} is invalid. Batch_size must be specified".format(
+                raw[0].shape)
         else:
             assert isinstance(
                 raw, torch.Tensor), "Input invalid raw type {}. raw must be torch.Tensor or list of torch.Tensor".format(type(raw))
-            assert 5 > len(raw.shape), "State.raw.shape {} is invalid".format(raw.shape)
-            while 2 > len(raw.shape):
-                raw = raw.unsqueeze(0)
+            assert 5 > len(
+                raw.shape), "State.raw.shape {} is invalid".format(raw.shape)
+            assert len(raw.shape) > 1, "State.raw.shape {} is invalid. Batch_size must be specified".format(
+                raw.shape)
         self._raw = raw
 
         if mask is None:

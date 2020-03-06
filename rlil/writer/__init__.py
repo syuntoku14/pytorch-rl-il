@@ -4,7 +4,6 @@ import subprocess
 from abc import ABC, abstractmethod
 from datetime import datetime
 from torch.utils.tensorboard import SummaryWriter
-import logging
 
 
 class Writer(ABC):

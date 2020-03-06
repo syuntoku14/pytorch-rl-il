@@ -1,4 +1,4 @@
-from rlil.logging import DummyWriter
+from rlil.writer import DummyWriter
 
 class Schedulable:
     '''Allow "instance" descriptors to implement parameter scheduling.'''

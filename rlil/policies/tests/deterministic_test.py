@@ -18,7 +18,7 @@ class TestDeterministic(unittest.TestCase):
             nn.Linear0(STATE_DIM, ACTION_DIM)
         )
         self.optimizer = torch.optim.RMSprop(self.model.parameters(), lr=0.01)
-        self.space = Box(np.array([-1, -1, -1]), np.array([1, 1, 1]))
+        self.space = Box(np.array([-1, -1, -1]), np.array([1, 1, 1]), dtype=np.float32)
         self.policy = DeterministicPolicy(
             self.model,
             self.optimizer,

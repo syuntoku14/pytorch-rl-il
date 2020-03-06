@@ -1,4 +1,5 @@
 import gym
+gym.logger.set_level(40)
 import numpy as np
 import torch
 from .abstract import Environment
@@ -129,7 +130,7 @@ class GymEnvironment(Environment):
         if isinstance(self.action_space, gym.spaces.Discrete):
             return action.raw.item()
         if isinstance(self.action_space, gym.spaces.Box):
-            return action.raw.cpu().detach().numpy().squeeze(0)
+            return action.raw.squeeze().cpu().detach().numpy()
         raise TypeError("Unknown action space type")
 
     def _convert_reward(self, reward):

@@ -41,7 +41,7 @@ class GreedyAgent(Agent):
                 return torch.argmax((ret * self.policy.atoms).sum(dim=2), dim=1).unsqueeze(1)
             return torch.argmax(self.policy(state), dim=1).unsqueeze(1)
         if isinstance(ret, torch.distributions.distribution.Distribution):
-            return ret.sample()
+            return ret.sample().unsqueeze(1)
         return ret  # unknown type, return it and pray!
 
     def choose_continuous(self, state):

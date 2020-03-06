@@ -13,10 +13,8 @@ class GymEnvironmentTest(unittest.TestCase):
         env.reset()
         while not env._state.done:
             action = env.action_space.sample()
-            action = Action(torch.tensor(action))
+            action = Action(torch.tensor([action]).unsqueeze(0))
             state, reward = env.step(action)
-            print("state: ", state.raw)
-            print("reward: ", reward)
 
     def test_continuous(self):
         env = gym.make('LunarLanderContinuous-v2')
@@ -24,7 +22,5 @@ class GymEnvironmentTest(unittest.TestCase):
         env.reset()
         while not env._state.done:
             action = env.action_space.sample()
-            action = Action(torch.tensor(action))
+            action = Action(torch.tensor([action]).unsqueeze(0))
             state, reward = env.step(action)
-            print("state: ", state.raw)
-            print("reward: ", reward)
