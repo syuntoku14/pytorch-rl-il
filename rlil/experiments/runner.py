@@ -1,3 +1,5 @@
+import logging
+from rlil.environments import State
 import numpy as np
 import torch
 import signal
@@ -9,9 +11,7 @@ from multiprocessing import Pipe
 from multiprocessing import Process
 import multiprocessing
 multiprocessing.set_start_method('spawn', True)
-from rlil.environments import State
 
-# TODO: replace print with logger.info
 
 class EnvRunner(ABC):
     def __init__(
@@ -19,6 +19,7 @@ class EnvRunner(ABC):
             agent,
             env,
             writer,
+            logger,
             seed=0,
             frames=np.inf,
             episodes=np.inf,
@@ -37,6 +38,8 @@ class EnvRunner(ABC):
         np.random.seed(seed)
         torch.manual_seed(seed)
         self._env.seed(seed)
+        self._logger = logger
+
         self.run()
 
     @abstractmethod
@@ -51,7 +54,7 @@ class EnvRunner(ABC):
 
     def _log(self, returns, fps):
         if not self._quiet:
-            print("episode: %i, frames: %i, fps: %d, returns: %d" %
+            self._logger.info("episode: %i, frames: %i, fps: %d, returns: %d" %
                   (self._writer.episodes, self._writer.frames, fps, returns))
         if returns > self._best_returns:
             self._best_returns = returns
@@ -101,11 +104,11 @@ class SingleEnvRunner(EnvRunner):
         return returns
 
 
-def worker(remote, env_fn):
+def worker(remote, env_fn, logger):
     # Ignore CTRL+C in the worker process
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     env = env_fn(1)[0]
-    print("env generated at process ID: {}".format(os.getpid()))
+    logger.info("env generated at process ID: {}".format(os.getpid()))
     try:
         while True:
             cmd, data = remote.recv()
@@ -134,22 +137,23 @@ def worker(remote, env_fn):
 
 
 class ParallelEnvRunner(EnvRunner):
-    def __init__(self, agent, env, n_envs, writer, seeds, **kwargs):
+    def __init__(self, agent, env, n_envs, writer, seeds, logger, **kwargs):
         self._n_envs = n_envs
         self._returns = None
         self._start_time = None
         self._closed = False
         self._env = env
         self.remotes, self.work_remotes = zip(*[Pipe() for _ in range(n_envs)])
+        self._logger = logger
         self.ps = \
-            [Process(target=worker, args=(work_remote, env.duplicate))
+            [Process(target=worker, args=(work_remote, env.duplicate, self._logger))
              for work_remote in self.work_remotes]
         for p in self.ps:
             p.start()
         # set seeds
         for remote, seed in zip(self.remotes, seeds):
             remote.send(('seed', seed))
-        super().__init__(agent, env, writer, **kwargs)
+        super().__init__(agent, env, writer, logger, **kwargs)
 
     def run(self):
         self._reset()
@@ -189,7 +193,7 @@ class ParallelEnvRunner(EnvRunner):
                 self._writer.frames += 1
 
         states = State.from_list(states)
-        rewards = torch.tensor( 
+        rewards = torch.tensor(
             rewards,
             dtype=torch.float,
             device=self._env.device
@@ -214,4 +218,3 @@ class ParallelEnvRunner(EnvRunner):
             remote.send(('close', None))
         for p in self.ps:
             p.join()
-

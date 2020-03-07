@@ -1,12 +1,15 @@
 import numpy as np
 from rlil.writer import ExperimentWriter
 from .runner import SingleEnvRunner, ParallelEnvRunner
+import os
+import logging
 
 class Experiment:
     def __init__(
             self,
             agent,
             env,
+            logger,
             seed=0,
             n_envs=1,
             frames=np.inf,
@@ -16,6 +19,10 @@ class Experiment:
             write_loss=True,
     ):
         agent_name = agent.__name__
+        writer = self._make_writer(agent_name, env.name, write_loss)
+        get_handler = logging.FileHandler(os.path.join(writer.log_dir, "logger.log"))
+        logger.addHandler(get_handler)
+
         if n_envs == 1:
             SingleEnvRunner(
                 agent,
@@ -25,7 +32,8 @@ class Experiment:
                 episodes=episodes,
                 render=render,
                 quiet=quiet,
-                writer=self._make_writer(agent_name, env.name, write_loss),
+                writer=writer,
+                logger=logger
             )
         else:
             ParallelEnvRunner(
@@ -37,7 +45,8 @@ class Experiment:
                 episodes=episodes,
                 render=render,
                 quiet=quiet,
-                writer=self._make_writer(agent_name, env.name, write_loss),
+                writer=writer,
+                logger=logger
             )
 
 

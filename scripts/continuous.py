@@ -5,6 +5,7 @@ import pybullet_envs
 from rlil.environments import GymEnvironment
 from rlil.experiments import Experiment
 from rlil.presets import continuous
+import logging
 
 # some example envs
 # can also enter ID directly
@@ -51,8 +52,12 @@ def run():
     agent_name = args.agent
     agent = getattr(continuous, agent_name)
 
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+
     Experiment(
-        agent(device=args.device), env, n_envs=args.n_envs, frames=args.frames, render=args.render
+        agent(device=args.device), env, n_envs=args.n_envs, frames=args.frames, render=args.render,
+        logger=logger
     )
 
 
