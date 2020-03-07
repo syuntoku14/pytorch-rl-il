@@ -30,8 +30,8 @@ def run():
         help="Name of the agent (e.g. actor_critic). See presets for available agents.",
     )
     parser.add_argument(
-        "--frames", type=int, default=2e6, help="The number of training frames"
-    )
+            "--frames", type=int, default=5e7, help="The number of training frames"
+        )
     parser.add_argument("--n_envs", type=int, default=1)
     parser.add_argument(
         "--device",

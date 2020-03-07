@@ -104,11 +104,11 @@ class SingleEnvRunner(EnvRunner):
         return returns
 
 
-def worker(remote, env_fn, logger):
+def worker(remote, env_fn):
     # Ignore CTRL+C in the worker process
     signal.signal(signal.SIGINT, signal.SIG_IGN)
     env = env_fn(1)[0]
-    logger.info("env generated at process ID: {}".format(os.getpid()))
+    print("env generated at process ID: {}".format(os.getpid()))
     try:
         while True:
             cmd, data = remote.recv()
@@ -144,9 +144,8 @@ class ParallelEnvRunner(EnvRunner):
         self._closed = False
         self._env = env
         self.remotes, self.work_remotes = zip(*[Pipe() for _ in range(n_envs)])
-        self._logger = logger
         self.ps = \
-            [Process(target=worker, args=(work_remote, env.duplicate, self._logger))
+            [Process(target=worker, args=(work_remote, env.duplicate))
              for work_remote in self.work_remotes]
         for p in self.ps:
             p.start()

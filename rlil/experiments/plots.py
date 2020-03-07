@@ -13,7 +13,7 @@ def plot_returns_100(runs_dir, timesteps=-1):
         ax = axes[i]
         subplot_returns_100(ax, env, data[env], lines, timesteps=timesteps)
     fig.legend(list(lines.values()), list(lines.keys()), loc="center right")
-    plt.show()
+    plt.savefig(runs_dir + "/result.png")
 
 
 def load_returns_100_data(runs_dir):

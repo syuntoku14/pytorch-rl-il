@@ -1,8 +1,6 @@
 import numpy as np
 import torch
 
-# TODO: State must be batched
-
 
 class State:
     def __init__(self, raw, mask=None, info=None):
