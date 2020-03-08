@@ -87,7 +87,7 @@ class TD3(Agent):
     @action_decorator
     def _choose_actions(self, states):
         actions = self.policy.eval(states.to(self.device))
-        actions = actions + self._noise_policy.sample(actions.shape).squeeze(-1)
+        actions = actions + self._noise_policy.sample([actions.shape[0]])
         actions = torch.min(actions, self._high)
         actions = torch.max(actions, self._low)
         return actions.to("cpu")
@@ -100,7 +100,7 @@ class TD3(Agent):
 
             # Trick Three: Target Policy Smoothing
             next_actions = self.policy.target(next_states)
-            next_actions += self._noise_td3.sample(next_actions.shape).squeeze(-1)
+            next_actions += self._noise_td3.sample([next_actions.shape[0]])
             next_actions = torch.min(next_actions, self._high)
             next_actions = torch.max(next_actions, self._low)
  

@@ -69,7 +69,7 @@ class DDPG(Agent):
     @action_decorator
     def _choose_actions(self, states):
         actions = self.policy.eval(states.to(self.device))
-        actions += self._noise.sample(actions.shape).squeeze(-1)
+        actions += self._noise.sample([actions.shape[0]])
         actions = torch.min(actions, self._high)
         actions = torch.max(actions, self._low)
         return actions.to("cpu")
