@@ -152,10 +152,3 @@ class Environment(ABC):
         """
         Create n copies of this environment.
         """
-
-    @property
-    @abstractmethod
-    def device(self):
-        """
-        The torch device the environment lives on.
-        """

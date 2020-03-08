@@ -45,6 +45,15 @@ class Action:
     def raw(self):
         return self._raw
 
+    @property
+    def device(self):
+        return self._raw.device
+
+    def to(self, device):
+        return Action(
+            self._raw.to(device), 
+        )
+
     def __getitem__(self, idx):
         if isinstance(idx, slice):
             return Action(

@@ -105,8 +105,7 @@ def sac(
         )
 
         replay_buffer = ExperienceReplayBuffer(
-            replay_buffer_size,
-            device=device
+            replay_buffer_size
         )
 
         return SAC(
@@ -122,6 +121,7 @@ def sac(
             discount_factor=discount_factor,
             update_frequency=update_frequency,
             minibatch_size=minibatch_size,
-            writer=writer
+            writer=writer,
+            device=device
         )
     return _sac

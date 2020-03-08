@@ -73,8 +73,7 @@ def ddpg(
         )
 
         replay_buffer = ExperienceReplayBuffer(
-            replay_buffer_size,
-            device=device
+            replay_buffer_size
         )
 
         return DDPG(
@@ -87,6 +86,7 @@ def ddpg(
             discount_factor=discount_factor,
             update_frequency=update_frequency,
             minibatch_size=minibatch_size,
+            device=device
         )
     return _ddpg
 

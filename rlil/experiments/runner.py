@@ -167,8 +167,7 @@ class ParallelEnvRunner(EnvRunner):
             remote.send(('reset', None))
         self._returns = torch.zeros(
             (self._n_envs),
-            dtype=torch.float,
-            device=self._env.device
+            dtype=torch.float
         )
         self._start_time = timer()
 
@@ -194,8 +193,7 @@ class ParallelEnvRunner(EnvRunner):
         states = State.from_list(states)
         rewards = torch.tensor(
             rewards,
-            dtype=torch.float,
-            device=self._env.device
+            dtype=torch.float
         )
         # do actions
         actions = self._agent.act(states, rewards)

@@ -48,7 +48,7 @@ def run():
     else:
         env_id = args.env
 
-    env = GymEnvironment(env_id, device=args.device)
+    env = GymEnvironment(env_id)
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
     preset_args = get_default_args(preset) 

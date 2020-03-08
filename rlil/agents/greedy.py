@@ -12,11 +12,13 @@ class GreedyAgent(Agent):
             action_space,
             feature=None,
             q=None,
-            policy=None
+            policy=None,
+            device=torch.device("cpu")
     ):
         self.action_space = action_space
         self.feature = feature
         self.policy = None
+        self.device = device
         self.replay_buffer = ExperienceReplayBuffer(size=1e5)
         if policy:
             self.policy = policy
@@ -72,12 +74,12 @@ class GreedyAgent(Agent):
         for filename in os.listdir(dirname):
             if filename == 'feature.pt':
                 feature = torch.load(os.path.join(
-                    dirname, filename)).to(env.device)
+                    dirname, filename)).to(self.device)
             if filename == 'policy.pt':
                 policy = torch.load(os.path.join(
-                    dirname, filename)).to(env.device)
+                    dirname, filename)).to(self.device)
             if filename in ('q.pt', 'q_dist.pt'):
-                q = torch.load(os.path.join(dirname, filename)).to(env.device)
+                q = torch.load(os.path.join(dirname, filename)).to(self.device)
 
         agent = GreedyAgent(
             env.action_space,

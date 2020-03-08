@@ -42,7 +42,8 @@ class SAC(Agent):
                  replay_start_size=5000,
                  temperature_initial=0.1,
                  update_frequency=1,
-                 writer=DummyWriter()
+                 writer=DummyWriter(),
+                 device=torch.device("cpu")
                  ):
         # objects
         self.policy = policy
@@ -51,6 +52,7 @@ class SAC(Agent):
         self.q_2 = q_2
         self.replay_buffer = replay_buffer
         self.writer = writer
+        self.device = device
         # hyperparameters
         self.discount_factor = discount_factor
         self.entropy_target = entropy_target
@@ -68,13 +70,13 @@ class SAC(Agent):
         self.replay_buffer.store(self._state, self._action, reward, state)
         self._train()
         self._state = state
-        self._action = Action(self.policy.eval(state)[0])
+        self._action = Action(self.policy.eval(state.to(self.device))[0]).to("cpu")
         return self._action
 
     def _train(self):
         if self._should_train():
             # sample from replay buffer
-            (states, actions, rewards, next_states, _) = self.replay_buffer.sample(self.minibatch_size)
+            (states, actions, rewards, next_states, _) = self.replay_buffer.sample(self.minibatch_size, self.device)
 
             # compute targets for Q and V
             _actions, _log_probs = self.policy.eval(states)

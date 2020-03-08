@@ -14,7 +14,7 @@ def fc_q(env, hidden1=400, hidden2=300):
         nn.ReLU(),
         nn.Linear(hidden1, hidden2),
         nn.ReLU(),
-        nn.Linear0(hidden2, 1),
+        nn.Linear(hidden2, 1),
     )
 
 def fc_v(env, hidden1=400, hidden2=300):
@@ -23,7 +23,7 @@ def fc_v(env, hidden1=400, hidden2=300):
         nn.ReLU(),
         nn.Linear(hidden1, hidden2),
         nn.ReLU(),
-        nn.Linear0(hidden2, 1),
+        nn.Linear(hidden2, 1),
     )
 
 def fc_deterministic_policy(env, hidden1=400, hidden2=300):
@@ -32,7 +32,7 @@ def fc_deterministic_policy(env, hidden1=400, hidden2=300):
         nn.ReLU(),
         nn.Linear(hidden1, hidden2),
         nn.ReLU(),
-        nn.Linear0(hidden2, env.action_space.shape[0]),
+        nn.Linear(hidden2, env.action_space.shape[0]),
     )
 
 def fc_soft_policy(env, hidden1=400, hidden2=300):
@@ -41,7 +41,7 @@ def fc_soft_policy(env, hidden1=400, hidden2=300):
         nn.ReLU(),
         nn.Linear(hidden1, hidden2),
         nn.ReLU(),
-        nn.Linear0(hidden2, env.action_space.shape[0] * 2),
+        nn.Linear(hidden2, env.action_space.shape[0] * 2),
     )
 
 def fc_actor_critic(env, hidden1=400, hidden2=300):

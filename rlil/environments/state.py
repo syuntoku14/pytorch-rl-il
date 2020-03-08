@@ -81,6 +81,15 @@ class State:
     def done(self):
         return ~self._mask
 
+    @property
+    def device(self):
+        return self._raw.device
+
+    def to(self, device):
+        return State(
+            self._raw.to(device), self._mask.to(device), self._info
+        )
+
     def __getitem__(self, idx):
         if isinstance(idx, slice):
             return State(

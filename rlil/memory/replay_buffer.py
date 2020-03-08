@@ -15,6 +15,12 @@ def check_inputs_shapes(store):
         assert isinstance(next_states, State), "Input invalid next_states type {}. next_states must be all.environments.State".format(type(next_states))
         assert isinstance(rewards, torch.FloatTensor), "Input invalid rewards type {}. rewards must be torch.FloatTensor".format(type(rewards))
 
+        # device check
+        assert states.device == torch.device("cpu"), "Replay buffer accepts only cpu objects"
+        assert actions.device == torch.device("cpu"), "Replay buffer accepts only cpu objects"
+        assert rewards.device == torch.device("cpu"), "Replay buffer accepts only cpu objects"
+        assert next_states.device == torch.device("cpu"), "Replay buffer accepts only cpu objects"
+
         # shape check
         assert len(rewards.shape) == 1, "rewards.shape {} must be 'shape == (batch_size)'".format(rewards.shape)
         
@@ -33,7 +39,7 @@ class ReplayBuffer(ABC):
         """
 
     @abstractmethod
-    def sample(self, batch_size):
+    def sample(self, batch_size, device):
         '''Sample from the stored transitions'''
 
     @abstractmethod
@@ -44,20 +50,19 @@ class ReplayBuffer(ABC):
 # Adapted from:
 # https://github.com/Shmuma/ptan/blob/master/ptan/experience.py
 class ExperienceReplayBuffer(ReplayBuffer):
-    def __init__(self, size, device=torch.device('cpu')):
+    def __init__(self, size):
         self.buffer = []
         self.capacity = int(size)
         self.pos = 0
-        self.device = device
 
     @check_inputs_shapes
     def store(self, states, actions, rewards, next_states):
         self._add((states, actions, rewards, next_states))
 
-    def sample(self, batch_size):
+    def sample(self, batch_size, device=torch.device("cpu")):
         keys = np.random.choice(len(self.buffer), batch_size, replace=True)
         minibatch = [self.buffer[key] for key in keys]
-        return self._reshape(minibatch, torch.ones(batch_size, device=self.device))
+        return self._reshape(minibatch, torch.ones(batch_size), device)
 
     def update_priorities(self, td_errors):
         pass
@@ -72,12 +77,12 @@ class ExperienceReplayBuffer(ReplayBuffer):
                 self.buffer[self.pos] = sample
             self.pos = (self.pos + 1) % self.capacity
 
-    def _reshape(self, minibatch, weights):
-        states = State.from_list([sample[0] for sample in minibatch])
-        actions = Action.from_list([sample[1] for sample in minibatch])
-        rewards = torch.tensor([sample[2] for sample in minibatch], device=self.device).float()
-        next_states = State.from_list([sample[3] for sample in minibatch])
-        return (states, actions, rewards, next_states, weights)
+    def _reshape(self, minibatch, weights, device):
+        states = State.from_list([sample[0] for sample in minibatch]).to(device)
+        actions = Action.from_list([sample[1] for sample in minibatch]).to(device)
+        rewards = torch.tensor([sample[2] for sample in minibatch], device=device).float()
+        next_states = State.from_list([sample[3] for sample in minibatch]).to(device)
+        return (states, actions, rewards, next_states, weights.to(device))
 
     def __len__(self):
         return len(self.buffer)
@@ -92,9 +97,8 @@ class PrioritizedReplayBuffer(ExperienceReplayBuffer, Schedulable):
             alpha=0.6,
             beta=0.4,
             epsilon=1e-5,
-            device=torch.device('cpu')
     ):
-        super().__init__(buffer_size, device=device)
+        super().__init__(buffer_size)
 
         assert alpha >= 0
         self._alpha = alpha
@@ -119,7 +123,7 @@ class PrioritizedReplayBuffer(ExperienceReplayBuffer, Schedulable):
             self._it_sum[idx] = self._max_priority ** self._alpha
             self._it_min[idx] = self._max_priority ** self._alpha
 
-    def sample(self, batch_size):
+    def sample(self, batch_size, device=torch.device("cpu")):
         beta = self._beta
         idxes = self._sample_proportional(batch_size)
 
@@ -139,7 +143,7 @@ class PrioritizedReplayBuffer(ExperienceReplayBuffer, Schedulable):
             print('index out of range: ', idxes)
             raise e
         self._cache = idxes
-        return self._reshape(samples, torch.from_numpy(weights).to(self.device))
+        return self._reshape(samples, torch.from_numpy(weights), device)
 
     def update_priorities(self, priorities):
         idxes = self._cache

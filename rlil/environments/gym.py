@@ -8,7 +8,7 @@ from .action import Action
 
 
 class GymEnvironment(Environment):
-    def __init__(self, env, device=torch.device('cpu')):
+    def __init__(self, env):
         self._name = env
         if isinstance(env, str):
             env = gym.make(env)
@@ -18,7 +18,6 @@ class GymEnvironment(Environment):
         self._reward = None
         self._done = True
         self._info = None
-        self._device = device
 
         # lazy init for slurm
         self._init = False
@@ -59,7 +58,7 @@ class GymEnvironment(Environment):
         self._env.seed(seed)
 
     def duplicate(self, n):
-        return [GymEnvironment(self._name, device=self.device) for _ in range(n)]
+        return [GymEnvironment(self._name) for _ in range(n)]
 
     @property
     def state_space(self):
@@ -93,10 +92,6 @@ class GymEnvironment(Environment):
     def env(self):
         return self._env
 
-    @property
-    def device(self):
-        return self._device
-
     def _lazy_init(self):
         if not self._init:
             # predefining these saves performance on tensor creation
@@ -104,12 +99,10 @@ class GymEnvironment(Environment):
             self._done_mask = torch.tensor(
                 [0],
                 dtype=torch.bool,
-                device=self._device
             )
             self._not_done_mask = torch.tensor(
                 [1],
                 dtype=torch.bool,
-                device=self._device
             )
             self._init = True
 
@@ -121,7 +114,7 @@ class GymEnvironment(Environment):
                     raw,
                     dtype=self.state_space.dtype
                 )
-            ).unsqueeze(0).to(self._device),
+            ).unsqueeze(0),
             self._done_mask if done else self._not_done_mask,
             [info]
         )

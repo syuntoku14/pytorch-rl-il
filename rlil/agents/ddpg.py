@@ -37,20 +37,22 @@ class DDPG(Agent):
                  noise=0.1,
                  replay_start_size=5000,
                  update_frequency=1,
+                 device=torch.device("cpu")
                  ):
         # objects
         self.q = q
         self.policy = policy
         self.replay_buffer = replay_buffer
+        self.device = device
         # hyperparameters
         self.replay_start_size = replay_start_size
         self.update_frequency = update_frequency
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
         # private
-        self._noise = Normal(0, noise * torch.tensor((action_space.high - action_space.low) / 2).to(policy.device))
-        self._low = torch.tensor(action_space.low, device=policy.device)
-        self._high = torch.tensor(action_space.high, device=policy.device)
+        self._noise = Normal(0, noise * torch.tensor((action_space.high - action_space.low) / 2).to(self.device))
+        self._low = torch.tensor(action_space.low, device=self.device)
+        self._high = torch.tensor(action_space.high, device=self.device)
         self._state = None
         self._action = None
         self._frames_seen = 0
@@ -64,16 +66,16 @@ class DDPG(Agent):
 
     @action_decorator
     def _choose_action(self, state):
-        action = self.policy.eval(state)
+        action = self.policy.eval(state.to(self.device))
         action = action + self._noise.sample()
         action = torch.min(action, self._high)
         action = torch.max(action, self._low)
-        return action
+        return action.to("cpu")
 
     def _train(self):
         if self._should_train():
             # sample transitions from buffer
-            (states, actions, rewards, next_states, _) = self.replay_buffer.sample(self.minibatch_size)
+            (states, actions, rewards, next_states, _) = self.replay_buffer.sample(self.minibatch_size, device=self.device)
 
             # train q-network
             q_values = self.q(states, actions.features)
