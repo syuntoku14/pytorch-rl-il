@@ -2,7 +2,7 @@ from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from rlil.agents import DDPG
 from rlil.approximation import QContinuous, PolyakTarget
-from rlil.writer import DummyWriter
+from rlil.utils.writer import DummyWriter
 from rlil.policies import DeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
 from .models import fc_q, fc_deterministic_policy

@@ -1,6 +1,6 @@
 import torch
 from torch.nn.functional import mse_loss
-from rlil.writer import DummyWriter
+from rlil.utils.writer import DummyWriter
 from rlil.environments import action_decorator, Action
 from ._agent import Agent
 

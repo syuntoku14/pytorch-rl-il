@@ -1,6 +1,6 @@
 import torch
 from rlil.environments import State
-from rlil.writer import DummyWriter
+from rlil.utils.writer import DummyWriter
 
 def validate_agent(make_agent, env):
     validate_single_env_agent(make_agent, env)

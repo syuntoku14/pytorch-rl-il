@@ -7,7 +7,7 @@ import pybullet
 import pybullet_envs
 import time
 from rlil.environments import GymEnvironment
-from rlil.writer import Writer
+from rlil.utils.writer import Writer
 from rlil import nn
 from rlil.agents import GreedyAgent
 from rlil.approximation import QNetwork

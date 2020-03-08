@@ -1,7 +1,7 @@
 import os
 import torch
 from torch.nn import utils
-from rlil.writer import DummyWriter
+from rlil.utils.writer import DummyWriter
 from .target import TrivialTarget
 from .checkpointer import PeriodicCheckpointer
 

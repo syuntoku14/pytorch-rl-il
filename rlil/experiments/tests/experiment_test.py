@@ -4,7 +4,7 @@ import torch
 from rlil.presets.continuous import sac
 from rlil.environments import GymEnvironment
 from rlil.experiments import Experiment
-from rlil.writer import Writer
+from rlil.utils.writer import Writer
 
 # pylint: disable=protected-access
 

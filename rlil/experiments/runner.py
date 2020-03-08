@@ -16,17 +16,17 @@ multiprocessing.set_start_method('spawn', True)
 class EnvRunner(ABC):
     def __init__(
             self,
-            agent,
+            agent_fn,
             env,
             writer,
-            logger,
+            logger=None,
             seed=0,
             frames=np.inf,
             episodes=np.inf,
             render=False,
             quiet=False,
     ):
-        self._agent = agent(env, writer)
+        self._agent = agent_fn(env, writer)
         self._env = env
         self._writer = writer
         self._max_frames = frames
@@ -38,7 +38,7 @@ class EnvRunner(ABC):
         np.random.seed(seed)
         torch.manual_seed(seed)
         self._env.seed(seed)
-        self._logger = logger
+        self._logger = logger or logging.getLogger(__name__)
 
         self.run()
 
@@ -137,7 +137,7 @@ def worker(remote, env_fn):
 
 
 class ParallelEnvRunner(EnvRunner):
-    def __init__(self, agent, env, n_envs, writer, seeds, logger, **kwargs):
+    def __init__(self, agent_fn, env, n_envs, writer, seeds, **kwargs):
         self._n_envs = n_envs
         self._returns = None
         self._start_time = None
@@ -152,7 +152,7 @@ class ParallelEnvRunner(EnvRunner):
         # set seeds
         for remote, seed in zip(self.remotes, seeds):
             remote.send(('seed', seed))
-        super().__init__(agent, env, writer, logger, **kwargs)
+        super().__init__(agent_fn, env, writer, **kwargs)
 
     def run(self):
         self._reset()
