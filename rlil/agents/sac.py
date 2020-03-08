@@ -62,16 +62,16 @@ class SAC(Agent):
         self.temperature = temperature_initial
         self.update_frequency = update_frequency
         # private
-        self._state = None
-        self._action = None
-        self._frames_seen = 0
+        self._states = None
+        self._actions = None
+        self._train_count = 0
 
-    def act(self, state, reward):
-        self.replay_buffer.store(self._state, self._action, reward, state)
+    def act(self, states, reward):
+        self.replay_buffer.store(self._states, self._actions, reward, states)
         self._train()
-        self._state = state
-        self._action = Action(self.policy.eval(state.to(self.device))[0]).to("cpu")
-        return self._action
+        self._states = states
+        self._actions = Action(self.policy.eval(states.to(self.device))[0]).to("cpu")
+        return self._actions
 
     def _train(self):
         if self._should_train():
@@ -109,5 +109,5 @@ class SAC(Agent):
             self.writer.add_loss('temperature', self.temperature)
 
     def _should_train(self):
-        self._frames_seen += 1
-        return len(self.replay_buffer) > self.replay_start_size and self._frames_seen % self.update_frequency == 0
+        self._train_count += 1
+        return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0

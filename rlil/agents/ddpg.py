@@ -4,6 +4,8 @@ from torch.nn.functional import mse_loss
 from rlil.environments import action_decorator, Action
 from ._agent import Agent
 
+# TODO: noarmalize action
+
 class DDPG(Agent):
     """
     Deep Deterministic Policy Gradient (DDPG).
@@ -53,24 +55,24 @@ class DDPG(Agent):
         self._noise = Normal(0, noise * torch.tensor((action_space.high - action_space.low) / 2).to(self.device))
         self._low = torch.tensor(action_space.low, device=self.device)
         self._high = torch.tensor(action_space.high, device=self.device)
-        self._state = None
-        self._action = None
-        self._frames_seen = 0
+        self._states = None
+        self._actions = None
+        self._train_count = 0
 
-    def act(self, state, reward):
-        self.replay_buffer.store(self._state, self._action, reward, state)
+    def act(self, states, reward):
+        self.replay_buffer.store(self._states, self._actions, reward, states)
         self._train()
-        self._state = state
-        self._action = self._choose_action(state)
-        return self._action
+        self._states = states
+        self._actions = self._choose_actions(states)
+        return self._actions
 
     @action_decorator
-    def _choose_action(self, state):
-        action = self.policy.eval(state.to(self.device))
-        action = action + self._noise.sample()
-        action = torch.min(action, self._high)
-        action = torch.max(action, self._low)
-        return action.to("cpu")
+    def _choose_actions(self, states):
+        actions = self.policy.eval(states.to(self.device))
+        actions += self._noise.sample(actions.shape).squeeze(-1)
+        actions = torch.min(actions, self._high)
+        actions = torch.max(actions, self._low)
+        return actions.to("cpu")
 
     def _train(self):
         if self._should_train():
@@ -90,5 +92,5 @@ class DDPG(Agent):
             self.q.zero_grad()
 
     def _should_train(self):
-        self._frames_seen += 1
-        return len(self.replay_buffer) > self.replay_start_size and self._frames_seen % self.update_frequency == 0
+        self._train_count += 1
+        return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0

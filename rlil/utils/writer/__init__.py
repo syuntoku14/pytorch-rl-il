@@ -31,20 +31,31 @@ class Writer(ABC):
 
 
 class DummyWriter(Writer):
+    def __init__(self):
+        self.frames = 0
+        self.episodes = 1
+
+    def add_scalar(self, key, value, step="frame"):
+        pass
+
     def add_loss(self, name, value, step="frame"):
-        pass
-
-    def add_evaluation(self, name, value, step="frame"):
-        pass
-
-    def add_scalar(self, name, value, step="frame"):
         pass
 
     def add_schedule(self, name, value, step="frame"):
         pass
 
+    def add_evaluation(self, name, value, step="frame"):
+        pass
+
     def add_summary(self, name, mean, std, step="frame"):
         pass
+
+    def _get_step(self, _type):
+        if _type == "frame":
+            return self.frames
+        if _type == "episode":
+            return self.episodes
+        return _type
 
 
 class ExperimentWriter(SummaryWriter, Writer):
