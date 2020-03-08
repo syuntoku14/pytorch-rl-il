@@ -112,6 +112,7 @@ class TD3(Agent):
             self.q_2.reinforce(mse_loss(self.q_2(states, actions.features), q_targets))
 
             # train policy
+            # Trick Two: delayed policy updates
             if self._train_count % self._policy_update_td3 == 0:
                 greedy_actions = self.policy(states)
                 loss = -self.q_1(states, greedy_actions).mean()
