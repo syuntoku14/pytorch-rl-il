@@ -1,7 +1,9 @@
 from rlil.agents import Agent
 from rlil.environments import Action, action_decorator
+from rlil.memory import ExperienceReplayBuffer
 import torch
 import gym
+import os
 
 
 class GreedyAgent(Agent):
@@ -15,6 +17,7 @@ class GreedyAgent(Agent):
         self.action_space = action_space
         self.feature = feature
         self.policy = None
+        self.replay_buffer = ExperienceReplayBuffer(size=1e5)
         if policy:
             self.policy = policy
         else:
@@ -22,18 +25,24 @@ class GreedyAgent(Agent):
         if not self.policy:
             raise TypeError(
                 'GreedyAgent must have either policy or q function')
+        self._state = None
+        self._action = None
 
-    @action_decorator
-    def act(self, state, _):
+    def act(self, state, reward):
+        self.replay_buffer.store(self._state, self._action, reward, state)
+        self._state = state
         with torch.no_grad():
             if self.feature:
                 state = self.feature(state)
             if isinstance(self.action_space, gym.spaces.Discrete):
-                return self.choose_discrete(state)
-            if isinstance(self.action_space, gym.spaces.Box):
-                return self.choose_continuous(state)
-            raise TypeError('Unknown action space')
+                self._action = self.choose_discrete(state)
+            elif isinstance(self.action_space, gym.spaces.Box):
+                self._action = self.choose_continuous(state)
+            else:
+                raise TypeError('Unknown action space')
+        return self._action
 
+    @action_decorator
     def choose_discrete(self, state):
         ret = self.policy(state)
         if isinstance(ret, torch.Tensor):
@@ -44,6 +53,7 @@ class GreedyAgent(Agent):
             return ret.sample().unsqueeze(1)
         return ret  # unknown type, return it and pray!
 
+    @action_decorator
     def choose_continuous(self, state):
         ret = self.policy(state)
         if isinstance(ret, torch.Tensor):

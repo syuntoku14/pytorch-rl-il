@@ -2,8 +2,10 @@
 
 run_docker() {
 docker run --rm -it --privileged \
-	--net=host \
-	--ipc=host \
+	-p 6080:6080 \
+	-p 8888:8888 \
+	-p 6006:6006 \
+	-p 5678:5678 \
 	-v ~/RL_ws:/root/RL_ws \
 	-v ~/pytorch-rl-il:/root/pytorch-rl-il \
 	-e DISPLAY=:0 \
@@ -15,8 +17,10 @@ docker run --rm -it --privileged \
 
 run_docker_gpu() {
 docker run --rm -it --privileged \
-	--net=host \
-	--ipc=host \
+	-p 6080:6080 \
+	-p 8888:8888 \
+	-p 6006:6006 \
+	-p 5678:5678 \
 	-v ~/RL_ws:/root/RL_ws \
 	-v ~/pytorch-rl-il:/root/pytorch-rl-il \
 	-e DISPLAY=:0 \

@@ -2,11 +2,11 @@
 import argparse
 import pybullet
 import pybullet_envs
-from rlil.bodies import TimeFeature
 from rlil.environments import GymEnvironment
 from rlil.experiments import GreedyAgent, watch
 from continuous import ENVS
-
+import logging
+logging.basicConfig(level=logging.DEBUG)
 
 def watch_continuous():
     parser = argparse.ArgumentParser(description="Watch a continuous agent.")
@@ -30,8 +30,8 @@ def watch_continuous():
         env_id = args.env
 
     env = GymEnvironment(env_id, device=args.device)
-    agent = TimeFeature(GreedyAgent.load(args.dir, env))
-    watch(agent, env, fps=args.fps)
+    agent = GreedyAgent.load(args.dir, env)
+    watch(agent, env, fps=args.fps, dir=args.dir)
 
 if __name__ == "__main__":
     watch_continuous()
