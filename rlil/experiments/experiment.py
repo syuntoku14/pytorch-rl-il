@@ -20,8 +20,10 @@ class Experiment:
     ):
         agent_name = agent.__name__
         writer = self._make_writer(agent_name, env.name, write_loss)
-        get_handler = logging.FileHandler(os.path.join(writer.log_dir, "logger.log"))
-        logger.addHandler(get_handler)
+        handler = logging.FileHandler(os.path.join(writer.log_dir, "logger.log"))
+        fmt = logging.Formatter('%(levelname)s : %(asctime)s : %(message)s')
+        handler.setFormatter(fmt)
+        logger.addHandler(handler)
 
         if n_envs == 1:
             SingleEnvRunner(
