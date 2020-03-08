@@ -81,14 +81,11 @@ class ExperimentWriter(SummaryWriter, Writer):
     def __init__(self, agent_name, env_name, loss=True):
         self.env_name = env_name
         current_time = str(datetime.now())
-        os.makedirs(
-            os.path.join(
-                "runs", ("%s_%s_%s" % (agent_name, COMMIT_HASH, current_time)), env_name
-            )
-        )
         self.log_dir = os.path.join(
             "runs", ("%s_%s_%s" % (agent_name, COMMIT_HASH, current_time))
         )
+        self.log_dir = self.log_dir.replace(" ", "_")
+        os.makedirs(os.path.join(self.log_dir, env_name))
         self._frames = 0
         self._episodes = 1
         self._loss = loss
