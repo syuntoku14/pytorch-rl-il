@@ -29,8 +29,8 @@ def watch_continuous():
     else:
         env_id = args.env
 
-    env = GymEnvironment(env_id, device=args.device)
-    agent = GreedyAgent.load(args.dir, env)
+    env = GymEnvironment(env_id)
+    agent = GreedyAgent.load(args.dir, env, device=args.device)
     watch(agent, env, fps=args.fps, dir=args.dir)
 
 if __name__ == "__main__":

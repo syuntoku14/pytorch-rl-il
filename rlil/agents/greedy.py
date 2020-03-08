@@ -67,19 +67,19 @@ class GreedyAgent(Agent):
         return ret  # unknown type, return it and pray!
 
     @staticmethod
-    def load(dirname, env):
+    def load(dirname, env, device="cpu"):
         feature = None
         policy = None
         q = None
         for filename in os.listdir(dirname):
             if filename == 'feature.pt':
                 feature = torch.load(os.path.join(
-                    dirname, filename)).to(self.device)
+                    dirname, filename), map_location=device)
             if filename == 'policy.pt':
                 policy = torch.load(os.path.join(
-                    dirname, filename)).to(self.device)
+                    dirname, filename), map_location=device)
             if filename in ('q.pt', 'q_dist.pt'):
-                q = torch.load(os.path.join(dirname, filename)).to(self.device)
+                q = torch.load(os.path.join(dirname, filename), map_location=device)
 
         agent = GreedyAgent(
             env.action_space,

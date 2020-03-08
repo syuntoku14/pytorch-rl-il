@@ -1,9 +1,28 @@
 import csv
 import os
 import subprocess
+import torch
 from abc import ABC, abstractmethod
 from datetime import datetime
 from torch.utils.tensorboard import SummaryWriter
+
+
+def value_decorator(func):
+    def retfunc(self, name, value, step="frame"):
+        if isinstance(value, torch.Tensor):
+            value = value.cpu().detach().item()
+        func(self, name, value, step)
+    return retfunc
+
+
+def summary_decorator(func):
+    def retfunc(self, name, mean, std, step="frame"):
+        if isinstance(mean, torch.Tensor):
+            mean = mean.cpu().detach().item()
+        if isinstance(std, torch.Tensor):
+            std = std.cpu().detach().item()
+        func(self, name, mean, std, step)
+    return retfunc
 
 
 class Writer(ABC):
@@ -64,31 +83,36 @@ class ExperimentWriter(SummaryWriter, Writer):
         current_time = str(datetime.now())
         os.makedirs(
             os.path.join(
-                "runs", ("%s %s %s" % (agent_name, COMMIT_HASH, current_time)), env_name
+                "runs", ("%s_%s_%s" % (agent_name, COMMIT_HASH, current_time)), env_name
             )
         )
         self.log_dir = os.path.join(
-            "runs", ("%s %s %s" % (agent_name, COMMIT_HASH, current_time))
+            "runs", ("%s_%s_%s" % (agent_name, COMMIT_HASH, current_time))
         )
         self._frames = 0
         self._episodes = 1
         self._loss = loss
         super().__init__(log_dir=self.log_dir)
 
+    @value_decorator
     def add_loss(self, name, value, step="frame"):
         if self._loss:
             self.add_scalar("loss/" + name, value, step)
 
+    @value_decorator
     def add_evaluation(self, name, value, step="frame"):
         self.add_scalar("evaluation/" + name, value, self._get_step(step))
 
+    @value_decorator
     def add_schedule(self, name, value, step="frame"):
         if self._loss:
             self.add_scalar("schedule" + "/" + name, value, self._get_step(step))
 
+    @value_decorator
     def add_scalar(self, name, value, step="frame"):
         super().add_scalar(self.env_name + "/" + name, value, self._get_step(step))
 
+    @summary_decorator
     def add_summary(self, name, mean, std, step="frame"):
         self.add_evaluation(name + "/mean", mean, step)
         self.add_evaluation(name + "/std", std, step)
