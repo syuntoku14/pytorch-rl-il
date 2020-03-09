@@ -5,7 +5,8 @@ __pycache__
 # build directories
 /build
 /dist
-runs
+heavy_runs
+scripts/runs/
 
 # editor
 .vscode
@@ -14,7 +15,6 @@ runs
 # non-committed code
 local
 legacy
-/runs
 /out
 
 # Byte-compiled / optimized / DLL files

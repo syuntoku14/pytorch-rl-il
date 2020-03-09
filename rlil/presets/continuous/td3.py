@@ -1,3 +1,4 @@
+import torch
 from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from rlil.agents import TD3
@@ -9,6 +10,8 @@ from .models import fc_q, fc_deterministic_policy
 
 
 def td3(
+        # pretrained policy path
+        policy_path=None,
         # Common settings
         device="cpu",
         discount_factor=0.98,
@@ -32,6 +35,7 @@ def td3(
     TD3 continuous control preset.
 
     Args:
+        policy_path (str): Path to the pretrained policy state_dict.pt
         device (str): The device to load parameters and buffers onto for this agent..
         discount_factor (float): Discount factor for future rewards.
         last_frame (int): Number of frames to train.
@@ -78,6 +82,8 @@ def td3(
         )
 
         policy_model = fc_deterministic_policy(env).to(device)
+        if policy_path:
+            policy_model.load_state_dict(torch.load(policy_path, map_location=device))
         policy_optimizer = Adam(policy_model.parameters(), lr=lr_pi)
         policy = DeterministicPolicy(
             policy_model,

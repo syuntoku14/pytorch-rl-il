@@ -27,6 +27,7 @@ def run():
     parser.add_argument(
         "--render", default=False, help="Whether to render the environment."
     )
+    parser.add_argument("--policy", default=None, help="Path to the pretrained policy state_dict")
     args = parser.parse_args()
 
     if args.env in ENVS:
@@ -38,7 +39,7 @@ def run():
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
     preset_args = get_default_args(preset) 
-    agent_fn = preset(device=args.device)
+    agent_fn = preset(policy_path=args.policy, device=args.device)
 
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
