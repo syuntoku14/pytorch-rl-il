@@ -57,7 +57,6 @@ class Approximation():
             scheduler=None,
             target=None,
             writer=DummyWriter(),
-            writer_interval=100,
     ):
         self.model = model
         self.device = next(model.parameters()).device
@@ -71,7 +70,6 @@ class Approximation():
         self._clip_grad = clip_grad
         self._writer = writer
         self._name = name
-        self._writer_interval = writer_interval
 
         if checkpointer is None:
             checkpointer = PeriodicCheckpointer(DEFAULT_CHECKPOINT_FREQUENCY)
@@ -98,8 +96,7 @@ class Approximation():
 
     def reinforce(self, loss):
         loss = self._loss_scaling * loss
-        if self._writer.frames % self._writer_interval == 0:
-            self._writer.add_loss(self._name, loss.detach())
+        self._writer.add_loss(self._name, loss.detach())
         loss.backward()
         self.step()
         return self
@@ -111,7 +108,7 @@ class Approximation():
         self._optimizer.step()
         self._optimizer.zero_grad()
         self._target.update()
-        if self._scheduler and self._writer.frames % self._writer_interval == 0:
+        if self._scheduler:
             self._writer.add_schedule(self._name + '/lr', self._optimizer.param_groups[0]['lr'])
             self._scheduler.step()
         self._checkpointer()

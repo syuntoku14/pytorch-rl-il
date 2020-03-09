@@ -117,6 +117,7 @@ class TD3(Agent):
                 greedy_actions = self.policy(states)
                 loss = -self.q_1(states, greedy_actions).mean()
                 self.policy.reinforce(loss)
+                self.policy.zero_grad()
             self.q_1.zero_grad()
             self.q_2.zero_grad()
 
