@@ -89,3 +89,21 @@ class GreedyAgent(Agent):
         )
 
         return agent
+
+    @staticmethod
+    def load_BC(dirname, agent_fn, env, device="cpu"):
+        policy = agent_fn(env).policy
+
+        for filename in os.listdir(dirname):
+            if filename == 'BC_state_dict.pt':
+                state_dict = torch.load(os.path.join(
+                    dirname, filename), map_location=device)
+                policy.model.model.load_state_dict(state_dict)
+
+        agent = GreedyAgent(
+            env.action_space,
+            policy=policy,
+        )
+
+        return agent
+

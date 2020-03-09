@@ -85,7 +85,7 @@ class DummyWriter(Writer):
 
 
 class ExperimentWriter(SummaryWriter, Writer):
-    def __init__(self, agent_name, env_name, loss=True, interval=5000):
+    def __init__(self, agent_name, env_name, loss=True, interval=1e4):
         self.env_name = env_name
         current_time = str(datetime.now())
         self.log_dir = os.path.join(

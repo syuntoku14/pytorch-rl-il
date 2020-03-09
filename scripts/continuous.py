@@ -2,24 +2,10 @@
 import argparse
 import pybullet
 import pybullet_envs
-from rlil.environments import GymEnvironment
+from rlil.environments import GymEnvironment, ENVS
 from rlil.experiments import Experiment
 from rlil.presets import continuous, get_default_args
 import logging
-
-# some example envs
-# can also enter ID directly
-ENVS = {
-    # classic continuous environments
-    "mountaincar": "MountainCarContinuous-v0",
-    "lander": "LunarLanderContinuous-v2",
-    # Bullet robotics environments
-    "ant": "AntBulletEnv-v0",
-    "cheetah": "HalfCheetahBulletEnv-v0",
-    "humanoid": "HumanoidBulletEnv-v0",
-    "hopper": "HopperBulletEnv-v0",
-    "walker": "Walker2DBulletEnv-v0"
-}
 
 
 def run():

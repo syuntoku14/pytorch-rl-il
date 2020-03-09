@@ -35,3 +35,6 @@ def watch(agent, env, fps=60, dir=None):
 
 def load_and_watch(dir, env, fps=60):
     watch(GreedyAgent.load(dir, env), env, fps=fps, dir=dir)
+
+def load_BC_and_watch(dir, agent_fn, env, fps=60):
+    watch(GreedyAgent.loadBC(dir, agent_fn, env), env, fps=fps, dir=dir)
