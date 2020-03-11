@@ -55,7 +55,7 @@ def ddpg(
             q_model,
             q_optimizer,
             target=PolyakTarget(polyak_rate),
-            scheduler=CosineAnnealingLR(
+            lr_scheduler=CosineAnnealingLR(
                 q_optimizer,
                 final_anneal_step
             ),
@@ -71,7 +71,7 @@ def ddpg(
             policy_optimizer,
             env.action_space,
             target=PolyakTarget(polyak_rate),
-            scheduler=CosineAnnealingLR(
+            lr_scheduler=CosineAnnealingLR(
                 policy_optimizer,
                 final_anneal_step
             ),

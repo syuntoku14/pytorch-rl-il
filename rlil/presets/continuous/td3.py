@@ -59,7 +59,7 @@ def td3(
             q_1_model,
             q_1_optimizer,
             target=PolyakTarget(polyak_rate),
-            scheduler=CosineAnnealingLR(
+            lr_scheduler=CosineAnnealingLR(
                 q_1_optimizer,
                 final_anneal_step
             ),
@@ -73,7 +73,7 @@ def td3(
             q_2_model,
             q_2_optimizer,
             target=PolyakTarget(polyak_rate),
-            scheduler=CosineAnnealingLR(
+            lr_scheduler=CosineAnnealingLR(
                 q_2_optimizer,
                 final_anneal_step
             ),
@@ -90,7 +90,7 @@ def td3(
             policy_optimizer,
             env.action_space,
             target=PolyakTarget(polyak_rate),
-            scheduler=CosineAnnealingLR(
+            lr_scheduler=CosineAnnealingLR(
                 policy_optimizer,
                 final_anneal_step
             ),

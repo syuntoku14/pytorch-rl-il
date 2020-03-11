@@ -35,7 +35,7 @@ class Approximation():
                 performing a backwards pass. Useful when used with multi-headed networks
                 with shared feature layers.
             name: (str, optional): The name of the function approximator used for logging.
-            scheduler: (:torch.optim.lr_scheduler._LRScheduler:, optional): A learning
+            lr_scheduler: (:torch.optim.lr_scheduler._LRScheduler:, optional): A learning
                 rate scheduler initialized with the given optimizer. step() will be called
                 after every update.
             target: (:all.approximation.target.TargetNetwork, optional): A target network object
@@ -54,14 +54,14 @@ class Approximation():
             clip_grad=0,
             loss_scaling=1,
             name='approximation',
-            scheduler=None,
+            lr_scheduler=None,
             target=None,
             writer=DummyWriter(),
     ):
         self.model = model
         self.device = next(model.parameters()).device
         self._target = target or TrivialTarget()
-        self._scheduler = scheduler
+        self._lr_scheduler = lr_scheduler
         self._target.init(model)
         self._updates = 0
         self._optimizer = optimizer
@@ -108,9 +108,9 @@ class Approximation():
         self._optimizer.step()
         self._optimizer.zero_grad()
         self._target.update()
-        if self._scheduler:
+        if self._lr_scheduler:
             self._writer.add_schedule(self._name + '/lr', self._optimizer.param_groups[0]['lr'])
-            self._scheduler.step()
+            self._lr_scheduler.step()
         self._checkpointer()
         return self
 

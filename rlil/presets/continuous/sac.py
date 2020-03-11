@@ -60,7 +60,7 @@ def sac(
         q_1 = QContinuous(
             q_1_model,
             q_1_optimizer,
-            scheduler=CosineAnnealingLR(
+            lr_scheduler=CosineAnnealingLR(
                 q_1_optimizer,
                 final_anneal_step
             ),
@@ -73,7 +73,7 @@ def sac(
         q_2 = QContinuous(
             q_2_model,
             q_2_optimizer,
-            scheduler=CosineAnnealingLR(
+            lr_scheduler=CosineAnnealingLR(
                 q_2_optimizer,
                 final_anneal_step
             ),
@@ -86,7 +86,7 @@ def sac(
         v = VNetwork(
             v_model,
             v_optimizer,
-            scheduler=CosineAnnealingLR(
+            lr_scheduler=CosineAnnealingLR(
                 v_optimizer,
                 final_anneal_step
             ),
@@ -103,7 +103,7 @@ def sac(
             policy_model,
             policy_optimizer,
             env.action_space,
-            scheduler=CosineAnnealingLR(
+            lr_scheduler=CosineAnnealingLR(
                 policy_optimizer,
                 final_anneal_step
             ),
