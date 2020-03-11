@@ -19,10 +19,10 @@ class QNetwork(Approximation):
         )
 
 class QModule(RLNetwork):
-    def forward(self, states, actions=None):
+    def forward(self, states, actions_raw=None):
         values = super().forward(states)
-        if actions is None:
+        if actions_raw is None:
             return values
-        if isinstance(actions, list):
-            actions = torch.tensor(actions, device=self.device)
-        return values.gather(1, actions.view(-1, 1)).squeeze(1)
+        if isinstance(actions_raw, list):
+            actions_raw = torch.tensor(actions_raw, device=self.device)
+        return values.gather(1, actions_raw.view(-1, 1)).squeeze(1)
