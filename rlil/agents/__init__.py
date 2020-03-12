@@ -9,5 +9,6 @@ __all__ = [
     "GreedyAgent",
     "DDPG",
     "SAC",
-    "TD3"
+    "TD3",
+    "BCQ"
 ]

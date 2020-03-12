@@ -47,7 +47,7 @@ class MockWriter(Writer):
 
 
 class MockExperiment(Experiment):
-    def _make_writer(self, agent_name, env_name, write_loss):
+    def _make_writer(self, agent_name, env_name, write_loss, exp_info=""):
         self._writer = MockWriter(agent_name + '_' +  env_name, write_loss)
         return self._writer
 

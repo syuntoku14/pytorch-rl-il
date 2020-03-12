@@ -223,3 +223,6 @@ def weighted_smooth_l1_loss(input, target, weight, reduction='mean'):
     loss = torch.where(t < 1, 0.5 * t ** 2, t - 0.5)
     loss = weight * loss
     return torch.mean(loss) if reduction == 'mean' else torch.sum(loss)
+
+def kl_loss(mean, log_var):
+    return -0.5 * (1 + log_var - mean.pow(2) - log_var.exp()).sum(1).mean()

@@ -5,25 +5,18 @@ from rlil.environments import action_decorator, Action
 from ._agent import Agent
 
 
-class TD3(Agent):
+class BCQ(Agent):
     """
-    Twin Dueling DDPG(TD3). 
-    The following description is cited from openai-spining up(https://spinningup.openai.com/en/latest/algorithms/td3.html)
+    Batch-Constrained Q-learning (BCQ)
 
-    While DDPG can achieve great performance sometimes, it is frequently 
-    brittle with respect to hyperparameters and other kinds of tuning. 
-    A common failure mode for DDPG is that the learned Q-function begins 
-    to dramatically overestimate Q-values, which then leads to the policy breaking,
-    because it exploits the errors in the Q-function. Twin Delayed DDPG (TD4) 
-    is an algorithm that addresses this issue by introducing three critical tricks:
-    Trick One: Clipped Double-Q Learning. TD3 learns two Q-functions instead of one (hence “twin”), 
-        and uses the smaller of the two Q-values to form the targets in the Bellman error loss functions.
-    Trick Two: “Delayed” Policy Updates. TD3 updates the policy (and target networks) 
-        less frequently than the Q-function. The paper recommends one policy update for every two Q-function updates.
-    Trick Three: Target Policy Smoothing. TD3 adds noise to the target action, 
-        to make it harder for the policy to exploit Q-function errors by smoothing out Q along changes in action.
+    BCQ is an algorithm to train an agent from a fixed batch.
+    Traditional off-policy algorithms such as DQN and DDPG fail to train an agent from a fixed batch
+    due to extraporation error. Extraporation error causes overestimation of the q values for state-action
+    pairs that fall outside of the distribution of the fixed batch.
+    BCQ attempts to eliminate extrapolation error by constraining the agent's actions to the data
+    distribution of the batch.
 
-    https://arxiv.org/abs/1802.09477
+    https://arxiv.org/abs/1812.02900
 
     Args:
         q_1 (QContinuous): An Approximation of the continuous action Q-function.
