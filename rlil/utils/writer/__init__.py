@@ -55,6 +55,10 @@ class Writer(ABC):
     def add_summary(self, name, mean, std, step="frame"):
         pass
 
+    @abstractmethod
+    def add_text(self, name, text, step="frame"):
+        pass
+
 
 class DummyWriter(Writer):
     def __init__(self):
@@ -76,6 +80,9 @@ class DummyWriter(Writer):
     def add_summary(self, name, mean, std, step="frame"):
         pass
 
+    def add_text(self, name, text, step="frame"):
+        pass
+
     def _get_step(self, _type):
         if _type == "frame":
             return self.frames
@@ -85,20 +92,22 @@ class DummyWriter(Writer):
 
 
 class ExperimentWriter(SummaryWriter, Writer):
-    def __init__(self, agent_name, env_name, loss=True, interval=1e4):
+    def __init__(self, agent_name, env_name, loss=True, interval=1e4, exp_info=""):
+        # You can note any expriments' details by the "exp_info"
         self.env_name = env_name
         current_time = str(datetime.now())
         self.log_dir = os.path.join(
-            "runs", ("%s_%s_%s" % (agent_name, COMMIT_HASH, current_time))
+            "runs", env_name, ("%s_%s_%s" % (agent_name, COMMIT_HASH, current_time))
         )
         self.log_dir = self.log_dir.replace(" ", "_")
-        os.makedirs(os.path.join(self.log_dir, env_name))
+        os.makedirs(self.log_dir)
         self._frames = 0
         self._episodes = 1
         self._loss = loss
         self._name_frame_history = defaultdict(lambda: 0)
         self._add_scalar_interval = interval
         super().__init__(log_dir=self.log_dir)
+        self.add_text("exp_info", exp_info)
 
     def add_loss(self, name, value, step="frame"):
         if self._loss:
@@ -114,6 +123,7 @@ class ExperimentWriter(SummaryWriter, Writer):
     @value_decorator
     def add_scalar(self, name, value, step="frame"):
         name = self.env_name + "/" + name
+        # add data every self._add_scalar_interval
         if self._get_step("frame") - self._name_frame_history[name] > self._add_scalar_interval:
             super().add_scalar(name, value, self._get_step(step))
             self._name_frame_history[name] = self._get_step("frame")
@@ -122,8 +132,12 @@ class ExperimentWriter(SummaryWriter, Writer):
         self.add_evaluation(name + "/mean", mean, step)
         self.add_evaluation(name + "/std", std, step)
 
-        with open(os.path.join(self.log_dir, self.env_name, name + ".csv"), "a") as csvfile:
+        with open(os.path.join(self.log_dir, name + ".csv"), "a") as csvfile:
             csv.writer(csvfile).writerow([self._get_step(step), mean, std])
+
+    def add_text(self, name, text, step="frame"):
+        name = self.env_name + "/" + name
+        super().add_text(name, text, self._get_step(step))
 
     def _get_step(self, _type):
         if _type == "frame":

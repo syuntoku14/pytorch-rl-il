@@ -12,6 +12,7 @@ class Experiment:
             agent_fn,
             env,
             args_dict={},
+            exp_info="",
             logger=None,
             seed=0,
             n_envs=1,
@@ -22,7 +23,10 @@ class Experiment:
             write_loss=True,
     ):
         agent_name = agent_fn.__name__
-        writer = self._make_writer(agent_name, env.name, write_loss)
+        message = "# Parameters  \n"
+        message += json.dumps(args_dict, indent=4, sort_keys=True).replace("\n", "  \n")
+        message += "  \n# Experiment infomation  \n" + exp_info
+        writer = self._make_writer(agent_name, env.name, write_loss, message)
 
         logger = logger or logging.getLogger(__name__)
         handler = logging.FileHandler(os.path.join(writer.log_dir, "logger.log"))
@@ -60,5 +64,8 @@ class Experiment:
             )
 
 
-    def _make_writer(self, agent_name, env_name, write_loss):
-        return ExperimentWriter(agent_name, env_name, write_loss)
+    def _make_writer(self, agent_name, env_name, write_loss, exp_info):
+        return ExperimentWriter(agent_name=agent_name,
+            env_name=env_name,
+            loss=write_loss,
+            exp_info=exp_info)

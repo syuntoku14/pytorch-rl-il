@@ -14,7 +14,6 @@ logging.basicConfig(level=logging.DEBUG)
 
 def watch_continuous():
     parser = argparse.ArgumentParser(description="Watch a continuous agent.")
-    parser.add_argument("env", help="ID of the Environment")
     parser.add_argument("dir", help="Directory where the agent's model was saved.")
     parser.add_argument(
         "--device",
@@ -30,15 +29,12 @@ def watch_continuous():
     parser.add_argument("--save_buffer", action="store_true")
     args = parser.parse_args()
 
-    if args.env in ENVS:
-        env_id = ENVS[args.env]
-    else:
-        env_id = args.env
-
+    if args.dir[-1] != "/":
+        args.dir += "/"
+    env_id = args.dir.split("/")[-3]
     env = GymEnvironment(env_id)
     if args.use_BC:
-        p = re.compile("_(.*)__")
-        agent_name = p.search(os.path.basename(os.path.dirname(args.dir))).group(1)
+        agent_name = os.path.basename(os.path.dirname(args.dir)).split("_")[1].strip("_")
         agent_fn = getattr(continuous, agent_name)(device=args.device)
         agent = GreedyAgent.load_BC(args.dir, agent_fn, env, device=args.device)
     else:

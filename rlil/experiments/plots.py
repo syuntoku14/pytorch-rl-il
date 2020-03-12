@@ -24,14 +24,14 @@ def load_returns_100_data(runs_dir):
             data[env] = {}
         data[env][agent] = np.genfromtxt(file, delimiter=",").reshape((-1, 3))
 
-    for agent_dir in os.listdir(runs_dir):
-        agent = agent_dir.split(" ")[0].strip("_")
-        agent_path = os.path.join(runs_dir, agent_dir)
-        if os.path.isdir(agent_path):
-            for env in os.listdir(agent_path):
-                env_path = os.path.join(agent_path, env)
-                if os.path.isdir(env_path):
-                    returns100path = os.path.join(env_path, "returns100.csv")
+    for env in os.listdir(runs_dir):
+        env_path = os.path.join(runs_dir, env)
+        if os.path.isdir(env_path):
+            for agent_dir in os.listdir(env_path):
+                agent = agent_dir.split("_")[1].strip("_")
+                agent_path = os.path.join(env_path, agent_dir)
+                if os.path.isdir(agent_path):
+                    returns100path = os.path.join(agent_path, "returns100.csv")
                     if os.path.exists(returns100path):
                         add_data(agent, env, returns100path)
 

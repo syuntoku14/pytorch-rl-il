@@ -8,7 +8,7 @@ from rlil.presets import continuous, get_default_args
 import logging
 
 
-def run():
+def main():
     parser = argparse.ArgumentParser(description="Run a continuous actions benchmark.")
     parser.add_argument("env", help="Name of the env (see envs)")
     parser.add_argument(
@@ -28,6 +28,12 @@ def run():
         "--render", default=False, help="Whether to render the environment."
     )
     parser.add_argument("--policy", default=None, help="Path to the pretrained policy state_dict")
+    parser.add_argument(
+        "--exp_info",
+        default="",
+        help="Descriptions of the experiment. You can see the exp_info on the tensorboard's text."
+    )
+ 
     args = parser.parse_args()
 
     if args.env in ENVS:
@@ -49,9 +55,9 @@ def run():
 
     Experiment(
         agent_fn, env, n_envs=args.n_envs, frames=args.frames, render=args.render,
-        args_dict=args_dict, logger=logger
+        args_dict=args_dict, logger=logger, exp_info=args.exp_info
     )
 
 
 if __name__ == "__main__":
-    run()
+    main()

@@ -2,7 +2,6 @@ import numpy as np
 import torch
 import warnings
 
-# TODO: add to function
 # TODO: add action_space handler in Action
 
 def action_decorator(func):
