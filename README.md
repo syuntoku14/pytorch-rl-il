@@ -4,6 +4,12 @@
 **Most of the codes of this library are the same as the [Autonomous Learning Library (ALL)](https://github.com/cpnota/autonomous-learning-library/tree/master/all)**
 See the original documentation for the basic concepts of the library.
 
+
+## Features of ALL
+
+- [x] `Deep Deterministic Policy Gradient (DDPG)`
+- [x] `Soft Actor Critic (SAC)`
+
 ## New features of RLIL
 
 ### Algorithms

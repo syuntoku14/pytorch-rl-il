@@ -53,7 +53,8 @@ def sac(
         entropy_target_scaling (float): The target entropy will be -(entropy_target_scaling * env.action_space.shape[0])
     """
     def _sac(env, writer=DummyWriter()):
-        final_anneal_step = (last_frame - replay_start_size) // update_frequency
+        final_anneal_step = (
+            last_frame - replay_start_size) // update_frequency
 
         q_1_model = fc_q(env).to(device)
         q_1_optimizer = Adam(q_1_model.parameters(), lr=lr_q)
@@ -97,7 +98,8 @@ def sac(
 
         policy_model = fc_soft_policy(env).to(device)
         if policy_path:
-            policy_model.load_state_dict(torch.load(policy_path, map_location=device))
+            policy_model.load_state_dict(
+                torch.load(policy_path, map_location=device))
         policy_optimizer = Adam(policy_model.parameters(), lr=lr_pi)
         policy = SoftDeterministicPolicy(
             policy_model,
@@ -121,7 +123,8 @@ def sac(
             v,
             replay_buffer,
             temperature_initial=temperature_initial,
-            entropy_target=(-env.action_space.shape[0] * entropy_target_scaling),
+            entropy_target=(-env.action_space.shape[0]
+                            * entropy_target_scaling),
             lr_temperature=lr_temperature,
             replay_start_size=replay_start_size,
             discount_factor=discount_factor,

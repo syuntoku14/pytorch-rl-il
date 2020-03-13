@@ -1,4 +1,3 @@
-# pylint: disable=unused-import
 import argparse
 import pybullet
 import pybullet_envs
@@ -14,7 +13,8 @@ logging.basicConfig(level=logging.DEBUG)
 
 def watch_continuous():
     parser = argparse.ArgumentParser(description="Watch a continuous agent.")
-    parser.add_argument("dir", help="Directory where the agent's model was saved.")
+    parser.add_argument(
+        "dir", help="Directory where the agent's model was saved.")
     parser.add_argument(
         "--device",
         default="cpu",
@@ -34,16 +34,19 @@ def watch_continuous():
     env_id = args.dir.split("/")[-3]
     env = GymEnvironment(env_id)
     if args.use_BC:
-        agent_name = os.path.basename(os.path.dirname(args.dir)).split("_")[1].strip("_")
+        agent_name = os.path.basename(
+            os.path.dirname(args.dir)).split("_")[1].strip("_")
         agent_fn = getattr(continuous, agent_name)(device=args.device)
-        agent = GreedyAgent.load_BC(args.dir, agent_fn, env, device=args.device)
+        agent = GreedyAgent.load_BC(
+            args.dir, agent_fn, env, device=args.device)
     else:
         agent = GreedyAgent.load(args.dir, env, device=args.device)
-    
+
     if args.save_buffer:
         watch(agent, env, fps=args.fps, dir=args.dir)
     else:
         watch(agent, env, fps=args.fps)
+
 
 if __name__ == "__main__":
     watch_continuous()

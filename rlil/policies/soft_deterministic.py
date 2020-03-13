@@ -2,6 +2,7 @@ import torch
 from rlil.approximation import Approximation
 from rlil.nn import RLNetwork
 
+
 class SoftDeterministicPolicy(Approximation):
     def __init__(
             self,
@@ -19,8 +20,10 @@ class SoftDeterministicPolicyNetwork(RLNetwork):
     def __init__(self, model, space):
         super().__init__(model)
         self._action_dim = space.shape[0]
-        self._tanh_scale = torch.tensor((space.high - space.low) / 2).to(self.device)
-        self._tanh_mean = torch.tensor((space.high + space.low) / 2).to(self.device)
+        self._tanh_scale = torch.tensor(
+            (space.high - space.low) / 2).to(self.device)
+        self._tanh_mean = torch.tensor(
+            (space.high + space.low) / 2).to(self.device)
 
     def forward(self, state):
         outputs = super().forward(state)
@@ -29,7 +32,7 @@ class SoftDeterministicPolicyNetwork(RLNetwork):
         return action, log_prob
 
     def _normal(self, outputs):
-        means = outputs[:, 0 : self._action_dim]
+        means = outputs[:, 0: self._action_dim]
         logvars = outputs[:, self._action_dim:]
         std = logvars.mul(0.5).exp_()
         return torch.distributions.normal.Normal(means, std)

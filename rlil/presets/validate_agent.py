@@ -3,9 +3,11 @@ from rlil.environments import State
 from rlil.utils.writer import DummyWriter
 from rlil.experiments import ParallelEnvRunner
 
+
 def validate_agent(agent_fn, env):
     validate_single_env_agent(agent_fn, env)
     validate_parallel_env_agent(agent_fn, env)
+
 
 def validate_single_env_agent(agent_fn, env):
     agent = agent_fn(env, writer=DummyWriter())
@@ -17,6 +19,7 @@ def validate_single_env_agent(agent_fn, env):
         while not env.done:
             env.step(agent.act(env.state, env.reward))
         agent.act(env.state, env.reward)
+
 
 def validate_parallel_env_agent(agent_fn, env):
     ParallelEnvRunner(

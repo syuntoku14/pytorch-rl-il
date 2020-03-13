@@ -1,7 +1,9 @@
 from rlil.utils.writer import DummyWriter
 
+
 class Schedulable:
     '''Allow "instance" descriptors to implement parameter scheduling.'''
+
     def __getattribute__(self, name):
         value = object.__getattribute__(self, name)
         if hasattr(value, '__get__'):
@@ -38,5 +40,6 @@ class LinearScheduler:
             return self._initial_value
         if self._i >= self._decay_end:
             return self._final_value
-        alpha = (self._i - self._decay_start) / (self._decay_end - self._decay_start)
+        alpha = (self._i - self._decay_start) / \
+            (self._decay_end - self._decay_start)
         return alpha * self._final_value + (1 - alpha) * self._initial_value

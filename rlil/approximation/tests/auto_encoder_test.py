@@ -13,16 +13,18 @@ HIDDEN_DIM = 3
 class TestAutoEncoder(unittest.TestCase):
     def setUp(self):
         torch.manual_seed(2)
-        self.model_encoder = nn.Sequential(
+        self.encoder_model = nn.Sequential(
             nn.Linear(STATE_DIM, HIDDEN_DIM)
         )
-        self.model_decoder = nn.Sequential(
+        self.decoder_moder = nn.Sequential(
             nn.Linear(HIDDEN_DIM, STATE_DIM)
         )
 
-        model_parameters = (list(self.model_encoder.parameters()) + list(self.model_decoder.parameters()))
+        model_parameters = (
+            list(self.encoder_model.parameters()) + list(self.decoder_moder.parameters()))
         optimizer = torch.optim.SGD(model_parameters, lr=0.1)
-        self.ae = AutoEncoder(self.model_encoder, self.model_decoder, optimizer)
+        self.ae = AutoEncoder(self.encoder_model,
+                              self.decoder_moder, optimizer)
         self.criterion = nn.MSELoss()
 
     def test_decode(self):
@@ -70,7 +72,8 @@ class FC_Decoder_BCQ(nn.Module):
         # When sampling from the VAE, the latent vector is clipped to [-0.5, 0.5]
         if z is None:
             device = next(self.parameters()).device
-            z = torch.randn(states.features.size(0), HIDDEN_DIM).to(device).clamp(-0.5, 0.5)
+            z = torch.randn(states.features.size(0), HIDDEN_DIM).to(
+                device).clamp(-0.5, 0.5)
 
         return self.decoder(torch.cat((states.features.float(), z), dim=1))
 
@@ -79,12 +82,14 @@ class TestVAE_BCQ(unittest.TestCase):
     # Test the network architecture of https://github.com/sfujim/BCQ/blob/05c07fc442a2be96f6249b966682cf065045500f/BCQ.py
     def setUp(self):
         torch.manual_seed(2)
-        self.model_encoder = FC_Encoder_BCQ()
-        self.model_decoder = FC_Decoder_BCQ()
+        self.encoder_model = FC_Encoder_BCQ()
+        self.decoder_moder = FC_Decoder_BCQ()
 
-        model_parameters = (list(self.model_encoder.parameters()) + list(self.model_decoder.parameters()))
+        model_parameters = (
+            list(self.encoder_model.parameters()) + list(self.decoder_moder.parameters()))
         optimizer = torch.optim.SGD(model_parameters, lr=0.1)
-        self.vae = AutoEncoder(self.model_encoder, self.model_decoder, optimizer)
+        self.vae = AutoEncoder(
+            self.encoder_model, self.decoder_moder, optimizer)
         self.recon_criterion = nn.MSELoss()
 
     def test_decode(self):
@@ -105,13 +110,15 @@ class TestVAE_BCQ(unittest.TestCase):
         mean, log_var = self.vae.encode(states, actions.features)
         z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
         dec = self.vae.decode(states, z)
-        loss = self.recon_criterion(actions.features, dec) + nn.kl_loss(mean, log_var)
+        loss = self.recon_criterion(
+            actions.features, dec) + nn.kl_loss(mean, log_var)
 
         for _ in range(10):
             mean, log_var = self.vae.encode(states, actions.features)
             z = mean + log_var.exp() * torch.randn_like(log_var)
             dec = self.vae.decode(states, z)
-            new_loss = self.recon_criterion(actions.features, dec) + nn.kl_loss(mean, log_var)
+            new_loss = self.recon_criterion(
+                actions.features, dec) + nn.kl_loss(mean, log_var)
             self.vae.reinforce(new_loss)
         assert new_loss < loss
 

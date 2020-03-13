@@ -16,7 +16,8 @@ class TestGreedy(unittest.TestCase):
         env = gym.make('CartPole-v0')
         env = GymEnvironment(env)
 
-        model = nn.Sequential(nn.Flatten(), nn.Linear(env.state_space.shape[0], env.action_space.n))
+        model = nn.Sequential(nn.Flatten(), nn.Linear(
+            env.state_space.shape[0], env.action_space.n))
         optimizer = Adam(model.parameters())
         agent = GreedyAgent(env.action_space, q=QNetwork(model, optimizer))
 
@@ -29,9 +30,11 @@ class TestGreedy(unittest.TestCase):
         env = gym.make('CartPole-v0')
         env = GymEnvironment(env)
 
-        model = nn.Sequential(nn.Flatten(), nn.Linear(env.state_space.shape[0], env.action_space.n))
+        model = nn.Sequential(nn.Flatten(), nn.Linear(
+            env.state_space.shape[0], env.action_space.n))
         optimizer = Adam(model.parameters())
-        agent = GreedyAgent(env.action_space, policy=SoftmaxPolicy(model, optimizer))
+        agent = GreedyAgent(
+            env.action_space, policy=SoftmaxPolicy(model, optimizer))
 
         env.reset()
         while not env._state.done:
@@ -42,9 +45,11 @@ class TestGreedy(unittest.TestCase):
         env = gym.make('LunarLanderContinuous-v2')
         env = GymEnvironment(env)
 
-        model = nn.Sequential(nn.Flatten(), nn.Linear(env.state_space.shape[0], env.action_space.shape[0] * 2))
+        model = nn.Sequential(nn.Flatten(), nn.Linear(
+            env.state_space.shape[0], env.action_space.shape[0] * 2))
         optimizer = Adam(model.parameters())
-        agent = GreedyAgent(env.action_space, policy=GaussianPolicy(model, optimizer, env.action_space))
+        agent = GreedyAgent(env.action_space, policy=GaussianPolicy(
+            model, optimizer, env.action_space))
 
         env.reset()
         while not env._state.done:

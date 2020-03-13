@@ -2,14 +2,15 @@ import torch
 from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from rlil.agents import BCQ
-from rlil.approximation import QContinuous, PolyakTarget
+from rlil.approximation import QContinuous, PolyakTarget, AutoEncoder
 from rlil.utils.writer import DummyWriter
 from rlil.policies import DeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
-from .models import fc_q, fc_deterministic_policy
+from .models import fc_q, fc_deterministic_policy, \
+    FC_Encoder_BCQ, FC_Decoder_BCQ
 
 
-def td3(
+def bcq(
         # pretrained policy path
         policy_path=None,
         # Common settings
@@ -19,6 +20,7 @@ def td3(
         # Adam optimizer settings
         lr_q=1e-3,
         lr_pi=1e-3,
+        lr_vae=1e-3,
         # Training settings
         minibatch_size=100,
         update_frequency=1,
@@ -41,6 +43,7 @@ def td3(
         last_frame (int): Number of frames to train.
         lr_q (float): Learning rate for the Q network.
         lr_pi (float): Learning rate for the policy network.
+        lr_vae (float): Learning rate for the VAE.
         minibatch_size (int): Number of experiences to sample in each training update.
         update_frequency (int): Number of timesteps per training update.
         polyak_rate (float): Speed with which to update the target network towards the online network.
@@ -50,8 +53,9 @@ def td3(
         replay_buffer_size (int): Maximum number of experiences to store in the replay buffer.
         noise_policy (float): The amount of exploration noise to add.
     """
-    def _td3(env, writer=DummyWriter()):
-        final_anneal_step = (last_frame - replay_start_size) // update_frequency
+    def _bcq(env, writer=DummyWriter()):
+        final_anneal_step = (
+            last_frame - replay_start_size) // update_frequency
 
         q_1_model = fc_q(env).to(device)
         q_1_optimizer = Adam(q_1_model.parameters(), lr=lr_q)
@@ -83,7 +87,8 @@ def td3(
 
         policy_model = fc_deterministic_policy(env).to(device)
         if policy_path:
-            policy_model.load_state_dict(torch.load(policy_path, map_location=device))
+            policy_model.load_state_dict(
+                torch.load(policy_path, map_location=device))
         policy_optimizer = Adam(policy_model.parameters(), lr=lr_pi)
         policy = DeterministicPolicy(
             policy_model,
@@ -97,11 +102,27 @@ def td3(
             writer=writer
         )
 
+        encoder_model = FC_Encoder_BCQ(env).to(device)
+        decoder_model = FC_Decoder_BCQ(env).to(device)
+        model_parameters = (list(encoder_model.parameters()) +
+                            list(decoder_model.parameters()))
+        vae_optimizer = Adam(model_parameters, lr=lr_vae)
+        vae = AutoEncoder(
+            encoder_model,
+            decoder_model,
+            vae_optimizer,
+            lr_scheduler=CosineAnnealingLR(
+                vae_optimizer,
+                final_anneal_step
+            ),
+            name="VAE",
+            writer=writer)
+
         replay_buffer = ExperienceReplayBuffer(
             replay_buffer_size
         )
 
-        return TD3(
+        return BCQ(
             q_1,
             q_2,
             policy,
@@ -116,7 +137,7 @@ def td3(
             minibatch_size=minibatch_size,
             device=device
         )
-    return _td3
+    return _bcq
 
 
-__all__ = ["td3"]
+__all__ = ["bcq"]

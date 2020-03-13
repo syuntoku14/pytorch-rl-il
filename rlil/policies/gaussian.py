@@ -21,11 +21,14 @@ class GaussianPolicy(Approximation):
             **kwargs
         )
 
+
 class GaussianPolicyNetwork(RLNetwork):
     def __init__(self, model, space):
         super().__init__(model)
-        self._center = torch.tensor((space.high + space.low) / 2).to(self.device)
-        self._scale = torch.tensor((space.high - space.low) / 2).to(self.device)
+        self._center = torch.tensor(
+            (space.high + space.low) / 2).to(self.device)
+        self._scale = torch.tensor(
+            (space.high - space.low) / 2).to(self.device)
 
     def forward(self, state):
         outputs = super().forward(state)

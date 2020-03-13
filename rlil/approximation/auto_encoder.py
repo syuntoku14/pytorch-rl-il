@@ -10,8 +10,8 @@ from .checkpointer import PeriodicCheckpointer
 class AutoEncoder:
     def __init__(
             self,
-            model_encoder,
-            model_decoder,
+            encoder_model,
+            decoder_moder,
             optimizer,
             encoder_checkpointer=None,
             decoder_checkpointer=None,
@@ -21,9 +21,9 @@ class AutoEncoder:
             lr_scheduler=None,
             writer=DummyWriter(),
     ):
-        self.model_encoder = model_encoder
-        self.model_decoder = model_decoder
-        self.device = next(model_encoder.parameters()).device
+        self.encoder_model = encoder_model
+        self.decoder_moder = decoder_moder
+        self.device = next(encoder_model.parameters()).device
         self._lr_scheduler = lr_scheduler
         self._optimizer = optimizer
         self._loss_scaling = loss_scaling
@@ -31,25 +31,27 @@ class AutoEncoder:
         self._writer = writer
         self._name = name
         if encoder_checkpointer is None:
-            encoder_checkpointer = PeriodicCheckpointer(DEFAULT_CHECKPOINT_FREQUENCY)
+            encoder_checkpointer = PeriodicCheckpointer(
+                DEFAULT_CHECKPOINT_FREQUENCY)
         if decoder_checkpointer is None:
-            decoder_checkpointer = PeriodicCheckpointer(DEFAULT_CHECKPOINT_FREQUENCY)
+            decoder_checkpointer = PeriodicCheckpointer(
+                DEFAULT_CHECKPOINT_FREQUENCY)
         self._encoder_checkpointer = encoder_checkpointer
         self._decoder_checkpointer = decoder_checkpointer
         self._encoder_checkpointer.init(
-            self.model_encoder,
+            self.encoder_model,
             os.path.join(writer.log_dir, name + '_encoder.pt')
         )
         self._decoder_checkpointer.init(
-            self.model_decoder,
+            self.decoder_moder,
             os.path.join(writer.log_dir, name + '_decoder.pt')
         )
 
     def encode(self, *inputs):
-        return self.model_encoder(*inputs)
+        return self.encoder_model(*inputs)
 
     def decode(self, *inputs):
-        return self.model_decoder(*inputs)
+        return self.decoder_moder(*inputs)
 
     def reinforce(self, loss):
         loss = self._loss_scaling * loss
@@ -61,12 +63,15 @@ class AutoEncoder:
     def step(self):
         '''Given that a backward pass has been made, run an optimization step.'''
         if self._clip_grad != 0:
-            utils.clip_grad_norm_(self.model_encoder.parameters(), self._clip_grad)
-            utils.clip_grad_norm_(self.model_decoder.parameters(), self._clip_grad)
+            utils.clip_grad_norm_(
+                self.encoder_model.parameters(), self._clip_grad)
+            utils.clip_grad_norm_(
+                self.decoder_moder.parameters(), self._clip_grad)
         self._optimizer.step()
         self._optimizer.zero_grad()
         if self._lr_scheduler:
-            self._writer.add_schedule(self._name + '/lr', self._optimizer.param_groups[0]['lr'])
+            self._writer.add_schedule(
+                self._name + '/lr', self._optimizer.param_groups[0]['lr'])
             self._lr_scheduler.step()
         self._encoder_checkpointer()
         self._decoder_checkpointer()

@@ -3,11 +3,11 @@ install:
 	pip install tensorboard
 	pip install -e .
 
-lint:
-	pylint rlil --rcfile=.pylintrc
-
 test:
 	python -m unittest discover -s rlil -p "*test.py"
+
+autopep8:
+	autopep8 --in-place --recursive . 
 
 tensorboard:
 	tensorboard --logdir runs

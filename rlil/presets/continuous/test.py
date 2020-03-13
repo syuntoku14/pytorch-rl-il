@@ -17,5 +17,6 @@ class TestContinuousPresets(unittest.TestCase):
     def validate(self, make_agent):
         validate_agent(make_agent, GymEnvironment('LunarLanderContinuous-v2'))
 
+
 if __name__ == '__main__':
     unittest.main()

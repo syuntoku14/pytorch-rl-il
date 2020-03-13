@@ -4,12 +4,14 @@ import warnings
 
 # TODO: add action_space handler in Action
 
+
 def action_decorator(func):
     def retfunc(*args, **kwargs):
         action = func(*args, **kwargs)
         action = Action(action)
         return action
     return retfunc
+
 
 class Action:
     def __init__(self, raw):
@@ -19,7 +21,8 @@ class Action:
         """
         assert isinstance(
             raw, torch.Tensor), "Input invalid raw type {}. raw must be torch.Tensor".format(type(raw))
-        assert len(raw.shape) > 1, "Action.raw.shape {} is invalid. Batch_size must be specified".format(raw.shape)
+        assert len(raw.shape) > 1, "Action.raw.shape {} is invalid. Batch_size must be specified".format(
+            raw.shape)
         self._raw = raw
 
     @classmethod
@@ -50,7 +53,7 @@ class Action:
 
     def to(self, device):
         return Action(
-            self._raw.to(device), 
+            self._raw.to(device),
         )
 
     def __getitem__(self, idx):

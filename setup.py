@@ -3,7 +3,8 @@ from setuptools import setup, find_packages
 setup(
     name="pytorch-rl-il",
     version="0.0.1",
-    description=("A library for building reinforcement learning and imitation learning agents in Pytorch"),
+    description=(
+        "A library for building reinforcement learning and imitation learning agents in Pytorch"),
     packages=find_packages(),
     url="https://github.com/syuntoku14/pytorch-rl-il",
     author="Toshinori Kitamura",
@@ -12,11 +13,11 @@ setup(
         "gym[atari,box2d]",    # atari environments
         "numpy",         # math library
         "matplotlib",    # plotting library
-        "opencv-python", # used by atari wrappers
+        "opencv-python",  # used by atari wrappers
         "pybullet",      # continuous environments
-        "pylint",        # code quality tool
+        "autopep8",      # code quality tool
         "tensorboardX",  # visualize results
-        "torch-testing", # testing library for pytorch
+        "torch-testing",  # testing library for pytorch
         # these should be installed globally:
         # "tensorflow",  # needed for tensorboard
         # "torch",       # deep learning library

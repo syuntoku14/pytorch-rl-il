@@ -34,7 +34,8 @@ class PeriodicCheckpointer(Checkpointer):
         # Some builds of pytorch throw this unhelpful warning.
         # We can safely disable it.
         # https://discuss.pytorch.org/t/got-warning-couldnt-retrieve-source-code-for-container/7689/7
-        warnings.filterwarnings("ignore", message="Couldn't retrieve source code")
+        warnings.filterwarnings(
+            "ignore", message="Couldn't retrieve source code")
 
     def __call__(self):
         if self._updates % self.frequency == 0:

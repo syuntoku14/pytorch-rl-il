@@ -1,4 +1,3 @@
-# pylint: disable=unused-import
 import argparse
 import pybullet
 import pybullet_envs
@@ -9,15 +8,16 @@ import logging
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run a continuous actions benchmark.")
+    parser = argparse.ArgumentParser(
+        description="Run a continuous actions benchmark.")
     parser.add_argument("env", help="Name of the env (see envs)")
     parser.add_argument(
         "agent",
         help="Name of the agent (e.g. actor_critic). See presets for available agents.",
     )
     parser.add_argument(
-            "--frames", type=int, default=5e7, help="The number of training frames"
-        )
+        "--frames", type=int, default=5e7, help="The number of training frames"
+    )
     parser.add_argument("--n_envs", type=int, default=1)
     parser.add_argument(
         "--device",
@@ -27,13 +27,14 @@ def main():
     parser.add_argument(
         "--render", default=False, help="Whether to render the environment."
     )
-    parser.add_argument("--policy", default=None, help="Path to the pretrained policy state_dict")
+    parser.add_argument("--policy", default=None,
+                        help="Path to the pretrained policy state_dict")
     parser.add_argument(
         "--exp_info",
         default="",
-        help="Descriptions of the experiment. You can see the exp_info on the tensorboard's text."
+        help="One line descriptions of the experiment. Experiments' results are saved in 'runs/[exp_info]/[env_id]/'"
     )
- 
+
     args = parser.parse_args()
 
     if args.env in ENVS:
@@ -44,7 +45,7 @@ def main():
     env = GymEnvironment(env_id)
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
-    preset_args = get_default_args(preset) 
+    preset_args = get_default_args(preset)
     agent_fn = preset(policy_path=args.policy, device=args.device)
 
     logger = logging.getLogger(__name__)

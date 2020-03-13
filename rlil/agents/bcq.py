@@ -97,13 +97,16 @@ class BCQ(Agent):
             next_actions += self._noise_td3.sample([next_actions.shape[0]])
             next_actions = torch.min(next_actions, self._high)
             next_actions = torch.max(next_actions, self._low)
- 
+
             # train q-network
             # Trick One: clipped double q learning
             q_targets = rewards + self.discount_factor * \
-                torch.min(self.q_1.target(next_states, next_actions), self.q_2.target(next_states, next_actions))
-            self.q_1.reinforce(mse_loss(self.q_1(states, actions.features), q_targets))
-            self.q_2.reinforce(mse_loss(self.q_2(states, actions.features), q_targets))
+                torch.min(self.q_1.target(next_states, next_actions),
+                          self.q_2.target(next_states, next_actions))
+            self.q_1.reinforce(
+                mse_loss(self.q_1(states, actions.features), q_targets))
+            self.q_2.reinforce(
+                mse_loss(self.q_2(states, actions.features), q_targets))
 
             # train policy
             # Trick Two: delayed policy updates

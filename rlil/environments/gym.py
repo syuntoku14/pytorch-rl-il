@@ -1,10 +1,10 @@
+from .action import Action
+from .state import State
+from .abstract import Environment
+import torch
+import numpy as np
 import gym
 gym.logger.set_level(40)
-import numpy as np
-import torch
-from .abstract import Environment
-from .state import State
-from .action import Action
 
 
 class GymEnvironment(Environment):

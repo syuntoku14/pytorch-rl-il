@@ -9,11 +9,13 @@ from rlil.policies import GaussianPolicy
 STATE_DIM = 2
 ACTION_DIM = 3
 
+
 class TestGaussian(unittest.TestCase):
     def setUp(self):
 
         torch.manual_seed(2)
-        self.space = Box(np.array([-1, -1, -1]), np.array([1, 1, 1]), dtype=np.float32)
+        self.space = Box(np.array([-1, -1, -1]),
+                         np.array([1, 1, 1]), dtype=np.float32)
         self.model = nn.Sequential(
             nn.Linear(STATE_DIM, ACTION_DIM * 2)
         )
@@ -54,6 +56,7 @@ class TestGaussian(unittest.TestCase):
             self.policy.reinforce(loss)
 
         self.assertTrue(error < 1)
+
 
 if __name__ == '__main__':
     unittest.main()

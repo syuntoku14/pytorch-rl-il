@@ -47,7 +47,8 @@ def ddpg(
         noise (float): The amount of exploration noise to add.
     """
     def _ddpg(env, writer=DummyWriter()):
-        final_anneal_step = (last_frame - replay_start_size) // update_frequency
+        final_anneal_step = (
+            last_frame - replay_start_size) // update_frequency
 
         q_model = fc_q(env).to(device)
         q_optimizer = Adam(q_model.parameters(), lr=lr_q)
@@ -64,7 +65,8 @@ def ddpg(
 
         policy_model = fc_deterministic_policy(env).to(device)
         if policy_path:
-            policy_model.load_state_dict(torch.load(policy_path, map_location=device))
+            policy_model.load_state_dict(
+                torch.load(policy_path, map_location=device))
         policy_optimizer = Adam(policy_model.parameters(), lr=lr_pi)
         policy = DeterministicPolicy(
             policy_model,

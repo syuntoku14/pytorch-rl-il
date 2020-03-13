@@ -19,7 +19,7 @@ class GreedyAgent(Agent):
         self.feature = feature
         self.policy = None
         self.device = device
-        self.replay_buffer = ExperienceReplayBuffer(size=1e5)
+        self.replay_buffer = ExperienceReplayBuffer(size=5e4)
         if policy:
             self.policy = policy
         else:
@@ -79,7 +79,8 @@ class GreedyAgent(Agent):
                 policy = torch.load(os.path.join(
                     dirname, filename), map_location=device)
             if filename in ('q.pt', 'q_dist.pt'):
-                q = torch.load(os.path.join(dirname, filename), map_location=device)
+                q = torch.load(os.path.join(dirname, filename),
+                               map_location=device)
 
         agent = GreedyAgent(
             env.action_space,
@@ -106,4 +107,3 @@ class GreedyAgent(Agent):
         )
 
         return agent
-

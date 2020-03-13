@@ -8,6 +8,7 @@ from datetime import datetime
 from torch.utils.tensorboard import SummaryWriter
 from collections import defaultdict
 
+
 def value_decorator(func):
     def retfunc(self, name, value, step="frame"):
         if isinstance(value, torch.Tensor):
@@ -92,12 +93,13 @@ class DummyWriter(Writer):
 
 
 class ExperimentWriter(SummaryWriter, Writer):
-    def __init__(self, agent_name, env_name, loss=True, interval=1e4, exp_info=""):
-        # You can note any expriments' details by the "exp_info"
+    def __init__(self, agent_name, env_name, loss=True,
+                 interval=1e4, exp_info="default_experiments"):
         self.env_name = env_name
         current_time = str(datetime.now())
         self.log_dir = os.path.join(
-            "runs", env_name, ("%s_%s_%s" % (agent_name, COMMIT_HASH, current_time))
+            "runs", exp_info, env_name,
+            ("%s %s %s" % (agent_name, COMMIT_HASH, current_time))
         )
         self.log_dir = self.log_dir.replace(" ", "_")
         os.makedirs(self.log_dir)
@@ -107,7 +109,6 @@ class ExperimentWriter(SummaryWriter, Writer):
         self._name_frame_history = defaultdict(lambda: 0)
         self._add_scalar_interval = interval
         super().__init__(log_dir=self.log_dir)
-        self.add_text("exp_info", exp_info)
 
     def add_loss(self, name, value, step="frame"):
         if self._loss:
@@ -118,7 +119,8 @@ class ExperimentWriter(SummaryWriter, Writer):
 
     def add_schedule(self, name, value, step="frame"):
         if self._loss:
-            self.add_scalar("schedule" + "/" + name, value, self._get_step(step))
+            self.add_scalar("schedule" + "/" + name,
+                            value, self._get_step(step))
 
     @value_decorator
     def add_scalar(self, name, value, step="frame"):

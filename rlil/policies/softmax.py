@@ -15,6 +15,7 @@ class SoftmaxPolicy(Approximation):
         model = SoftmaxPolicyNetwork(model)
         super().__init__(model, optimizer, name=name, **kwargs)
 
+
 class SoftmaxPolicyNetwork(RLNetwork):
     def __init__(self, model):
         super().__init__(model)

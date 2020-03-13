@@ -6,6 +6,7 @@ from ._agent import Agent
 
 # TODO: noarmalize action
 
+
 class DDPG(Agent):
     """
     Deep Deterministic Policy Gradient (DDPG).
@@ -29,6 +30,7 @@ class DDPG(Agent):
         replay_start_size (int): Number of experiences in replay buffer when training begins.
         update_frequency (int): Number of timesteps per training update.
     """
+
     def __init__(self,
                  q,
                  policy,
@@ -52,7 +54,8 @@ class DDPG(Agent):
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
         # private
-        self._noise = Normal(0, noise * torch.tensor((action_space.high - action_space.low) / 2).to(self.device))
+        self._noise = Normal(
+            0, noise * torch.tensor((action_space.high - action_space.low) / 2).to(self.device))
         self._low = torch.tensor(action_space.low, device=self.device)
         self._high = torch.tensor(action_space.high, device=self.device)
         self._states = None
@@ -77,11 +80,13 @@ class DDPG(Agent):
     def _train(self):
         if self._should_train():
             # sample transitions from buffer
-            (states, actions, rewards, next_states, _) = self.replay_buffer.sample(self.minibatch_size, device=self.device)
+            (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
+                self.minibatch_size, device=self.device)
 
             # train q-network
             q_values = self.q(states, actions.features)
-            targets = rewards + self.discount_factor * self.q.target(next_states, self.policy.target(next_states))
+            targets = rewards + self.discount_factor * \
+                self.q.target(next_states, self.policy.target(next_states))
             loss = mse_loss(q_values, targets)
             self.q.reinforce(loss)
 

@@ -51,7 +51,8 @@ def td3(
         noise_policy (float): The amount of exploration noise to add.
     """
     def _td3(env, writer=DummyWriter()):
-        final_anneal_step = (last_frame - replay_start_size) // update_frequency
+        final_anneal_step = (
+            last_frame - replay_start_size) // update_frequency
 
         q_1_model = fc_q(env).to(device)
         q_1_optimizer = Adam(q_1_model.parameters(), lr=lr_q)
@@ -83,7 +84,8 @@ def td3(
 
         policy_model = fc_deterministic_policy(env).to(device)
         if policy_path:
-            policy_model.load_state_dict(torch.load(policy_path, map_location=device))
+            policy_model.load_state_dict(
+                torch.load(policy_path, map_location=device))
         policy_optimizer = Adam(policy_model.parameters(), lr=lr_pi)
         policy = DeterministicPolicy(
             policy_model,

@@ -8,6 +8,7 @@ from rlil.policies import SoftmaxPolicy
 STATE_DIM = 2
 ACTIONS = 3
 
+
 class TestSoftmax(unittest.TestCase):
     def setUp(self):
         torch.manual_seed(2)
@@ -30,7 +31,8 @@ class TestSoftmax(unittest.TestCase):
         log_prob2 = dist2.log_prob(action2)
         self.assertEqual(action2.item(), 2)
 
-        loss = -(torch.tensor([-1, 1000000]) * torch.cat((log_prob1, log_prob2))).mean()
+        loss = -(torch.tensor([-1, 1000000]) *
+                 torch.cat((log_prob1, log_prob2))).mean()
         self.policy.reinforce(loss)
 
         state3 = State(torch.randn(1, STATE_DIM))
@@ -62,13 +64,16 @@ class TestSoftmax(unittest.TestCase):
 
         # notice the values increase with each successive reinforce
         log_probs = self.policy(states).log_prob(actions)
-        tt.assert_almost_equal(log_probs, torch.tensor([-0.84, -0.62, -0.757]), decimal=3)
+        tt.assert_almost_equal(log_probs, torch.tensor(
+            [-0.84, -0.62, -0.757]), decimal=3)
         self.policy.reinforce(loss(log_probs))
         log_probs = self.policy(states).log_prob(actions)
-        tt.assert_almost_equal(log_probs, torch.tensor([-0.811, -0.561, -0.701]), decimal=3)
+        tt.assert_almost_equal(log_probs, torch.tensor(
+            [-0.811, -0.561, -0.701]), decimal=3)
         self.policy.reinforce(loss(log_probs))
         log_probs = self.policy(states).log_prob(actions)
-        tt.assert_almost_equal(log_probs, torch.tensor([-0.785, -0.51, -0.651]), decimal=3)
+        tt.assert_almost_equal(log_probs, torch.tensor(
+            [-0.785, -0.51, -0.651]), decimal=3)
 
 
 if __name__ == '__main__':

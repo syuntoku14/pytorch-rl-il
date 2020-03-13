@@ -6,8 +6,6 @@ from rlil.environments import GymEnvironment
 from rlil.experiments import Experiment
 from rlil.utils.writer import Writer
 
-# pylint: disable=protected-access
-
 
 class MockWriter(Writer):
     def __init__(self, label, write_loss):
@@ -47,8 +45,9 @@ class MockWriter(Writer):
 
 
 class MockExperiment(Experiment):
-    def _make_writer(self, agent_name, env_name, write_loss, exp_info=""):
-        self._writer = MockWriter(agent_name + '_' +  env_name, write_loss)
+    def _make_writer(self, agent_name, env_name, write_loss,
+                     exp_info="default_experiments"):
+        self._writer = MockWriter(agent_name + '_' + env_name, write_loss)
         return self._writer
 
 
@@ -76,14 +75,17 @@ class TestExperiment(unittest.TestCase):
         )
 
     def test_writes_loss(self):
-        experiment = MockExperiment(sac(), self.env, quiet=True, write_loss=True, episodes=3)
+        experiment = MockExperiment(
+            sac(), self.env, quiet=True, write_loss=True, episodes=3)
         self.assertTrue(experiment._writer.write_loss)
-        experiment = MockExperiment(sac(), self.env, quiet=True, write_loss=False, episodes=3)
+        experiment = MockExperiment(
+            sac(), self.env, quiet=True, write_loss=False, episodes=3)
         self.assertFalse(experiment._writer.write_loss)
 
     # def test_runs_multi_env(self):
     #     experiment = MockExperiment(a2c(n_envs=3), self.env, quiet=True, episodes=3)
     #     self.assertEqual(len(experiment._writer.data["evaluation/returns/episode"]["values"]), 3)
+
 
 if __name__ == "__main__":
     unittest.main()

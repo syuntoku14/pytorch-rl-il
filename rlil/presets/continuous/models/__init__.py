@@ -9,14 +9,17 @@ import numpy as np
 import torch
 from rlil import nn
 
+
 def fc_q(env, hidden1=400, hidden2=300):
     return nn.Sequential(
-        nn.Linear(env.state_space.shape[0] + env.action_space.shape[0], hidden1),
+        nn.Linear(env.state_space.shape[0] +
+                  env.action_space.shape[0], hidden1),
         nn.ReLU(),
         nn.Linear(hidden1, hidden2),
         nn.ReLU(),
         nn.Linear(hidden2, 1),
     )
+
 
 def fc_v(env, hidden1=400, hidden2=300):
     return nn.Sequential(
@@ -27,6 +30,7 @@ def fc_v(env, hidden1=400, hidden2=300):
         nn.Linear(hidden2, 1),
     )
 
+
 def fc_deterministic_policy(env, hidden1=400, hidden2=300):
     return nn.Sequential(
         nn.Linear(env.state_space.shape[0], hidden1),
@@ -36,6 +40,7 @@ def fc_deterministic_policy(env, hidden1=400, hidden2=300):
         nn.Linear(hidden2, env.action_space.shape[0]),
     )
 
+
 def fc_soft_policy(env, hidden1=400, hidden2=300):
     return nn.Sequential(
         nn.Linear(env.state_space.shape[0], hidden1),
@@ -44,6 +49,7 @@ def fc_soft_policy(env, hidden1=400, hidden2=300):
         nn.ReLU(),
         nn.Linear(hidden2, env.action_space.shape[0] * 2),
     )
+
 
 def fc_actor_critic(env, hidden1=400, hidden2=300):
     features = nn.Sequential(
@@ -65,10 +71,12 @@ def fc_actor_critic(env, hidden1=400, hidden2=300):
 
     return features, v, policy
 
+
 class FC_Encoder_BCQ(nn.Module):
     def __init__(self, env, latent_dim=32, hidden1=400, hidden2=300):
         self.head = nn.Sequential(
-            nn.Linear(env.state_space.shape[0] + env.action_space.shape[0], hidden1),
+            nn.Linear(env.state_space.shape[0] +
+                      env.action_space.shape[0], hidden1),
             nn.ReLU(),
             nn.Linear(hidden1, hidden2),
             nn.ReLU()
@@ -98,6 +106,7 @@ class FC_Decoder_BCQ(nn.RLNetwork):
         # When sampling from the VAE, the latent vector is clipped to [-0.5, 0.5]
         if z is None:
             device = next(self.parameters()).device
-            z = torch.randn(states.features.size(0), self.latent_dim).to(device).clamp(-0.5, 0.5)
+            z = torch.randn(states.features.size(0), self.latent_dim).to(
+                device).clamp(-0.5, 0.5)
 
         return self.decoder(torch.cat((states.features.float(), z), dim=1))

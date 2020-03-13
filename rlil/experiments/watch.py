@@ -28,13 +28,16 @@ def watch(agent, env, fps=60, dir=None):
         if len(agent.replay_buffer) % 1e4 == 0 and dir is not None:
             with open(os.path.join(dir, "buffer.pkl"), mode="wb") as f:
                 pickle.dump(agent.replay_buffer.buffer, f)
-                logger.info('Saved buffer. Length: {}'.format(len(agent.replay_buffer)))
+                logger.info('Saved buffer. Length: {}'.format(
+                    len(agent.replay_buffer)))
         if len(agent.replay_buffer) == agent.replay_buffer.capacity:
             logger.info("Buffer is full")
             break
 
+
 def load_and_watch(dir, env, fps=60):
     watch(GreedyAgent.load(dir, env), env, fps=fps, dir=dir)
+
 
 def load_BC_and_watch(dir, agent_fn, env, fps=60):
     watch(GreedyAgent.loadBC(dir, agent_fn, env), env, fps=fps, dir=dir)

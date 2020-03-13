@@ -7,6 +7,7 @@ from .checkpointer import PeriodicCheckpointer
 
 DEFAULT_CHECKPOINT_FREQUENCY = 200
 
+
 class Approximation():
     '''
     Base function approximation object.
@@ -46,6 +47,7 @@ class Approximation():
                 The standard object logs to tensorboard, however, other types of Writer objects
                 may be implemented by the user.
     '''
+
     def __init__(
             self,
             model,
@@ -109,7 +111,8 @@ class Approximation():
         self._optimizer.zero_grad()
         self._target.update()
         if self._lr_scheduler:
-            self._writer.add_schedule(self._name + '/lr', self._optimizer.param_groups[0]['lr'])
+            self._writer.add_schedule(
+                self._name + '/lr', self._optimizer.param_groups[0]['lr'])
             self._lr_scheduler.step()
         self._checkpointer()
         return self

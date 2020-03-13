@@ -5,27 +5,38 @@ from rlil.environments import State, Action
 from rlil.optim import Schedulable
 from .segment_tree import SumSegmentTree, MinSegmentTree
 
+
 def check_inputs_shapes(store):
     def retfunc(self, states, actions, rewards, next_states):
         if states is None:
             return None
         # type check
-        assert isinstance(states, State), "Input invalid states type {}. states must be all.environments.State".format(type(states))
-        assert isinstance(actions, Action), "Input invalid states type {}. actions must be all.environments.Action".format(type(actions))
-        assert isinstance(next_states, State), "Input invalid next_states type {}. next_states must be all.environments.State".format(type(next_states))
-        assert isinstance(rewards, torch.FloatTensor), "Input invalid rewards type {}. rewards must be torch.FloatTensor".format(type(rewards))
+        assert isinstance(
+            states, State), "Input invalid states type {}. states must be all.environments.State".format(type(states))
+        assert isinstance(
+            actions, Action), "Input invalid states type {}. actions must be all.environments.Action".format(type(actions))
+        assert isinstance(next_states, State), "Input invalid next_states type {}. next_states must be all.environments.State".format(
+            type(next_states))
+        assert isinstance(
+            rewards, torch.FloatTensor), "Input invalid rewards type {}. rewards must be torch.FloatTensor".format(type(rewards))
 
         # device check
-        assert states.device == torch.device("cpu"), "Replay buffer accepts only cpu objects"
-        assert actions.device == torch.device("cpu"), "Replay buffer accepts only cpu objects"
-        assert rewards.device == torch.device("cpu"), "Replay buffer accepts only cpu objects"
-        assert next_states.device == torch.device("cpu"), "Replay buffer accepts only cpu objects"
+        assert states.device == torch.device(
+            "cpu"), "Replay buffer accepts only cpu objects"
+        assert actions.device == torch.device(
+            "cpu"), "Replay buffer accepts only cpu objects"
+        assert rewards.device == torch.device(
+            "cpu"), "Replay buffer accepts only cpu objects"
+        assert next_states.device == torch.device(
+            "cpu"), "Replay buffer accepts only cpu objects"
 
         # shape check
-        assert len(rewards.shape) == 1, "rewards.shape {} must be 'shape == (batch_size)'".format(rewards.shape)
-        
+        assert len(rewards.shape) == 1, "rewards.shape {} must be 'shape == (batch_size)'".format(
+            rewards.shape)
+
         return store(self, states, actions, rewards, next_states)
     return retfunc
+
 
 class ReplayBuffer(ABC):
     @abstractmethod
@@ -78,10 +89,14 @@ class ExperienceReplayBuffer(ReplayBuffer):
             self.pos = (self.pos + 1) % self.capacity
 
     def _reshape(self, minibatch, weights, device):
-        states = State.from_list([sample[0] for sample in minibatch]).to(device)
-        actions = Action.from_list([sample[1] for sample in minibatch]).to(device)
-        rewards = torch.tensor([sample[2] for sample in minibatch], device=device).float()
-        next_states = State.from_list([sample[3] for sample in minibatch]).to(device)
+        states = State.from_list([sample[0]
+                                  for sample in minibatch]).to(device)
+        actions = Action.from_list([sample[1]
+                                    for sample in minibatch]).to(device)
+        rewards = torch.tensor([sample[2]
+                                for sample in minibatch], device=device).float()
+        next_states = State.from_list([sample[3]
+                                       for sample in minibatch]).to(device)
         return (states, actions, rewards, next_states, weights.to(device))
 
     def __len__(self):
@@ -89,6 +104,7 @@ class ExperienceReplayBuffer(ReplayBuffer):
 
     def __iter__(self):
         return iter(self.buffer)
+
 
 class PrioritizedReplayBuffer(ExperienceReplayBuffer, Schedulable):
     def __init__(
@@ -168,6 +184,7 @@ class PrioritizedReplayBuffer(ExperienceReplayBuffer, Schedulable):
             res.append(idx)
         return res
 
+
 class NStepReplayBuffer(ReplayBuffer):
     """
     Converts any ReplayBuffer into an NStepReplayBuffer
@@ -175,6 +192,7 @@ class NStepReplayBuffer(ReplayBuffer):
     2. actionss (list of Action): [[action, action, ... x NStep], [], ... x num_envs]
     3. rewardss (list): [[reward, reward, ... x NStep], [], ... x num_envs]
     """
+
     def __init__(
             self,
             steps,

@@ -55,7 +55,7 @@ class EnvRunner(ABC):
     def _log(self, returns, fps):
         if not self._quiet:
             self._logger.info("episode: %i, frames: %i, fps: %d, returns: %d" %
-                  (self._writer.episodes, self._writer.frames, fps, returns))
+                              (self._writer.episodes, self._writer.frames, fps, returns))
         if returns > self._best_returns:
             self._best_returns = returns
         self._returns100.append(returns)
