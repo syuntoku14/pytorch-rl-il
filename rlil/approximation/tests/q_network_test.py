@@ -1,14 +1,16 @@
 import unittest
 import torch
+import gym
 from torch import nn
 from torch.nn.functional import smooth_l1_loss
 import torch_testing as tt
 import numpy as np
-from rlil.environments import State
+from rlil.environments import State, Action
 from rlil.approximation import QNetwork, FixedTarget
 
 STATE_DIM = 2
 ACTIONS = 3
+action_space = gym.spaces.Discrete(10)
 
 
 class TestQNetwork(unittest.TestCase):
@@ -42,7 +44,8 @@ class TestQNetwork(unittest.TestCase):
 
     def test_eval_actions(self):
         states = State(torch.randn(3, STATE_DIM))
-        actions = [1, 2, 0]
+        Action.set_action_space(action_space)
+        actions = Action(torch.tensor([1, 2, 0]).unsqueeze(1))
         result = self.q.eval(states, actions)
         self.assertEqual(result.shape, torch.Size([3]))
         tt.assert_almost_equal(result, torch.tensor(

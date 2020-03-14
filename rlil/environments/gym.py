@@ -19,10 +19,13 @@ class GymEnvironment(Environment):
         self._done = True
         self._info = None
 
-        # lazy init for slurm
+        # lazy init
         self._init = False
         self._done_mask = None
         self._not_done_mask = None
+
+        # set action_space
+        Action.set_action_space(env.action_space)
 
     @property
     def name(self):

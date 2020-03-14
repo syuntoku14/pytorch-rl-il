@@ -104,9 +104,9 @@ class BCQ(Agent):
                 torch.min(self.q_1.target(next_states, next_actions),
                           self.q_2.target(next_states, next_actions))
             self.q_1.reinforce(
-                mse_loss(self.q_1(states, actions.features), q_targets))
+                mse_loss(self.q_1(states, actions), q_targets))
             self.q_2.reinforce(
-                mse_loss(self.q_2(states, actions.features), q_targets))
+                mse_loss(self.q_2(states, actions), q_targets))
 
             # train policy
             # Trick Two: delayed policy updates

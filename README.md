@@ -1,3 +1,5 @@
+# TODO: Better documentation
+
 # PyTorch-RL-IL (rlil): A PyTorch Library for Building Reinforcement Learning and Imitation Learning Agents
 
 `rlil` is a library for reinforcement learning and imitation learning research. 
@@ -5,20 +7,22 @@
 See the original documentation for the basic concepts of the library.
 
 
-## Features of ALL
+## Algorithms
 
-- [x] `Deep Deterministic Policy Gradient (DDPG)`
-- [x] `Soft Actor Critic (SAC)`
+### Reinforcement Learning
 
-## New features of RLIL
+- [x] `Twind Dueling DDPG (TD3)`: https://arxiv.org/abs/1802.09477
 
-### Algorithms
+### Imitation Learning
 
-- [x] `Twind Dueling DDPG (TD3)`
 - [x] `Behavioral Cloning (BC)`
-- [ ] `Generative Adversarial Imitation Learning (GAIL)`
+- [ ] `Generative Adversarial Imitation Learning (GAIL)` : https://arxiv.org/abs/1606.03476
 
-### Concepts
+### Others
+
+- [ ] `Clipped Action Policy Gradient (CAPG)`: https://arxiv.org/abs/1802.07564
+
+### New features of RLIL
 
 - `ParallelEnvRunner` collects samples with multi-process environments. 
 - `Action` class for better action handling

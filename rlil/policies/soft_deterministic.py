@@ -1,6 +1,7 @@
 import torch
 from rlil.approximation import Approximation
 from rlil.nn import RLNetwork
+from rlil.environments import squash_action
 
 
 class SoftDeterministicPolicy(Approximation):
@@ -39,14 +40,11 @@ class SoftDeterministicPolicyNetwork(RLNetwork):
 
     def _sample(self, normal):
         raw = normal.rsample()
-        action = self._squash(raw)
+        action = squash_action(raw, self._tanh_scale, self._tanh_mean)
         log_prob = normal.log_prob(raw)
         log_prob -= torch.log(1 - action.pow(2) + 1e-6)
         log_prob = log_prob.sum(1)
         return action, log_prob
-
-    def _squash(self, x):
-        return torch.tanh(x) * self._tanh_scale + self._tanh_mean
 
     def to(self, device):
         self._tanh_mean = self._tanh_mean.to(device)

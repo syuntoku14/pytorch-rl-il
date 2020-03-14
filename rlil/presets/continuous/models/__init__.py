@@ -85,8 +85,9 @@ class FC_Encoder_BCQ(nn.Module):
         self.mean = nn.Linear(hidden2, latent_dim)
         self.log_var = nn.Linear(hidden2, latent_dim)
 
-    def forward(self, states, actions_raw):
-        x = torch.cat((states.features.float(), actions_raw), dim=1)
+    def forward(self, states, actions):
+        x = torch.cat((states.features.float(),
+                       actions.features.float()), dim=1)
         x = self.head(x)
         return self.mean(x), self.log_var(x).clamp(-4, 15)
 

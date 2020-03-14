@@ -2,6 +2,7 @@ import unittest
 import random
 import torch
 import numpy as np
+import gym
 import torch_testing as tt
 from rlil.environments import State, Action
 from rlil.memory import (
@@ -20,6 +21,8 @@ class TestExperienceReplayBuffer(unittest.TestCase):
 
     def test_run(self):
         states = torch.arange(0, 20, dtype=torch.float).view((-1, 1))
+        Action.set_action_space(gym.spaces.Box(
+            low=-np.inf, high=np.inf, shape=(1, )))
         actions = torch.arange(0, 20).view((-1, 1))
         rewards = torch.arange(0, 20, dtype=torch.float)
         expected_samples = torch.tensor(
@@ -58,6 +61,8 @@ class TestExperienceReplayBuffer(unittest.TestCase):
 
     def test_multi_store(self):
         states = torch.arange(0, 5, dtype=torch.float).view((-1, 1))
+        Action.set_action_space(gym.spaces.Box(
+            low=-np.inf, high=np.inf, shape=(1, )))
         actions = torch.arange(0, 5).view((-1, 1)).float()
         rewards = torch.arange(0, 5, dtype=torch.float)
         expected_samples = torch.tensor(
@@ -94,6 +99,8 @@ class TestPrioritizedReplayBuffer(unittest.TestCase):
 
     def test_run(self):
         states = State(torch.arange(0, 20, dtype=torch.float).view(-1, 1))
+        Action.set_action_space(gym.spaces.Box(
+            low=-np.inf, high=np.inf, shape=(1, )))
         actions = Action(torch.arange(0, 20).view((-1, 1)))
         rewards = torch.arange(0, 20, dtype=torch.float)
         expected_samples = State(
@@ -185,6 +192,8 @@ class TestNStepReplayBuffer(unittest.TestCase):
 
     def test_run(self):
         states = State(torch.arange(0, 20, dtype=torch.float).view(-1, 1))
+        Action.set_action_space(gym.spaces.Box(
+            low=-np.inf, high=np.inf, shape=(1, )))
         actions = Action(torch.arange(0, 20).view(-1, 1))
         rewards = torch.arange(0, 20, dtype=torch.float)
 
@@ -210,6 +219,8 @@ class TestNStepReplayBuffer(unittest.TestCase):
 
     def test_done(self):
         state = State(torch.FloatTensor([1]).view(1, -1))
+        Action.set_action_space(gym.spaces.Box(
+            low=-np.inf, high=np.inf, shape=(1, )))
         action = Action(torch.tensor(0).view(1, -1))
         reward = torch.FloatTensor([1])
         done_state = State(torch.FloatTensor([1]).view(

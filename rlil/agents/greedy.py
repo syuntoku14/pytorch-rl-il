@@ -9,13 +9,11 @@ import os
 class GreedyAgent(Agent):
     def __init__(
             self,
-            action_space,
             feature=None,
             q=None,
             policy=None,
             device=torch.device("cpu")
     ):
-        self.action_space = action_space
         self.feature = feature
         self.policy = None
         self.device = device
@@ -36,9 +34,9 @@ class GreedyAgent(Agent):
         with torch.no_grad():
             if self.feature:
                 state = self.feature(state)
-            if isinstance(self.action_space, gym.spaces.Discrete):
+            if isinstance(Action.action_space(), gym.spaces.Discrete):
                 self._action = self.choose_discrete(state)
-            elif isinstance(self.action_space, gym.spaces.Box):
+            elif isinstance(Action.action_space(), gym.spaces.Box):
                 self._action = self.choose_continuous(state)
             else:
                 raise TypeError('Unknown action space')
@@ -83,7 +81,6 @@ class GreedyAgent(Agent):
                                map_location=device)
 
         agent = GreedyAgent(
-            env.action_space,
             feature=feature,
             policy=policy,
             q=q,
@@ -102,7 +99,6 @@ class GreedyAgent(Agent):
                 policy.model.model.load_state_dict(state_dict)
 
         agent = GreedyAgent(
-            env.action_space,
             policy=policy,
         )
 

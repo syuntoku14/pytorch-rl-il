@@ -108,7 +108,6 @@ def td3(
             q_2,
             policy,
             replay_buffer,
-            env.action_space,
             noise_policy=noise_policy,
             noise_td3=noise_td3,
             policy_update_td3=policy_update_td3,

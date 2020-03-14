@@ -11,29 +11,22 @@ def main():
     parser = argparse.ArgumentParser(
         description="Run a continuous actions benchmark.")
     parser.add_argument("env", help="Name of the env (see envs)")
-    parser.add_argument(
-        "agent",
-        help="Name of the agent (e.g. actor_critic). See presets for available agents.",
-    )
-    parser.add_argument(
-        "--frames", type=int, default=5e7, help="The number of training frames"
-    )
+    parser.add_argument("agent",
+                        help="Name of the agent (e.g. actor_critic). See presets for available agents.",
+                        )
+    parser.add_argument("--frames", type=int, default=5e7,
+                        help="The number of training frames")
     parser.add_argument("--n_envs", type=int, default=1)
-    parser.add_argument(
-        "--device",
-        default="cuda",
-        help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)",
-    )
-    parser.add_argument(
-        "--render", default=False, help="Whether to render the environment."
-    )
+    parser.add_argument("--device", default="cuda",
+                        help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)",
+                        )
+    parser.add_argument("--render", default=False,
+                        help="Whether to render the environment.")
     parser.add_argument("--policy", default=None,
                         help="Path to the pretrained policy state_dict")
-    parser.add_argument(
-        "--exp_info",
-        default="",
-        help="One line descriptions of the experiment. Experiments' results are saved in 'runs/[exp_info]/[env_id]/'"
-    )
+    parser.add_argument("--exp_info", default="",
+                        help="One line descriptions of the experiment. Experiments' results are saved in 'runs/[exp_info]/[env_id]/'"
+                        )
 
     args = parser.parse_args()
 

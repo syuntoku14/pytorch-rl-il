@@ -11,7 +11,7 @@ from rlil.utils.writer import Writer, DummyWriter
 from rlil import nn
 from rlil.agents import GreedyAgent
 from rlil.approximation import QNetwork
-from rlil.policies import SoftmaxPolicy, GaussianPolicy
+from rlil.policies import SoftmaxPolicy, DeterministicPolicy
 from rlil.experiments import SingleEnvRunner, ParallelEnvRunner
 
 
@@ -19,14 +19,14 @@ def make_discrete_agent(env, writer):
     model = nn.Sequential(nn.Flatten(), nn.Linear(
         env.state_space.shape[0], env.action_space.n))
     optimizer = Adam(model.parameters())
-    return GreedyAgent(env.action_space, q=QNetwork(model, optimizer, writer=writer))
+    return GreedyAgent(q=QNetwork(model, optimizer, writer=writer))
 
 
 def make_continuous_agent(env, writer):
     model = nn.Sequential(nn.Flatten(), nn.Linear(
-        env.state_space.shape[0], env.action_space.shape[0] * 2))
+        env.state_space.shape[0], env.action_space.shape[0]))
     optimizer = Adam(model.parameters())
-    return GreedyAgent(env.action_space, policy=GaussianPolicy(model, optimizer, env.action_space))
+    return GreedyAgent(policy=DeterministicPolicy(model, optimizer, env.action_space))
 
 
 class TestRunner(unittest.TestCase):

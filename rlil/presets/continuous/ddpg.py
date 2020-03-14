@@ -88,7 +88,6 @@ def ddpg(
             q,
             policy,
             replay_buffer,
-            env.action_space,
             noise=noise,
             replay_start_size=replay_start_size,
             discount_factor=discount_factor,

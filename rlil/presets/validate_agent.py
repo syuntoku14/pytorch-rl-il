@@ -28,6 +28,6 @@ def validate_parallel_env_agent(agent_fn, env):
         3,
         DummyWriter(),
         seeds=[i + 0 for i in range(3)],
-        episodes=3,
+        episodes=2,
         quiet=True
     )

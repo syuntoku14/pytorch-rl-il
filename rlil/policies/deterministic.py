@@ -1,6 +1,8 @@
 import torch
+from rlil.environments import squash_action
 from rlil.approximation import Approximation
 from rlil.nn import RLNetwork
+from rlil.environments import action_decorator
 
 
 class DeterministicPolicy(Approximation):
@@ -31,10 +33,7 @@ class DeterministicPolicyNetwork(RLNetwork):
             (space.high + space.low) / 2).to(self.device)
 
     def forward(self, state):
-        return self._squash(super().forward(state))
-
-    def _squash(self, x):
-        return torch.tanh(x) * self._tanh_scale + self._tanh_mean
+        return squash_action(super().forward(state), self._tanh_scale, self._tanh_mean)
 
     def to(self, device):
         self._tanh_mean = self._tanh_mean.to(device)

@@ -4,6 +4,8 @@ import torch_testing as tt
 from rlil import nn
 from rlil.approximation.auto_encoder import AutoEncoder
 from rlil.environments import State, Action
+import numpy as np
+import gym
 
 STATE_DIM = 5
 ACTION_DIM = 2
@@ -12,6 +14,8 @@ HIDDEN_DIM = 3
 
 class TestAutoEncoder(unittest.TestCase):
     def setUp(self):
+        Action.set_action_space(gym.spaces.Box(
+            low=-np.inf, high=np.inf, shape=(ACTION_DIM, )))
         torch.manual_seed(2)
         self.encoder_model = nn.Sequential(
             nn.Linear(STATE_DIM, HIDDEN_DIM)
@@ -58,8 +62,9 @@ class FC_Encoder_BCQ(nn.Module):
         self.mean = nn.Linear(STATE_DIM + ACTION_DIM, HIDDEN_DIM)
         self.log_var = nn.Linear(STATE_DIM + ACTION_DIM, HIDDEN_DIM)
 
-    def forward(self, states, actions_raw):
-        x = torch.cat((states.features.float(), actions_raw), dim=1)
+    def forward(self, states, actions):
+        x = torch.cat((states.features.float(),
+                       actions.features.float()), dim=1)
         return self.mean(x), self.log_var(x).clamp(-4, 15)
 
 
@@ -81,6 +86,8 @@ class FC_Decoder_BCQ(nn.Module):
 class TestVAE_BCQ(unittest.TestCase):
     # Test the network architecture of https://github.com/sfujim/BCQ/blob/05c07fc442a2be96f6249b966682cf065045500f/BCQ.py
     def setUp(self):
+        Action.set_action_space(gym.spaces.Box(
+            low=-np.inf, high=np.inf, shape=(ACTION_DIM, )))
         torch.manual_seed(2)
         self.encoder_model = FC_Encoder_BCQ()
         self.decoder_moder = FC_Decoder_BCQ()
@@ -97,7 +104,7 @@ class TestVAE_BCQ(unittest.TestCase):
             torch.randn(5, STATE_DIM),
         )
         actions = Action(torch.randn(5, ACTION_DIM))
-        mean, log_var = self.vae.encode(states, actions.features)
+        mean, log_var = self.vae.encode(states, actions)
         z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
         dec = self.vae.decode(states, z)
         assert actions.features.shape == dec.shape
@@ -107,14 +114,14 @@ class TestVAE_BCQ(unittest.TestCase):
             torch.randn(5, STATE_DIM),
         )
         actions = Action(torch.randn(5, ACTION_DIM))
-        mean, log_var = self.vae.encode(states, actions.features)
+        mean, log_var = self.vae.encode(states, actions)
         z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
         dec = self.vae.decode(states, z)
         loss = self.recon_criterion(
             actions.features, dec) + nn.kl_loss(mean, log_var)
 
         for _ in range(10):
-            mean, log_var = self.vae.encode(states, actions.features)
+            mean, log_var = self.vae.encode(states, actions)
             z = mean + log_var.exp() * torch.randn_like(log_var)
             dec = self.vae.decode(states, z)
             new_loss = self.recon_criterion(

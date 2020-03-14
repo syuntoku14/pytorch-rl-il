@@ -2,7 +2,7 @@ import unittest
 from rlil.environments import GymEnvironment
 from rlil.agents import GreedyAgent
 from rlil.approximation import QNetwork
-from rlil.policies import SoftmaxPolicy, GaussianPolicy
+from rlil.policies import SoftmaxPolicy, DeterministicPolicy
 from rlil.environments import State, Action
 from rlil.utils.writer import DummyWriter
 from rlil import nn
@@ -19,7 +19,7 @@ class TestGreedy(unittest.TestCase):
         model = nn.Sequential(nn.Flatten(), nn.Linear(
             env.state_space.shape[0], env.action_space.n))
         optimizer = Adam(model.parameters())
-        agent = GreedyAgent(env.action_space, q=QNetwork(model, optimizer))
+        agent = GreedyAgent(q=QNetwork(model, optimizer))
 
         env.reset()
         while not env._state.done:
@@ -34,7 +34,7 @@ class TestGreedy(unittest.TestCase):
             env.state_space.shape[0], env.action_space.n))
         optimizer = Adam(model.parameters())
         agent = GreedyAgent(
-            env.action_space, policy=SoftmaxPolicy(model, optimizer))
+            policy=SoftmaxPolicy(model, optimizer))
 
         env.reset()
         while not env._state.done:
@@ -46,9 +46,9 @@ class TestGreedy(unittest.TestCase):
         env = GymEnvironment(env)
 
         model = nn.Sequential(nn.Flatten(), nn.Linear(
-            env.state_space.shape[0], env.action_space.shape[0] * 2))
+            env.state_space.shape[0], env.action_space.shape[0]))
         optimizer = Adam(model.parameters())
-        agent = GreedyAgent(env.action_space, policy=GaussianPolicy(
+        agent = GreedyAgent(policy=DeterministicPolicy(
             model, optimizer, env.action_space))
 
         env.reset()

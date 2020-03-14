@@ -4,7 +4,8 @@ from torch.nn.functional import mse_loss
 from rlil.environments import action_decorator, Action
 from ._agent import Agent
 
-# TODO: noarmalize action
+# TODO: policy output should be Action
+# TODO: State and Action should inherits torch.Tensor
 
 
 class DDPG(Agent):
@@ -23,7 +24,6 @@ class DDPG(Agent):
         q (QContinuous): An Approximation of the continuous action Q-function.
         policy (DeterministicPolicy): An Approximation of a deterministic policy.
         replay_buffer (ReplayBuffer): The experience replay buffer.
-        action_space (gym.spaces.Box): Description of the action space.
         discount_factor (float): Discount factor for future rewards.
         minibatch_size (int): The number of experiences to sample in each training update.
         noise (float): the amount of noise to add to each action (before scaling).
@@ -35,7 +35,6 @@ class DDPG(Agent):
                  q,
                  policy,
                  replay_buffer,
-                 action_space,
                  discount_factor=0.99,
                  minibatch_size=32,
                  noise=0.1,
@@ -54,10 +53,9 @@ class DDPG(Agent):
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
         # private
+        action_space = Action.action_space()
         self._noise = Normal(
             0, noise * torch.tensor((action_space.high - action_space.low) / 2).to(self.device))
-        self._low = torch.tensor(action_space.low, device=self.device)
-        self._high = torch.tensor(action_space.high, device=self.device)
         self._states = None
         self._actions = None
         self._train_count = 0
@@ -73,8 +71,6 @@ class DDPG(Agent):
     def _choose_actions(self, states):
         actions = self.policy.eval(states.to(self.device))
         actions += self._noise.sample([actions.shape[0]])
-        actions = torch.min(actions, self._high)
-        actions = torch.max(actions, self._low)
         return actions.to("cpu")
 
     def _train(self):
@@ -84,14 +80,15 @@ class DDPG(Agent):
                 self.minibatch_size, device=self.device)
 
             # train q-network
-            q_values = self.q(states, actions.features)
+            q_values = self.q(states, actions)
             targets = rewards + self.discount_factor * \
-                self.q.target(next_states, self.policy.target(next_states))
+                self.q.target(next_states, Action(
+                    self.policy.target(next_states)))
             loss = mse_loss(q_values, targets)
             self.q.reinforce(loss)
 
             # train policy
-            greedy_actions = self.policy(states)
+            greedy_actions = Action(self.policy(states))
             loss = -self.q(states, greedy_actions).mean()
             self.policy.reinforce(loss)
             self.policy.zero_grad()

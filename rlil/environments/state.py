@@ -2,6 +2,8 @@ import numpy as np
 import torch
 
 
+# TODO: Add state_space attribute
+
 class State:
     def __init__(self, raw, mask=None, info=None):
         """
