@@ -3,8 +3,6 @@ import torch
 import warnings
 import gym
 
-# TODO: replaec all action_space with Action.action_space
-
 
 def action_decorator(func):
     def retfunc(*args, **kwargs):

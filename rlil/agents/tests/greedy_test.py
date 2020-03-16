@@ -17,7 +17,7 @@ class TestGreedy(unittest.TestCase):
         env = GymEnvironment(env)
 
         model = nn.Sequential(nn.Flatten(), nn.Linear(
-            env.state_space.shape[0], env.action_space.n))
+            env.state_space.shape[0], Action.action_space().n))
         optimizer = Adam(model.parameters())
         agent = GreedyAgent(q=QNetwork(model, optimizer))
 
@@ -31,7 +31,7 @@ class TestGreedy(unittest.TestCase):
         env = GymEnvironment(env)
 
         model = nn.Sequential(nn.Flatten(), nn.Linear(
-            env.state_space.shape[0], env.action_space.n))
+            env.state_space.shape[0], Action.action_space().n))
         optimizer = Adam(model.parameters())
         agent = GreedyAgent(
             policy=SoftmaxPolicy(model, optimizer))
@@ -46,10 +46,10 @@ class TestGreedy(unittest.TestCase):
         env = GymEnvironment(env)
 
         model = nn.Sequential(nn.Flatten(), nn.Linear(
-            env.state_space.shape[0], env.action_space.shape[0]))
+            env.state_space.shape[0], Action.action_space().shape[0]))
         optimizer = Adam(model.parameters())
         agent = GreedyAgent(policy=DeterministicPolicy(
-            model, optimizer, env.action_space))
+            model, optimizer, Action.action_space()))
 
         env.reset()
         while not env._state.done:

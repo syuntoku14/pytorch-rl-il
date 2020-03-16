@@ -12,7 +12,7 @@ class GymEnvironmentTest(unittest.TestCase):
         env = GymEnvironment(env)
         env.reset()
         while not env._state.done:
-            action = env.action_space.sample()
+            action = Action.action_space().sample()
             action = Action(torch.tensor([action]).unsqueeze(0))
             state, reward = env.step(action)
 
@@ -21,6 +21,6 @@ class GymEnvironmentTest(unittest.TestCase):
         env = GymEnvironment(env)
         env.reset()
         while not env._state.done:
-            action = env.action_space.sample()
+            action = Action.action_space().sample()
             action = Action(torch.tensor([action]))
             state, reward = env.step(action)
