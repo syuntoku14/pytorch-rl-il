@@ -1,7 +1,8 @@
 import torch
 from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
-from rlil.environments import action_decorator, Action
+from rlil.environments import State, action_decorator, Action
+from rlil import nn
 from ._agent import Agent
 
 
@@ -21,45 +22,41 @@ class BCQ(Agent):
     Args:
         q_1 (QContinuous): An Approximation of the continuous action Q-function.
         q_2 (QContinuous): An Approximation of the continuous action Q-function.
+        vae (AutoEncoder): An approximation of the VAE.
         policy (DeterministicPolicy): An Approximation of a deterministic policy.
-        replay_buffer (ReplayBuffer): The experience replay buffer.
-        action_space (gym.spaces.Box): Description of the action space.
+        replay_buffer (ReplayBuffer): The experience replay buffer with enough data.
         discount_factor (float): Discount factor for future rewards.
         minibatch_size (int): The number of experiences to sample in each training update.
         noise_policy (float): the amount of noise to add to each action (before scaling).
         noise_td3 (float): the amount of noise to add to each action in trick three.
         policy_update_td3 (int): Number of timesteps per training update the policy in trick two.
-        replay_start_size (int): Number of experiences in replay buffer when training begins.
-        update_frequency (int): Number of timesteps per training update.
     """
 
     def __init__(self,
                  q_1,
                  q_2,
+                 vae,
                  policy,
                  replay_buffer,
-                 action_space,
                  discount_factor=0.99,
                  minibatch_size=32,
                  noise_policy=0.1,
                  noise_td3=0.2,
                  policy_update_td3=2,
-                 replay_start_size=5000,
-                 update_frequency=1,
                  device=torch.device("cpu")
                  ):
         # objects
         self.q_1 = q_1
         self.q_2 = q_2
+        self.vae = vae
         self.policy = policy
         self.replay_buffer = replay_buffer
         self.device = device
         # hyperparameters
-        self.replay_start_size = replay_start_size
-        self.update_frequency = update_frequency
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
         # private
+        action_space = Action.action_space()
         self._noise_policy = Normal(
             0, noise_policy * torch.tensor((action_space.high - action_space.low) / 2).to(self.device))
         self._noise_td3 = Normal(
@@ -72,18 +69,20 @@ class BCQ(Agent):
         self._train_count = 0
 
     def act(self, states, reward):
-        self.replay_buffer.store(self._states, self._actions, reward, states)
-        self._train()
         self._states = states
         self._actions = self._choose_actions(states)
         return self._actions
 
     @action_decorator
-    def _choose_actions(self, states):
-        actions = self.policy.eval(states.to(self.device))
+    def _choose_actions(self, states: State, actions: Action):
+        # choose vae action
+        mean, log_var = self.vae.encode(states.to(self.device), actions.to(self.device))
+        z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
+        vae_action = Action(self.vae.decode(states, z))
+
+        # choose normal action
+        actions = self.policy.eval(states.to(self.device), vae_action.to(self.device))
         actions = actions + self._noise_policy.sample([actions.shape[0]])
-        actions = torch.min(actions, self._high)
-        actions = torch.max(actions, self._low)
         return actions.to("cpu")
 
     def _train(self):
@@ -92,6 +91,15 @@ class BCQ(Agent):
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
                 self.minibatch_size, device=self.device)
 
+            # training vae
+            mean, log_var = self.vae.encode(states.to(self.device), actions.to(self.device))
+            z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
+            vae_action = Action(self.vae.decode(states, z))
+            vae_loss = mse_loss(actions.features, vae_action) \
+                + nn.kl_loss(mean, log_var)
+            self.vae.reinforce(vae_loss)
+
+            # training critic
             # Trick Three: Target Policy Smoothing
             next_actions = self.policy.target(next_states)
             next_actions += self._noise_td3.sample([next_actions.shape[0]])
@@ -120,4 +128,4 @@ class BCQ(Agent):
 
     def _should_train(self):
         self._train_count += 1
-        return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0
+        return True

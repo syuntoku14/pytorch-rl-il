@@ -34,7 +34,7 @@ def bcq(
         noise_policy=0.1,
 ):
     """
-    TD3 continuous control preset.
+    Batch-Constrained Q-learning (BCQ) control preset
 
     Args:
         policy_path (str): Path to the pretrained policy state_dict.pt

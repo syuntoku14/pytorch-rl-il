@@ -14,7 +14,7 @@ def td3(
         policy_path=None,
         # Common settings
         device="cpu",
-        discount_factor=0.98,
+        discount_factor=0.99,
         last_frame=2e6,
         # Adam optimizer settings
         lr_q=1e-3,
