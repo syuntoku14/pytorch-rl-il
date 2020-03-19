@@ -11,7 +11,7 @@ class AutoEncoder:
     def __init__(
             self,
             encoder_model,
-            decoder_moder,
+            decoder_model,
             optimizer,
             encoder_checkpointer=None,
             decoder_checkpointer=None,
@@ -22,7 +22,7 @@ class AutoEncoder:
             writer=DummyWriter(),
     ):
         self.encoder_model = encoder_model
-        self.decoder_moder = decoder_moder
+        self.decoder_model = decoder_model
         self.device = next(encoder_model.parameters()).device
         self._lr_scheduler = lr_scheduler
         self._optimizer = optimizer
@@ -43,7 +43,7 @@ class AutoEncoder:
             os.path.join(writer.log_dir, name + '_encoder.pt')
         )
         self._decoder_checkpointer.init(
-            self.decoder_moder,
+            self.decoder_model,
             os.path.join(writer.log_dir, name + '_decoder.pt')
         )
 
@@ -51,7 +51,7 @@ class AutoEncoder:
         return self.encoder_model(*inputs)
 
     def decode(self, *inputs):
-        return self.decoder_moder(*inputs)
+        return self.decoder_model(*inputs)
 
     def reinforce(self, loss):
         loss = self._loss_scaling * loss
@@ -66,7 +66,7 @@ class AutoEncoder:
             utils.clip_grad_norm_(
                 self.encoder_model.parameters(), self._clip_grad)
             utils.clip_grad_norm_(
-                self.decoder_moder.parameters(), self._clip_grad)
+                self.decoder_model.parameters(), self._clip_grad)
         self._optimizer.step()
         self._optimizer.zero_grad()
         if self._lr_scheduler:

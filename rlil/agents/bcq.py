@@ -76,35 +76,41 @@ class BCQ(Agent):
     @action_decorator
     def _choose_actions(self, states: State, actions: Action):
         # choose vae action
-        mean, log_var = self.vae.encode(states.to(self.device), actions.to(self.device))
+        mean, log_var = self.vae.encode(
+            states.to(self.device), actions.to(self.device))
         z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
         vae_action = Action(self.vae.decode(states, z))
 
         # choose normal action
-        actions = self.policy.eval(states.to(self.device), vae_action.to(self.device))
+        actions = self.policy.eval(
+            states.to(self.device), vae_action.to(self.device))
         actions = actions + self._noise_policy.sample([actions.shape[0]])
         return actions.to("cpu")
 
-    def _train(self):
+    def train(self):
         if self._should_train():
             # sample transitions from buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
                 self.minibatch_size, device=self.device)
 
             # training vae
-            mean, log_var = self.vae.encode(states.to(self.device), actions.to(self.device))
+            mean, log_var = self.vae.encode(
+                states.to(self.device), actions.to(self.device))
             z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
-            vae_action = Action(self.vae.decode(states, z))
-            vae_loss = mse_loss(actions.features, vae_action) \
+            vae_actions = Action(self.vae.decode(states, z))
+            vae_loss = mse_loss(actions.features, vae_actions.features) \
                 + nn.kl_loss(mean, log_var)
             self.vae.reinforce(vae_loss)
 
             # training critic
             # Trick Three: Target Policy Smoothing
-            next_actions = self.policy.target(next_states)
+
+            with torch.no_grad():
+                next_vae_actions = Action(self.vae.decode(next_states))
+
+            next_actions = self.policy.target(next_states, next_vae_actions)
             next_actions += self._noise_td3.sample([next_actions.shape[0]])
-            next_actions = torch.min(next_actions, self._high)
-            next_actions = torch.max(next_actions, self._low)
+            next_actions = Action(next_actions)
 
             # train q-network
             # Trick One: clipped double q learning
@@ -119,7 +125,8 @@ class BCQ(Agent):
             # train policy
             # Trick Two: delayed policy updates
             if self._train_count % self._policy_update_td3 == 0:
-                greedy_actions = self.policy(states)
+                greedy_vae_actions = Action(self.vae.decode(states))
+                greedy_actions = Action(self.policy(states, greedy_vae_actions))
                 loss = -self.q_1(states, greedy_actions).mean()
                 self.policy.reinforce(loss)
                 self.policy.zero_grad()

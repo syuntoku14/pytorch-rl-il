@@ -15,6 +15,7 @@ from torch.utils.data import Dataset, DataLoader, random_split
 
 
 # TODO: Use config file for logging
+# TODO: Merge to batch_rl presets
 
 class BCDataset(Dataset):
     def __init__(self, replay_buffer_path):

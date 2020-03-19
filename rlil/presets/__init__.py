@@ -1,7 +1,8 @@
 import rlil.presets.continuous
+import rlil.presets.batch_continuous
 import inspect
 
-__all__ = ["continuous"]
+__all__ = ["continuous", "batch_continuous"]
 
 
 def get_default_args(func):
