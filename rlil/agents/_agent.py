@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from rlil.optim import Schedulable
+from rlil.utils.optim import Schedulable
 
 
 class Agent(ABC, Schedulable):

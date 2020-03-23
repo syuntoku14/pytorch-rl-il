@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import numpy as np
 import torch
 from rlil.environments import State, Action
-from rlil.optim import Schedulable
+from rlil.utils.optim import Schedulable
 from .segment_tree import SumSegmentTree, MinSegmentTree
 
 

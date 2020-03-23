@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-from rlil.optim import Schedulable
+from rlil.utils.optim import Schedulable
 
 
 class GreedyPolicy(Schedulable):
