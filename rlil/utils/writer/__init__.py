@@ -104,6 +104,7 @@ class ExperimentWriter(SummaryWriter, Writer):
         self.log_dir = self.log_dir.replace(" ", "_")
         os.makedirs(self.log_dir)
         self._frames = 0
+        self._train_iters = 0
         self._episodes = 1
         self._loss = loss
         self._name_frame_history = defaultdict(lambda: 0)
@@ -146,6 +147,8 @@ class ExperimentWriter(SummaryWriter, Writer):
             return self.frames
         if _type == "episode":
             return self.episodes
+        if _type == "train_iters":
+            return self.train_iters
         return _type
 
     @property
@@ -164,6 +167,14 @@ class ExperimentWriter(SummaryWriter, Writer):
     def episodes(self, episodes):
         self._episodes = episodes
 
+    @property
+    def train_iters(self):
+        return self._train_iters
+
+    @train_iters.setter
+    def train_iters(self, train_iters):
+        self._train_iters = train_iters
+        
 
 def get_commit_hash():
     result = subprocess.run(

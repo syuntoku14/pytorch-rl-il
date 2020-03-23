@@ -1,0 +1,95 @@
+import logging
+from rlil.environments import State
+import numpy as np
+import torch
+import signal
+import warnings
+import os
+from abc import ABC, abstractmethod
+from timeit import default_timer as timer
+
+
+class BatchTrainer(ABC):
+    def __init__(
+            self,
+            agent_fn,
+            env,
+            writer,
+            logger=None,
+            seed=0,
+            iters=np.inf,
+            eval_intervals=1e3,
+            render=False,
+            quiet=False,
+    ):
+        self._agent = agent_fn(env, writer)
+        self._env = env
+        self._writer = writer
+        self._max_iters = iters
+        self._render = render
+        self._quiet = quiet
+        self._best_returns = -np.inf
+        self._returns100 = []
+        np.random.seed(seed)
+        torch.manual_seed(seed)
+        self._env.seed(seed)
+        self._logger = logger or logging.getLogger(__name__)
+
+        self.run()
+
+    @abstractmethod
+    def train(self):
+        pass
+
+    def _done(self):
+        return self._writer.train_iters > self._max_iters
+
+    def _log(self, returns):
+        if not self._quiet:
+            self._logger.info("train_iters: %d, returns: %d" %
+                              (self._writer.train_iters, returns))
+        if returns > self._best_returns:
+            self._best_returns = returns
+        self._returns100.append(returns)
+        if len(self._returns100) == 100:
+            mean = np.mean(self._returns100)
+            std = np.std(self._returns100)
+            self._writer.add_summary('returns100', mean, std, step="train_iters")
+            self._returns100 = []
+        self._writer.add_evaluation('returns/train_iters', returns, step="train_iters")
+        self._writer.add_evaluation(
+            "returns/max", self._best_returns, step="train_iters")
+
+
+class SingleEnvTrainer(BatchTrainer):
+    def run(self):
+        while not self._done():
+            self._run_episode()
+
+    def _run_episode(self):
+        start_time = timer()
+        start_frames = self._writer.frames
+        returns = self._run_until_terminal_state()
+        end_time = timer()
+        fps = (self._writer.frames - start_frames) / (end_time - start_time)
+        self._log(returns, fps)
+        self._writer.episodes += 1
+
+    def _run_until_terminal_state(self):
+        agent = self._agent
+        env = self._env
+
+        env.reset()
+        returns = 0
+        action = agent.act(env.state, env.reward)
+
+        while not env.done:
+            self._writer.frames += 1
+            if self._render:
+                env.render()
+            env.step(action)
+            returns += env.reward
+            action = agent.act(env.state, env.reward)
+
+        return returns
+

@@ -137,7 +137,15 @@ def worker(remote, env_fn):
 
 
 class ParallelEnvRunner(EnvRunner):
-    def __init__(self, agent_fn, env, n_envs, writer, seeds, **kwargs):
+    def __init__(
+            self,
+            agent_fn,
+            env,
+            n_envs,
+            writer,
+            seeds,
+            **kwargs
+    ):
         self._n_envs = n_envs
         self._returns = None
         self._start_time = None
