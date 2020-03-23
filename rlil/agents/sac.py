@@ -1,7 +1,7 @@
 import torch
 from torch.nn.functional import mse_loss
 from rlil.utils.writer import DummyWriter
-from rlil.environments import action_decorator, Action
+from rlil.environments import Action
 from ._agent import Agent
 
 
@@ -68,15 +68,15 @@ class SAC(Agent):
         self._actions = None
         self._train_count = 0
 
-    def act(self, states, reward):
-        self.replay_buffer.store(self._states, self._actions, reward, states)
-        self._train()
+    def act(self, states, reward=None):
+        if reward is not None:
+            self.replay_buffer.store(self._states, self._actions, reward, states)
         self._states = states
         self._actions = Action(self.policy.eval(
             states.to(self.device))[0]).to("cpu")
         return self._actions
 
-    def _train(self):
+    def train(self):
         if self._should_train():
             # sample from replay buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(

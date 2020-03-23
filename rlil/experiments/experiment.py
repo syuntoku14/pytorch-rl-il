@@ -19,7 +19,6 @@ class Experiment:
             frames=np.inf,
             episodes=np.inf,
             render=False,
-            quiet=False,
             write_loss=True,
     ):
         agent_name = agent_fn.__name__
@@ -48,7 +47,6 @@ class Experiment:
                 frames=frames,
                 episodes=episodes,
                 render=render,
-                quiet=quiet,
                 writer=writer,
                 logger=logger
             )
@@ -61,7 +59,6 @@ class Experiment:
                 frames=frames,
                 episodes=episodes,
                 render=render,
-                quiet=quiet,
                 writer=writer,
                 logger=logger
             )

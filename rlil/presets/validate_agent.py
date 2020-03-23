@@ -17,8 +17,8 @@ def validate_single_env_agent(agent_fn, env):
     for _ in range(2):
         env.reset()
         while not env.done:
-            env.step(agent.act(env.state, env.reward))
-        agent.act(env.state, env.reward)
+            env.step(agent.act_and_train(env.state, env.reward))
+        agent.act_and_train(env.state, env.reward)
 
 
 def validate_parallel_env_agent(agent_fn, env):
@@ -29,5 +29,4 @@ def validate_parallel_env_agent(agent_fn, env):
         DummyWriter(),
         seeds=[i + 0 for i in range(3)],
         episodes=2,
-        quiet=True
     )

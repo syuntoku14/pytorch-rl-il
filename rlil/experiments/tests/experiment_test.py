@@ -60,11 +60,11 @@ class TestExperiment(unittest.TestCase):
         self.experiment = None
 
     def test_adds_label(self):
-        experiment = MockExperiment(sac(), self.env, quiet=True, episodes=3)
+        experiment = MockExperiment(sac(), self.env, episodes=3)
         self.assertEqual(experiment._writer.label, "_sac_Pendulum-v0")
 
     def test_writes_returns_eps(self):
-        experiment = MockExperiment(sac(), self.env, quiet=True, episodes=3)
+        experiment = MockExperiment(sac(), self.env, episodes=3)
         # np.testing.assert_equal(
         #     experiment._writer.data["evaluation/returns/episode"]["values"],
         #     np.array([14.0, 19.0, 26.0]),
@@ -76,10 +76,10 @@ class TestExperiment(unittest.TestCase):
 
     def test_writes_loss(self):
         experiment = MockExperiment(
-            sac(), self.env, quiet=True, write_loss=True, episodes=3)
+            sac(), self.env, write_loss=True, episodes=3)
         self.assertTrue(experiment._writer.write_loss)
         experiment = MockExperiment(
-            sac(), self.env, quiet=True, write_loss=False, episodes=3)
+            sac(), self.env, write_loss=False, episodes=3)
         self.assertFalse(experiment._writer.write_loss)
 
     # def test_runs_multi_env(self):

@@ -2,7 +2,6 @@ import torch
 from rlil.environments import squash_action
 from rlil.approximation import Approximation
 from rlil.nn import RLNetwork
-from rlil.environments import action_decorator
 
 
 class BCQDeterministicPolicy(Approximation):

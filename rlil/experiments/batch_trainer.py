@@ -9,7 +9,7 @@ from abc import ABC, abstractmethod
 from timeit import default_timer as timer
 
 
-class BatchTrainer(ABC):
+class OfflineTrainer(ABC):
     def __init__(
             self,
             agent_fn,
@@ -20,14 +20,12 @@ class BatchTrainer(ABC):
             iters=np.inf,
             eval_intervals=1e3,
             render=False,
-            quiet=False,
     ):
         self._agent = agent_fn(env, writer)
         self._env = env
         self._writer = writer
         self._max_iters = iters
         self._render = render
-        self._quiet = quiet
         self._best_returns = -np.inf
         self._returns100 = []
         np.random.seed(seed)
@@ -45,9 +43,8 @@ class BatchTrainer(ABC):
         return self._writer.train_iters > self._max_iters
 
     def _log(self, returns):
-        if not self._quiet:
-            self._logger.info("train_iters: %d, returns: %d" %
-                              (self._writer.train_iters, returns))
+        self._logger.info("train_iters: %d, returns: %d" %
+                            (self._writer.train_iters, returns))
         if returns > self._best_returns:
             self._best_returns = returns
         self._returns100.append(returns)

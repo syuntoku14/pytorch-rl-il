@@ -28,8 +28,9 @@ class GreedyAgent(Agent):
         self._state = None
         self._action = None
 
-    def act(self, state, reward):
-        self.replay_buffer.store(self._state, self._action, reward, state)
+    def act(self, state, reward=None):
+        if reward is not None:
+            self.replay_buffer.store(self._state, self._action, reward, state)
         self._state = state
         with torch.no_grad():
             if self.feature:

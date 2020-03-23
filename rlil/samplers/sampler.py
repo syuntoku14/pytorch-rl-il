@@ -13,24 +13,18 @@ import multiprocessing
 multiprocessing.set_start_method('spawn', True)
 
 
-class EnvRunner(ABC):
+class Sampler(ABC):
     def __init__(
             self,
-            agent_fn,
+            agent,
             env,
             writer,
             logger=None,
             seed=0,
-            frames=np.inf,
-            episodes=np.inf,
-            render=False,
     ):
-        self._agent = agent_fn(env, writer)
+        self._agent = agent
         self._env = env
         self._writer = writer
-        self._max_frames = frames
-        self._max_episodes = episodes
-        self._render = render
         self._best_returns = -np.inf
         self._returns100 = []
         np.random.seed(seed)
@@ -38,11 +32,10 @@ class EnvRunner(ABC):
         self._env.seed(seed)
         self._logger = logger or logging.getLogger(__name__)
 
-        self.run()
-
     @abstractmethod
-    def run(self):
-        pass
+    def start_envs(self):
+        """e.g. calls reset() on every env.
+        """
 
     def _done(self):
         return (
@@ -68,7 +61,7 @@ class EnvRunner(ABC):
         self._writer.add_scalar('fps', fps, step="frame")
 
 
-class SingleEnvRunner(EnvRunner):
+class SingleEnvSampler(Sampler):
     def run(self):
         while not self._done():
             self._run_episode()
@@ -133,7 +126,7 @@ def worker(remote, env_fn):
         env.close()
 
 
-class ParallelEnvRunner(EnvRunner):
+class SynchronousParallelEnvSampler(Sampler):
     def __init__(
             self,
             agent_fn,

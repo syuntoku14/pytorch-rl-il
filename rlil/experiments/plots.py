@@ -2,6 +2,8 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
+# TODO: move plots.py to utils
+
 
 def plot_returns_100(runs_dir, timesteps=-1):
     data = load_returns_100_data(runs_dir)
