@@ -155,7 +155,7 @@ class ParallelEnvRunner(EnvRunner):
         # set seeds
         for remote, seed in zip(self.remotes, seeds):
             remote.send(('seed', seed))
-        super().__init__(agent_fn, env, writer, **kwargs)
+        super().__init__(agent_fn, env, **kwargs)
 
     def run(self):
         self._reset()
