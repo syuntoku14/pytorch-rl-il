@@ -1,7 +1,7 @@
 import torch
 from torch.nn.functional import mse_loss
 from rlil.environments import Action
-from rlil.utils import get_writer
+from rlil.utils import get_writer, get_device
 from ._agent import Agent
 
 
@@ -44,7 +44,6 @@ class SAC(Agent):
                  replay_start_size=5000,
                  temperature_initial=0.1,
                  update_frequency=1,
-                 device=torch.device("cpu")
                  ):
         # objects
         self.policy = policy
@@ -53,7 +52,7 @@ class SAC(Agent):
         self.q_2 = q_2
         self.replay_buffer = replay_buffer
         self.writer = get_writer()
-        self.device = device
+        self.device = get_device()
         # hyperparameters
         self.discount_factor = discount_factor
         self.entropy_target = entropy_target
@@ -79,7 +78,7 @@ class SAC(Agent):
         if self._should_train():
             # sample from replay buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
-                self.minibatch_size, self.device)
+                self.minibatch_size)
 
             # compute targets for Q and V
             _actions, _log_probs = self.policy.eval(states)

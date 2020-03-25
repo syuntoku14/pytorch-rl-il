@@ -2,6 +2,7 @@ import torch
 from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
 from rlil.environments import Action
+from rlil.utils import get_device
 from ._agent import Agent
 
 
@@ -51,14 +52,13 @@ class TD3(Agent):
                  policy_update_td3=2,
                  replay_start_size=5000,
                  update_frequency=1,
-                 device=torch.device("cpu")
                  ):
         # objects
         self.q_1 = q_1
         self.q_2 = q_2
         self.policy = policy
         self.replay_buffer = replay_buffer
-        self.device = device
+        self.device = get_device()
         # hyperparameters
         self.replay_start_size = replay_start_size
         self.update_frequency = update_frequency
@@ -87,7 +87,7 @@ class TD3(Agent):
         if self._should_train():
             # sample transitions from buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
-                self.minibatch_size, device=self.device)
+                self.minibatch_size)
 
             # Trick Three: Target Policy Smoothing
             next_actions = self.policy.target(next_states)

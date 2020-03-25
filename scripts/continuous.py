@@ -4,7 +4,8 @@ import pybullet_envs
 from rlil.environments import GymEnvironment, ENVS
 from rlil.experiments import Experiment
 from rlil.presets import continuous, get_default_args
-from rlil.utils import get_logger
+from rlil.utils import get_logger, set_device
+import torch
 import logging
 
 
@@ -31,6 +32,8 @@ def main():
 
     args = parser.parse_args()
 
+    set_device(torch.device(args.device))
+
     if args.env in ENVS:
         env_id = ENVS[args.env]
     else:
@@ -40,7 +43,7 @@ def main():
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
     preset_args = get_default_args(preset)
-    agent_fn = preset(policy_path=args.policy, device=args.device)
+    agent_fn = preset(policy_path=args.policy)
 
     logger = get_logger()
     logger.setLevel(logging.DEBUG)

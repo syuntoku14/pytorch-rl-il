@@ -3,6 +3,7 @@ import numpy as np
 import torch
 from rlil.environments import State, Action
 from rlil.utils.optim import Schedulable
+from rlil.utils import get_device
 from .segment_tree import SumSegmentTree, MinSegmentTree
 
 
@@ -50,7 +51,7 @@ class ReplayBuffer(ABC):
         """
 
     @abstractmethod
-    def sample(self, batch_size, device):
+    def sample(self, batch_size):
         '''Sample from the stored transitions'''
 
     @abstractmethod
@@ -65,15 +66,16 @@ class ExperienceReplayBuffer(ReplayBuffer):
         self.buffer = []
         self.capacity = int(size)
         self.pos = 0
+        self.device = get_device()
 
     @check_inputs_shapes
     def store(self, states, actions, rewards, next_states):
         self._add((states, actions, rewards, next_states))
 
-    def sample(self, batch_size, device=torch.device("cpu")):
+    def sample(self, batch_size):
         keys = np.random.choice(len(self.buffer), batch_size, replace=True)
         minibatch = [self.buffer[key] for key in keys]
-        return self._reshape(minibatch, torch.ones(batch_size), device)
+        return self._reshape(minibatch, torch.ones(batch_size))
 
     def update_priorities(self, td_errors):
         pass
@@ -88,16 +90,16 @@ class ExperienceReplayBuffer(ReplayBuffer):
                 self.buffer[self.pos] = sample
             self.pos = (self.pos + 1) % self.capacity
 
-    def _reshape(self, minibatch, weights, device):
+    def _reshape(self, minibatch, weights):
         states = State.from_list([sample[0]
-                                  for sample in minibatch]).to(device)
+                                  for sample in minibatch]).to(self.device)
         actions = Action.from_list([sample[1]
-                                    for sample in minibatch]).to(device)
+                                    for sample in minibatch]).to(self.device)
         rewards = torch.tensor([sample[2]
-                                for sample in minibatch], device=device).float()
+                                for sample in minibatch], device=self.device).float()
         next_states = State.from_list([sample[3]
-                                       for sample in minibatch]).to(device)
-        return (states, actions, rewards, next_states, weights.to(device))
+                                       for sample in minibatch]).to(self.device)
+        return (states, actions, rewards, next_states, weights.to(self.device))
 
     def __len__(self):
         return len(self.buffer)
@@ -139,7 +141,7 @@ class PrioritizedReplayBuffer(ExperienceReplayBuffer, Schedulable):
             self._it_sum[idx] = self._max_priority ** self._alpha
             self._it_min[idx] = self._max_priority ** self._alpha
 
-    def sample(self, batch_size, device=torch.device("cpu")):
+    def sample(self, batch_size):
         beta = self._beta
         idxes = self._sample_proportional(batch_size)
 
@@ -159,7 +161,7 @@ class PrioritizedReplayBuffer(ExperienceReplayBuffer, Schedulable):
             print('index out of range: ', idxes)
             raise e
         self._cache = idxes
-        return self._reshape(samples, torch.from_numpy(weights), device)
+        return self._reshape(samples, torch.from_numpy(weights))
 
     def update_priorities(self, priorities):
         idxes = self._cache

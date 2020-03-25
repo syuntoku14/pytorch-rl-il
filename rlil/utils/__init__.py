@@ -3,7 +3,7 @@ import logging
 from .writer import DummyWriter
 
 
-_DEVICE = torch.device('cpu')
+_DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 
 def set_device(device):

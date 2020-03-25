@@ -1,6 +1,7 @@
 from rlil.agents import Agent
 from rlil.environments import Action, action_decorator
 from rlil.memory import ExperienceReplayBuffer
+from rlil.utils import get_device
 import torch
 import gym
 import os
@@ -12,11 +13,10 @@ class GreedyAgent(Agent):
             feature=None,
             q=None,
             policy=None,
-            device=torch.device("cpu")
     ):
         self.feature = feature
         self.policy = None
-        self.device = device
+        self.device = get_device()
         self.replay_buffer = ExperienceReplayBuffer(size=5e4)
         if policy:
             self.policy = policy
@@ -66,10 +66,11 @@ class GreedyAgent(Agent):
         return ret  # unknown type, return it and pray!
 
     @staticmethod
-    def load(dirname, env, device="cpu"):
+    def load(dirname, env):
         feature = None
         policy = None
         q = None
+        device = get_device()
         for filename in os.listdir(dirname):
             if filename == 'feature.pt':
                 feature = torch.load(os.path.join(
@@ -90,8 +91,9 @@ class GreedyAgent(Agent):
         return agent
 
     @staticmethod
-    def load_BC(dirname, agent_fn, env, device="cpu"):
+    def load_BC(dirname, agent_fn, env):
         policy = agent_fn(env).policy
+        device = get_device()
 
         for filename in os.listdir(dirname):
             if filename == 'BC_state_dict.pt':

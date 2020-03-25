@@ -10,6 +10,7 @@ from rlil.memory import (
     PrioritizedReplayBuffer,
     NStepReplayBuffer,
 )
+from rlil.utils import set_device
 
 
 class TestExperienceReplayBuffer(unittest.TestCase):
@@ -17,6 +18,7 @@ class TestExperienceReplayBuffer(unittest.TestCase):
         np.random.seed(1)
         random.seed(1)
         torch.manual_seed(1)
+        set_device(torch.device("cpu"))
         self.replay_buffer = ExperienceReplayBuffer(5)
 
     def test_run(self):
@@ -95,6 +97,7 @@ class TestPrioritizedReplayBuffer(unittest.TestCase):
         random.seed(1)
         np.random.seed(1)
         torch.manual_seed(1)
+        set_device(torch.device("cpu"))
         self.replay_buffer = PrioritizedReplayBuffer(5, 0.6)
 
     def test_run(self):
@@ -187,6 +190,7 @@ class TestNStepReplayBuffer(unittest.TestCase):
         np.random.seed(1)
         random.seed(1)
         torch.manual_seed(1)
+        set_device(torch.device("cpu"))
         self.replay_buffer = NStepReplayBuffer(
             4, 0.5, ExperienceReplayBuffer(100))
 

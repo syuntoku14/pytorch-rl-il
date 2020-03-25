@@ -2,6 +2,7 @@ import torch
 from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
 from rlil.environments import State, action_decorator, Action
+from rlil.utils import get_device
 from rlil import nn
 from ._agent import Agent
 
@@ -43,7 +44,6 @@ class BCQ(Agent):
                  noise_policy=0.1,
                  noise_td3=0.2,
                  policy_update_td3=2,
-                 device=torch.device("cpu")
                  ):
         # objects
         self.q_1 = q_1
@@ -51,7 +51,7 @@ class BCQ(Agent):
         self.vae = vae
         self.policy = policy
         self.replay_buffer = replay_buffer
-        self.device = device
+        self.device = get_device()
         # hyperparameters
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
@@ -91,7 +91,7 @@ class BCQ(Agent):
         if self._should_train():
             # sample transitions from buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
-                self.minibatch_size, device=self.device)
+                self.minibatch_size)
 
             # training vae
             mean, log_var = self.vae.encode(

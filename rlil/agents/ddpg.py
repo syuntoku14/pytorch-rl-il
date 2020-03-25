@@ -2,6 +2,7 @@ import torch
 from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
 from rlil.environments import Action
+from rlil.utils import get_device
 from ._agent import Agent
 
 # TODO: policy output should be Action
@@ -40,13 +41,12 @@ class DDPG(Agent):
                  noise=0.1,
                  replay_start_size=5000,
                  update_frequency=1,
-                 device=torch.device("cpu")
                  ):
         # objects
         self.q = q
         self.policy = policy
         self.replay_buffer = replay_buffer
-        self.device = device
+        self.device = get_device()
         # hyperparameters
         self.replay_start_size = replay_start_size
         self.update_frequency = update_frequency
@@ -73,7 +73,7 @@ class DDPG(Agent):
         if self._should_train():
             # sample transitions from buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
-                self.minibatch_size, device=self.device)
+                self.minibatch_size)
 
             # train q-network
             q_values = self.q(states, actions)

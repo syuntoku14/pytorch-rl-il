@@ -5,6 +5,7 @@ from rlil.agents import BCQ
 from rlil.approximation import QContinuous, PolyakTarget, AutoEncoder
 from rlil.policies import BCQDeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
+from rlil.utils import get_device
 from .models import fc_q, fc_bcq_deterministic_policy, \
     FC_Encoder_BCQ, FC_Decoder_BCQ
 
@@ -14,7 +15,6 @@ def bcq(
         # pretrained policy path
         policy_path=None,
         # Common settings
-        device="cpu",
         discount_factor=0.98,
         last_frame=2e6,
         # Adam optimizer settings
@@ -35,7 +35,6 @@ def bcq(
     Args:
         replay_buffer (ExperienceReplayBuffer): ExperienceReplayBuffer with expert trajectory
         policy_path (str): Path to the pretrained policy state_dict.pt
-        device (str): The device to load parameters and buffers onto for this agent..
         discount_factor (float): Discount factor for future rewards.
         last_frame (int): Number of frames to train.
         lr_q (float): Learning rate for the Q network.
@@ -50,6 +49,7 @@ def bcq(
     def _bcq(env):
         final_anneal_step = last_frame 
 
+        device = get_device()
         q_1_model = fc_q(env).to(device)
         q_1_optimizer = Adam(q_1_model.parameters(), lr=lr_q)
         q_1 = QContinuous(
@@ -119,7 +119,6 @@ def bcq(
             policy_update_td3=policy_update_td3,
             discount_factor=discount_factor,
             minibatch_size=minibatch_size,
-            device=device
         )
     return _bcq
 
