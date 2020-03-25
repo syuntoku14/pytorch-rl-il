@@ -1,5 +1,6 @@
 import logging
 from rlil.environments import State
+from rlil.utils import get_logger, get_writer
 import numpy as np
 import torch
 import signal
@@ -19,18 +20,17 @@ class Sampler(ABC):
             agent,
             env,
             writer,
-            logger=None,
             seed=0,
     ):
         self._agent = agent
         self._env = env
-        self._writer = writer
+        self._writer = get_writer()
         self._best_returns = -np.inf
         self._returns100 = []
         np.random.seed(seed)
         torch.manual_seed(seed)
         self._env.seed(seed)
-        self._logger = logger or logging.getLogger(__name__)
+        self._logger = get_logger()
 
     @abstractmethod
     def start_envs(self):

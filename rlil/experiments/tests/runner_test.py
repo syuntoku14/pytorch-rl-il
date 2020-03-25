@@ -7,7 +7,6 @@ import pybullet
 import pybullet_envs
 import time
 from rlil.environments import GymEnvironment
-from rlil.utils.writer import Writer, DummyWriter
 from rlil import nn
 from rlil.agents import GreedyAgent
 from rlil.approximation import QNetwork
@@ -15,14 +14,14 @@ from rlil.policies import SoftmaxPolicy, DeterministicPolicy
 from rlil.experiments import SingleEnvRunner, ParallelEnvRunner
 
 
-def make_discrete_agent(env, writer):
+def make_discrete_agent(env):
     model = nn.Sequential(nn.Flatten(), nn.Linear(
         env.state_space.shape[0], env.action_space.n))
     optimizer = Adam(model.parameters())
-    return GreedyAgent(q=QNetwork(model, optimizer, writer=writer))
+    return GreedyAgent(q=QNetwork(model, optimizer))
 
 
-def make_continuous_agent(env, writer):
+def make_continuous_agent(env):
     model = nn.Sequential(nn.Flatten(), nn.Linear(
         env.state_space.shape[0], env.action_space.shape[0]))
     optimizer = Adam(model.parameters())
@@ -37,7 +36,7 @@ class TestRunner(unittest.TestCase):
         env = gym.make('CartPole-v0')
         env = GymEnvironment(env)
         runner = SingleEnvRunner(
-            make_discrete_agent, env, DummyWriter(), episodes=100)
+            make_discrete_agent, env, episodes=100)
         print("SingleEnv discrete exec time: {:.3f}".format(
             time.time() - self.startTime))
 
@@ -46,7 +45,7 @@ class TestRunner(unittest.TestCase):
         env = GymEnvironment(env)
         seeds = [i for i in range(5)]
         runner = ParallelEnvRunner(
-            make_discrete_agent, env, 5, DummyWriter(), seeds, episodes=100)
+            make_discrete_agent, env, 5, seeds, episodes=100)
         print("ParallelEnv discrete exec time: {:.3f}".format(
             time.time() - self.startTime))
 
@@ -54,7 +53,7 @@ class TestRunner(unittest.TestCase):
         env = gym.make('Walker2DBulletEnv-v0')
         env = GymEnvironment(env)
         runner = SingleEnvRunner(
-            make_continuous_agent, env, DummyWriter(), episodes=20)
+            make_continuous_agent, env, episodes=20)
         print("SingleEnv continuous exec time: {:.3f}".format(
             time.time() - self.startTime))
 
@@ -63,6 +62,6 @@ class TestRunner(unittest.TestCase):
         env = GymEnvironment(env)
         seeds = [i for i in range(4)]
         runner = ParallelEnvRunner(
-            make_continuous_agent, env, 4, DummyWriter(), seeds, episodes=20)
+            make_continuous_agent, env, 4, seeds, episodes=20)
         print("ParallelEnv continuous exec time: {:.3f}".format(
             time.time() - self.startTime))

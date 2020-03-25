@@ -9,30 +9,6 @@ from torch.utils.tensorboard import SummaryWriter
 from collections import defaultdict
 
 
-def value_decorator(func):
-    def retfunc(self, name, value, step="frame"):
-        if isinstance(value, torch.Tensor):
-            value = value.cpu().detach().item()
-        if isinstance(value, np.ndarray):
-            value = value.item()
-        func(self, name, value, step)
-    return retfunc
-
-
-def summary_decorator(func):
-    def retfunc(self, name, mean, std, step="frame"):
-        if isinstance(mean, torch.Tensor):
-            mean = mean.cpu().detach().item()
-        if isinstance(std, torch.Tensor):
-            std = std.cpu().detach().item()
-        if isinstance(mean, np.ndarray):
-            mean = mean.item()
-        if isinstance(std, np.ndarray):
-            std = std.item()
-        func(self, name, mean, std, step)
-    return retfunc
-
-
 class Writer(ABC):
     log_dir = "runs"
 
@@ -123,8 +99,12 @@ class ExperimentWriter(SummaryWriter, Writer):
             self.add_scalar("schedule" + "/" + name,
                             value, self._get_step(step))
 
-    @value_decorator
     def add_scalar(self, name, value, step="frame"):
+        if isinstance(value, torch.Tensor):
+            value = value.cpu().detach().item()
+        if isinstance(value, np.ndarray):
+            value = value.item()
+
         name = self.env_name + "/" + name
         # add data every self._add_scalar_interval
         if self._get_step("frame") - self._name_frame_history[name] > self._add_scalar_interval:
@@ -174,7 +154,7 @@ class ExperimentWriter(SummaryWriter, Writer):
     @train_iters.setter
     def train_iters(self, train_iters):
         self._train_iters = train_iters
-        
+
 
 def get_commit_hash():
     result = subprocess.run(

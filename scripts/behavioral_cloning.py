@@ -1,6 +1,7 @@
 from rlil.environments import GymEnvironment, ENVS
 from rlil.presets import continuous
 from rlil.utils.optim import EarlyStopping
+from rlil.utils import get_logger
 from rlil import nn
 import torch
 import pickle
@@ -49,7 +50,7 @@ def main():
     args = parser.parse_args()
 
     # set logger
-    logger = logging.getLogger(__name__)
+    logger = get_logger()
     logger.setLevel(logging.DEBUG)
     handler = logging.FileHandler(os.path.join(args.dir, "BC.log"))
     fmt = logging.Formatter('%(levelname)s : %(asctime)s : %(message)s')
@@ -82,7 +83,7 @@ def main():
     # training iteration
     criterion = nn.MSELoss()
     optimizer = Adam(net.parameters(), lr=1e-4, weight_decay=1e-4)
-    early_stopping = EarlyStopping(verbose=True, logger=logger,
+    early_stopping = EarlyStopping(verbose=True, 
                                    file_name=os.path.join(args.dir, "BC_state_dict.pt"))
 
     for epoch in tqdm(range(args.train_iters)):

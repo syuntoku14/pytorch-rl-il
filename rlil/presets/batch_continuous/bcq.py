@@ -3,7 +3,6 @@ from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from rlil.agents import BCQ
 from rlil.approximation import QContinuous, PolyakTarget, AutoEncoder
-from rlil.utils.writer import DummyWriter
 from rlil.policies import BCQDeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
 from .models import fc_q, fc_bcq_deterministic_policy, \
@@ -48,7 +47,7 @@ def bcq(
         policy_update_td3 (int): Number of timesteps per training update the policy in trick two.
         noise_policy (float): The amount of exploration noise to add.
     """
-    def _bcq(env, writer=DummyWriter()):
+    def _bcq(env):
         final_anneal_step = last_frame 
 
         q_1_model = fc_q(env).to(device)
@@ -61,7 +60,6 @@ def bcq(
                 q_1_optimizer,
                 final_anneal_step
             ),
-            writer=writer,
             name='q_1'
         )
 
@@ -75,7 +73,6 @@ def bcq(
                 q_2_optimizer,
                 final_anneal_step
             ),
-            writer=writer,
             name='q_2'
         )
 
@@ -93,7 +90,6 @@ def bcq(
                 policy_optimizer,
                 final_anneal_step
             ),
-            writer=writer
         )
 
         encoder_model = FC_Encoder_BCQ(env).to(device)
@@ -110,7 +106,7 @@ def bcq(
                 final_anneal_step
             ),
             name="VAE",
-            writer=writer)
+            )
 
         return BCQ(
             q_1,

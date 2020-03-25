@@ -3,7 +3,6 @@ from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from rlil.agents import SAC
 from rlil.approximation import QContinuous, PolyakTarget, VNetwork
-from rlil.utils.writer import DummyWriter
 from rlil.policies.soft_deterministic import SoftDeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
 from .models import fc_q, fc_v, fc_soft_policy
@@ -52,7 +51,7 @@ def sac(
         lr_temperature (float): Learning rate for the temperature. Should be low compared to other learning rates.
         entropy_target_scaling (float): The target entropy will be -(entropy_target_scaling * env.action_space.shape[0])
     """
-    def _sac(env, writer=DummyWriter()):
+    def _sac(env):
         final_anneal_step = (
             last_frame - replay_start_size) // update_frequency
 
@@ -65,7 +64,6 @@ def sac(
                 q_1_optimizer,
                 final_anneal_step
             ),
-            writer=writer,
             name='q_1'
         )
 
@@ -78,7 +76,6 @@ def sac(
                 q_2_optimizer,
                 final_anneal_step
             ),
-            writer=writer,
             name='q_2'
         )
 
@@ -92,7 +89,6 @@ def sac(
                 final_anneal_step
             ),
             target=PolyakTarget(polyak_rate),
-            writer=writer,
             name='v',
         )
 
@@ -109,7 +105,6 @@ def sac(
                 policy_optimizer,
                 final_anneal_step
             ),
-            writer=writer
         )
 
         replay_buffer = ExperienceReplayBuffer(
@@ -130,7 +125,6 @@ def sac(
             discount_factor=discount_factor,
             update_frequency=update_frequency,
             minibatch_size=minibatch_size,
-            writer=writer,
             device=device
         )
     return _sac

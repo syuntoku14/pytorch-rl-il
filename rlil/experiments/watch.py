@@ -3,12 +3,13 @@ import time
 import torch
 import gym
 from rlil.agents import GreedyAgent
+from rlil.utils import get_logger
 import logging
 import pickle
 
 
 def watch(agent, env, fps=60, dir=None):
-    logger = logging.getLogger(__name__)
+    logger = get_logger()
     action = None
     returns = 0
     # have to call this before initial reset for pybullet envs

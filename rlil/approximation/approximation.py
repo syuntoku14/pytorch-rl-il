@@ -1,9 +1,9 @@
 import os
 import torch
 from torch.nn import utils
-from rlil.utils.writer import DummyWriter
 from .target import TrivialTarget
 from .checkpointer import PeriodicCheckpointer
+from rlil.utils import get_writer
 
 DEFAULT_CHECKPOINT_FREQUENCY = 200
 
@@ -43,9 +43,6 @@ class Approximation():
                 to be used during optimization. A target network updates more slowly than
                 the base model that is being optimizing, allowing for a more stable
                 optimization target.
-            writer: (:all.logging.Writer:, optional): A Writer object used for logging.
-                The standard object logs to tensorboard, however, other types of Writer objects
-                may be implemented by the user.
     '''
 
     def __init__(
@@ -58,7 +55,6 @@ class Approximation():
             name='approximation',
             lr_scheduler=None,
             target=None,
-            writer=DummyWriter(),
     ):
         self.model = model
         self.device = next(model.parameters()).device
@@ -70,7 +66,7 @@ class Approximation():
         self._loss_scaling = loss_scaling
         self._cache = []
         self._clip_grad = clip_grad
-        self._writer = writer
+        self._writer = get_writer()
         self._name = name
 
         if checkpointer is None:
@@ -78,7 +74,7 @@ class Approximation():
         self._checkpointer = checkpointer
         self._checkpointer.init(
             self.model,
-            os.path.join(writer.log_dir, name + '.pt')
+            os.path.join(self._writer.log_dir, name + '.pt')
         )
 
     def __call__(self, *inputs):

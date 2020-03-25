@@ -3,7 +3,6 @@ from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
 from rlil.agents import TD3
 from rlil.approximation import QContinuous, PolyakTarget
-from rlil.utils.writer import DummyWriter
 from rlil.policies import DeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
 from .models import fc_q, fc_deterministic_policy
@@ -50,7 +49,7 @@ def td3(
         replay_buffer_size (int): Maximum number of experiences to store in the replay buffer.
         noise_policy (float): The amount of exploration noise to add.
     """
-    def _td3(env, writer=DummyWriter()):
+    def _td3(env):
         final_anneal_step = (
             last_frame - replay_start_size) // update_frequency
 
@@ -64,7 +63,6 @@ def td3(
                 q_1_optimizer,
                 final_anneal_step
             ),
-            writer=writer,
             name='q_1'
         )
 
@@ -78,7 +76,6 @@ def td3(
                 q_2_optimizer,
                 final_anneal_step
             ),
-            writer=writer,
             name='q_2'
         )
 
@@ -96,7 +93,6 @@ def td3(
                 policy_optimizer,
                 final_anneal_step
             ),
-            writer=writer
         )
 
         replay_buffer = ExperienceReplayBuffer(

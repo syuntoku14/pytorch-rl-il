@@ -1,5 +1,6 @@
 import logging
 from rlil.environments import State
+from rlil.utils import get_logger, get_writer
 import numpy as np
 import torch
 import signal
@@ -15,15 +16,14 @@ class OfflineTrainer(ABC):
             agent_fn,
             env,
             writer,
-            logger=None,
             seed=0,
             iters=np.inf,
             eval_intervals=1e3,
             render=False,
     ):
-        self._agent = agent_fn(env, writer)
+        self._agent = agent_fn(env)
         self._env = env
-        self._writer = writer
+        self._writer = get_writer()
         self._max_iters = iters
         self._render = render
         self._best_returns = -np.inf
@@ -31,7 +31,7 @@ class OfflineTrainer(ABC):
         np.random.seed(seed)
         torch.manual_seed(seed)
         self._env.seed(seed)
-        self._logger = logger or logging.getLogger(__name__)
+        self._logger = get_logger()
 
         self.run()
 

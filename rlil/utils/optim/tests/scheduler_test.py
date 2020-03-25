@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from rlil.optim import Schedulable, LinearScheduler
+from rlil.utils.optim import Schedulable, LinearScheduler
 
 
 class Obj(Schedulable):

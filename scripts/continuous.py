@@ -4,6 +4,7 @@ import pybullet_envs
 from rlil.environments import GymEnvironment, ENVS
 from rlil.experiments import Experiment
 from rlil.presets import continuous, get_default_args
+from rlil.utils import get_logger
 import logging
 
 
@@ -41,7 +42,7 @@ def main():
     preset_args = get_default_args(preset)
     agent_fn = preset(policy_path=args.policy, device=args.device)
 
-    logger = logging.getLogger(__name__)
+    logger = get_logger()
     logger.setLevel(logging.DEBUG)
 
     args_dict = vars(args)
@@ -49,7 +50,7 @@ def main():
 
     Experiment(
         agent_fn, env, n_envs=args.n_envs, frames=args.frames, render=args.render,
-        args_dict=args_dict, logger=logger, exp_info=args.exp_info
+        args_dict=args_dict, exp_info=args.exp_info
     )
 
 

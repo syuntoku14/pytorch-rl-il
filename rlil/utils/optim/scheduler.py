@@ -1,5 +1,4 @@
-from rlil.utils.writer import DummyWriter
-
+from rlil.utils import get_writer
 
 class Schedulable:
     '''Allow "instance" descriptors to implement parameter scheduling.'''
@@ -19,7 +18,6 @@ class LinearScheduler:
             decay_start,
             decay_end,
             name='variable',
-            writer=DummyWriter(),
     ):
         self._initial_value = initial_value
         self._final_value = final_value
@@ -27,7 +25,7 @@ class LinearScheduler:
         self._decay_end = decay_end
         self._i = -1
         self._name = name
-        self._writer = writer
+        self._writer = get_writer()
 
     def __get__(self, instance, owner=None):
         result = self._get_value()

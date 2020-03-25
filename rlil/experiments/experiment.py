@@ -1,5 +1,6 @@
 import numpy as np
 from rlil.utils.writer import ExperimentWriter
+from rlil.utils import get_logger, set_logger, get_writer, set_writer
 from .runner import SingleEnvRunner, ParallelEnvRunner
 import os
 import logging
@@ -13,7 +14,6 @@ class Experiment:
             env,
             args_dict={},
             exp_info="default_experiments",
-            logger=None,
             seed=0,
             n_envs=1,
             frames=np.inf,
@@ -29,7 +29,7 @@ class Experiment:
         message += "  \n# Experiment infomation  \n" + exp_info
         writer.add_text("exp_summary", message)
 
-        logger = logger or logging.getLogger(__name__)
+        logger = get_logger()
         handler = logging.FileHandler(
             os.path.join(writer.log_dir, "logger.log"))
         fmt = logging.Formatter('%(levelname)s : %(asctime)s : %(message)s')
@@ -39,6 +39,8 @@ class Experiment:
         with open(os.path.join(writer.log_dir, "args.json"), mode="w") as f:
             json.dump(args_dict, f)
 
+        set_writer(writer)
+
         if n_envs == 1:
             SingleEnvRunner(
                 agent_fn,
@@ -47,8 +49,6 @@ class Experiment:
                 frames=frames,
                 episodes=episodes,
                 render=render,
-                writer=writer,
-                logger=logger
             )
         else:
             ParallelEnvRunner(
@@ -59,8 +59,6 @@ class Experiment:
                 frames=frames,
                 episodes=episodes,
                 render=render,
-                writer=writer,
-                logger=logger
             )
 
     def _make_writer(self, agent_name, env_name, write_loss, exp_info):

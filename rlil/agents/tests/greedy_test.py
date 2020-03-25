@@ -4,7 +4,6 @@ from rlil.agents import GreedyAgent
 from rlil.approximation import QNetwork
 from rlil.policies import SoftmaxPolicy, DeterministicPolicy
 from rlil.environments import State, Action
-from rlil.utils.writer import DummyWriter
 from rlil import nn
 import torch
 from torch.optim import Adam

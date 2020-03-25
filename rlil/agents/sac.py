@@ -1,7 +1,7 @@
 import torch
 from torch.nn.functional import mse_loss
-from rlil.utils.writer import DummyWriter
 from rlil.environments import Action
+from rlil.utils import get_writer
 from ._agent import Agent
 
 
@@ -44,7 +44,6 @@ class SAC(Agent):
                  replay_start_size=5000,
                  temperature_initial=0.1,
                  update_frequency=1,
-                 writer=DummyWriter(),
                  device=torch.device("cpu")
                  ):
         # objects
@@ -53,7 +52,7 @@ class SAC(Agent):
         self.q_1 = q_1
         self.q_2 = q_2
         self.replay_buffer = replay_buffer
-        self.writer = writer
+        self.writer = get_writer()
         self.device = device
         # hyperparameters
         self.discount_factor = discount_factor

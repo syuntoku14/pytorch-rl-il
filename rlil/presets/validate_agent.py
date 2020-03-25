@@ -1,6 +1,5 @@
 import torch
 from rlil.environments import State
-from rlil.utils.writer import DummyWriter
 from rlil.experiments import ParallelEnvRunner
 
 
@@ -10,7 +9,7 @@ def validate_agent(agent_fn, env):
 
 
 def validate_single_env_agent(agent_fn, env):
-    agent = agent_fn(env, writer=DummyWriter())
+    agent = agent_fn(env)
     # Run two episodes, enough to
     # exercise all parts of the agent
     # in most cases.
@@ -26,7 +25,6 @@ def validate_parallel_env_agent(agent_fn, env):
         agent_fn,
         env,
         3,
-        DummyWriter(),
         seeds=[i + 0 for i in range(3)],
         episodes=2,
     )

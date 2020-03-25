@@ -1,7 +1,7 @@
 import os
 import torch
 from torch.nn import utils
-from rlil.utils.writer import DummyWriter
+from rlil.utils import get_writer
 from rlil.nn import RLNetwork
 from .approximation import DEFAULT_CHECKPOINT_FREQUENCY
 from .checkpointer import PeriodicCheckpointer
@@ -19,7 +19,6 @@ class AutoEncoder:
             loss_scaling=1,
             name="AE",
             lr_scheduler=None,
-            writer=DummyWriter(),
     ):
         self.encoder_model = encoder_model
         self.decoder_model = decoder_model
@@ -28,7 +27,7 @@ class AutoEncoder:
         self._optimizer = optimizer
         self._loss_scaling = loss_scaling
         self._clip_grad = clip_grad
-        self._writer = writer
+        self._writer = get_writer()
         self._name = name
         if encoder_checkpointer is None:
             encoder_checkpointer = PeriodicCheckpointer(
@@ -40,11 +39,11 @@ class AutoEncoder:
         self._decoder_checkpointer = decoder_checkpointer
         self._encoder_checkpointer.init(
             self.encoder_model,
-            os.path.join(writer.log_dir, name + '_encoder.pt')
+            os.path.join(self._writer.log_dir, name + '_encoder.pt')
         )
         self._decoder_checkpointer.init(
             self.decoder_model,
-            os.path.join(writer.log_dir, name + '_decoder.pt')
+            os.path.join(self._writer.log_dir, name + '_decoder.pt')
         )
 
     def encode(self, *inputs):
