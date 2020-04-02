@@ -1,6 +1,7 @@
 import torch
 from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
+from rlil.memory import set_replay_buffer
 from rlil.agents import DDPG
 from rlil.approximation import QContinuous, PolyakTarget
 from rlil.policies import DeterministicPolicy
@@ -81,10 +82,11 @@ def ddpg(
             replay_buffer_size
         )
 
+        set_replay_buffer(replay_buffer)
+
         return DDPG(
             q,
             policy,
-            replay_buffer,
             noise=noise,
             replay_start_size=replay_start_size,
             discount_factor=discount_factor,

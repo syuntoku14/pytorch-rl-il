@@ -1,4 +1,4 @@
-from ._agent import Agent
+from ._agent import Agent, LazyAgent
 from .greedy import GreedyAgent
 from .ddpg import DDPG
 from .sac import SAC
@@ -7,6 +7,7 @@ from .bcq import BCQ
 
 __all__ = [
     "Agent",
+    "LazyAgent",
     "GreedyAgent",
     "DDPG",
     "SAC",

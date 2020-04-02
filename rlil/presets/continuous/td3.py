@@ -1,6 +1,7 @@
 import torch
 from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
+from rlil.memory import set_replay_buffer
 from rlil.agents import TD3
 from rlil.approximation import QContinuous, PolyakTarget
 from rlil.policies import DeterministicPolicy
@@ -99,11 +100,12 @@ def td3(
             replay_buffer_size
         )
 
+        set_replay_buffer(replay_buffer)
+
         return TD3(
             q_1,
             q_2,
             policy,
-            replay_buffer,
             noise_policy=noise_policy,
             noise_td3=noise_td3,
             policy_update_td3=policy_update_td3,

@@ -1,4 +1,4 @@
-from .sampler import SingleEnvSampler, ParallelEnvSampler
+from .sampler import ParallelEnvSampler
 
 __all__ = [
     "ParallelEnvSampler",

@@ -1,6 +1,7 @@
 import torch
 from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
+from rlil.memory import set_replay_buffer
 from rlil.agents import BCQ
 from rlil.approximation import QContinuous, PolyakTarget, AutoEncoder
 from rlil.policies import BCQDeterministicPolicy
@@ -108,12 +109,13 @@ def bcq(
             name="VAE",
             )
 
+        set_replay_buffer(replay_buffer)
+
         return BCQ(
             q_1,
             q_2,
             vae,
             policy,
-            replay_buffer,
             noise_policy=noise_policy,
             noise_td3=noise_td3,
             policy_update_td3=policy_update_td3,

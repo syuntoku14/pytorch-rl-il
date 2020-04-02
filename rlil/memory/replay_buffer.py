@@ -31,6 +31,12 @@ def check_inputs_shapes(store):
         assert next_states.device == torch.device(
             "cpu"), "Replay buffer accepts only cpu objects"
 
+        # detach
+        states.detach()
+        actions.detach()
+        rewards.detach()
+        next_states.detach()
+
         # shape check
         assert len(rewards.shape) == 1, "rewards.shape {} must be 'shape == (batch_size)'".format(
             rewards.shape)

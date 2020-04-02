@@ -23,22 +23,27 @@ class Agent(ABC, Schedulable):
 
     def train(self):
         """
-        Update internal parameters
+        Update internal parameters with given batch
         """
         pass
 
-    def act_and_train(self, state, reward):
+
+class LazyAgent(ABC):
+    """ 
+    Agent class for sampler.
+    """
+    def __init__(self, models):
         """
-        Select an action for the current timestep and update internal parameters.
+        Args: 
+            models (dict of torch.nn.Module): 
+                memory shared torch model
+            act (function): 
 
-        Args:
-            state (rlil.environment.State): The environment state at the current timestep.
-            reward (torch.Tensor): The reward from the previous timestep.
-
-        Returns:
-            rllib.Action: The action to take at the current timestep.
         """
-
-        self.train()
-        actions = self.act(state, reward)
-        return actions
+        self.models = models
+        self._states = None
+        self._actions = None
+    
+    @abstractmethod
+    def act(self, states, reward):
+        pass

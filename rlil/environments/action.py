@@ -120,6 +120,9 @@ class Action:
             self._raw.to(device),
         )
 
+    def detach(self):
+        self._raw.detach()
+
     def __getitem__(self, idx):
         if isinstance(idx, slice):
             return Action(

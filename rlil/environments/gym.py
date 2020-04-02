@@ -60,8 +60,8 @@ class GymEnvironment(Environment):
     def seed(self, seed):
         self._env.seed(seed)
 
-    def duplicate(self, n):
-        return [GymEnvironment(self._name) for _ in range(n)]
+    def duplicate(self):
+        return GymEnvironment(self._name)
 
     @property
     def state_space(self):

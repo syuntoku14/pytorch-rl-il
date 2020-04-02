@@ -148,7 +148,7 @@ class Environment(ABC):
         return self.done
 
     @abstractmethod
-    def duplicate(self, n):
+    def duplicate(self):
         """
-        Create n copies of this environment.
+        Duplicate this environment.
         """

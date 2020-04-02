@@ -8,10 +8,10 @@ import warnings
 import os
 from abc import ABC, abstractmethod
 from timeit import default_timer as timer
-from multiprocessing import Pipe
-from multiprocessing import Process
-import multiprocessing
-multiprocessing.set_start_method('spawn', True)
+from torch.multiprocessing import Pipe
+from torch.multiprocessing import Process
+import torch.multiprocessing
+torch.multiprocessing.set_start_method('spawn', True)
 
 
 class EnvRunner(ABC):
@@ -87,7 +87,8 @@ class SingleEnvRunner(EnvRunner):
 
         env.reset()
         returns = 0
-        action = agent.act_and_train(env.state, env.reward)
+        self._agent.train()
+        action = self._agent.act(env.state, env.reward)
 
         while not env.done:
             self._writer.frames += 1
@@ -95,15 +96,16 @@ class SingleEnvRunner(EnvRunner):
                 env.render()
             env.step(action)
             returns += env.reward
-            action = agent.act_and_train(env.state, env.reward)
+            self._agent.train()
+            action = self._agent.act(env.state, env.reward)
 
         return returns
 
 
-def worker(remote, env_fn):
+def worker(remote, make_env):
     # Ignore CTRL+C in the worker process
     signal.signal(signal.SIGINT, signal.SIG_IGN)
-    env = env_fn(1)[0]
+    env = make_env()
     print("env generated at process ID: {}".format(os.getpid()))
     try:
         while True:
@@ -199,7 +201,8 @@ class ParallelEnvRunner(EnvRunner):
             dtype=torch.float
         )
         # do actions
-        actions = self._agent.act_and_train(states, rewards)
+        self._agent.train()
+        actions = self._agent.act(states, rewards)
 
         for i, remote in enumerate(self.remotes):
             remote.send(('step', actions[i]))

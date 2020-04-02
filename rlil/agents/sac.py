@@ -1,5 +1,6 @@
 import torch
 from torch.nn.functional import mse_loss
+from rlil.memory import get_replay_buffer
 from rlil.environments import Action
 from rlil.utils import get_writer, get_device
 from ._agent import Agent
@@ -22,7 +23,6 @@ class SAC(Agent):
         q1 (QContinuous): An Approximation of the continuous action Q-function.
         q2 (QContinuous): An Approximation of the continuous action Q-function.
         v (VNetwork): An Approximation of the state-value function.
-        replay_buffer (ReplayBuffer): The experience replay buffer.
         discount_factor (float): Discount factor for future rewards.
         entropy_target (float): The desired entropy of the policy. Usually -env.action_space.shape[0]
         minibatch_size (int): The number of experiences to sample in each training update.
@@ -36,7 +36,6 @@ class SAC(Agent):
                  q_1,
                  q_2,
                  v,
-                 replay_buffer,
                  discount_factor=0.99,
                  entropy_target=-2.,
                  lr_temperature=1e-4,
@@ -50,7 +49,7 @@ class SAC(Agent):
         self.v = v
         self.q_1 = q_1
         self.q_2 = q_2
-        self.replay_buffer = replay_buffer
+        self.replay_buffer = get_replay_buffer()
         self.writer = get_writer()
         self.device = get_device()
         # hyperparameters

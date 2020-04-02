@@ -1,9 +1,10 @@
 import torch
 from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
+from rlil.memory import get_replay_buffer
 from rlil.environments import Action
 from rlil.utils import get_device
-from ._agent import Agent
+from ._agent import Agent, LazyAgent
 
 # TODO: policy output should be Action
 # TODO: State and Action should inherits torch.Tensor
@@ -24,7 +25,6 @@ class DDPG(Agent):
     Args:
         q (QContinuous): An Approximation of the continuous action Q-function.
         policy (DeterministicPolicy): An Approximation of a deterministic policy.
-        replay_buffer (ReplayBuffer): The experience replay buffer.
         discount_factor (float): Discount factor for future rewards.
         minibatch_size (int): The number of experiences to sample in each training update.
         noise (float): the amount of noise to add to each action (before scaling).
@@ -35,7 +35,6 @@ class DDPG(Agent):
     def __init__(self,
                  q,
                  policy,
-                 replay_buffer,
                  discount_factor=0.99,
                  minibatch_size=32,
                  noise=0.1,
@@ -45,7 +44,7 @@ class DDPG(Agent):
         # objects
         self.q = q
         self.policy = policy
-        self.replay_buffer = replay_buffer
+        self.replay_buffer = get_replay_buffer()
         self.device = get_device()
         # hyperparameters
         self.replay_start_size = replay_start_size
@@ -93,3 +92,16 @@ class DDPG(Agent):
     def _should_train(self):
         self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0
+
+
+class DDPGLazyAgent(LazyAgent):
+    """ 
+    Agent class for sampler.
+    """
+
+    def act(self, states, reward):
+        self._states = states
+        actions = self.models["policy"].eval(states.to("cpu"))
+        actions += self._noise.sample([actions.shape[0]])
+        self._actions = Action(actions).to("cpu")
+        return self._actions

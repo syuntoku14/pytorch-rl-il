@@ -1,6 +1,7 @@
 import torch
 from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
+from rlil.memory import set_replay_buffer
 from rlil.agents import SAC
 from rlil.approximation import QContinuous, PolyakTarget, VNetwork
 from rlil.policies.soft_deterministic import SoftDeterministicPolicy
@@ -111,12 +112,13 @@ def sac(
             replay_buffer_size
         )
 
+        set_replay_buffer(replay_buffer)
+
         return SAC(
             policy,
             q_1,
             q_2,
             v,
-            replay_buffer,
             temperature_initial=temperature_initial,
             entropy_target=(-env.action_space.shape[0]
                             * entropy_target_scaling),
