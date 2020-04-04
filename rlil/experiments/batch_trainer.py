@@ -1,9 +1,8 @@
 import logging
 from rlil.environments import State
-from rlil.utils import get_logger, get_writer
+from rlil.initializer import get_logger, get_writer
 import numpy as np
 import torch
-import signal
 import warnings
 import os
 from abc import ABC, abstractmethod

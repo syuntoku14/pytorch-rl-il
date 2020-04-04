@@ -3,7 +3,7 @@ import time
 import torch
 import gym
 from rlil.agents import GreedyAgent
-from rlil.utils import get_logger
+from rlil.initializer import get_logger
 import logging
 import pickle
 

@@ -1,12 +1,11 @@
 import torch
 from torch.optim import Adam
 from torch.optim.lr_scheduler import CosineAnnealingLR
-from rlil.memory import set_replay_buffer
 from rlil.agents import TD3
 from rlil.approximation import QContinuous, PolyakTarget
 from rlil.policies import DeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
-from rlil.utils import get_device
+from rlil.initializer import get_device, set_replay_buffer
 from .models import fc_q, fc_deterministic_policy
 
 

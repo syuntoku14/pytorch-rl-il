@@ -3,7 +3,7 @@ import torch
 from torch.nn import utils
 from .target import TrivialTarget
 from .checkpointer import PeriodicCheckpointer
-from rlil.utils import get_writer
+from rlil.initializer import get_writer
 
 DEFAULT_CHECKPOINT_FREQUENCY = 200
 

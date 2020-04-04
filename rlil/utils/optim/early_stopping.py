@@ -1,4 +1,4 @@
-from rlil.utils import get_logger
+from rlil.initializer import get_logger
 import numpy as np
 import torch
 import logging

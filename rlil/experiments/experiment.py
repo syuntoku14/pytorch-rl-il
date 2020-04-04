@@ -1,6 +1,6 @@
 import numpy as np
 from rlil.utils.writer import ExperimentWriter
-from rlil.utils import get_logger, set_logger, get_writer, set_writer
+from rlil.initializer import get_logger, get_writer, set_writer
 from .runner import SingleEnvRunner, ParallelEnvRunner
 import os
 import logging

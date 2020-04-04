@@ -4,7 +4,7 @@ import pybullet_envs
 from rlil.environments import GymEnvironment, ENVS
 from rlil.experiments import Experiment
 from rlil.presets import continuous, get_default_args
-from rlil.utils import get_logger, set_device
+from rlil.initializer import get_logger, set_device
 import torch
 import logging
 

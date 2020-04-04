@@ -10,7 +10,7 @@ from rlil.memory import (
     PrioritizedReplayBuffer,
     NStepReplayBuffer,
 )
-from rlil.utils import set_device
+from rlil.initializer import set_device
 
 
 class TestExperienceReplayBuffer(unittest.TestCase):

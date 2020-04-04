@@ -1,7 +1,7 @@
 from rlil.agents import Agent
 from rlil.environments import Action, action_decorator
 from rlil.memory import ExperienceReplayBuffer
-from rlil.utils import get_device
+from rlil.initializer import get_device
 import torch
 import gym
 import os

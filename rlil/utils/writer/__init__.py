@@ -40,8 +40,8 @@ class Writer(ABC):
 
 class DummyWriter(Writer):
     def __init__(self):
-        self._frames = mp.Value('i', 0)
-        self._episodes = mp.Value('i', 1)
+        self._frames = 0
+        self._episodes = 1
 
     def add_scalar(self, key, value, step="frame"):
         pass
@@ -70,21 +70,19 @@ class DummyWriter(Writer):
 
     @property
     def frames(self):
-        return self._frames.value
+        return self._frames
 
     @frames.setter
     def frames(self, frames):
-        with self._frames.get_lock():
-            self._frames.value = frames
+        self._frames = frames
 
     @property
     def episodes(self):
-        return self._episodes.value
+        return self._episodes
 
     @episodes.setter
     def episodes(self, episodes):
-        with self._episodes.get_lock():
-            self._episodes.value = episodes
+        self._episodes.value = episodes
 
 
 class ExperimentWriter(SummaryWriter, Writer):
@@ -98,9 +96,9 @@ class ExperimentWriter(SummaryWriter, Writer):
         )
         self.log_dir = self.log_dir.replace(" ", "_")
         os.makedirs(self.log_dir)
-        self._frames = mp.Value('i', 0)
+        self._frames = 0
         self._train_iters = 0
-        self._episodes = mp.Value('i', 1)
+        self._episodes = 1
         self._loss = loss
         self._name_frame_history = defaultdict(lambda: 0)
         self._add_scalar_interval = interval
@@ -152,21 +150,19 @@ class ExperimentWriter(SummaryWriter, Writer):
 
     @property
     def frames(self):
-        return self._frames.value
+        return self._frames
 
     @frames.setter
     def frames(self, frames):
-        with self._frames.get_lock():
-            self._frames.value = frames
+        self._frames = frames
 
     @property
     def episodes(self):
-        return self._episodes.value
+        return self._episodes
 
     @episodes.setter
     def episodes(self, episodes):
-        with self._episodes.get_lock():
-            self._episodes.value = episodes
+        self._episodes = episodes
 
     @property
     def train_iters(self):

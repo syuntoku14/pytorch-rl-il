@@ -1,9 +1,8 @@
 import logging
 from rlil.environments import State
-from rlil.utils import get_logger, get_writer
+from rlil.initializer import get_logger, get_writer
 import numpy as np
 import torch
-import signal
 import warnings
 import os
 from abc import ABC, abstractmethod
@@ -103,8 +102,6 @@ class SingleEnvRunner(EnvRunner):
 
 
 def worker(remote, make_env):
-    # Ignore CTRL+C in the worker process
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
     env = make_env()
     print("env generated at process ID: {}".format(os.getpid()))
     try:

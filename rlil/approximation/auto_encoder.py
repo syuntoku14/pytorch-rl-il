@@ -1,7 +1,7 @@
 import os
 import torch
 from torch.nn import utils
-from rlil.utils import get_writer
+from rlil.initializer import get_writer
 from rlil.nn import RLNetwork
 from .approximation import DEFAULT_CHECKPOINT_FREQUENCY
 from .checkpointer import PeriodicCheckpointer

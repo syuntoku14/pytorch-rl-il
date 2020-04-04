@@ -3,7 +3,7 @@ import numpy as np
 import torch
 from rlil.environments import State, Action
 from rlil.utils.optim import Schedulable
-from rlil.utils import get_device
+from rlil.initializer import get_device
 from .segment_tree import SumSegmentTree, MinSegmentTree
 
 

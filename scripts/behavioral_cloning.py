@@ -1,7 +1,7 @@
 from rlil.environments import GymEnvironment, ENVS
 from rlil.presets import continuous
 from rlil.utils.optim import EarlyStopping
-from rlil.utils import get_logger
+from rlil.initializer import get_logger
 from rlil import nn
 import torch
 import pickle
