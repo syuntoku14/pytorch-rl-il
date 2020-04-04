@@ -1,5 +1,3 @@
-from .sampler import ParallelEnvSampler
+from rlil.samplers.sampler import AsyncEnvSampler
 
-__all__ = [
-    "ParallelEnvSampler",
-]
+__all__ = ["AsyncEnvSampler"]

@@ -1,107 +1,90 @@
+import ray
 import numpy as np
 import os
 import torch
-import signal
 from abc import ABC, abstractmethod
 from timeit import default_timer as timer
-import torch.multiprocessing as mp
-from rlil.utils import get_writer, get_logger, get_writer
-from rlil.memory import get_replay_buffer
-mp.set_start_method('spawn', True)
+from rlil.initializer import get_replay_buffer
+from rlil.environments import State, Action
 
 
 # TODO: LazyAgent class with replay_buffer
+# TODO: Add description
 
-def worker(lazy_agent_class,
-           shared_models,
-           make_env,
-           replay_dict,
-           worker_id,
-           seed,
-           shared_frames,
-           shared_episodes,
-           done_event):
+@ray.remote
+class Worker:
+    def __init__(self, make_env, seed):
+        self.seed = seed
+        np.random.seed(seed)
+        torch.manual_seed(seed)
 
-    # Ignore CTRL+C in the worker process
-    signal.signal(signal.SIGINT, signal.SIG_IGN)
+        self.env = make_env()
+        self.env.seed(seed)
+        self._frames = 0
+        self._episodes = 0
 
-    np.random.seed(seed)
-    torch.manual_seed(seed)
+        print("Worker initialized in PID: {}".format(os.getpid()))
 
-    env = make_env()
-    env.seed(seed)
-    lazy_agent = lazy_agent_class(shared_models)
-    print("env generated at process ID: {}".format(os.getpid()))
+    def frames(self):
+        return self._frames
 
-    while not done_event.is_set():
-        env.reset()
-        returns = 0
-        action = lazy_agent.act(env.state, env.reward)
+    def episodes(self):
+        return self._episodes
 
-        while not env.done:
-            with shared_frames.get_lock():
-                shared_frames.value += 1
-            env.step(action)
-            returns += env.reward
-            action = lazy_agent.act(env.state, env.reward)
-        with shared_episodes.get_lock():
-            shared_episodes.value += 1
+    def sample(self, lazy_agent, max_frames, max_episodes):
+
+        self._frames = 0
+        self._episodes = 0
+
+        while self._frames < max_frames and self._episodes < max_episodes:
+            self.env.reset()
+            action = lazy_agent.act(self.env.state, self.env.reward)
+
+            while not self.env.done:
+                self.env.step(action)
+                self._frames += 1
+                action = lazy_agent.act(self.env.state, self.env.reward)
+
+            self._episodes += 1
+
+        return (State.from_list(lazy_agent.buffer["states"]),
+                Action.from_list(lazy_agent.buffer["actions"]),
+                torch.tensor(lazy_agent.buffer["rewards"], dtype=torch.float),
+                State.from_list(lazy_agent.buffer["next_states"]))
 
 
-class ParallelEnvSampler:
+class AsyncEnvSampler:
     def __init__(
             self,
-            lazy_agent_class,
-            models,
             env,
-            n_workers=1,
+            num_workers=1,
             seed=0,
     ):
         self._env = env
-        self._done_event = mp.Event()
-        self._closed = False
-        self._writer = get_writer()
+        self._workers = [Worker.remote(env.duplicate, seed+i)
+                         for i in range(num_workers)]
+        self._work_ids = {worker: None for worker in self._workers}
+        self._replay_buffer = get_replay_buffer()
 
-        # sample start
-        with mp.Manager() as manager:
-            self.replay_dict = manager.dict()
-            self.ps = [mp.Process(target=worker,
-                                  args=(lazy_agent_class,
-                                        models,
-                                        self._env.duplicate,
-                                        self.replay_dict,
-                                        worker_id,
-                                        seed + worker_id,
-                                        self._writer._frames,
-                                        self._writer._episodes,
-                                        self._done_event))
-                       for worker_id in range(n_workers)]
+    def start_sampling(self,
+                       lazy_agent,
+                       max_frames=np.inf,
+                       max_episodes=np.inf):
 
-            for p in self.ps:
-                p.start()
+        assert max_frames != np.inf or max_episodes != np.inf, \
+            "max_frames or max_episodes must be specified"
 
-    def sample(self):
-        while not self._done():
-            for i, p in enumerate(self.ps):
-                assert p.is_alive(), "Process {} is dead".format(i)
+        # start sample method if the worker is ready
+        for worker in self._workers:
+            if self._work_ids[worker] is None:
+                self._work_ids[worker] = \
+                    worker.sample.remote(lazy_agent, max_frames, max_episodes)
 
-    def _done(self):
-        return (
-            self._writer.frames > self._max_frames or
-            self._writer.episodes > self._max_episodes
-        )
+    def get_samples_and_store(self, timeout=0.1):
+        # store samples if the worker finishes sampling
+        for worker, _id in self._work_ids.items():
+            ready_id, remaining_id = \
+                ray.wait([_id], num_returns=1, timeout=timeout)
 
-    def __del__(self):
-        if not self._closed:
-            self.close()
-
-    def _assert_not_closed(self):
-        assert not self._closed, "This env is already closed"
-
-    def close(self):
-        self._assert_not_closed()
-        self._closed = True
-        # close processes
-        self._done_event.set()
-        for p in self.ps:
-            p.join()
+            if len(ready_id) > 0:
+                self._replay_buffer.store(*ray.get(ready_id[0]))

@@ -32,16 +32,13 @@ class LazyAgent(ABC):
     """ 
     Agent class for sampler.
     """
-    def __init__(self, models, replay_q):
+    def __init__(self, models, replay_buffer):
         """
         Args: 
             models (dict of torch.nn.Module): 
                 memory shared torch model
-            replay_q (torch.multiprocessing.Queue):
-                Queue object to store samples
         """
         self.models = models
-        self._replay_q = replay_q
         self._states = None
         self._actions = None
     

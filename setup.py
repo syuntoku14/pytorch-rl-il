@@ -18,6 +18,7 @@ setup(
         "autopep8",      # code quality tool
         "tensorboardX",  # visualize results
         "torch-testing",  # testing library for pytorch
+        "ray"  # multiprocessing tool
         # these should be installed globally:
         # "tensorflow",  # needed for tensorboard
         # "torch",       # deep learning library
