@@ -119,8 +119,6 @@ def worker(remote, make_env):
             elif cmd == 'close':
                 remote.close()
                 break
-            elif cmd == 'get_spaces':
-                remote.send((env.action_space, env.observation_space))
             elif cmd == 'seed':  # TODO: incorrect seeds?
                 np.random.seed(data)
                 torch.manual_seed(data)

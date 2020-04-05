@@ -2,14 +2,12 @@ import ray
 import numpy as np
 import os
 import torch
-from abc import ABC, abstractmethod
-from timeit import default_timer as timer
 from rlil.initializer import get_replay_buffer
 from rlil.environments import State, Action
+from rlil.samplers import Sampler
 
 
 # TODO: LazyAgent class with replay_buffer
-# TODO: Add description
 
 @ray.remote
 class Worker:
@@ -18,8 +16,8 @@ class Worker:
         np.random.seed(seed)
         torch.manual_seed(seed)
 
-        self.env = make_env()
-        self.env.seed(seed)
+        self._env = make_env()
+        self._env.seed(seed)
         self._frames = 0
         self._episodes = 0
 
@@ -37,13 +35,13 @@ class Worker:
         self._episodes = 0
 
         while self._frames < max_frames and self._episodes < max_episodes:
-            self.env.reset()
-            action = lazy_agent.act(self.env.state, self.env.reward)
+            self._env.reset()
+            action = lazy_agent.act(self._env.state, self._env.reward)
 
-            while not self.env.done:
-                self.env.step(action)
+            while not self._env.done:
+                self._env.step(action)
                 self._frames += 1
-                action = lazy_agent.act(self.env.state, self.env.reward)
+                action = lazy_agent.act(self._env.state, self._env.reward)
 
             self._episodes += 1
 
@@ -53,7 +51,16 @@ class Worker:
                 State.from_list(lazy_agent.buffer["next_states"]))
 
 
-class AsyncEnvSampler:
+class AsyncSampler(Sampler):
+    """
+    AsyncSampler collects samples with asynchronous workers.
+    All the workers have the same agent, which is given by the argument
+    of the start_sampling method.
+
+    Args:
+        Sampler ([type]): [description]
+    """
+
     def __init__(
             self,
             env,
@@ -80,7 +87,7 @@ class AsyncEnvSampler:
                 self._work_ids[worker] = \
                     worker.sample.remote(lazy_agent, max_frames, max_episodes)
 
-    def get_samples_and_store(self, timeout=0.1):
+    def store_samples(self, timeout=0.1):
         # store samples if the worker finishes sampling
         for worker, _id in self._work_ids.items():
             ready_id, remaining_id = \
