@@ -1,5 +1,5 @@
 import argparse
-from rlil.experiments import plot_returns_100
+from rlil.utils import plot_returns_100
 
 
 def plot():

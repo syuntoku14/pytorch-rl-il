@@ -16,7 +16,7 @@ class MockWriter(Writer):
         self.write_loss = write_loss
 
     def add_scalar(self, key, value, step="frame"):
-        if not key in self.data:
+        if key not in self.data:
             self.data[key] = {"values": [], "steps": []}
         self.data[key]["values"].append(value)
         self.data[key]["steps"].append(self._get_step(step))
@@ -65,10 +65,6 @@ class TestExperiment(unittest.TestCase):
 
     def test_writes_returns_eps(self):
         experiment = MockExperiment(sac(), self.env, episodes=3)
-        # np.testing.assert_equal(
-        #     experiment._writer.data["evaluation/returns/episode"]["values"],
-        #     np.array([14.0, 19.0, 26.0]),
-        # )
         np.testing.assert_equal(
             experiment._writer.data["evaluation/returns/episode"]["steps"],
             np.array([1, 2, 3]),
@@ -81,10 +77,6 @@ class TestExperiment(unittest.TestCase):
         experiment = MockExperiment(
             sac(), self.env, write_loss=False, episodes=3)
         self.assertFalse(experiment._writer.write_loss)
-
-    # def test_runs_multi_env(self):
-    #     experiment = MockExperiment(a2c(n_envs=3), self.env, quiet=True, episodes=3)
-    #     self.assertEqual(len(experiment._writer.data["evaluation/returns/episode"]["values"]), 3)
 
 
 if __name__ == "__main__":
