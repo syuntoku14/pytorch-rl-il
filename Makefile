@@ -4,7 +4,7 @@ install:
 	pip install -e .
 
 test:
-	python -m unittest discover -p "*test.py"
+	pytest -v
 
 autopep8:
 	autopep8 --in-place --recursive . 
