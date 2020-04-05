@@ -1,4 +1,4 @@
-from .abstract import Environment
+from .base import Environment
 from .gym import GymEnvironment
 from .state import State
 from .action import Action, action_decorator, clip_action, squash_action

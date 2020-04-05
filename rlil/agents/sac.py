@@ -2,7 +2,7 @@ import torch
 from torch.nn.functional import mse_loss
 from rlil.environments import Action
 from rlil.initializer import get_writer, get_device, get_replay_buffer
-from ._agent import Agent
+from .base import Agent
 
 
 class SAC(Agent):

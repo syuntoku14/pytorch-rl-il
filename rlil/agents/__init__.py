@@ -1,4 +1,4 @@
-from ._agent import Agent, LazyAgent
+from .base import Agent, LazyAgent
 from .greedy import GreedyAgent
 from .ddpg import DDPG
 from .sac import SAC

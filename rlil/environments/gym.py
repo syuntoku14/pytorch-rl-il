@@ -1,6 +1,6 @@
 from .action import Action
 from .state import State
-from .abstract import Environment
+from .base import Environment
 import torch
 import numpy as np
 import gym

@@ -4,7 +4,7 @@ from torch.nn.functional import mse_loss
 from rlil.environments import State, action_decorator, Action
 from rlil.initializer import get_device, get_replay_buffer
 from rlil import nn
-from ._agent import Agent
+from .base import Agent
 
 
 class BCQ(Agent):
