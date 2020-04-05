@@ -47,7 +47,7 @@ def bcq(
         noise_policy (float): The amount of exploration noise to add.
     """
     def _bcq(env):
-        final_anneal_step = last_frame 
+        final_anneal_step = last_frame
 
         device = get_device()
         q_1_model = fc_q(env).to(device)
@@ -106,7 +106,7 @@ def bcq(
                 final_anneal_step
             ),
             name="VAE",
-            )
+        )
 
         set_replay_buffer(replay_buffer)
 

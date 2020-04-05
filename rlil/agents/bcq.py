@@ -124,7 +124,8 @@ class BCQ(Agent):
             # Trick Two: delayed policy updates
             if self._train_count % self._policy_update_td3 == 0:
                 greedy_vae_actions = Action(self.vae.decode(states))
-                greedy_actions = Action(self.policy(states, greedy_vae_actions))
+                greedy_actions = Action(
+                    self.policy(states, greedy_vae_actions))
                 loss = -self.q_1(states, greedy_actions).mean()
                 self.policy.reinforce(loss)
                 self.policy.zero_grad()

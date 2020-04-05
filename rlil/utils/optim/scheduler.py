@@ -1,5 +1,6 @@
 from rlil.initializer import get_writer
 
+
 class Schedulable:
     '''Allow "instance" descriptors to implement parameter scheduling.'''
 

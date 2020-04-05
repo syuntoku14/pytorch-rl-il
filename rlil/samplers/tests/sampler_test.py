@@ -87,7 +87,7 @@ class TestSampler(unittest.TestCase):
             assert ray.get(worker.frames.remote()) >= max_frames
         assert len(self.sampler._replay_buffer) == self.replay_buffer_size
 
-    def test_wait_in_get_samples(self):
+    def test_ray_wait(self):
         max_episodes = 100
 
         self.sampler.start_sampling(self.lazy_agent, max_episodes=max_episodes)

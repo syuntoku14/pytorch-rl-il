@@ -12,11 +12,11 @@ class Agent(ABC, Schedulable):
         """
         Select an action for evaluation.
         If the agent has a replay-buffer, state and reward are stored.
-        
+
         Args:
             state (rlil.environment.State): The environment state at the current timestep.
             reward (torch.Tensor): The reward from the previous timestep.
-        
+
         Returns:
             rllib.Action: The action to take at the current timestep.
         """
@@ -32,6 +32,7 @@ class LazyAgent(ABC):
     """ 
     Agent class for sampler.
     """
+
     def __init__(self, models, replay_buffer):
         """
         Args: 
@@ -41,7 +42,7 @@ class LazyAgent(ABC):
         self.models = models
         self._states = None
         self._actions = None
-    
+
     @abstractmethod
     def act(self, states, reward):
         """

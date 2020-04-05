@@ -33,5 +33,6 @@ class TestContinuousPresets(unittest.TestCase):
         for _ in range(10):
             agent.train()
 
+
 if __name__ == '__main__':
     unittest.main()

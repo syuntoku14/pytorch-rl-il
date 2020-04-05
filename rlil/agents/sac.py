@@ -66,7 +66,8 @@ class SAC(Agent):
 
     def act(self, states, reward=None):
         if reward is not None:
-            self.replay_buffer.store(self._states, self._actions, reward, states)
+            self.replay_buffer.store(
+                self._states, self._actions, reward, states)
         self._states = states
         self._actions = Action(self.policy.eval(
             states.to(self.device))[0]).to("cpu")

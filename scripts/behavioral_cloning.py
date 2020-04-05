@@ -83,7 +83,7 @@ def main():
     # training iteration
     criterion = nn.MSELoss()
     optimizer = Adam(net.parameters(), lr=1e-4, weight_decay=1e-4)
-    early_stopping = EarlyStopping(verbose=True, 
+    early_stopping = EarlyStopping(verbose=True,
                                    file_name=os.path.join(args.dir, "BC_state_dict.pt"))
 
     for epoch in tqdm(range(args.train_iters)):

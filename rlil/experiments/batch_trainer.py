@@ -43,16 +43,18 @@ class OfflineTrainer(ABC):
 
     def _log(self, returns):
         self._logger.info("train_iters: %d, returns: %d" %
-                            (self._writer.train_iters, returns))
+                          (self._writer.train_iters, returns))
         if returns > self._best_returns:
             self._best_returns = returns
         self._returns100.append(returns)
         if len(self._returns100) == 100:
             mean = np.mean(self._returns100)
             std = np.std(self._returns100)
-            self._writer.add_summary('returns100', mean, std, step="train_iters")
+            self._writer.add_summary(
+                'returns100', mean, std, step="train_iters")
             self._returns100 = []
-        self._writer.add_evaluation('returns/train_iters', returns, step="train_iters")
+        self._writer.add_evaluation(
+            'returns/train_iters', returns, step="train_iters")
         self._writer.add_evaluation(
             "returns/max", self._best_returns, step="train_iters")
 
@@ -88,4 +90,3 @@ class SingleEnvTrainer(BatchTrainer):
             action = agent.act(env.state, env.reward)
 
         return returns
-

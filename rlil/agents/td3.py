@@ -74,7 +74,8 @@ class TD3(Agent):
 
     def act(self, states, reward=None):
         if reward is not None:
-            self.replay_buffer.store(self._states, self._actions, reward, states)
+            self.replay_buffer.store(
+                self._states, self._actions, reward, states)
         self._states = states
         actions = self.policy.eval(states.to(self.device))
         actions = actions + self._noise_policy.sample([actions.shape[0]])

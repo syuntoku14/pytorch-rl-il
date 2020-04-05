@@ -17,7 +17,8 @@ def main():
                         )
     parser.add_argument("--frames", type=int, default=5e7,
                         help="The number of training frames")
-    parser.add_argument("--n_envs", type=int, default=1, help="Number of envs for validation")
+    parser.add_argument("--n_envs", type=int, default=1,
+                        help="Number of envs for validation")
     parser.add_argument("--device", default="cuda",
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)",
                         )

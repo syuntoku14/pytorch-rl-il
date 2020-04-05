@@ -91,7 +91,7 @@ class State:
         return State(
             self._raw.to(device), self._mask.to(device), self._info
         )
-    
+
     def detach(self):
         self._raw.detach()
 
