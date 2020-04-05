@@ -4,8 +4,9 @@ import pybullet_envs
 import re
 import os
 from rlil.environments import GymEnvironment
-from rlil.experiments import GreedyAgent, watch
+from rlil.agents import GreedyAgent
 from rlil.presets import continuous
+from rlil.utils import watch
 from continuous import ENVS
 import logging
 logging.basicConfig(level=logging.DEBUG)
