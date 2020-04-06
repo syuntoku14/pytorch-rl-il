@@ -57,9 +57,10 @@ class TestSampler(unittest.TestCase):
         set_replay_buffer(replay_buffer)
         self.env = GymEnvironment('LunarLanderContinuous-v2')
         self.lazy_agent = MockLazyAgent(self.env)
+        self.num_workers = 3
         self.sampler = AsyncSampler(
             self.env,
-            num_workers=3,
+            num_workers=self.num_workers,
             seed=0,
         )
         self.startTime = time.time()
@@ -69,28 +70,26 @@ class TestSampler(unittest.TestCase):
         print('%s: %.3f sec' % (self.id(), t))
 
     def test_sampler_episode(self):
-        max_episodes = 6
-        self.sampler.start_sampling(self.lazy_agent, max_episodes=max_episodes)
-        self.sampler.store_samples(timeout=1e8)
+        worker_episodes = 6
+        self.sampler.start_sampling(self.lazy_agent, worker_episodes=worker_episodes)
+        frames, episodes = self.sampler.store_samples(timeout=1e8)
 
-        for worker in self.sampler._workers:
-            assert ray.get(worker.episodes.remote()) >= max_episodes
+        assert episodes == worker_episodes * self.num_workers
         assert len(self.sampler._replay_buffer) == self.replay_buffer_size
 
     def test_sampler_frames(self):
-        max_frames = 50
+        worker_frames = 50
 
-        self.sampler.start_sampling(self.lazy_agent, max_frames=max_frames)
-        self.sampler.store_samples(timeout=1e8)
+        self.sampler.start_sampling(self.lazy_agent, worker_frames=worker_frames)
+        frames, episodes = self.sampler.store_samples(timeout=1e8)
 
-        for worker in self.sampler._workers:
-            assert ray.get(worker.frames.remote()) >= max_frames
+        assert frames > worker_frames * self.num_workers
         assert len(self.sampler._replay_buffer) == self.replay_buffer_size
 
     def test_ray_wait(self):
-        max_episodes = 100
+        worker_episodes = 100
 
-        self.sampler.start_sampling(self.lazy_agent, max_episodes=max_episodes)
+        self.sampler.start_sampling(self.lazy_agent, worker_episodes=worker_episodes)
         self.sampler.store_samples()
 
         assert len(self.sampler._replay_buffer) == 0

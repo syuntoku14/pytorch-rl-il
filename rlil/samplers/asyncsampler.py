@@ -18,37 +18,30 @@ class Worker:
 
         self._env = make_env()
         self._env.seed(seed)
-        self._frames = 0
-        self._episodes = 0
 
         print("Worker initialized in PID: {}".format(os.getpid()))
 
-    def frames(self):
-        return self._frames
+    def sample(self, lazy_agent, worker_frames, worker_episodes):
 
-    def episodes(self):
-        return self._episodes
+        frames = 0
+        episodes = 0
 
-    def sample(self, lazy_agent, max_frames, max_episodes):
-
-        self._frames = 0
-        self._episodes = 0
-
-        while self._frames < max_frames and self._episodes < max_episodes:
+        while frames < worker_frames and episodes < worker_episodes:
             self._env.reset()
             action = lazy_agent.act(self._env.state, self._env.reward)
 
             while not self._env.done:
                 self._env.step(action)
-                self._frames += 1
+                frames += 1
                 action = lazy_agent.act(self._env.state, self._env.reward)
 
-            self._episodes += 1
+            episodes += 1
 
-        return (State.from_list(lazy_agent.buffer["states"]),
-                Action.from_list(lazy_agent.buffer["actions"]),
-                torch.tensor(lazy_agent.buffer["rewards"], dtype=torch.float),
-                State.from_list(lazy_agent.buffer["next_states"]))
+        return frames, episodes, \
+            (State.from_list(lazy_agent.buffer["states"]),
+             Action.from_list(lazy_agent.buffer["actions"]),
+             torch.tensor(lazy_agent.buffer["rewards"], dtype=torch.float),
+             State.from_list(lazy_agent.buffer["next_states"]))
 
 
 class AsyncSampler(Sampler):
@@ -56,9 +49,6 @@ class AsyncSampler(Sampler):
     AsyncSampler collects samples with asynchronous workers.
     All the workers have the same agent, which is given by the argument
     of the start_sampling method.
-
-    Args:
-        Sampler ([type]): [description]
     """
 
     def __init__(
@@ -75,23 +65,30 @@ class AsyncSampler(Sampler):
 
     def start_sampling(self,
                        lazy_agent,
-                       max_frames=np.inf,
-                       max_episodes=np.inf):
+                       worker_frames=np.inf,
+                       worker_episodes=np.inf):
 
-        assert max_frames != np.inf or max_episodes != np.inf, \
-            "max_frames or max_episodes must be specified"
+        assert worker_frames != np.inf or worker_episodes != np.inf, \
+            "worker_frames or worker_episodes must be specified"
 
         # start sample method if the worker is ready
         for worker in self._workers:
             if self._work_ids[worker] is None:
                 self._work_ids[worker] = \
-                    worker.sample.remote(lazy_agent, max_frames, max_episodes)
+                    worker.sample.remote(lazy_agent, worker_frames, worker_episodes)
 
     def store_samples(self, timeout=0.1):
         # store samples if the worker finishes sampling
+        sum_frames = 0
+        sum_episodes = 0
         for worker, _id in self._work_ids.items():
             ready_id, remaining_id = \
                 ray.wait([_id], num_returns=1, timeout=timeout)
 
             if len(ready_id) > 0:
-                self._replay_buffer.store(*ray.get(ready_id[0]))
+                frames, episodes, samples = ray.get(ready_id[0])
+                sum_frames += frames
+                sum_episodes += episodes
+                self._replay_buffer.store(*samples)
+
+        return sum_frames, sum_episodes

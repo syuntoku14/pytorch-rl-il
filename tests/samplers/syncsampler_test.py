@@ -55,7 +55,7 @@ class TestSampler(unittest.TestCase):
         warnings.simplefilter("ignore", ResourceWarning)
         ray.init(include_webui=False, ignore_reinit_error=True)
 
-        self.replay_buffer_size = 100
+        self.replay_buffer_size = 1e6
         replay_buffer = ExperienceReplayBuffer(self.replay_buffer_size)
         set_replay_buffer(replay_buffer)
         self.env = GymEnvironment('LunarLanderContinuous-v2')
@@ -72,11 +72,15 @@ class TestSampler(unittest.TestCase):
         print('%s: %.3f sec' % (self.id(), t))
 
     def test_sampler(self):
-        for _ in range(10):
+        sum_frames = 0
+        sum_episodes = 0
+        while sum_episodes == 0:
             self.sampler.start_sampling(self.lazy_agent)
-            self.sampler.store_samples()
+            frames, episodes = self.sampler.store_samples()
+            sum_frames += frames
+            sum_episodes += episodes
 
-        assert len(self.sampler._replay_buffer) == 27
+        assert len(self.sampler._replay_buffer) == sum_frames
 
 
 if __name__ == "__main__":

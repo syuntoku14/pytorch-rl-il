@@ -20,15 +20,15 @@ class Worker:
         print("Worker initialized in PID: {}".format(os.getpid()))
 
     def step(self, action):
-        if self._env.done:
-            self._env.reset()
-        elif action is not None:
-            self._env.step(action)
+        self._env.step(action)
 
     def get_state_reward(self):
-        if self._env.state is None or self._env.reward is None:
+        frames = 1
+        episodes = 0
+        if self._env.done:
             self._env.reset()
-        return (self._env.state, self._env.reward)
+            episodes = 1
+        return frames, episodes, self._env.state, self._env.reward
 
 
 class SyncSampler(Sampler):
@@ -55,21 +55,26 @@ class SyncSampler(Sampler):
         self._lazy_agent = lazy_agent
         self._lazy_agent.reset_buffer()
 
+    def store_samples(self, *args, **kwargs):
+        assert self._lazy_agent is not None
+
         # do actions
+        sum_frames = 0
+        sum_episodes = 0
+
         states = []
         rewards = []
         for worker in self._workers:
-            state, reward = ray.get(worker.get_state_reward.remote())
+            frames, episodes, state, reward = ray.get(
+                worker.get_state_reward.remote())
+            sum_episodes += episodes
             states.append(state)
             rewards.append(reward)
-        actions = lazy_agent.act(State.from_list(states),
-                                 torch.tensor(rewards, dtype=torch.float))
+        actions = self._lazy_agent.act(State.from_list(states),
+                                       torch.tensor(rewards, dtype=torch.float))
 
         # step env
         ray.get([worker.step.remote(action) for action in actions])
-
-    def store_samples(self, *args, **kwargs):
-        assert self._lazy_agent is not None
 
         if len(self._lazy_agent.buffer["states"]) > 0:
             self._replay_buffer.store(
@@ -77,3 +82,6 @@ class SyncSampler(Sampler):
                 self._lazy_agent.buffer["actions"][0],
                 self._lazy_agent.buffer["rewards"][0],
                 self._lazy_agent.buffer["next_states"][0])
+            sum_frames += len(self._lazy_agent.buffer["states"])
+
+        return sum_frames, sum_episodes

@@ -7,18 +7,22 @@ class Sampler(ABC):
     """
 
     @abstractmethod
-    def start_sampling(self, agent, max_frames, max_episodes):
+    def start_sampling(self, agent, worker_frames, worker_episodes):
         """
-        Start sampling until it reaches max_frames or max_episodes.
+        Start sampling until it reaches worker_frames or worker_episodes.
 
         Args:
             agent (rlil.agent): Agent to collect samples
-            max_frames (int): sampler terminates when it collects max_frames
-            max_episodes (int): sampler terminates when it reaches max_episodes
+            worker_frames (int): worker stops to sample when it collects worker_frames
+            worker_episodes (int): worker stops to sample when it reaches worker_episodes
         """
 
     @abstractmethod
     def store_samples(self):
         """
         Store collected samples to the replay_buffer
+
+        Returns:
+            num_frames (int): number of frames stored
+            num_episodes (int): number of episodes stored
         """
