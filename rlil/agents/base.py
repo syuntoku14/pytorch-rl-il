@@ -32,22 +32,11 @@ class LazyAgent(ABC):
     """ 
     Agent class for sampler.
     """
-
-    def __init__(self, models, replay_buffer):
-        """
-        Args: 
-            models (dict of torch.nn.Module): 
-                memory shared torch model
-        """
-        self.models = models
-        self._states = None
-        self._actions = None
-
     @abstractmethod
     def act(self, states, reward):
         """
-        In the act function, the lazy_agent put a sample of trajectories
-        with (last_state, last_action, reward, states) into self._replay_q.
+        In the act function, the lazy_agent put a sample 
+        (last_state, last_action, reward, states) into self._replay_buffer.
         Then, it outputs a corresponding action.
         """
         pass

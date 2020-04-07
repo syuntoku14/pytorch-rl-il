@@ -3,7 +3,7 @@ from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
 from rlil.environments import Action
 from rlil.initializer import get_device, get_replay_buffer
-from .base import Agent
+from .base import Agent, LazyAgent
 
 
 class TD3(Agent):
@@ -115,3 +115,28 @@ class TD3(Agent):
     def _should_train(self):
         self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0
+
+    def make_lazy_agent(self):
+        return TD3LazyAgent(self.policy, self._noise_policy)
+
+
+class TD3LazyAgent(LazyAgent):
+    """ 
+    Agent class for sampler.
+    """
+    def __init__(self, policy, noise_policy):
+        self._replay_buffer = ExperienceReplayBuffer(1e9)
+        self._policy = policy
+        self._noise_policy = noise_policy
+        self._states = None
+        self._actions = None
+
+    def act(self, states, reward):
+        self.replay_buffer.store(
+            self._states, self._actions, reward, states)
+        self._states = states
+        actions = self.policy.eval(states.to(self.device))
+        actions = actions + self._noise_policy.sample([actions.shape[0]])
+        self._actions = Action(actions).to("cpu")
+        return self._actions
+

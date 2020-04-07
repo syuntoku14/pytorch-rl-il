@@ -1,6 +1,7 @@
 import unittest
 import numpy as np
 import torch
+import ray
 from rlil.presets.continuous import sac
 from rlil.environments import GymEnvironment
 from rlil.experiments import Experiment
@@ -8,12 +9,11 @@ from rlil.utils.writer import Writer
 
 
 class MockWriter(Writer):
-    def __init__(self, label, write_loss):
+    def __init__(self, label):
         self.data = {}
         self.label = label
         self.frames = 0
         self.episodes = 1
-        self.write_loss = write_loss
 
     def add_scalar(self, key, value, step="frame"):
         if key not in self.data:
@@ -45,14 +45,15 @@ class MockWriter(Writer):
 
 
 class MockExperiment(Experiment):
-    def _make_writer(self, agent_name, env_name, write_loss,
+    def _make_writer(self, agent_name, env_name,
                      exp_info="default_experiments"):
-        self._writer = MockWriter(agent_name + '_' + env_name, write_loss)
+        self._writer = MockWriter(agent_name + '_' + env_name)
         return self._writer
 
 
 class TestExperiment(unittest.TestCase):
     def setUp(self):
+        ray.init(include_webui=False, ignore_reinit_error=True)
         np.random.seed(0)
         torch.manual_seed(0)
         self.env = GymEnvironment('Pendulum-v0')
@@ -60,23 +61,15 @@ class TestExperiment(unittest.TestCase):
         self.experiment = None
 
     def test_adds_label(self):
-        experiment = MockExperiment(sac(), self.env, episodes=3)
+        experiment = MockExperiment(sac(), self.env, max_episodes=3)
         self.assertEqual(experiment._writer.label, "_sac_Pendulum-v0")
 
     def test_writes_returns_eps(self):
-        experiment = MockExperiment(sac(), self.env, episodes=3)
+        experiment = MockExperiment(sac(), self.env, max_episodes=3)
         np.testing.assert_equal(
             experiment._writer.data["evaluation/returns/episode"]["steps"],
             np.array([1, 2, 3]),
         )
-
-    def test_writes_loss(self):
-        experiment = MockExperiment(
-            sac(), self.env, write_loss=True, episodes=3)
-        self.assertTrue(experiment._writer.write_loss)
-        experiment = MockExperiment(
-            sac(), self.env, write_loss=False, episodes=3)
-        self.assertFalse(experiment._writer.write_loss)
 
 
 if __name__ == "__main__":

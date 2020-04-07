@@ -1,8 +1,10 @@
 import torch
+from copy import deepcopy
 from torch.nn.functional import mse_loss
 from rlil.environments import Action
 from rlil.initializer import get_writer, get_device, get_replay_buffer
-from .base import Agent
+from rlil.memory import ExperienceReplayBuffer
+from .base import Agent, LazyAgent
 
 
 class SAC(Agent):
@@ -117,3 +119,28 @@ class SAC(Agent):
     def _should_train(self):
         self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0
+
+    def make_lazy_agent(self):
+        model = deepcopy(self.policy.model)
+        return SACLazyAgent(model.to("cpu"))
+
+
+class SACLazyAgent(LazyAgent):
+    """ 
+    Agent class for sampler.
+    """
+
+    def __init__(self, policy_model):
+        self._replay_buffer = ExperienceReplayBuffer(1e9)
+        self._policy_model = policy_model
+        self._states = None
+        self._actions = None
+
+    def act(self, states, reward):
+        self._replay_buffer.store(
+            self._states, self._actions, reward, states)
+        self._states = states
+        with torch.no_grad():
+            self._actions = Action(self._policy_model(
+                states.to("cpu"))[0]).to("cpu")
+        return self._actions

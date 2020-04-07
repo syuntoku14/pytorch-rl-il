@@ -27,6 +27,7 @@ class Worker:
         episodes = 0
         if self._env.done:
             self._env.reset()
+            frames = 0
             episodes = 1
         return frames, episodes, self._env.state, self._env.reward
 
@@ -53,21 +54,20 @@ class SyncSampler(Sampler):
 
     def start_sampling(self, lazy_agent, *args, **kwargs):
         self._lazy_agent = lazy_agent
-        self._lazy_agent.reset_buffer()
 
     def store_samples(self, *args, **kwargs):
+        # bug here
         assert self._lazy_agent is not None
+        sample_info = {"frames": 0, "episodes": 0, "returns": []}
 
         # do actions
-        sum_frames = 0
-        sum_episodes = 0
-
         states = []
         rewards = []
         for worker in self._workers:
             frames, episodes, state, reward = ray.get(
                 worker.get_state_reward.remote())
-            sum_episodes += episodes
+            sample_info["episodes"] += episodes
+            sample_info["frames"] += frames
             states.append(state)
             rewards.append(reward)
         actions = self._lazy_agent.act(State.from_list(states),
@@ -75,13 +75,5 @@ class SyncSampler(Sampler):
 
         # step env
         ray.get([worker.step.remote(action) for action in actions])
-
-        if len(self._lazy_agent.buffer["states"]) > 0:
-            self._replay_buffer.store(
-                self._lazy_agent.buffer["states"][0],
-                self._lazy_agent.buffer["actions"][0],
-                self._lazy_agent.buffer["rewards"][0],
-                self._lazy_agent.buffer["next_states"][0])
-            sum_frames += len(self._lazy_agent.buffer["states"])
 
         return sum_frames, sum_episodes

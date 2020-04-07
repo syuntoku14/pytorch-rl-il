@@ -1,7 +1,8 @@
 import numpy as np
 from rlil.utils.writer import ExperimentWriter
 from rlil.initializer import get_logger, get_writer, set_writer, set_logger
-from .runner import Runner
+from rlil.samplers import SyncSampler, AsyncSampler
+from .trainer import Trainer
 import os
 import logging
 import json
@@ -43,16 +44,20 @@ class Experiment:
         with open(os.path.join(writer.log_dir, "args.json"), mode="w") as f:
             json.dump(args_dict, f)
 
-        runner = Runner(
-            agent_fn=agent_fn,
-            env=env,
-            num_workers=num_workers,
-            seed=0,
-            max_frames=max_frames,
-            max_episodes=max_episodes,
-            )
+        # start training
+        agent = agent_fn(env)
 
-        runner.run()
+        # sampler = SyncSampler(env, num_workers=num_workers, seed=seed)
+        sampler = AsyncSampler(env, num_workers=num_workers, seed=seed)
+
+        trainer = Trainer(
+            agent,
+            sampler,
+            max_frames,
+            max_episodes
+        )
+
+        trainer.start_training()
 
     def _make_writer(self, agent_name, env_name, exp_info):
         return ExperimentWriter(agent_name=agent_name,

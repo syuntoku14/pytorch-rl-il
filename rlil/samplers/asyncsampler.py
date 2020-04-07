@@ -7,8 +7,6 @@ from rlil.environments import State, Action
 from rlil.samplers import Sampler
 
 
-# TODO: LazyAgent class with replay_buffer
-
 @ray.remote
 class Worker:
     def __init__(self, make_env, seed):
@@ -23,25 +21,37 @@ class Worker:
 
     def sample(self, lazy_agent, worker_frames, worker_episodes):
 
-        frames = 0
-        episodes = 0
+        sample_info = {"frames": 0, "episodes": 0, "returns": []}
 
-        while frames < worker_frames and episodes < worker_episodes:
+        while sample_info["frames"] < worker_frames \
+                and sample_info["episodes"] < worker_episodes:
             self._env.reset()
             action = lazy_agent.act(self._env.state, self._env.reward)
+            _return = 0
 
             while not self._env.done:
                 self._env.step(action)
-                frames += 1
+                sample_info["frames"] += 1
                 action = lazy_agent.act(self._env.state, self._env.reward)
+                _return += self._env.reward
 
-            episodes += 1
+            sample_info["episodes"] += 1
+            sample_info["returns"].append(_return)
 
-        return frames, episodes, \
-            (State.from_list(lazy_agent.buffer["states"]),
-             Action.from_list(lazy_agent.buffer["actions"]),
-             torch.tensor(lazy_agent.buffer["rewards"], dtype=torch.float),
-             State.from_list(lazy_agent.buffer["next_states"]))
+        states, actions, rewards, next_states = [], [], [], []
+        for sample in lazy_agent._replay_buffer.buffer:
+            state, action, reward, next_state = sample
+            states.append(state)
+            actions.append(action)
+            rewards.append(reward)
+            next_states.append(next_state)
+
+        return sample_info, \
+            (State.from_list(states),
+             Action.from_list(actions),
+             torch.tensor(rewards, dtype=torch.float),
+             State.from_list(next_states)
+             )
 
 
 class AsyncSampler(Sampler):
@@ -75,20 +85,22 @@ class AsyncSampler(Sampler):
         for worker in self._workers:
             if self._work_ids[worker] is None:
                 self._work_ids[worker] = \
-                    worker.sample.remote(lazy_agent, worker_frames, worker_episodes)
+                    worker.sample.remote(
+                        lazy_agent, worker_frames, worker_episodes)
 
-    def store_samples(self, timeout=0.1):
+    def store_samples(self, timeout=10):
         # store samples if the worker finishes sampling
-        sum_frames = 0
-        sum_episodes = 0
+        sum_sample_info = {"frames": 0, "episodes": 0, "returns": []}
         for worker, _id in self._work_ids.items():
             ready_id, remaining_id = \
                 ray.wait([_id], num_returns=1, timeout=timeout)
 
             if len(ready_id) > 0:
-                frames, episodes, samples = ray.get(ready_id[0])
-                sum_frames += frames
-                sum_episodes += episodes
+                sample_info, samples = ray.get(ready_id[0])
+                sum_sample_info["frames"] += sample_info["frames"]
+                sum_sample_info["episodes"] += sample_info["episodes"]
+                sum_sample_info["returns"] += sample_info["returns"]
                 self._replay_buffer.store(*samples)
+                self._work_ids[worker] = None
 
-        return sum_frames, sum_episodes
+        return sum_sample_info

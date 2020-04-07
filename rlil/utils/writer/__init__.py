@@ -82,7 +82,7 @@ class DummyWriter(Writer):
 
     @episodes.setter
     def episodes(self, episodes):
-        self._episodes.value = episodes
+        self._episodes = episodes
 
 
 class ExperimentWriter(SummaryWriter, Writer):

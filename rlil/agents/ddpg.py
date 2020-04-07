@@ -3,10 +3,8 @@ from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
 from rlil.environments import Action
 from rlil.initializer import get_device, get_replay_buffer
+from rlil.memory import ExperienceReplayBuffer
 from .base import Agent, LazyAgent
-
-# TODO: policy output should be Action
-# TODO: State and Action should inherits torch.Tensor
 
 
 class DDPG(Agent):
@@ -93,15 +91,24 @@ class DDPG(Agent):
         self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0
 
+    def make_lazy_agent(self):
+        return DDPGLazyAgent(self.policy, self._noise)
+
 
 class DDPGLazyAgent(LazyAgent):
     """ 
     Agent class for sampler.
     """
+    def __init__(self, policy, noise):
+        self._replay_buffer = ExperienceReplayBuffer(1e9)
+        self._policy = policy
+        self._noise = noise
 
     def act(self, states, reward):
+        self.replay_buffer.store(
+            self._states, self._actions, reward, states)
         self._states = states
-        actions = self.models["policy"].eval(states.to("cpu"))
+        actions = self._policy.eval(states.to("cpu"))
         actions += self._noise.sample([actions.shape[0]])
         self._actions = Action(actions).to("cpu")
         return self._actions

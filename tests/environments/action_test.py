@@ -5,8 +5,6 @@ import torch_testing as tt
 import gym
 from rlil.environments.action import Action, action_decorator
 
-# TODO: better pytorch testing
-
 
 class ActionTest(unittest.TestCase):
     def setUp(self):

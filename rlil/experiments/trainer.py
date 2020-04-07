@@ -6,34 +6,41 @@ import torch
 import warnings
 import os
 from timeit import default_timer as timer
+from rlil.initializer import get_writer, get_logger
 
 
 class Trainer:
     """ 
     Trainer trains the agent with given an env and a sampler.
     """
+
     def __init__(
             self,
-            agent_fn,
-            env,
-            sampler_class,
-            seed=0,
+            agent,
+            sampler,
             max_frames=np.inf,
             max_episodes=np.inf,
     ):
-        self._agent = agent_fn(env)
-        self._env = env
-        self._writer = get_writer()
+        self._agent = agent
+        self._sampler = sampler
         self._max_frames = max_frames
         self._max_episodes = max_episodes
+        self._writer = get_writer()
         self._logger = get_logger()
-
         self._best_returns = -np.inf
         self._returns100 = []
 
     def start_training(self):
         while not self._done():
-            self._run_episode()
+            lazy_agent = self._agent.make_lazy_agent()
+            self._sampler.start_sampling(
+                lazy_agent, worker_episodes=1)
+            sample_info = self._sampler.store_samples(timeout=0.1)
+            self._writer.frames += sample_info["frames"]
+            self._writer.episodes += sample_info["episodes"]
+            self._agent.train()
+            for returns in sample_info["returns"]:
+                self._log(returns.item())
 
     def _done(self):
         return (
@@ -41,9 +48,10 @@ class Trainer:
             self._writer.episodes > self._max_episodes
         )
 
-    def _log(self, returns, fps):
-        self._logger.info("episode: %i, frames: %i, fps: %d, returns: %d" %
-                          (self._writer.episodes, self._writer.frames, fps, returns))
+    def _log(self, returns):
+        self._logger.info("episode: %i, frames: %i, returns: %d" %
+                          (self._writer.episodes,
+                           self._writer.frames, returns))
         if returns > self._best_returns:
             self._best_returns = returns
         self._returns100.append(returns)
@@ -56,5 +64,3 @@ class Trainer:
         self._writer.add_evaluation('returns/frame', returns, step="frame")
         self._writer.add_evaluation(
             "returns/max", self._best_returns, step="frame")
-        self._writer.add_scalar('fps', fps, step="frame")
-

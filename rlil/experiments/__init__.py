@@ -1,7 +1,7 @@
 from .experiment import Experiment
-# from .runner import Runner
+from .trainer import Trainer
 
 __all__ = [
     "Experiment",
-    "Runner"
+    "Trainer"
 ]

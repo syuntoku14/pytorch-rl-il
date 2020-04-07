@@ -7,6 +7,7 @@ from rlil.presets import continuous, get_default_args
 from rlil.initializer import get_logger, set_device
 import torch
 import logging
+import ray
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
                         )
     parser.add_argument("--frames", type=int, default=5e7,
                         help="The number of training frames")
-    parser.add_argument("--n_envs", type=int, default=1)
+    parser.add_argument("--num_workers", type=int, default=1)
     parser.add_argument("--device", default="cuda",
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)",
                         )
@@ -31,6 +32,8 @@ def main():
                         )
 
     args = parser.parse_args()
+
+    ray.init(include_webui=False, ignore_reinit_error=True)
 
     set_device(torch.device(args.device))
 
@@ -52,7 +55,7 @@ def main():
     args_dict.update(preset_args)
 
     Experiment(
-        agent_fn, env, n_envs=args.n_envs, frames=args.frames, render=args.render,
+        agent_fn, env, num_workers=args.num_workers, max_frames=args.frames, 
         args_dict=args_dict, exp_info=args.exp_info
     )
 

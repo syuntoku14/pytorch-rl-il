@@ -23,6 +23,5 @@ class Sampler(ABC):
         Store collected samples to the replay_buffer
 
         Returns:
-            num_frames (int): number of frames stored
-            num_episodes (int): number of episodes stored
+            sample_log (dict): Information of sampling (e.g. stored frames, returns, etc)
         """

@@ -6,8 +6,6 @@ from rlil.utils.optim import Schedulable
 from rlil.initializer import get_device
 from .segment_tree import SumSegmentTree, MinSegmentTree
 
-# TODO: replay buffer may be slow
-
 
 def check_inputs_shapes(store):
     def retfunc(self, states, actions, rewards, next_states):
