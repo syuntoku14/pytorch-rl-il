@@ -65,7 +65,7 @@ class Action:
             assert (0 <= raw).all() and (
                 raw < self._action_space.n).all(), "Invalid action value"
         elif isinstance(self._action_space, gym.spaces.Box):
-            assert raw.shape[1:] == self._action_space.shape, "Action.raw.shape {} is invalid. It doesn't follow the _action_space.".format(
+            assert raw.shape[1:] == self._action_space.shape, "Action.raw.shape {} is invalid. It doesn't match the action_space.".format(
                 raw.shape)
             self._low = torch.tensor(self._action_space.low, device=raw.device)
             self._high = torch.tensor(

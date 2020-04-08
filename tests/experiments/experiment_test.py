@@ -12,35 +12,35 @@ class MockWriter(Writer):
     def __init__(self, label):
         self.data = {}
         self.label = label
-        self.frames = 0
-        self.episodes = 1
+        self.sample_frames = 0
+        self.sample_episodes = 1
 
-    def add_scalar(self, key, value, step="frame"):
+    def add_scalar(self, key, value, step="sample_frame"):
         if key not in self.data:
             self.data[key] = {"values": [], "steps": []}
         self.data[key]["values"].append(value)
         self.data[key]["steps"].append(self._get_step(step))
 
-    def add_loss(self, name, value, step="frame"):
+    def add_loss(self, name, value, step="sample_frame"):
         pass
 
-    def add_schedule(self, name, value, step="frame"):
+    def add_schedule(self, name, value, step="sample_frame"):
         pass
 
-    def add_evaluation(self, name, value, step="frame"):
+    def add_evaluation(self, name, value, step="sample_frame"):
         self.add_scalar("evaluation/" + name, value, self._get_step(step))
 
-    def add_summary(self, name, mean, std, step="frame"):
+    def add_summary(self, name, mean, std, step="sample_frame"):
         pass
 
-    def add_text(self, name, text, step="frame"):
+    def add_text(self, name, text, step="sample_frame"):
         pass
 
     def _get_step(self, _type):
-        if _type == "frame":
-            return self.frames
+        if _type == "sample_frame":
+            return self.sample_frames
         if _type == "episode":
-            return self.episodes
+            return self.sample_episodes
         return _type
 
 

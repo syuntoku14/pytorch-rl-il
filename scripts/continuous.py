@@ -23,8 +23,6 @@ def main():
     parser.add_argument("--device", default="cuda",
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)",
                         )
-    parser.add_argument("--render", default=False,
-                        help="Whether to render the environment.")
     parser.add_argument("--policy", default=None,
                         help="Path to the pretrained policy state_dict")
     parser.add_argument("--exp_info", default="default experiment",

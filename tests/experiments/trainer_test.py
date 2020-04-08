@@ -36,13 +36,13 @@ class TestTrainer(unittest.TestCase):
         max_frames = 100
         trainer = Trainer(self.agent, self.sampler, max_frames)
         trainer.start_training()
-        assert trainer._writer.frames > max_frames
+        assert trainer._writer.sample_frames > max_frames
 
     def test_trainer_episodes(self):
         max_episodes = 5
         trainer = Trainer(self.agent, self.sampler, max_episodes=max_episodes)
         trainer.start_training()
-        assert trainer._writer.frames > max_episodes
+        assert trainer._writer.sample_frames > max_episodes
 
     def test_training(self):
         agent_fn = sac(replay_start_size=50)
@@ -53,5 +53,5 @@ class TestTrainer(unittest.TestCase):
             seed=0,
         )
 
-        trainer = Trainer(agent, self.sampler, max_episodes=100)
+        trainer = Trainer(agent, self.sampler, max_episodes=5)
         trainer.start_training()

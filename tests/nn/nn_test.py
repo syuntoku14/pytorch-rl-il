@@ -98,7 +98,3 @@ class TestNN(unittest.TestCase):
                 self.assertIsNone(first)
             else:
                 tt.assert_almost_equal(first, second, decimal=3)
-
-
-if __name__ == "__main__":
-    unittest.main()

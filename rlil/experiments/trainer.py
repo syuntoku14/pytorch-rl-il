@@ -36,8 +36,8 @@ class Trainer:
             self._sampler.start_sampling(
                 lazy_agent, worker_episodes=1)
             sample_info = self._sampler.store_samples(timeout=0.05)
-            self._writer.frames += sample_info["frames"]
-            self._writer.episodes += sample_info["episodes"]
+            self._writer.sample_frames += sample_info["frames"]
+            self._writer.sample_episodes += sample_info["episodes"]
             for _ in range(int(sample_info["frames"] / len(self._sampler._workers))):
                 self._agent.train()
             for returns in sample_info["returns"]:
@@ -45,23 +45,23 @@ class Trainer:
 
     def _done(self):
         return (
-            self._writer.frames > self._max_frames or
-            self._writer.episodes > self._max_episodes
+            self._writer.sample_frames > self._max_frames or
+            self._writer.sample_episodes > self._max_episodes
         )
 
     def _log(self, returns):
         self._logger.info("episode: %i, frames: %i, returns: %d" %
-                          (self._writer.episodes,
-                           self._writer.frames, returns))
+                          (self._writer.sample_episodes,
+                           self._writer.sample_frames, returns))
         if returns > self._best_returns:
             self._best_returns = returns
         self._returns100.append(returns)
         if len(self._returns100) == 100:
             mean = np.mean(self._returns100)
             std = np.std(self._returns100)
-            self._writer.add_summary('returns100', mean, std, step="frame")
+            self._writer.add_summary('returns100', mean, std, step="sample_frame")
             self._returns100 = []
-        self._writer.add_evaluation('returns/episode', returns, step="episode")
-        self._writer.add_evaluation('returns/frame', returns, step="frame")
+        self._writer.add_evaluation('returns/episode', returns, step="sample_episode")
+        self._writer.add_evaluation('returns/frame', returns, step="sample_frame")
         self._writer.add_evaluation(
-            "returns/max", self._best_returns, step="frame")
+            "returns/max", self._best_returns, step="sample_frame")
