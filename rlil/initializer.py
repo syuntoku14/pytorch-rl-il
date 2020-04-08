@@ -1,5 +1,4 @@
 import os
-import torch.multiprocessing as mp
 import torch
 import logging
 from rlil.utils.writer import DummyWriter

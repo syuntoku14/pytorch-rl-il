@@ -11,6 +11,7 @@ from rlil.experiments import Trainer
 from rlil.samplers import AsyncSampler
 from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import set_replay_buffer
+from rlil.presets.continuous import sac
 from ..mock_agent import MockAgent
 
 
@@ -42,3 +43,15 @@ class TestTrainer(unittest.TestCase):
         trainer = Trainer(self.agent, self.sampler, max_episodes=max_episodes)
         trainer.start_training()
         assert trainer._writer.frames > max_episodes
+
+    def test_training(self):
+        agent_fn = sac(replay_start_size=50)
+        agent = agent_fn(self.env)
+        self.sampler = AsyncSampler(
+            self.env,
+            num_workers=self.num_workers,
+            seed=0,
+        )
+
+        trainer = Trainer(agent, self.sampler, max_episodes=100)
+        trainer.start_training()

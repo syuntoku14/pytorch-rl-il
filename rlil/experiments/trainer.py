@@ -35,10 +35,11 @@ class Trainer:
             lazy_agent = self._agent.make_lazy_agent()
             self._sampler.start_sampling(
                 lazy_agent, worker_episodes=1)
-            sample_info = self._sampler.store_samples(timeout=0.1)
+            sample_info = self._sampler.store_samples(timeout=0.05)
             self._writer.frames += sample_info["frames"]
             self._writer.episodes += sample_info["episodes"]
-            self._agent.train()
+            for _ in range(int(sample_info["frames"] / len(self._sampler._workers))):
+                self._agent.train()
             for returns in sample_info["returns"]:
                 self._log(returns.item())
 

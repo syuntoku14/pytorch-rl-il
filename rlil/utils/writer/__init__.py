@@ -7,7 +7,6 @@ from abc import ABC, abstractmethod
 from datetime import datetime
 from torch.utils.tensorboard import SummaryWriter
 from collections import defaultdict
-import torch.multiprocessing as mp
 
 
 class Writer(ABC):
