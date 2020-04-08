@@ -1,3 +1,4 @@
+from copy import deepcopy
 import torch
 from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
@@ -92,23 +93,28 @@ class DDPG(Agent):
         return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0
 
     def make_lazy_agent(self):
-        return DDPGLazyAgent(self.policy, self._noise)
+        model = deepcopy(self.policy.model)
+        noise = Normal(0, self._noise.stddev.to("cpu"))
+        return DDPGLazyAgent(model.to("cpu"), noise)
 
 
 class DDPGLazyAgent(LazyAgent):
     """ 
     Agent class for sampler.
     """
-    def __init__(self, policy, noise):
+    def __init__(self, policy_model, noise):
         self._replay_buffer = ExperienceReplayBuffer(1e9)
-        self._policy = policy
+        self._policy_model = policy_model
         self._noise = noise
+        self._states = None
+        self._actions = None
 
     def act(self, states, reward):
-        self.replay_buffer.store(
+        self._replay_buffer.store(
             self._states, self._actions, reward, states)
         self._states = states
-        actions = self._policy.eval(states.to("cpu"))
-        actions += self._noise.sample([actions.shape[0]])
-        self._actions = Action(actions).to("cpu")
+        with torch.no_grad():
+            actions = self._policy_model(states)
+            actions += self._noise.sample([actions.shape[0]])
+        self._actions = Action(actions)
         return self._actions
