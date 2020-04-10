@@ -2,7 +2,7 @@ import ray
 import numpy as np
 import os
 import torch
-from rlil.initializer import get_replay_buffer
+from rlil.initializer import get_replay_buffer, get_seed
 from rlil.environments import State, Action
 from rlil.samplers import Sampler
 
@@ -65,9 +65,9 @@ class AsyncSampler(Sampler):
             self,
             env,
             num_workers=1,
-            seed=0,
     ):
         self._env = env
+        seed = get_seed()
         self._workers = [Worker.remote(env.duplicate, seed+i)
                          for i in range(num_workers)]
         self._work_ids = {worker: None for worker in self._workers}

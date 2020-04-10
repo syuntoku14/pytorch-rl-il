@@ -80,6 +80,7 @@ class SAC(Agent):
             # sample from replay buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
                 self.minibatch_size)
+            self.writer.train_frames += len(states)
 
             # compute targets for Q and V
             _actions, _log_probs = self.policy.eval(states)

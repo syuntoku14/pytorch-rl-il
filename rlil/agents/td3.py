@@ -3,7 +3,7 @@ from copy import deepcopy
 from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
 from rlil.environments import Action
-from rlil.initializer import get_device, get_replay_buffer
+from rlil.initializer import get_device, get_writer, get_replay_buffer
 from rlil.memory import ExperienceReplayBuffer
 from .base import Agent, LazyAgent
 
@@ -59,6 +59,7 @@ class TD3(Agent):
         self.policy = policy
         self.replay_buffer = get_replay_buffer()
         self.device = get_device()
+        self.writer = get_writer()
         # hyperparameters
         self.replay_start_size = replay_start_size
         self.update_frequency = update_frequency
@@ -95,6 +96,7 @@ class TD3(Agent):
             # sample transitions from buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
                 self.minibatch_size)
+            self.writer.train_frames += len(states)
 
             # Trick Three: Target Policy Smoothing
             next_actions = self.policy.target(next_states)

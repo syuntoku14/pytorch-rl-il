@@ -97,8 +97,18 @@ class DummyWriter(Writer):
 
 class ExperimentWriter(SummaryWriter, Writer):
     def __init__(self, agent_name, env_name,
-                 interval=1e4, exp_info="default_experiments"):
+                 sample_frame_interval=1e4,
+                 sample_episode_interval=1e3,
+                 train_frame_interval=1e4,
+                 exp_info="default_experiments"):
+
         self.env_name = env_name
+        self._add_scalar_interval = \
+            {"sample_frame": sample_frame_interval,
+             "sample_episode": sample_episode_interval,
+             "train_frame": train_frame_interval}
+
+        # make experiment directory
         current_time = str(datetime.now())
         self.log_dir = os.path.join(
             "runs", exp_info, env_name,
@@ -106,22 +116,21 @@ class ExperimentWriter(SummaryWriter, Writer):
         )
         self.log_dir = self.log_dir.replace(" ", "_")
         os.makedirs(self.log_dir)
+
         self._sample_frames = 0
         self._train_frames = 0
         self._sample_episodes = 1
         self._name_frame_history = defaultdict(lambda: 0)
-        self._add_scalar_interval = interval
         super().__init__(log_dir=self.log_dir)
 
     def add_loss(self, name, value, step="sample_frame"):
         self.add_scalar("loss/" + name, value, step)
 
     def add_evaluation(self, name, value, step="sample_frame"):
-        self.add_scalar("evaluation/" + name, value, self._get_step(step))
+        self.add_scalar("evaluation/" + name, value, step)
 
     def add_schedule(self, name, value, step="sample_frame"):
-        self.add_scalar("schedule" + "/" + name,
-                        value, self._get_step(step))
+        self.add_scalar("schedule" + "/" + name, value, step)
 
     def add_scalar(self, name, value, step="sample_frame"):
         if isinstance(value, torch.Tensor):
@@ -129,11 +138,15 @@ class ExperimentWriter(SummaryWriter, Writer):
         if isinstance(value, np.ndarray):
             value = value.item()
 
-        name = self.env_name + "/" + name
+        if type(step) is str:
+            name = self.env_name + "/" + name + "/" + step
+        else:
+            name = self.env_name + "/" + name + "/unknown"
+
         # add data every self._add_scalar_interval
-        if self._get_step("sample_frame") - self._name_frame_history[name] > self._add_scalar_interval:
+        if self._get_step(step) - self._name_frame_history[name] > self._add_scalar_interval[step]:
             super().add_scalar(name, value, self._get_step(step))
-            self._name_frame_history[name] = self._get_step("sample_frame")
+            self._name_frame_history[name] = self._get_step(step)
 
     def add_summary(self, name, mean, std, step="sample_frame"):
         self.add_evaluation(name + "/mean", mean, step)

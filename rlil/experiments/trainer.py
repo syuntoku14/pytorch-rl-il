@@ -50,18 +50,36 @@ class Trainer:
         )
 
     def _log(self, returns):
-        self._logger.info("episode: %i, frames: %i, returns: %d" %
+        self._logger.info("episode: %i, sample_frames: %i, train_frames: %i, returns: %d" %
                           (self._writer.sample_episodes,
-                           self._writer.sample_frames, returns))
+                           self._writer.sample_frames,
+                           self._writer.train_frames,
+                           returns))
+
+        # update best_returns
         if returns > self._best_returns:
             self._best_returns = returns
         self._returns100.append(returns)
+
+        # log 100 returns mean and std
         if len(self._returns100) == 100:
             mean = np.mean(self._returns100)
             std = np.std(self._returns100)
-            self._writer.add_summary('returns100', mean, std, step="sample_frame")
+            self._writer.add_summary('returns100', mean,
+                                     std, step="sample_frame")
+            self._writer.add_summary('returns100', mean,
+                                     std, step="train_frame")
             self._returns100 = []
-        self._writer.add_evaluation('returns/episode', returns, step="sample_episode")
-        self._writer.add_evaluation('returns/frame', returns, step="sample_frame")
+
+        # log raw returns
+        self._writer.add_evaluation('returns', returns, step="sample_episode")
+        self._writer.add_evaluation('returns', returns, step="sample_frame")
+        self._writer.add_evaluation('returns', returns, step="train_frame")
         self._writer.add_evaluation(
             "returns/max", self._best_returns, step="sample_frame")
+        self._writer.add_evaluation(
+            "returns/max", self._best_returns, step="train_frame")
+
+        # log sample and train ratio
+        self._writer.add_scalar('train_frame', self._writer.train_frames, step="sample_frame")
+        self._writer.add_scalar('sample_frame', self._writer.sample_frames, step="train_frame")

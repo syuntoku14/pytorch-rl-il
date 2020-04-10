@@ -37,7 +37,6 @@ def test_sampler_episode(setUp):
     sampler = AsyncSampler(
         env,
         num_workers=num_workers,
-        seed=0,
     )
     lazy_agent = agent.make_lazy_agent()
     sampler.start_sampling(
@@ -59,7 +58,6 @@ def test_sampler_frames(setUp):
     sampler = AsyncSampler(
         env,
         num_workers=num_workers,
-        seed=0,
     )
 
     lazy_agent = agent.make_lazy_agent()
@@ -79,7 +77,6 @@ def test_ray_wait(setUp):
     sampler = AsyncSampler(
         env,
         num_workers=3,
-        seed=0,
     )
 
     worker_episodes = 100

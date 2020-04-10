@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import torch
 import logging
 from rlil.utils.writer import DummyWriter
@@ -15,6 +16,20 @@ def set_device(device):
 
 def get_device():
     return _DEVICE
+
+
+_SEED = 0
+
+
+def set_seed(seed):
+    global _SEED
+    np.random.seed(0)
+    torch.manual_seed(0)
+    _SEED = seed
+
+
+def get_seed():
+    return _SEED
 
 
 _WRITER = DummyWriter()
