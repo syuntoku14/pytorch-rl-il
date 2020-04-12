@@ -19,6 +19,7 @@ class MockWriter(Writer):
         self.train_frames = 0
 
     def add_scalar(self, key, value, step="sample_frame"):
+        key = key + "/" + step
         if key not in self.data:
             self.data[key] = {"values": [], "steps": []}
         self.data[key]["values"].append(value)
@@ -57,11 +58,12 @@ class MockExperiment(Experiment):
         agent = agent_fn(env)
 
         sampler = AsyncSampler(env, num_workers=num_workers)
+        eval_sampler = AsyncSampler(env)
 
         trainer = Trainer(
             agent,
             sampler,
-            None,
+            eval_sampler,
             max_frames,
             max_episodes
         )
@@ -77,7 +79,7 @@ class MockExperiment(Experiment):
 def test_adds_label():
     ray.init(include_webui=False, ignore_reinit_error=True)
     env = GymEnvironment('Pendulum-v0')
-    experiment = MockExperiment(sac(), env, max_episodes=3)
+    experiment = MockExperiment(sac(), env, max_episodes=1)
     assert experiment._writer.label == "_sac_Pendulum-v0"
 
 
@@ -87,7 +89,7 @@ def test_writes_returns_eps():
     env = GymEnvironment('Pendulum-v0')
     experiment = MockExperiment(sac(), env, max_episodes=3)
     np.testing.assert_equal(
-        experiment._writer.data["evaluation/returns/episode"]["steps"],
+        experiment._writer.data["returns/episode"]["steps"],
         np.array([1, 2, 3]),
     )
 

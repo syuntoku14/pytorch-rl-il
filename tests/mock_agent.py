@@ -8,7 +8,6 @@ import ray
 from rlil import nn
 from rlil.environments import GymEnvironment, Action
 from rlil.policies.deterministic import DeterministicPolicyNetwork
-from rlil.samplers import SyncSampler
 from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import get_replay_buffer
 

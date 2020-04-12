@@ -13,7 +13,8 @@ class Writer(ABC):
     log_dir = "runs"
 
     @abstractmethod
-    def add_scalar(self, name, value, step="sample_frame", save_csv=False):
+    def add_scalar(self, name, value, step="sample_frame",
+                   step_value=None, save_csv=False):
         pass
 
     @abstractmethod
@@ -21,6 +22,8 @@ class Writer(ABC):
         pass
 
     def _get_step(self, _type):
+        if type(_type) is not str:
+            raise ValueError("step must be str")
         if _type == "sample_frame":
             return self.sample_frames
         if _type == "sample_episode":
@@ -33,10 +36,11 @@ class Writer(ABC):
 class DummyWriter(Writer):
     def __init__(self):
         self.sample_frames = 0
-        self.sample_episodes = 1
+        self.sample_episodes = 0
         self.train_frames = 0
 
-    def add_scalar(self, key, value, step="sample_frame", save_csv=False):
+    def add_scalar(self, name, value, step="sample_frame",
+                   step_value=None, save_csv=False):
         pass
 
     def add_text(self, name, text, step="sample_frame"):
@@ -67,30 +71,29 @@ class ExperimentWriter(SummaryWriter, Writer):
 
         self.sample_frames = 0
         self.train_frames = 0
-        self.sample_episodes = 1
+        self.sample_episodes = 0
         self._name_frame_history = defaultdict(lambda: 0)
         super().__init__(log_dir=self.log_dir)
 
-    def add_scalar(self, name, value, step="sample_frame", save_csv=False):
+    def add_scalar(self, name, value, step="sample_frame",
+                   step_value=None, save_csv=False):
         if isinstance(value, torch.Tensor):
             value = value.cpu().detach().item()
         if isinstance(value, np.ndarray):
             value = value.item()
 
-        if type(step) is str:
-            name = self.env_name + "/" + name + "/" + step
-        else:
-            name = self.env_name + "/" + name + "/unknown"
+        value_name = self.env_name + "/" + name + "/" + step
 
         # add data every self._add_scalar_interval
-        if self._get_step(step) - self._name_frame_history[name] > self._add_scalar_interval[step]:
-            super().add_scalar(name, value, self._get_step(step))
-            self._name_frame_history[name] = self._get_step(step)
+        if self._get_step(step) - self._name_frame_history[value_name] >= self._add_scalar_interval[step]:
+            step_value = self._get_step(step) if step_value is None else step_value
+            super().add_scalar(value_name, value, step_value)
+            self._name_frame_history[value_name] = step_value
 
             if save_csv:
                 with open(os.path.join(self.log_dir, name + ".csv"), "a") as csvfile:
                     csv.writer(csvfile).writerow(
-                        [self._get_step(step), mean, std])
+                        [self._get_step(step), value])
 
     def add_text(self, name, text, step="sample_frame"):
         name = self.env_name + "/" + name
