@@ -13,23 +13,7 @@ class Writer(ABC):
     log_dir = "runs"
 
     @abstractmethod
-    def add_loss(self, name, value, step="sample_frame"):
-        pass
-
-    @abstractmethod
-    def add_evaluation(self, name, value, step="sample_frame"):
-        pass
-
-    @abstractmethod
-    def add_scalar(self, name, value, step="sample_frame"):
-        pass
-
-    @abstractmethod
-    def add_schedule(self, name, value, step="sample_frame"):
-        pass
-
-    @abstractmethod
-    def add_summary(self, name, mean, std, step="sample_frame"):
+    def add_scalar(self, name, value, step="sample_frame", save_csv=False):
         pass
 
     @abstractmethod
@@ -45,50 +29,14 @@ class Writer(ABC):
             return self.train_frames
         return _type
 
-    @property
-    def sample_frames(self):
-        return self._sample_frames
-
-    @sample_frames.setter
-    def sample_frames(self, frames):
-        self._sample_frames = frames
-
-    @property
-    def sample_episodes(self):
-        return self._sample_episodes
-
-    @sample_episodes.setter
-    def sample_episodes(self, episodes):
-        self._sample_episodes = episodes
-
-    @property
-    def train_frames(self):
-        return self._train_frames
-
-    @train_frames.setter
-    def train_frames(self, frames):
-        self._train_frames = frames
-
 
 class DummyWriter(Writer):
     def __init__(self):
-        self._sample_frames = 0
-        self._sample_episodes = 1
-        self._train_frames = 0
+        self.sample_frames = 0
+        self.sample_episodes = 1
+        self.train_frames = 0
 
-    def add_scalar(self, key, value, step="sample_frame"):
-        pass
-
-    def add_loss(self, name, value, step="sample_frame"):
-        pass
-
-    def add_schedule(self, name, value, step="sample_frame"):
-        pass
-
-    def add_evaluation(self, name, value, step="sample_frame"):
-        pass
-
-    def add_summary(self, name, mean, std, step="sample_frame"):
+    def add_scalar(self, key, value, step="sample_frame", save_csv=False):
         pass
 
     def add_text(self, name, text, step="sample_frame"):
@@ -117,22 +65,13 @@ class ExperimentWriter(SummaryWriter, Writer):
         self.log_dir = self.log_dir.replace(" ", "_")
         os.makedirs(self.log_dir)
 
-        self._sample_frames = 0
-        self._train_frames = 0
-        self._sample_episodes = 1
+        self.sample_frames = 0
+        self.train_frames = 0
+        self.sample_episodes = 1
         self._name_frame_history = defaultdict(lambda: 0)
         super().__init__(log_dir=self.log_dir)
 
-    def add_loss(self, name, value, step="sample_frame"):
-        self.add_scalar("loss/" + name, value, step)
-
-    def add_evaluation(self, name, value, step="sample_frame"):
-        self.add_scalar("evaluation/" + name, value, step)
-
-    def add_schedule(self, name, value, step="sample_frame"):
-        self.add_scalar("schedule" + "/" + name, value, step)
-
-    def add_scalar(self, name, value, step="sample_frame"):
+    def add_scalar(self, name, value, step="sample_frame", save_csv=False):
         if isinstance(value, torch.Tensor):
             value = value.cpu().detach().item()
         if isinstance(value, np.ndarray):
@@ -148,12 +87,10 @@ class ExperimentWriter(SummaryWriter, Writer):
             super().add_scalar(name, value, self._get_step(step))
             self._name_frame_history[name] = self._get_step(step)
 
-    def add_summary(self, name, mean, std, step="sample_frame"):
-        self.add_evaluation(name + "/mean", mean, step)
-        self.add_evaluation(name + "/std", std, step)
-
-        with open(os.path.join(self.log_dir, name + ".csv"), "a") as csvfile:
-            csv.writer(csvfile).writerow([self._get_step(step), mean, std])
+            if save_csv:
+                with open(os.path.join(self.log_dir, name + ".csv"), "a") as csvfile:
+                    csv.writer(csvfile).writerow(
+                        [self._get_step(step), mean, std])
 
     def add_text(self, name, text, step="sample_frame"):
         name = self.env_name + "/" + name

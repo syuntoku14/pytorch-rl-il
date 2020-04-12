@@ -111,11 +111,11 @@ class SAC(Agent):
             self.temperature += self.lr_temperature * temperature_grad.detach()
 
             # additional debugging info
-            self.writer.add_loss('entropy', -_log_probs.mean())
-            self.writer.add_loss('v_mean', v_targets.mean())
-            self.writer.add_loss('r_mean', rewards.mean())
-            self.writer.add_loss('temperature_grad', temperature_grad)
-            self.writer.add_loss('temperature', self.temperature)
+            self.writer.add_scalar('loss/entropy', -_log_probs.mean())
+            self.writer.add_scalar('loss/v_mean', v_targets.mean())
+            self.writer.add_scalar('loss/r_mean', rewards.mean())
+            self.writer.add_scalar('loss/temperature_grad', temperature_grad)
+            self.writer.add_scalar('loss/temperature', self.temperature)
 
     def _should_train(self):
         self._train_count += 1

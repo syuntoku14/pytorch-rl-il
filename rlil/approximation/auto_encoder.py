@@ -54,7 +54,7 @@ class AutoEncoder:
 
     def reinforce(self, loss):
         loss = self._loss_scaling * loss
-        self._writer.add_loss(self._name, loss.detach())
+        self._writer.add_scalar("loss/" + self._name, loss.detach())
         loss.backward()
         self.step()
         return self
@@ -70,7 +70,7 @@ class AutoEncoder:
         self._optimizer.zero_grad()
         if self._lr_scheduler:
             self._writer.add_schedule(
-                self._name + '/lr', self._optimizer.param_groups[0]['lr'])
+                "schedule" + self._name + '/lr', self._optimizer.param_groups[0]['lr'])
             self._lr_scheduler.step()
         self._encoder_checkpointer()
         self._decoder_checkpointer()

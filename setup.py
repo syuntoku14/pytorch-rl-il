@@ -13,6 +13,7 @@ setup(
         "gym[atari,box2d]",    # atari environments
         "numpy",         # math library
         "matplotlib",    # plotting library
+        "seaborn",    # plotting library
         "opencv-python",  # used by atari wrappers
         "pybullet",      # continuous environments
         "autopep8",      # code quality tool

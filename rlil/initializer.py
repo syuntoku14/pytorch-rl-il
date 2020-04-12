@@ -23,8 +23,10 @@ _SEED = 0
 
 def set_seed(seed):
     global _SEED
-    np.random.seed(0)
-    torch.manual_seed(0)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
     _SEED = seed
 
 

@@ -29,12 +29,11 @@ class TestTrainer(unittest.TestCase):
         self.sampler = AsyncSampler(
             self.env,
             num_workers=self.num_workers,
-            seed=0,
         )
 
     def test_trainer_frames(self):
         max_frames = 100
-        trainer = Trainer(self.agent, self.sampler, max_frames)
+        trainer = Trainer(self.agent, self.sampler, max_frames=max_frames)
         trainer.start_training()
         assert trainer._writer.sample_frames > max_frames
 
@@ -50,7 +49,6 @@ class TestTrainer(unittest.TestCase):
         self.sampler = AsyncSampler(
             self.env,
             num_workers=self.num_workers,
-            seed=0,
         )
 
         trainer = Trainer(agent, self.sampler, max_episodes=5)

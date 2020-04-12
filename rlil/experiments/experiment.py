@@ -1,7 +1,7 @@
 import numpy as np
 from rlil.utils.writer import ExperimentWriter
 from rlil.initializer import get_logger, get_writer, set_writer, set_logger, set_seed
-from rlil.samplers import SyncSampler, AsyncSampler
+from rlil.samplers import AsyncSampler
 from .trainer import Trainer
 import os
 import logging
@@ -17,6 +17,7 @@ class Experiment:
             exp_info="default_experiments",
             seed=0,
             num_workers=1,
+            num_workers_eval=1,
             max_frames=np.inf,
             max_episodes=np.inf,
     ):
@@ -50,10 +51,12 @@ class Experiment:
         agent = agent_fn(env)
 
         sampler = AsyncSampler(env, num_workers=num_workers)
+        eval_sampler = AsyncSampler(env, num_workers=num_workers_eval)
 
         trainer = Trainer(
             agent,
             sampler,
+            eval_sampler,
             max_frames,
             max_episodes
         )

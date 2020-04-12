@@ -24,18 +24,6 @@ class MockWriter(Writer):
         self.data[key]["values"].append(value)
         self.data[key]["steps"].append(self._get_step(step))
 
-    def add_loss(self, name, value, step="sample_frame"):
-        pass
-
-    def add_schedule(self, name, value, step="sample_frame"):
-        pass
-
-    def add_evaluation(self, name, value, step="sample_frame"):
-        self.add_scalar("evaluation/" + name, value, self._get_step(step))
-
-    def add_summary(self, name, mean, std, step="sample_frame"):
-        pass
-
     def add_text(self, name, text, step="sample_frame"):
         pass
 
@@ -73,6 +61,7 @@ class MockExperiment(Experiment):
         trainer = Trainer(
             agent,
             sampler,
+            None,
             max_frames,
             max_episodes
         )

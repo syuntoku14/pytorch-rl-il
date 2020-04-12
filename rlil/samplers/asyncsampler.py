@@ -88,7 +88,7 @@ class AsyncSampler(Sampler):
                     worker.sample.remote(
                         lazy_agent, worker_frames, worker_episodes)
 
-    def store_samples(self, timeout=10):
+    def store_samples(self, timeout=10, eval=False):
         # store samples if the worker finishes sampling
         sum_sample_info = {"frames": 0, "episodes": 0, "returns": []}
         for worker, _id in self._work_ids.items():
@@ -100,7 +100,8 @@ class AsyncSampler(Sampler):
                 sum_sample_info["frames"] += sample_info["frames"]
                 sum_sample_info["episodes"] += sample_info["episodes"]
                 sum_sample_info["returns"] += sample_info["returns"]
-                self._replay_buffer.store(*samples)
                 self._work_ids[worker] = None
+                if eval:
+                    self._replay_buffer.store(*samples)
 
         return sum_sample_info

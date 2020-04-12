@@ -30,7 +30,7 @@ class LinearScheduler:
 
     def __get__(self, instance, owner=None):
         result = self._get_value()
-        self._writer.add_schedule(self._name, result)
+        self._writer.add_scalar("schedule/" + self._name, result)
         return result
 
     def _get_value(self):
