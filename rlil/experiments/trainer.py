@@ -27,6 +27,7 @@ class Trainer:
             eval_sampler=None,
             max_frames=np.inf,
             max_episodes=np.inf,
+            num_trains_per_episode=10,
     ):
         self._agent = agent
         self._sampler = sampler
@@ -36,6 +37,7 @@ class Trainer:
         self._writer = get_writer()
         self._logger = get_logger()
         self._best_returns = -np.inf
+        self._num_trains = num_trains_per_episode
 
     def start_training(self):
         while not self._done():
@@ -51,12 +53,13 @@ class Trainer:
             for sample_info in sample_result.values():
                 self._writer.sample_frames += sum(sample_info["frames"])
                 self._writer.sample_episodes += len(sample_info["frames"])
-                for _ in range(int(sum(sample_info["frames"]) /
-                                   len(self._sampler._workers))):
+                # train per episode
+                for _ in range(self._num_trains * len(sample_info["frames"])):
                     self._agent.train()
 
             # evaluation
             if self._eval_sampler is not None:
+                eval_lazy_agent = self._agent.make_lazy_agent(evaluation=True)
                 self._eval_sampler.start_sampling(
                     lazy_agent,
                     start_info=self._get_current_info(),

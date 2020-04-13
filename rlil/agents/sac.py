@@ -121,9 +121,9 @@ class SAC(Agent):
         self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0
 
-    def make_lazy_agent(self):
+    def make_lazy_agent(self, evaluation=False):
         model = deepcopy(self.policy.model)
-        return SACLazyAgent(model.to("cpu"))
+        return SACLazyAgent(model.to("cpu"), evaluation)
 
 
 class SACLazyAgent(LazyAgent):
@@ -131,17 +131,22 @@ class SACLazyAgent(LazyAgent):
     Agent class for sampler.
     """
 
-    def __init__(self, policy_model):
+    def __init__(self, policy_model, evaluation):
         self._replay_buffer = ExperienceReplayBuffer(1e9)
         self._policy_model = policy_model
         self._states = None
         self._actions = None
+        self._evaluation = evaluation
 
     def act(self, states, reward):
-        self._replay_buffer.store(
-            self._states, self._actions, reward, states)
+        if not self._evaluation:
+            self._replay_buffer.store(
+                self._states, self._actions, reward, states)
         self._states = states
         with torch.no_grad():
-            self._actions = Action(self._policy_model(
-                states.to("cpu"))[0]).to("cpu")
+            if self._evaluation:
+                outputs = self._policy_model(states, return_mean=True)
+            else:
+                outputs = self._policy_model(states)[0]
+            self._actions = Action(outputs).to("cpu")
         return self._actions

@@ -26,8 +26,12 @@ class SoftDeterministicPolicyNetwork(RLNetwork):
         self._tanh_mean = torch.tensor(
             (space.high + space.low) / 2).to(self.device)
 
-    def forward(self, state):
+    def forward(self, state, return_mean=False):
         outputs = super().forward(state)
+        if return_mean:
+            means = outputs[:, 0: self._action_dim]
+            return means
+
         normal = self._normal(outputs)
         action, log_prob = self._sample(normal)
         return action, log_prob

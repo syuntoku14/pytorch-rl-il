@@ -23,6 +23,8 @@ def main():
                         help="Number of workers for training")
     parser.add_argument("--num_workers_eval", type=int,
                         default=1, help="Number of workers for evaluation")
+    parser.add_argument("--num_trains_per_episode", type=int,
+                        default=10, help="Number of trains called per episode")
     parser.add_argument("--device", default="cuda",
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)",
                         )
@@ -57,7 +59,8 @@ def main():
 
     Experiment(
         agent_fn, env, num_workers=args.num_workers, max_frames=args.frames,
-        args_dict=args_dict, exp_info=args.exp_info
+        args_dict=args_dict, exp_info=args.exp_info,
+        num_trains_per_episode=args.num_trains_per_episode
     )
 
 
