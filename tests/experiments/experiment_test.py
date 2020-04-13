@@ -23,12 +23,12 @@ class MockWriter(Writer):
         if key not in self.data:
             self.data[key] = {"values": [], "steps": []}
         self.data[key]["values"].append(value)
-        self.data[key]["steps"].append(self._get_step(step))
+        self.data[key]["steps"].append(self._get_step_value(step))
 
     def add_text(self, name, text, step="sample_frame"):
         pass
 
-    def _get_step(self, _type):
+    def _get_step_value(self, _type):
         if _type == "sample_frame":
             return self.sample_frames
         if _type == "sample_episode":

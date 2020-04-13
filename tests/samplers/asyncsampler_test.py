@@ -89,3 +89,28 @@ def test_ray_wait(setUp):
     # WHEN worker_episodes is large
     # THEN sampler doesn't wait the worker finishes sampling
     assert len(sampler._replay_buffer) == 0
+
+
+def test_eval_sampler(setUp):
+    env = setUp["env"]
+    agent = setUp["agent"]
+    sampler = AsyncSampler(
+        env,
+        num_workers=3,
+    )
+
+    worker_episodes = 3
+    lazy_agent = agent.make_lazy_agent()
+    start_info = {"sample_frames": 100, "sample_episodes": 1000,
+                  "train_frames": 10000}
+    sampler.start_sampling(
+        lazy_agent,
+        worker_episodes=worker_episodes,
+        start_info=start_info
+    )
+
+    result = sampler.store_samples(timeout=1e9, eval=True)
+    # when eval=True, sampler doesn't store samples to the replay_buffer
+    assert len(sampler._replay_buffer) == 0
+
+    result["info_list"]

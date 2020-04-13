@@ -7,10 +7,16 @@ import warnings
 import os
 from timeit import default_timer as timer
 from rlil.initializer import get_writer, get_logger
+from collections import namedtuple
+import json
+
+
+Info = namedtuple("Info",
+                  ["sample_frames", "sample_episodes", "train_frames"])
 
 
 class Trainer:
-    """ 
+    """
     Trainer trains the agent with an env and a sampler.
     """
 
@@ -36,51 +42,82 @@ class Trainer:
             lazy_agent = self._agent.make_lazy_agent()
 
             # training
-            self._sampler.start_sampling(lazy_agent, worker_episodes=1)
-            sample_info = self._sampler.store_samples(timeout=0.05)
-            self._writer.sample_frames += sample_info["frames"]
-            self._writer.sample_episodes += sample_info["episodes"]
-            for _ in range(int(sample_info["frames"] /
-                               len(self._sampler._workers))):
-                self._agent.train()
+            self._sampler.start_sampling(lazy_agent,
+                                         start_info=self._get_current_info(),
+                                         worker_episodes=1)
+
+            sample_result = self._sampler.store_samples(timeout=0.05)
+
+            for sample_info in sample_result.values():
+                self._writer.sample_frames += sum(sample_info["frames"])
+                self._writer.sample_episodes += len(sample_info["frames"])
+                for _ in range(int(sum(sample_info["frames"]) /
+                                   len(self._sampler._workers))):
+                    self._agent.train()
 
             # evaluation
             if self._eval_sampler is not None:
                 self._eval_sampler.start_sampling(
-                    lazy_agent, worker_episodes=10)
-                eval_sample_info = self._eval_sampler.store_samples(
-                    timeout=0.05, eval=True)
-                for returns in eval_sample_info["returns"]:
-                    self._log(returns.item())
+                    lazy_agent,
+                    start_info=self._get_current_info(),
+                    worker_episodes=10)
+                eval_sample_result = self._eval_sampler.store_samples(
+                    timeout=0.05, evaluation=True)
 
-    def _done(self):
-        return (
-            self._writer.sample_frames > self._max_frames or
-            self._writer.sample_episodes > self._max_episodes
-        )
+                for start_info, sample_info in eval_sample_result.items():
+                    self._log(start_info, sample_info)
 
-    def _log(self, returns):
-        self._logger.info("episode: %i, sample_frames: %i, train_frames: %i, returns: %d" %
-                          (self._writer.sample_episodes,
-                           self._writer.sample_frames,
-                           self._writer.train_frames,
-                           returns))
+    def _log(self, start_info, sample_info):
+        mean_returns = np.mean(sample_info["returns"])
+        evaluation_msg = \
+            {
+                "Conditions":
+                {
+                    "sample_frames": start_info.sample_frames,
+                    "sample_episodes": start_info.sample_episodes,
+                    "train_frames": start_info.train_frames
+                },
+                "Result":
+                {
+                    "collected_frames": sum(sample_info["frames"]),
+                    "collected_episodes": len(sample_info["frames"]),
+                    "mean returns": round(mean_returns, 2)
+                }
+            }
+        self._logger.info("Evaluation:" + json.dumps(evaluation_msg, indent=2))
 
         # update best_returns
-        if returns > self._best_returns:
-            self._best_returns = returns
+        self._best_returns = max(max(sample_info["returns"]),
+                                 self._best_returns)
 
         # log raw returns
-        self._writer.add_scalar('returns', returns, step="sample_episode")
-        self._writer.add_scalar('returns', returns, step="sample_frame")
-        self._writer.add_scalar('returns', returns, step="train_frame")
-        self._writer.add_scalar(
-            "returns/max", self._best_returns, step="sample_frame")
-        self._writer.add_scalar(
-            "returns/max", self._best_returns, step="train_frame")
+        self._add_scalar_all("evaluation/returns", mean_returns, start_info)
+        self._add_scalar_all("evaluation/returns/max", self._best_returns, start_info)
 
         # log sample and train ratio
         self._writer.add_scalar(
             'train_frame', self._writer.train_frames, step="sample_frame")
         self._writer.add_scalar(
             'sample_frame', self._writer.sample_frames, step="train_frame")
+
+    def _add_scalar_all(self, name, value, start_info):
+        self._writer.add_scalar(name, value,
+                                step="sample_episode",
+                                step_value=start_info.sample_episodes)
+        self._writer.add_scalar(name, value,
+                                step="sample_frame",
+                                step_value=start_info.sample_frames)
+        self._writer.add_scalar(name, value,
+                                step="train_frame",
+                                step_value=start_info.train_frames)
+    
+    def _get_current_info(self):
+        return Info(sample_frames=self._writer.sample_frames,
+                    sample_episodes=self._writer.sample_episodes,
+                    train_frames=self._writer.train_frames)
+
+    def _done(self):
+        return (
+            self._writer.sample_frames > self._max_frames or
+            self._writer.sample_episodes > self._max_episodes
+        )

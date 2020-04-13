@@ -5,6 +5,7 @@ import torch
 from rlil.initializer import get_replay_buffer, get_seed
 from rlil.environments import State, Action
 from rlil.samplers import Sampler
+from collections import defaultdict
 
 
 @ray.remote
@@ -20,22 +21,39 @@ class Worker:
         print("Worker initialized in PID: {}".format(os.getpid()))
 
     def sample(self, lazy_agent, worker_frames, worker_episodes):
+        """
+        Args:
+            lazy_agent (rlil.agent.LazyAgent): agent for sampling
+            worker_frames (int): number of frames to collect
+            worker_episodes (int): number of episodes to collect
 
-        sample_info = {"frames": 0, "episodes": 0, "returns": []}
+        Returns:
+            sample_info (dict): Result dictionary. 
+                keys: 
+                    frames: the number of frames each episode
+                    returns: the return per episode
 
-        while sample_info["frames"] < worker_frames \
-                and sample_info["episodes"] < worker_episodes:
+            (States, Actions, rewards, NextStates)
+        """
+
+        sample_info = {"frames": [], "returns": []}
+
+        # Sample until it reaches worker_frames or worker_episodes.
+        while sum(sample_info["frames"]) < worker_frames \
+                and len(sample_info["frames"]) < worker_episodes:
+
             self._env.reset()
             action = lazy_agent.act(self._env.state, self._env.reward)
             _return = 0
+            _frames = 0
 
             while not self._env.done:
                 self._env.step(action)
-                sample_info["frames"] += 1
                 action = lazy_agent.act(self._env.state, self._env.reward)
-                _return += self._env.reward
+                _frames += 1
+                _return += self._env.reward.item()
 
-            sample_info["episodes"] += 1
+            sample_info["frames"].append(_frames)
             sample_info["returns"].append(_return)
 
         states, actions, rewards, next_states = [], [], [], []
@@ -75,9 +93,12 @@ class AsyncSampler(Sampler):
 
     def start_sampling(self,
                        lazy_agent,
+                       start_info={},
                        worker_frames=np.inf,
-                       worker_episodes=np.inf):
+                       worker_episodes=np.inf,
+                       ):
 
+        # start_info has the information about when the sampling starts
         assert worker_frames != np.inf or worker_episodes != np.inf, \
             "worker_frames or worker_episodes must be specified"
 
@@ -85,23 +106,30 @@ class AsyncSampler(Sampler):
         for worker in self._workers:
             if self._work_ids[worker] is None:
                 self._work_ids[worker] = \
-                    worker.sample.remote(
-                        lazy_agent, worker_frames, worker_episodes)
+                    {"id": worker.sample.remote(
+                        lazy_agent, worker_frames, worker_episodes),
+                     "start_info": start_info}
 
-    def store_samples(self, timeout=10, eval=False):
-        # store samples if the worker finishes sampling
-        sum_sample_info = {"frames": 0, "episodes": 0, "returns": []}
-        for worker, _id in self._work_ids.items():
+    def store_samples(self, timeout=10, evaluation=False):
+        # result is a dict of {start_info: {"frames": [], "returns": []}}
+        result = defaultdict(lambda: {"frames": [], "returns": []})
+
+        # store samples when the worker finishes sampling
+        for worker, item in self._work_ids.items():
+            _id = item["id"]
+            start_info = item["start_info"]
             ready_id, remaining_id = \
                 ray.wait([_id], num_returns=1, timeout=timeout)
 
+            # if there is at least one finished worker
             if len(ready_id) > 0:
+                # merge results
                 sample_info, samples = ray.get(ready_id[0])
-                sum_sample_info["frames"] += sample_info["frames"]
-                sum_sample_info["episodes"] += sample_info["episodes"]
-                sum_sample_info["returns"] += sample_info["returns"]
+                result[start_info]["frames"] += sample_info["frames"]
+                result[start_info]["returns"] += sample_info["returns"]
+
                 self._work_ids[worker] = None
-                if eval:
+                if not evaluation:
                     self._replay_buffer.store(*samples)
 
-        return sum_sample_info
+        return result

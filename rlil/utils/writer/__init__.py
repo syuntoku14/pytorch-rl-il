@@ -21,7 +21,7 @@ class Writer(ABC):
     def add_text(self, name, text, step="sample_frame"):
         pass
 
-    def _get_step(self, _type):
+    def _get_step_value(self, _type):
         if type(_type) is not str:
             raise ValueError("step must be str")
         if _type == "sample_frame":
@@ -82,22 +82,22 @@ class ExperimentWriter(SummaryWriter, Writer):
         if isinstance(value, np.ndarray):
             value = value.item()
 
+        step_value = self._get_step_value(step) if step_value is None else step_value
         value_name = self.env_name + "/" + name + "/" + step
 
         # add data every self._add_scalar_interval
-        if self._get_step(step) - self._name_frame_history[value_name] >= self._add_scalar_interval[step]:
-            step_value = self._get_step(step) if step_value is None else step_value
+        if step_value - self._name_frame_history[value_name] >= self._add_scalar_interval[step]:
             super().add_scalar(value_name, value, step_value)
             self._name_frame_history[value_name] = step_value
 
             if save_csv:
                 with open(os.path.join(self.log_dir, name + ".csv"), "a") as csvfile:
                     csv.writer(csvfile).writerow(
-                        [self._get_step(step), value])
+                        [step_value, value])
 
     def add_text(self, name, text, step="sample_frame"):
         name = self.env_name + "/" + name
-        super().add_text(name, text, self._get_step(step))
+        super().add_text(name, text, self._get_step_value(step))
 
 
 def get_commit_hash():

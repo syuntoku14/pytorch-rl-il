@@ -65,15 +65,15 @@ def read_scalars(event_acc):
     return steps, scalars
 
 
-def test_get_step(init_writer):
+def test_get_step_value(init_writer):
     writer = get_writer()
     writer.sample_frames = 1
     writer.sample_episodes = 2
     writer.train_frames = 3
 
-    assert writer._get_step("sample_frame") == 1
-    assert writer._get_step("sample_episode") == 2
-    assert writer._get_step("train_frame") == 3
+    assert writer._get_step_value("sample_frame") == 1
+    assert writer._get_step_value("sample_episode") == 2
+    assert writer._get_step_value("train_frame") == 3
 
 
 def test_add_scalar_interval(init_writer):

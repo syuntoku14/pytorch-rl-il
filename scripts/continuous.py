@@ -18,8 +18,11 @@ def main():
                         help="Name of the agent (e.g. actor_critic). See presets for available agents.",
                         )
     parser.add_argument("--frames", type=int, default=5e7,
-                        help="The number of training frames")
-    parser.add_argument("--num_workers", type=int, default=1)
+                        help="Number of training frames")
+    parser.add_argument("--num_workers", type=int, default=1,
+                        help="Number of workers for training")
+    parser.add_argument("--num_workers_eval", type=int,
+                        default=1, help="Number of workers for evaluation")
     parser.add_argument("--device", default="cuda",
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)",
                         )
@@ -53,7 +56,7 @@ def main():
     args_dict.update(preset_args)
 
     Experiment(
-        agent_fn, env, num_workers=args.num_workers, max_frames=args.frames, 
+        agent_fn, env, num_workers=args.num_workers, max_frames=args.frames,
         args_dict=args_dict, exp_info=args.exp_info
     )
 

@@ -23,5 +23,5 @@ class Sampler(ABC):
         Store collected samples to the replay_buffer
 
         Returns:
-            sample_log (dict): Information of sampling (e.g. stored frames, returns, etc)
+            result (dict): Information of sampling (e.g. stored frames, returns, etc)
         """
