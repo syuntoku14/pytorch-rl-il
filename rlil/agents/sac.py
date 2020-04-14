@@ -29,7 +29,6 @@ class SAC(Agent):
         minibatch_size (int): The number of experiences to sample in each training update.
         replay_start_size (int): Number of experiences in replay buffer when training begins.
         temperature_initial (float): The initial temperature used in the maximum entropy objective.
-        update_frequency (int): Number of timesteps per training update.
     """
 
     def __init__(self,
@@ -43,7 +42,6 @@ class SAC(Agent):
                  minibatch_size=32,
                  replay_start_size=5000,
                  temperature_initial=0.1,
-                 update_frequency=1,
                  ):
         # objects
         self.policy = policy
@@ -60,7 +58,6 @@ class SAC(Agent):
         self.minibatch_size = minibatch_size
         self.replay_start_size = replay_start_size
         self.temperature = temperature_initial
-        self.update_frequency = update_frequency
         # private
         self._states = None
         self._actions = None
@@ -119,7 +116,7 @@ class SAC(Agent):
 
     def _should_train(self):
         self._train_count += 1
-        return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0
+        return len(self.replay_buffer) > self.replay_start_size
 
     def make_lazy_agent(self, evaluation=False):
         model = deepcopy(self.policy.model)

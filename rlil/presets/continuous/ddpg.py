@@ -20,7 +20,6 @@ def ddpg(
         lr_pi=1e-3,
         # Training settings
         minibatch_size=100,
-        update_frequency=1,
         polyak_rate=0.005,
         # Replay Buffer settings
         replay_start_size=5000,
@@ -38,15 +37,13 @@ def ddpg(
         lr_q (float): Learning rate for the Q network.
         lr_pi (float): Learning rate for the policy network.
         minibatch_size (int): Number of experiences to sample in each training update.
-        update_frequency (int): Number of timesteps per training update.
         polyak_rate (float): Speed with which to update the target network towards the online network.
         replay_start_size (int): Number of experiences in replay buffer when training begins.
         replay_buffer_size (int): Maximum number of experiences to store in the replay buffer.
         noise (float): The amount of exploration noise to add.
     """
     def _ddpg(env):
-        final_anneal_step = (
-            last_frame - replay_start_size) // update_frequency
+        final_anneal_step = (last_frame - replay_start_size)
 
         device = get_device()
         q_model = fc_q(env).to(device)
@@ -89,7 +86,6 @@ def ddpg(
             noise=noise,
             replay_start_size=replay_start_size,
             discount_factor=discount_factor,
-            update_frequency=update_frequency,
             minibatch_size=minibatch_size,
         )
     return _ddpg

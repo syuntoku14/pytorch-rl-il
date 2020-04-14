@@ -20,7 +20,6 @@ def td3(
         lr_pi=1e-3,
         # Training settings
         minibatch_size=100,
-        update_frequency=1,
         polyak_rate=0.005,
         noise_td3=0.2,
         policy_update_td3=2,
@@ -40,7 +39,6 @@ def td3(
         lr_q (float): Learning rate for the Q network.
         lr_pi (float): Learning rate for the policy network.
         minibatch_size (int): Number of experiences to sample in each training update.
-        update_frequency (int): Number of timesteps per training update.
         polyak_rate (float): Speed with which to update the target network towards the online network.
         noise_td3 (float): the amount of noise to add to each action in trick three.
         policy_update_td3 (int): Number of timesteps per training update the policy in trick two.
@@ -49,8 +47,7 @@ def td3(
         noise_policy (float): The amount of exploration noise to add.
     """
     def _td3(env):
-        final_anneal_step = (
-            last_frame - replay_start_size) // update_frequency
+        final_anneal_step = (last_frame - replay_start_size)
 
         device = get_device()
         q_1_model = fc_q(env).to(device)
@@ -110,7 +107,6 @@ def td3(
             policy_update_td3=policy_update_td3,
             replay_start_size=replay_start_size,
             discount_factor=discount_factor,
-            update_frequency=update_frequency,
             minibatch_size=minibatch_size
         )
     return _td3

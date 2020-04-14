@@ -21,7 +21,6 @@ def sac(
         lr_pi=1e-4,
         # Training settings
         minibatch_size=100,
-        update_frequency=2,
         polyak_rate=0.005,
         # Replay Buffer settings
         replay_start_size=5000,
@@ -42,7 +41,6 @@ def sac(
         lr_v (float): Learning rate for the state-value networks.
         lr_pi (float): Learning rate for the policy network.
         minibatch_size (int): Number of experiences to sample in each training update.
-        update_frequency (int): Number of timesteps per training update.
         polyak_rate (float): Speed with which to update the target network towards the online network.
         replay_start_size (int): Number of experiences in replay buffer when training begins.
         replay_buffer_size (int): Maximum number of experiences to store in the replay buffer.
@@ -51,8 +49,7 @@ def sac(
         entropy_target_scaling (float): The target entropy will be -(entropy_target_scaling * env.action_space.shape[0])
     """
     def _sac(env):
-        final_anneal_step = (
-            last_frame - replay_start_size) // update_frequency
+        final_anneal_step = (last_frame - replay_start_size)
 
         device = get_device()
         q_1_model = fc_q(env).to(device)
@@ -124,7 +121,6 @@ def sac(
             lr_temperature=lr_temperature,
             replay_start_size=replay_start_size,
             discount_factor=discount_factor,
-            update_frequency=update_frequency,
             minibatch_size=minibatch_size,
         )
     return _sac

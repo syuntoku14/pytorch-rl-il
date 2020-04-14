@@ -1,32 +1,30 @@
 import torch
+import numpy as np
 from rlil.environments import State
-from rlil.experiments import ParallelEnvRunner
 
 
-def validate_agent(agent_fn, env):
-    validate_single_env_agent(agent_fn, env)
-    validate_parallel_env_agent(agent_fn, env)
+def validate_agent(agent_fn, env, done_step=-1):
+    """
+    Args:
+        agent_fn (func): presets of the agent
+        env (rlil.GymEnvironment) 
+        done_step (optional): 
+            Run until the step reaches done_step.
+            If less than 0, run until env.done == True.
+    """
 
-
-def validate_single_env_agent(agent_fn, env):
     agent = agent_fn(env)
-    # Run two episodes, enough to
-    # exercise all parts of the agent
-    # in most cases.
     for _ in range(2):
         env.reset()
-        while not env.done:
+        done_flag = False
+        step = 0
+        while not done_flag:
             agent.train()
             env.step(agent.act(env.state, env.reward))
+            step += 1
+            if done_step < 0:
+                done_flag = env.done
+            else:
+                done_flag = done_step < step
         agent.train()
         agent.act(env.state, env.reward)
-
-
-def validate_parallel_env_agent(agent_fn, env):
-    ParallelEnvRunner(
-        agent_fn,
-        env,
-        3,
-        seeds=[i + 0 for i in range(3)],
-        episodes=2,
-    )

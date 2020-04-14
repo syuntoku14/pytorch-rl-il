@@ -101,8 +101,8 @@ class ExperienceReplayBuffer(ReplayBuffer):
                                   for sample in minibatch]).to(self.device)
         actions = Action.from_list([sample[1]
                                     for sample in minibatch]).to(self.device)
-        rewards = torch.tensor([sample[2]
-                                for sample in minibatch], device=self.device).float()
+        rewards = torch.FloatTensor([sample[2]
+                                     for sample in minibatch]).to(self.device)
         next_states = State.from_list([sample[3]
                                        for sample in minibatch]).to(self.device)
         return (states, actions, rewards, next_states, weights.to(self.device))

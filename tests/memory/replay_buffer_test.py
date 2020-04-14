@@ -147,6 +147,8 @@ class TestPrioritizedReplayBuffer(unittest.TestCase):
         )
 
     def test_multi_store(self):
+        Action.set_action_space(gym.spaces.Box(
+            low=-np.inf, high=np.inf, shape=(1, )))
         states = torch.arange(0, 5, dtype=torch.float).view((-1, 1))
         actions = torch.arange(0, 5).view((-1, 1))
         rewards = torch.arange(0, 5, dtype=torch.float)

@@ -27,7 +27,6 @@ class DDPG(Agent):
         minibatch_size (int): The number of experiences to sample in each training update.
         noise (float): the amount of noise to add to each action (before scaling).
         replay_start_size (int): Number of experiences in replay buffer when training begins.
-        update_frequency (int): Number of timesteps per training update.
     """
 
     def __init__(self,
@@ -37,7 +36,6 @@ class DDPG(Agent):
                  minibatch_size=32,
                  noise=0.1,
                  replay_start_size=5000,
-                 update_frequency=1,
                  ):
         # objects
         self.q = q
@@ -47,13 +45,12 @@ class DDPG(Agent):
         self.writer = get_writer()
         # hyperparameters
         self.replay_start_size = replay_start_size
-        self.update_frequency = update_frequency
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
         # private
         action_space = Action.action_space()
         self._noise = Normal(
-            0, noise * torch.tensor((action_space.high - action_space.low) / 2).to(self.device))
+            0, noise * torch.FloatTensor((action_space.high - action_space.low) / 2).to(self.device))
         self._states = None
         self._actions = None
         self._train_count = 0
@@ -92,7 +89,7 @@ class DDPG(Agent):
 
     def _should_train(self):
         self._train_count += 1
-        return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0
+        return len(self.replay_buffer) > self.replay_start_size
 
     def make_lazy_agent(self, evaluation=False):
         model = deepcopy(self.policy.model)

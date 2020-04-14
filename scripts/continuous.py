@@ -13,10 +13,9 @@ import ray
 def main():
     parser = argparse.ArgumentParser(
         description="Run a continuous actions benchmark.")
-    parser.add_argument("env", help="Name of the env (see envs)")
+    parser.add_argument("env", help="Name of the env")
     parser.add_argument("agent",
-                        help="Name of the agent (e.g. actor_critic). See presets for available agents.",
-                        )
+                        help="Name of the agent (e.g. actor_critic). See presets for available agents.")
     parser.add_argument("--frames", type=int, default=5e7,
                         help="Number of training frames")
     parser.add_argument("--num_workers", type=int, default=1,
@@ -24,15 +23,13 @@ def main():
     parser.add_argument("--num_workers_eval", type=int,
                         default=1, help="Number of workers for evaluation")
     parser.add_argument("--num_trains_per_iter", type=int,
-                        default=10, help="Number of trains called per episode")
+                        default=1000, help="Number of trains called per episode")
     parser.add_argument("--device", default="cuda",
-                        help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)",
-                        )
+                        help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)")
     parser.add_argument("--policy", default=None,
                         help="Path to the pretrained policy state_dict")
     parser.add_argument("--exp_info", default="default experiment",
-                        help="One line descriptions of the experiment. Experiments' results are saved in 'runs/[exp_info]/[env_id]/'"
-                        )
+                        help="One line descriptions of the experiment. Experiments' results are saved in 'runs/[exp_info]/[env_id]/'")
 
     args = parser.parse_args()
 

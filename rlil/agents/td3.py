@@ -38,7 +38,6 @@ class TD3(Agent):
         noise_td3 (float): the amount of noise to add to each action in trick three.
         policy_update_td3 (int): Number of timesteps per training update the policy in trick two.
         replay_start_size (int): Number of experiences in replay buffer when training begins.
-        update_frequency (int): Number of timesteps per training update.
     """
 
     def __init__(self,
@@ -51,7 +50,6 @@ class TD3(Agent):
                  noise_td3=0.2,
                  policy_update_td3=2,
                  replay_start_size=5000,
-                 update_frequency=1,
                  ):
         # objects
         self.q_1 = q_1
@@ -62,17 +60,16 @@ class TD3(Agent):
         self.writer = get_writer()
         # hyperparameters
         self.replay_start_size = replay_start_size
-        self.update_frequency = update_frequency
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
         # private
         self._noise_policy = Normal(
-            0, noise_policy*torch.tensor((
+            0, noise_policy*torch.FloatTensor((
                 Action.action_space().high
                 - Action.action_space().low) / 2).to(self.device))
 
         self._noise_td3 = Normal(
-            0, noise_td3*torch.tensor((
+            0, noise_td3*torch.FloatTensor((
                 Action.action_space().high
                 - Action.action_space().low) / 2).to(self.device))
 
@@ -124,7 +121,7 @@ class TD3(Agent):
 
     def _should_train(self):
         self._train_count += 1
-        return len(self.replay_buffer) > self.replay_start_size and self._train_count % self.update_frequency == 0
+        return len(self.replay_buffer) > self.replay_start_size
 
     def make_lazy_agent(self, evaluation=False):
         model = deepcopy(self.policy.model)

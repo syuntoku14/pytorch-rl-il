@@ -39,6 +39,7 @@ def squash_action(raw, tanh_scale=None, tanh_mean=None, action_space=None):
             (action_space.high - action_space.low) / 2).to(raw.device)
         tanh_mean = torch.tensor(
             (action_space.high + action_space.low) / 2).to(raw.device)
+
     actions = torch.tanh(raw) * tanh_scale + tanh_mean
     return actions
 
@@ -58,23 +59,26 @@ class Action:
             assert self._action_space is not None, \
                 "action_space is not set. Use Action.set_action_space function."
             assert isinstance(raw, torch.Tensor), \
-                "Input invalid raw type {}. raw must be torch.Tensor".format(type(raw))
+                "Input invalid raw type {}. raw must be torch.Tensor".format(
+                    type(raw))
             assert len(raw.shape) > 1, \
-                "Action.raw.shape {} is invalid. Batch_size must be specified".format(raw.shape)
+                "Action.raw.shape {} is invalid. Batch_size must be specified".format(
+                    raw.shape)
 
             if isinstance(self._action_space, gym.spaces.Discrete):
                 assert raw.shape[1] == 1, \
-                    "Action.raw.shape {} is invalid. Discrete action's shape must be batch_size x 1".format(raw.shape)
+                    "Action.raw.shape {} is invalid. Discrete action's shape must be batch_size x 1".format(
+                        raw.shape)
                 assert (0 <= raw).all() and (
                     raw < self._action_space.n).all(), "Invalid action value"
             elif isinstance(self._action_space, gym.spaces.Box):
                 assert raw.shape[1:] == self._action_space.shape, \
-                    "Action.raw.shape {} is invalid. It doesn't match the action_space.".format(raw.shape)
+                    "Action.raw.shape {} is invalid. It doesn't match the action_space.".format(
+                        raw.shape)
             else:
                 raise TypeError("Unknown action space type")
 
         self._raw = raw
-
 
     @classmethod
     def set_action_space(cls, action_space):
@@ -82,8 +86,9 @@ class Action:
             action_space, gym.spaces.Box), "Invalid action space"
         cls._action_space = action_space
         device = get_device()
-        cls._low = torch.tensor(action_space.low, device=device)
-        cls._high = torch.tensor(action_space.high, device=device)
+        if isinstance(action_space, gym.spaces.Box):
+            cls._low = torch.tensor(action_space.low, device=device)
+            cls._high = torch.tensor(action_space.high, device=device)
 
     @classmethod
     def from_numpy(cls, actions):

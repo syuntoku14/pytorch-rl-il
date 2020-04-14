@@ -1,5 +1,6 @@
 import rlil.presets.continuous
 import rlil.presets.batch_continuous
+from rlil.presets.validate_agent import validate_agent
 import inspect
 
 __all__ = ["continuous", "batch_continuous"]
