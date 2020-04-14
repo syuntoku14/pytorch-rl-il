@@ -5,7 +5,14 @@ import torch
 from rlil.initializer import get_replay_buffer, get_seed
 from rlil.environments import State, Action
 from rlil.samplers import Sampler
-from collections import defaultdict
+from collections import defaultdict, namedtuple
+
+
+StartInfo = namedtuple("StartInfo",
+                       ["sample_frames",
+                        "sample_episodes",
+                        "train_frames"],
+                       defaults=(None, ) * 3)
 
 
 @ray.remote
@@ -28,7 +35,7 @@ class Worker:
             worker_episodes (int): number of episodes to collect
 
         Returns:
-            sample_info (dict): Result dictionary. 
+            sample_info (StartInfo):
                 keys: 
                     frames: the number of frames each episode
                     returns: the return per episode
@@ -93,7 +100,7 @@ class AsyncSampler(Sampler):
 
     def start_sampling(self,
                        lazy_agent,
-                       start_info={},
+                       start_info=StartInfo(),
                        worker_frames=np.inf,
                        worker_episodes=np.inf,
                        ):

@@ -8,7 +8,7 @@ import ray
 from rlil import nn
 from rlil.environments import GymEnvironment, Action
 from rlil.policies.deterministic import DeterministicPolicyNetwork
-from rlil.samplers import AsyncSampler
+from rlil.samplers import AsyncSampler, StartInfo
 from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import set_replay_buffer
 from ..mock_agent import MockAgent
@@ -41,12 +41,12 @@ def test_sampler_episode(setUp):
     lazy_agent = agent.make_lazy_agent()
     sampler.start_sampling(
         lazy_agent, worker_episodes=worker_episodes)
-    sample_info = sampler.store_samples(timeout=1e8)
+    sample_result = sampler.store_samples(timeout=1e8)
 
     # GIVEN the store_samples function with infinite timeout
     # WHEN worker_episodes are specified
     # THEN sampler collects samples by the num of num_workers * worker_episodes
-    assert sample_info["episodes"] == num_workers * worker_episodes
+    assert len(sample_result[StartInfo()]["frames"]) == num_workers * worker_episodes
 
 
 def test_sampler_frames(setUp):
@@ -63,12 +63,12 @@ def test_sampler_frames(setUp):
     lazy_agent = agent.make_lazy_agent()
     sampler.start_sampling(
         lazy_agent, worker_frames=worker_frames)
-    sample_info = sampler.store_samples(timeout=1e8)
+    sample_result = sampler.store_samples(timeout=1e8)
 
     # GIVEN the store_samples function with infinite timeout
     # WHEN worker_frames are specified
     # THEN sampler collects samples until frames exceeds worker_frames * num_workers
-    assert sample_info["frames"] > worker_frames * num_workers
+    assert sum(sample_result[StartInfo()]["frames"]) > worker_frames * num_workers
 
 
 def test_ray_wait(setUp):
@@ -101,16 +101,17 @@ def test_eval_sampler(setUp):
 
     worker_episodes = 3
     lazy_agent = agent.make_lazy_agent()
-    start_info = {"sample_frames": 100, "sample_episodes": 1000,
-                  "train_frames": 10000}
+    start_info = StartInfo(sample_frames=100,
+                           sample_episodes=1000,
+                           train_frames=10000)
     sampler.start_sampling(
         lazy_agent,
         worker_episodes=worker_episodes,
         start_info=start_info
     )
 
-    result = sampler.store_samples(timeout=1e9, eval=True)
-    # when eval=True, sampler doesn't store samples to the replay_buffer
+    result = sampler.store_samples(timeout=1e9, evaluation=True)
+    # when evaluation=True, sampler doesn't store samples to the replay_buffer
     assert len(sampler._replay_buffer) == 0
 
     result["info_list"]

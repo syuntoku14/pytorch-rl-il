@@ -20,7 +20,7 @@ class Experiment:
             num_workers_eval=1,
             max_frames=np.inf,
             max_episodes=np.inf,
-            num_trains_per_episode=10
+            num_trains_per_iter=100
     ):
         # set_seed
         seed = set_seed(seed)
@@ -60,7 +60,7 @@ class Experiment:
             eval_sampler,
             max_frames,
             max_episodes,
-            num_trains_per_episode
+            num_trains_per_iter
         )
 
         trainer.start_training()

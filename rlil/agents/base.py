@@ -21,16 +21,30 @@ class Agent(ABC, Schedulable):
             rllib.Action: The action to take at the current timestep.
         """
 
+    @abstractmethod
+    def make_lazy_agent(self, evaluation=False):
+        """
+        Return a LazyAgent object for sampling or evaluation.
+
+        Args:
+            evaluation (bool, optional): If evaluation==True, the returned
+            object act greedily. Defaults to False.
+
+        Returns:
+            LazyAgent: The LazyAgent object for Sampler.
+        """
+        pass
+
     def train(self):
         """
-        Update internal parameters with given batch
+        Update internal parameters
         """
         pass
 
 
 class LazyAgent(ABC):
     """ 
-    Agent class for sampler.
+    Agent class for Sampler.
     """
     @abstractmethod
     def act(self, states, reward):

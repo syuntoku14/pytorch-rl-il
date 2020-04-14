@@ -50,7 +50,7 @@ class DummyWriter(Writer):
 class ExperimentWriter(SummaryWriter, Writer):
     def __init__(self, agent_name, env_name,
                  sample_frame_interval=1e4,
-                 sample_episode_interval=1e3,
+                 sample_episode_interval=1e2,
                  train_frame_interval=1e4,
                  exp_info="default_experiments"):
 

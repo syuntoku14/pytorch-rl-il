@@ -14,6 +14,7 @@ setup(
         "numpy",         # math library
         "matplotlib",    # plotting library
         "seaborn",    # plotting library
+        "pandas", 
         "opencv-python",  # used by atari wrappers
         "pybullet",      # continuous environments
         "autopep8",      # code quality tool

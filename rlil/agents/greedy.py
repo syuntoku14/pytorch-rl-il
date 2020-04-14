@@ -42,6 +42,9 @@ class GreedyAgent(Agent):
             else:
                 raise TypeError('Unknown action space')
         return self._action
+    
+    def make_lazy_agent(self, evaluation=False):
+        pass
 
     @action_decorator
     def choose_discrete(self, state):

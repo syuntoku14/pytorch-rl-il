@@ -1,18 +1,13 @@
 import logging
 from rlil.environments import State
 from rlil.initializer import get_logger, get_writer
+from rlil.samplers import AsyncSampler, StartInfo
 import numpy as np
 import torch
 import warnings
 import os
 from timeit import default_timer as timer
-from rlil.initializer import get_writer, get_logger
-from collections import namedtuple
 import json
-
-
-Info = namedtuple("Info",
-                  ["sample_frames", "sample_episodes", "train_frames"])
 
 
 class Trainer:
@@ -23,11 +18,11 @@ class Trainer:
     def __init__(
             self,
             agent,
-            sampler,
+            sampler=None,
             eval_sampler=None,
             max_frames=np.inf,
             max_episodes=np.inf,
-            num_trains_per_episode=10,
+            num_trains_per_iter=100,
     ):
         self._agent = agent
         self._sampler = sampler
@@ -37,25 +32,25 @@ class Trainer:
         self._writer = get_writer()
         self._logger = get_logger()
         self._best_returns = -np.inf
-        self._num_trains = num_trains_per_episode
+        self._num_trains = num_trains_per_iter
 
     def start_training(self):
         while not self._done():
-            lazy_agent = self._agent.make_lazy_agent()
-
             # training
-            self._sampler.start_sampling(lazy_agent,
-                                         start_info=self._get_current_info(),
-                                         worker_episodes=1)
+            if self._sampler is not None:
+                lazy_agent = self._agent.make_lazy_agent()
+                self._sampler.start_sampling(lazy_agent,
+                                             start_info=self._get_current_info(),
+                                             worker_episodes=1)
 
-            sample_result = self._sampler.store_samples(timeout=0.05)
+                sample_result = self._sampler.store_samples(timeout=0.05)
 
-            for sample_info in sample_result.values():
-                self._writer.sample_frames += sum(sample_info["frames"])
-                self._writer.sample_episodes += len(sample_info["frames"])
-                # train per episode
-                for _ in range(self._num_trains * len(sample_info["frames"])):
-                    self._agent.train()
+                for sample_info in sample_result.values():
+                    self._writer.sample_frames += sum(sample_info["frames"])
+                    self._writer.sample_episodes += len(sample_info["frames"])
+
+            for _ in range(self._num_trains):
+                self._agent.train()
 
             # evaluation
             if self._eval_sampler is not None:
@@ -87,7 +82,8 @@ class Trainer:
                     "mean returns": round(mean_returns, 2)
                 }
             }
-        self._logger.info("Evaluation:" + json.dumps(evaluation_msg, indent=2))
+        self._logger.info("\nEvaluation:\n" +
+                          json.dumps(evaluation_msg, indent=2))
 
         # update best_returns
         self._best_returns = max(max(sample_info["returns"]),
@@ -95,7 +91,8 @@ class Trainer:
 
         # log raw returns
         self._add_scalar_all("evaluation/returns", mean_returns, start_info)
-        self._add_scalar_all("evaluation/returns/max", self._best_returns, start_info)
+        self._add_scalar_all("evaluation/returns/max",
+                             self._best_returns, start_info)
 
         # log sample and train ratio
         self._writer.add_scalar(
@@ -113,11 +110,11 @@ class Trainer:
         self._writer.add_scalar(name, value,
                                 step="train_frame",
                                 step_value=start_info.train_frames)
-    
+
     def _get_current_info(self):
-        return Info(sample_frames=self._writer.sample_frames,
-                    sample_episodes=self._writer.sample_episodes,
-                    train_frames=self._writer.train_frames)
+        return StartInfo(sample_frames=self._writer.sample_frames,
+                         sample_episodes=self._writer.sample_episodes,
+                         train_frames=self._writer.train_frames)
 
     def _done(self):
         return (
