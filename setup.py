@@ -21,7 +21,8 @@ setup(
         "tensorboardX",  # visualize results
         "torch-testing",  # testing library for pytorch
         "ray",  # multiprocessing tool
-        "pytest"  # python testing library
+        "pytest",  # python testing library
+        "pytest-benchmark"
         # these should be installed globally:
         # "tensorflow",  # needed for tensorboard
         # "torch",       # deep learning library

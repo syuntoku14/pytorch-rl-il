@@ -2,6 +2,7 @@ import numpy as np
 import torch
 import warnings
 import gym
+from rlil.initializer import is_debug_mode, get_device
 
 
 def action_decorator(func):
@@ -47,39 +48,42 @@ class Action:
 
     def __init__(self, raw):
         """
-        Action class handles:
+        If is_debug_mode()==True,
             1. Detecting invalid tensor shape. The raw (torch.Tensor) must be batch_size x shape
             2. Detecting invalid discrete action value
             3. Cliping continuous action value
         """
 
-        assert self._action_space is not None, "action_space is not set. Use Action.set_action_space function."
-        assert isinstance(
-            raw, torch.Tensor), "Input invalid raw type {}. raw must be torch.Tensor".format(type(raw))
-        assert len(raw.shape) > 1, "Action.raw.shape {} is invalid. Batch_size must be specified".format(
-            raw.shape)
+        if is_debug_mode():
+            assert self._action_space is not None, \
+                "action_space is not set. Use Action.set_action_space function."
+            assert isinstance(raw, torch.Tensor), \
+                "Input invalid raw type {}. raw must be torch.Tensor".format(type(raw))
+            assert len(raw.shape) > 1, \
+                "Action.raw.shape {} is invalid. Batch_size must be specified".format(raw.shape)
 
-        if isinstance(self._action_space, gym.spaces.Discrete):
-            assert raw.shape[1] == 1, "Action.raw.shape {} is invalid. Discrete action's shape must be batch_size x 1".format(
-                raw.shape)
-            assert (0 <= raw).all() and (
-                raw < self._action_space.n).all(), "Invalid action value"
-        elif isinstance(self._action_space, gym.spaces.Box):
-            assert raw.shape[1:] == self._action_space.shape, "Action.raw.shape {} is invalid. It doesn't match the action_space.".format(
-                raw.shape)
-            self._low = torch.tensor(self._action_space.low, device=raw.device)
-            self._high = torch.tensor(
-                self._action_space.high, device=raw.device)
-        else:
-            raise TypeError("Unknown action space type")
+            if isinstance(self._action_space, gym.spaces.Discrete):
+                assert raw.shape[1] == 1, \
+                    "Action.raw.shape {} is invalid. Discrete action's shape must be batch_size x 1".format(raw.shape)
+                assert (0 <= raw).all() and (
+                    raw < self._action_space.n).all(), "Invalid action value"
+            elif isinstance(self._action_space, gym.spaces.Box):
+                assert raw.shape[1:] == self._action_space.shape, \
+                    "Action.raw.shape {} is invalid. It doesn't match the action_space.".format(raw.shape)
+            else:
+                raise TypeError("Unknown action space type")
 
         self._raw = raw
+
 
     @classmethod
     def set_action_space(cls, action_space):
         assert isinstance(action_space, gym.spaces.Discrete) or isinstance(
             action_space, gym.spaces.Box), "Invalid action space"
         cls._action_space = action_space
+        device = get_device()
+        cls._low = torch.tensor(action_space.low, device=device)
+        cls._high = torch.tensor(action_space.high, device=device)
 
     @classmethod
     def from_numpy(cls, actions):
@@ -105,7 +109,7 @@ class Action:
             return self._raw
         if isinstance(self._action_space, gym.spaces.Box):
             # clip the action into the valid range
-            return clip_action(self._raw, self._low, self._high)
+            return clip_action(self._raw, self._low.to(self.device), self._high.to(self.device))
 
     @property
     def raw(self):

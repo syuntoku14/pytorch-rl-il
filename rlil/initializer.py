@@ -6,6 +6,26 @@ from rlil.utils.writer import DummyWriter
 
 os.environ["PYTHONWARNINGS"] = 'ignore:semaphore_tracker:UserWarning'
 
+_DEBUG_MODE = False
+
+
+def enable_debug_mode():
+    global _DEBUG_MODE
+    print("-----DEBUG_MODE: True-----")
+    _DEBUG_MODE = True
+
+
+def disable_debug_mode():
+    global _DEBUG_MODE
+    print("-----DEBUG_MODE: False-----")
+    _DEBUG_MODE = False
+
+
+def is_debug_mode():
+    global _DEBUG_MODE
+    return _DEBUG_MODE
+
+
 _DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 

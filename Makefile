@@ -4,16 +4,16 @@ install:
 	pip install -e .
 
 test:
-	pytest -v
+	pytest -v --benchmark-skip
+
+benchmark:
+	pytest -v --benchmark-only --benchmark-autosave
 
 autopep8:
 	autopep8 --in-place --recursive . 
 
 tensorboard:
 	tensorboard --logdir runs
-
-benchmark:
-	tensorboard --logdir benchmarks/runs --port=6007
 
 clean:
 	rm -rf dist

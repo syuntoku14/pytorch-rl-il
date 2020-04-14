@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+from rlil.initializer import is_debug_mode, get_device
 
 
 class State:
@@ -10,18 +11,27 @@ class State:
         2. mask (torch.BoolTensor): batch_size x 1
         3. info (list): batch_size
         """
-        if type(raw) is list:
-            assert 5 > len(raw[0].shape) > 1, "State.raw[0].shape {} is invalid".format(
-                raw[0].shape)
-            assert len(raw[0].shape) > 1, "State.raw[0].shape {} is invalid. Batch_size must be specified".format(
-                raw[0].shape)
-        else:
-            assert isinstance(
-                raw, torch.Tensor), "Input invalid raw type {}. raw must be torch.Tensor or list of torch.Tensor".format(type(raw))
-            assert 5 > len(
-                raw.shape), "State.raw.shape {} is invalid".format(raw.shape)
-            assert len(raw.shape) > 1, "State.raw.shape {} is invalid. Batch_size must be specified".format(
-                raw.shape)
+        if is_debug_mode():
+            # check if raw is valid
+            if type(raw) is list:
+                assert 5 > len(raw[0].shape) > 1, \
+                    "State.raw[0].shape {} is invalid".format(raw[0].shape)
+                assert len(raw[0].shape) > 1, \
+                    "State.raw[0].shape {} is invalid. Batch_size must be specified".format(raw[0].shape)
+            else:
+                assert isinstance(raw, torch.Tensor), \
+                    "Input invalid raw type {}. raw must be torch.Tensor or list of torch.Tensor".format(type(raw))
+                assert 5 > len(raw.shape), \
+                    "State.raw.shape {} is invalid".format(raw.shape)
+                assert len(raw.shape) > 1, \
+                    "State.raw.shape {} is invalid. Batch_size must be specified".format(raw.shape)
+
+            # check if mask is valid
+            if mask is not None:
+                assert isinstance(mask, torch.Tensor), \
+                    "Input invalid mask type {}. mask must be torch.Tensor".format(type(mask))
+                assert len(mask.shape) == 1, \
+                    "mask.shape {} must be 'shape == (batch_size)'".format(mask.shape)
         self._raw = raw
 
         if mask is None:
@@ -31,10 +41,6 @@ class State:
                 device=raw.device
             )
         else:
-            assert isinstance(
-                mask, torch.Tensor), "Input invalid mask type {}. mask must be torch.Tensor".format(type(mask))
-            assert len(mask.shape) == 1, "mask.shape {} must be 'shape == (batch_size)'".format(
-                mask.shape)
             self._mask = mask.bool()
 
         self._info = info or [None] * len(raw)
