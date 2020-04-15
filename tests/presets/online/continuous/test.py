@@ -1,6 +1,6 @@
 import pytest
 from rlil.environments import GymEnvironment
-from rlil.presets.continuous import ddpg, sac, td3
+from rlil.presets.online.continuous import ddpg, sac, td3
 from rlil.presets import validate_agent
 
 

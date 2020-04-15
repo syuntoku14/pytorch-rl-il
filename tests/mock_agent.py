@@ -24,7 +24,21 @@ class MockAgent:
 
         self._state = None
         self._action = None
-        self._replay_buffer = get_replay_buffer()
+        self.replay_buffer = get_replay_buffer()
+
+    def act(self, state, reward):
+        self.replay_buffer.store(self._state,
+                                  self._action,
+                                  reward,
+                                  state)
+        self._state = state
+
+        with torch.no_grad():
+            action = self.policy_model(
+                state.to(self.policy_model.device))
+
+        self._action = Action(action).to("cpu")
+        return self._action
 
     def make_lazy_agent(self):
         return MockLazyAgent(self.policy_model)

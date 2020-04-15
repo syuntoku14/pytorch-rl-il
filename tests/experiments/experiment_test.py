@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 import torch
 import ray
-from rlil.presets.continuous import sac
+from rlil.presets.online.continuous import sac
 from rlil.environments import GymEnvironment
 from rlil.experiments import Experiment, Trainer
 from rlil.utils.writer import Writer

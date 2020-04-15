@@ -2,7 +2,7 @@ import pytest
 import torch
 import numpy as np
 from rlil.environments import GymEnvironment, State
-from rlil.presets.continuous import ddpg
+from rlil.presets.online.continuous import ddpg
 from rlil.presets import validate_agent
 
 

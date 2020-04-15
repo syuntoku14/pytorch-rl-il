@@ -2,7 +2,7 @@ import pytest
 import torch
 import numpy as np
 from rlil.environments import GymEnvironment, State
-from rlil.presets.continuous import ddpg, sac, td3
+from rlil.presets.online.continuous import ddpg, sac, td3
 from rlil.presets import validate_agent
 
 
@@ -38,3 +38,13 @@ def test_td3(benchmark):
     collect_samples(agent, env)
     assert agent._should_train()
     benchmark.pedantic(agent.train, rounds=100)
+
+
+def test_td3(benchmark):
+    env = GymEnvironment('LunarLanderContinuous-v2')
+    agent_fn = td3(replay_start_size=100)
+    agent = agent_fn(env)
+    collect_samples(agent, env)
+    assert agent._should_train()
+    benchmark.pedantic(agent.train, rounds=100)
+

@@ -11,7 +11,7 @@ from rlil.experiments import Trainer
 from rlil.samplers import AsyncSampler
 from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import set_replay_buffer
-from rlil.presets.continuous import sac
+from rlil.presets.online.continuous import sac
 from ..mock_agent import MockAgent
 
 

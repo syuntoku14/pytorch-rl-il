@@ -26,7 +26,7 @@ def use_cpu():
     pre_device = get_device()
     set_device("cpu")
     yield
-    set_device(set_device)
+    set_device(pre_device)
 
 
 @pytest.fixture
@@ -34,4 +34,4 @@ def use_gpu():
     pre_device = get_device()
     set_device("cuda")
     yield
-    set_device(set_device)
+    set_device(pre_device)

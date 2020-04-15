@@ -3,7 +3,8 @@ import pybullet
 import pybullet_envs
 from rlil.environments import GymEnvironment, ENVS
 from rlil.experiments import Experiment
-from rlil.presets import continuous, get_default_args
+from rlil.presets import get_default_args
+from rlil.presets.online import continuous
 from rlil.initializer import get_logger, set_device
 import torch
 import logging
@@ -26,6 +27,8 @@ def main():
                         default=1000, help="Number of trains called per episode")
     parser.add_argument("--device", default="cuda",
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)")
+    parser.add_argument("--minibatch_size", type=int, default=100,
+                        help="minibatch_size of replay_buffer.sample")
     parser.add_argument("--policy", default=None,
                         help="Path to the pretrained policy state_dict")
     parser.add_argument("--exp_info", default="default experiment",
@@ -45,14 +48,14 @@ def main():
     env = GymEnvironment(env_id)
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
-    preset_args = get_default_args(preset)
-    agent_fn = preset(policy_path=args.policy)
+    agent_fn = preset(policy_path=args.policy,
+                      minibatch_size=args.minibatch_size)
 
     logger = get_logger()
     logger.setLevel(logging.DEBUG)
 
-    args_dict = vars(args)
-    args_dict.update(preset_args)
+    args_dict = get_default_args(preset)
+    args_dict.update(vars(args))
 
     Experiment(
         agent_fn, env, num_workers=args.num_workers, max_frames=args.frames,
