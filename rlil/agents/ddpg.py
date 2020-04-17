@@ -1,5 +1,6 @@
 from copy import deepcopy
 import torch
+import os
 from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
 from rlil.environments import Action
@@ -96,11 +97,21 @@ class DDPG(Agent):
         noise = Normal(0, self._noise.stddev.to("cpu"))
         return DDPGLazyAgent(model.to("cpu"), noise, evaluation)
 
+    def load(self, dirname):
+        for filename in os.listdir(dirname):
+            if filename == 'policy.pt':
+                self.policy.model = torch.load(os.path.join(
+                    dirname, filename), map_location=self.device)
+            if filename in ('q.pt'):
+                self.q.model = torch.load(os.path.join(dirname, filename),
+                                          map_location=self.device)
+
 
 class DDPGLazyAgent(LazyAgent):
     """ 
     Agent class for sampler.
     """
+
     def __init__(self, policy_model, noise, evaluation):
         self._replay_buffer = ExperienceReplayBuffer(1e9)
         self._policy_model = policy_model

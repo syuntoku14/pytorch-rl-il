@@ -1,18 +1,16 @@
 import argparse
-from rlil.utils.plots import plot_returns_100
-
-
-def plot():
-    parser = argparse.ArgumentParser(
-        description="Plots the results of experiments.")
-    parser.add_argument("dir", help="Output directory.")
-    parser.add_argument("--smooth", type=int, default=11,
-                        help="The window size of the moving average")
-    parser.add_argument("--timesteps", type=int, default=-1,
-                        help="The final point will be fixed to this x-value")
-    args = parser.parse_args()
-    plot_returns_100(args.dir, smooth=args.smooth, timesteps=args.timesteps)
+from rlil.utils.plots import plot
 
 
 if __name__ == "__main__":
-    plot()
+    parser = argparse.ArgumentParser(
+        description="Plots the results of experiments.")
+    parser.add_argument("dir",
+                        help="Experiment directory. This is a directory of exp_info, not runs/")
+    parser.add_argument("--step", type=str, default="train_frame",
+                        help="The unit of x-axis. You can choose it from [sample_frame, sample_episode, train_frame]")
+    parser.add_argument("--xlim", type=int, default=None, help="The limit of x-axis.")
+ 
+    args = parser.parse_args()
+
+    plot(args.dir, args.step, args.xlim)

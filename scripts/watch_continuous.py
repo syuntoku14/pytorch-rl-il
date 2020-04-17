@@ -3,13 +3,10 @@ import pybullet
 import pybullet_envs
 import re
 import os
+import time
 from rlil.environments import GymEnvironment
 from rlil.agents import GreedyAgent
-from rlil.presets import continuous
-from rlil.utils import watch
-from continuous import ENVS
-import logging
-logging.basicConfig(level=logging.DEBUG)
+from rlil.presets.online import continuous
 
 
 def watch_continuous():
@@ -26,27 +23,42 @@ def watch_continuous():
         default=120,
         help="Playback speed",
     )
-    parser.add_argument("--use_BC", action="store_true")
-    parser.add_argument("--save_buffer", action="store_true")
     args = parser.parse_args()
 
+    # load env
     if args.dir[-1] != "/":
         args.dir += "/"
     env_id = args.dir.split("/")[-3]
     env = GymEnvironment(env_id)
-    if args.use_BC:
-        agent_name = os.path.basename(
-            os.path.dirname(args.dir)).split("_")[1].strip("_")
-        agent_fn = getattr(continuous, agent_name)(device=args.device)
-        agent = GreedyAgent.load_BC(
-            args.dir, agent_fn, env, device=args.device)
-    else:
-        agent = GreedyAgent.load(args.dir, env, device=args.device)
 
-    if args.save_buffer:
-        watch(agent, env, fps=args.fps, dir=args.dir)
-    else:
-        watch(agent, env, fps=args.fps)
+    # load agent
+    agent_name = os.path.basename(
+        os.path.dirname(args.dir)).split("_")[1].strip("_")
+    agent_fn = getattr(continuous, agent_name)()
+    agent = agent_fn(env)
+    agent.load(args.dir)
+    lazy_agent = agent.make_lazy_agent(evaluation=True)
+
+    # watch
+    watch(lazy_agent, env, fps=args.fps)
+
+
+def watch(agent, env, fps=60):
+    action = None
+    returns = 0
+    # have to call this before initial reset for pybullet envs
+    env.render(mode="human")
+    while True:
+        time.sleep(1 / fps)
+        if env.done:
+            print('returns: {}'.format(returns))
+            env.reset()
+            returns = 0
+        else:
+            env.step(action)
+        env.render()
+        action = agent.act(env.state, env.reward)
+        returns += env.reward
 
 
 if __name__ == "__main__":

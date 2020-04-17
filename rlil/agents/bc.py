@@ -16,8 +16,6 @@ class BC(Agent):
     both the encountered states and actions.
 
     Args:
-        replay_buffer (rlil.memory.ExperienceReplayBuffer): 
-            A replay buffer which sotres the expert's trajectories.
         policy (DeterministicPolicy): 
             An Approximation of a deterministic policy.
         minibatch_size (int): 
@@ -25,7 +23,6 @@ class BC(Agent):
     """
 
     def __init__(self,
-                 replay_buffer,
                  policy,
                  minibatch_size=32,
                  ):
@@ -35,13 +32,14 @@ class BC(Agent):
         self.device = get_device()
         # hyperparameters
         self.minibatch_size = minibatch_size
+        action_space = Action.action_space()
         self._low = torch.tensor(action_space.low, device=self.device)
         self._high = torch.tensor(action_space.high, device=self.device)
         self._train_count = 0
 
     def act(self, states, reward):
         self._states = states
-        self._actions = self.policy.eval(states.to(self.device))
+        self._actions = Action(self.policy.eval(states.to(self.device)))
         return self._actions
 
     def train(self):
@@ -49,7 +47,7 @@ class BC(Agent):
             (states, actions, _, _, _) = self.replay_buffer.sample(
                 self.minibatch_size)
             policy_actions = Action(self.policy(states))
-            loss = mse_loss(policy_actions, actions)
+            loss = mse_loss(policy_actions.features, actions.features)
             self.policy.reinforce(loss)
             self.policy.zero_grad()
 

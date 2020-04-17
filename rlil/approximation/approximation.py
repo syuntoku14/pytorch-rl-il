@@ -74,7 +74,7 @@ class Approximation():
         self._checkpointer = checkpointer
         self._checkpointer.init(
             self.model,
-            os.path.join(self._writer.log_dir, name + '.pt')
+            os.path.join(self._writer.log_dir, name)
         )
 
     def __call__(self, *inputs):

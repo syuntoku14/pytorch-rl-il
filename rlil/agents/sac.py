@@ -1,4 +1,5 @@
 import torch
+import os
 from copy import deepcopy
 from torch.nn.functional import mse_loss
 from rlil.environments import Action
@@ -121,6 +122,18 @@ class SAC(Agent):
     def make_lazy_agent(self, evaluation=False):
         model = deepcopy(self.policy.model)
         return SACLazyAgent(model.to("cpu"), evaluation)
+
+    def load(self, dirname):
+        for filename in os.listdir(dirname):
+            if filename == 'policy.pt':
+                self.policy.model = torch.load(os.path.join(
+                    dirname, filename), map_location=self.device)
+            if filename in ('q_1.pt'):
+                self.q_1.model = torch.load(os.path.join(dirname, filename),
+                                            map_location=self.device)
+            if filename in ('q_2.pt'):
+                self.q_1.model = torch.load(os.path.join(dirname, filename),
+                                            map_location=self.device)
 
 
 class SACLazyAgent(LazyAgent):

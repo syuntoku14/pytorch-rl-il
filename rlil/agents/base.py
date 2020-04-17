@@ -41,6 +41,15 @@ class Agent(ABC, Schedulable):
         """
         pass
 
+    def load(self, dirname):
+        """
+        Load pretrained agent.
+
+        Args:
+            dirname (str): Directory where the agent saved
+        """
+        pass
+
 
 class LazyAgent(ABC):
     """ 

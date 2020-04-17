@@ -1,4 +1,5 @@
 import torch
+import os
 from copy import deepcopy
 from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
@@ -127,6 +128,18 @@ class TD3(Agent):
         model = deepcopy(self.policy.model)
         noise = Normal(0, self._noise_policy.stddev.to("cpu"))
         return TD3LazyAgent(model.to("cpu"), noise, evaluation)
+    
+    def load(self, dirname):
+        for filename in os.listdir(dirname):
+            if filename == 'policy.pt':
+                self.policy.model = torch.load(os.path.join(
+                    dirname, filename), map_location=self.device)
+            if filename in ('q_1.pt'):
+                self.q_1.model = torch.load(os.path.join(dirname, filename),
+                                            map_location=self.device)
+            if filename in ('q_2.pt'):
+                self.q_1.model = torch.load(os.path.join(dirname, filename),
+                                            map_location=self.device)
 
 
 class TD3LazyAgent(LazyAgent):

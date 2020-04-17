@@ -28,6 +28,16 @@ def fc_bcq_deterministic_policy(env, hidden1=400, hidden2=300):
     )
 
 
+def fc_deterministic_policy(env, hidden1=400, hidden2=300):
+    return nn.Sequential(
+        nn.Linear(env.state_space.shape[0], hidden1),
+        nn.ReLU(),
+        nn.Linear(hidden1, hidden2),
+        nn.ReLU(),
+        nn.Linear(hidden2, env.action_space.shape[0]),
+    )
+
+
 class FC_Encoder_BCQ(nn.Module):
     def __init__(self, env, latent_dim=32, hidden1=400, hidden2=300):
         super().__init__()

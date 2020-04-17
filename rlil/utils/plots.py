@@ -1,86 +1,117 @@
 import os
+from pathlib import Path
+from tensorboard.backend.event_processing import event_accumulator
+from collections import defaultdict
 import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
 import matplotlib
 matplotlib.use("Agg")
-import seaborn as sns
-import matplotlib.pyplot as plt
-from collections import defaultdict
 
 
-def plot_returns_100(runs_dir, timesteps=-1, smooth=11):
-    data = load_returns_100_data(runs_dir)
-    num_exps = len(data.keys())
-    num_envs = max([len(envs.keys()) for envs in data.values()])
-    lines = {}
-    fig, axes = plt.subplots(num_exps, num_envs)
-    if num_exps * num_envs == 1:
+def get_results(exp_path):
+
+    def read_scalars(resultpath):
+        # read scalars from event file
+        for p in resultpath.rglob("events*"):
+            eventspath = p
+        event_acc = event_accumulator.EventAccumulator(
+            str(eventspath), size_guidance={'scalars': 0})
+        event_acc.Reload()
+
+        scalars = {}
+        steps = {}
+
+        for tag in event_acc.Tags()['scalars']:
+            events = event_acc.Scalars(tag)
+            scalars[tag] = [event.value for event in events]
+            steps[tag] = [event.step for event in events]
+
+        return steps, scalars
+
+    def get_return_dataframe(steps, scalars):
+        # convert steps and scalars to dataframe
+        df_dict = {}
+        for key in steps.keys():
+            step = key.split("/")[-1]
+            tag = key.split("/")[-2]
+            if tag != "returns":
+                continue
+
+            if "frame" in step:
+                dicimal = -6
+                df_dict[step] = pd.DataFrame(data={"samples": np.round(steps[key], dicimal),
+                                                   "return": scalars[key]})
+            elif "episode" in step:
+                dicimal = -3
+                df_dict[step] = pd.DataFrame(data={"episodes": np.round(steps[key], dicimal),
+                                                   "return": scalars[key]})
+
+        return pd.concat(df_dict, axis=1)
+
+    results = defaultdict(lambda: defaultdict(lambda: []))
+    for env in exp_path.glob("[!.]*"):
+        for result in env.glob("[!.]*"):
+            agent = result.name.split("_")[1]
+            steps, scalars = read_scalars(result)
+            df = get_return_dataframe(steps, scalars)
+            results[env.name][agent].append(df)
+
+        # concatenate same agent
+        for agent in results[env.name]:
+            results[env.name][agent] = \
+                pd.concat(results[env.name][agent])
+
+    return results
+
+
+def plot(exp_path, step="sample_frame", xlim=None):
+    exp_path = Path(exp_path)
+    results = get_results(exp_path)
+
+    # layout
+    if "frame" in step:
+        x = "samples"
+    elif "episode" in step:
+        x = "episodes"
+    num_cols = len(results)
+    fig, axes = plt.subplots(1, num_cols, figsize=(num_cols*6, 4))
+    if num_cols == 1:
         axes = [axes]
+    sns.set(style="darkgrid")
 
-    for i, exp in enumerate(sorted(data.keys())):
-        for j, env in enumerate(sorted(data[exp].keys())):
-            env_data = data[exp][env]
-            ax = axes[i][j]
-            subplot_returns_100(ax, exp, env, env_data, lines,
-                                smooth=smooth, timesteps=timesteps)
+    # agent colors
+    colors = sns.color_palette()
+    agents = []
+
+    for i, env in enumerate(results):
+        for agent in results[env]:
+            df = results[env][agent][step]
+            if agent not in agents:
+                agents.append(agent)
+
+            sns.lineplot(x=x,
+                         y="return",
+                         ci="sd",
+                         data=df,
+                         ax=axes[i],
+                         label=agent,
+                         legend=None,
+                         color=colors[agents.index(agent)])
+
+            axes[i].set_title(env)
+            axes[i].set_xlim(0, xlim)
+
+    handles = [None] * len(agents)
+
+    for ax in axes:
+        handle, label = ax.get_legend_handles_labels()
+        for h, agent in zip(handle, label):
+            handles[agents.index(agent)] = h
+
+    lgd = fig.legend(handles, agents, loc="upper center",
+                     bbox_to_anchor=(0.5, 1.1), ncol=len(agents))
     fig.tight_layout()
-    fig.legend(list(lines.values()), list(lines.keys()), loc="center right")
-    plt.savefig(runs_dir + "/result.png")
-
-
-def load_returns_100_data(runs_dir):
-    data = defaultdict(lambda: defaultdict(lambda: {}))
-
-    def add_data(exp_info, env, agent, file):
-        data[exp_info][env][agent] = np.genfromtxt(
-            file, delimiter=",").reshape((-1, 3))
-
-    # list of experiments
-    for exp_info in os.listdir(runs_dir):
-        exp_info_path = os.path.join(runs_dir, exp_info)
-        if os.path.isdir(exp_info_path):
-            # list of environments
-            for env in os.listdir(exp_info_path):
-                env_path = os.path.join(exp_info_path, env)
-                if os.path.isdir(env_path):
-                    # list of agents
-                    for agent_dir in os.listdir(env_path):
-                        agent = agent_dir.split("_")[1].strip("_")
-                        agent_path = os.path.join(env_path, agent_dir)
-                        if os.path.isdir(agent_path):
-                            returns100path = os.path.join(
-                                agent_path, "returns100.csv")
-                            # save data
-                            if os.path.exists(returns100path):
-                                add_data(exp_info, env, agent, returns100path)
-
-    return data
-
-
-def subplot_returns_100(ax, exp, env, data, lines, smooth=1, timesteps=-1):
-    for agent in data:
-        agent_data = data[agent]
-        agent_data = agent_data[np.argsort(agent_data[:, 0])]
-        end = agent_data[:, 0][-1] if timesteps < 0 else timesteps
-
-        mean = agent_data[:, 1]
-        std = agent_data[:, 2]
-        if smooth > 1:
-            y = np.ones(smooth)
-            z = np.ones(len(mean))
-            mean = np.convolve(mean, y, "same") / np.convolve(z, y, "same")
-            std = np.convolve(std, y, "same") / np.convolve(z, y, "same")
-        x = np.arange(0, 1e7, 1e4)
-        mean = np.interp(x, agent_data[:, 0], mean)
-        std = np.interp(x, agent_data[:, 0], std)
-
-        if agent in lines:
-            ax.plot(x, mean, label=agent, color=lines[agent].get_color())
-        else:
-            line, = ax.plot(x, mean, label=agent)
-            lines[agent] = line
-        ax.fill_between(
-            x, mean + std, mean - std, alpha=0.2, color=lines[agent].get_color()
-        )
-        ax.set_title(env)
-        ax.set_xlabel("timesteps")
-        ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 5))
+    fig.savefig(str(exp_path / "result.png"),
+                bbox_extra_artists=(lgd, ), bbox_inches="tight")

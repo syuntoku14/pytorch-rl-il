@@ -1,7 +1,8 @@
 import pytest
 import gym
 from rlil.environments import GymEnvironment
-from rlil.presets.offline.continuous import bcq
+from rlil.presets.offline.continuous import bcq, bc
+from rlil.presets import validate_agent
 from rlil.memory import ExperienceReplayBuffer
 from rlil.environments import Action
 from rlil.initializer import set_replay_buffer
@@ -34,3 +35,4 @@ def test_bc():
     replay_buffer = gen_replay_buffer(env)
     assert len(replay_buffer) > 100
 
+    validate_agent(bc(replay_buffer), env)

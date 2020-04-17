@@ -17,6 +17,8 @@ def main():
     parser.add_argument("env", help="Name of the env")
     parser.add_argument("agent",
                         help="Name of the agent (e.g. actor_critic). See presets for available agents.")
+    parser.add_argument("--device", default="cuda",
+                        help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)")
     parser.add_argument("--frames", type=int, default=5e7,
                         help="Number of training frames")
     parser.add_argument("--num_workers", type=int, default=1,
@@ -24,11 +26,11 @@ def main():
     parser.add_argument("--num_workers_eval", type=int,
                         default=1, help="Number of workers for evaluation")
     parser.add_argument("--num_trains_per_iter", type=int,
-                        default=1000, help="Number of trains called per episode")
-    parser.add_argument("--device", default="cuda",
-                        help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)")
-    parser.add_argument("--minibatch_size", type=int, default=100,
+                        default=10, help="Number of trains called per episode")
+    parser.add_argument("--minibatch_size", type=int, default=1000,
                         help="minibatch_size of replay_buffer.sample")
+    parser.add_argument("--replay_start_size", type=int, default=50000,
+                        help="Number of experiences in replay buffer when training begins.")
     parser.add_argument("--policy", default=None,
                         help="Path to the pretrained policy state_dict")
     parser.add_argument("--exp_info", default="default experiment",
@@ -49,7 +51,9 @@ def main():
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
     agent_fn = preset(policy_path=args.policy,
-                      minibatch_size=args.minibatch_size)
+                      minibatch_size=args.minibatch_size,
+                      replay_start_size=args.replay_start_size
+                      )
 
     logger = get_logger()
     logger.setLevel(logging.DEBUG)
@@ -58,9 +62,12 @@ def main():
     args_dict.update(vars(args))
 
     Experiment(
-        agent_fn, env, num_workers=args.num_workers, max_frames=args.frames,
-        args_dict=args_dict, exp_info=args.exp_info,
-        num_trains_per_iter=args.num_trains_per_iter
+        agent_fn, env,
+        num_workers=args.num_workers,
+        max_frames=args.frames,
+        args_dict=args_dict,
+        exp_info=args.exp_info,
+        num_trains_per_iter=args.num_trains_per_iter,
     )
 
 
