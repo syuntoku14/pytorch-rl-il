@@ -3,51 +3,30 @@
 # PyTorch-RL-IL (rlil): A PyTorch Library for Building Reinforcement Learning and Imitation Learning Agents
 
 `rlil` is a library for reinforcement learning and imitation learning research. 
-**Most of the codes of this library are the same as the [Autonomous Learning Library (ALL)](https://github.com/cpnota/autonomous-learning-library/tree/master/all)**
-See the original documentation for the basic concepts of the library.
+**The concept of this library is based on the [Autonomous Learning Library (ALL)](https://github.com/cpnota/autonomous-learning-library/tree/master/all) and [rlpyt](https://github.com/astooke/rlpyt).**
 
+Some classes such as `Approximation`, `Agent` and `ExperienceReplay` are almost the same as `ALL`.
+For the basic concepts of these classes, see the original documentation: https://autonomous-learning-library.readthedocs.io/en/stable/. 
 
-## Algorithms
+Unlike `ALL`, `rlil` uses an distributed sampling method, like `rlpyt`, which makes it easy to switch between offline and online learning.
+
+## Implemented Algorithms
 
 ### Reinforcement Learning
 
+- [x] `Deep DPG (DDPG)`: https://arxiv.org/abs/1509.02971
 - [x] `Twind Dueling DDPG (TD3)`: https://arxiv.org/abs/1802.09477
+- [x] `Soft Actor Critic (SAC)`: https://arxiv.org/abs/1801.01290
+
+![continuous_control](assets/continuous.png)
 
 ### Imitation Learning
 
 - [x] `Behavioral Cloning (BC)`
 - [ ] `Generative Adversarial Imitation Learning (GAIL)` : https://arxiv.org/abs/1606.03476
 
-### Others
+### Distributed Sampling
 
-- [ ] `Clipped Action Policy Gradient (CAPG)`: https://arxiv.org/abs/1802.07564
-
-### New features of RLIL
-
-- `ParallelEnvRunner` collects samples with multi-process environments. 
-- `Action` class for better action handling
-
-## Imitation Learning
-
-### Collect trajectory
-
-To collect the trajectory during watch_continuous.py, pass the option `--save_buffer` as:
-```
-python scripts/watch_continuous.py env dir --save_buffer
-```
-
-### Behavioral Cloning
-
-`behavioral_cloning.py` trains the policy network using the collected replay_buffer.
-
-```
-python scripts/behavioral_cloning.py env agent dir
-```
-
-### Use pre-trained policy
-
-To use the pre-trained policy state_dict, pass the `--policy` option to continuous.py as:
-
-```
-python scripts/continuous.py env agent --policy [path to the policy state_dict]
-```
+- [x] `Asynchronous Sampling`
+- [ ] `Synchronous Sampling`
+- [ ] `Ape-X`: https://arxiv.org/abs/1803.00933. 

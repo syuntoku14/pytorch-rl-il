@@ -51,7 +51,7 @@ def get_results(exp_path):
         return pd.concat(df_dict, axis=1)
 
     results = defaultdict(lambda: defaultdict(lambda: []))
-    for env in exp_path.glob("[!.]*"):
+    for env in exp_path.glob("[!.]*[!.png]"):
         for result in env.glob("[!.]*"):
             agent = result.name.split("_")[1]
             steps, scalars = read_scalars(result)

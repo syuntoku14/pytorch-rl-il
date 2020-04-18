@@ -5,7 +5,7 @@ from rlil.environments import GymEnvironment, ENVS
 from rlil.experiments import Experiment
 from rlil.presets import get_default_args
 from rlil.presets.online import continuous
-from rlil.initializer import get_logger, set_device
+from rlil.initializer import get_logger, set_device, set_seed
 import torch
 import logging
 import ray
@@ -19,6 +19,8 @@ def main():
                         help="Name of the agent (e.g. actor_critic). See presets for available agents.")
     parser.add_argument("--device", default="cuda",
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)")
+    parser.add_argument("--seed", type=int, default=0,
+                        help="Random seed")
     parser.add_argument("--frames", type=int, default=5e7,
                         help="Number of training frames")
     parser.add_argument("--num_workers", type=int, default=1,
@@ -41,6 +43,7 @@ def main():
     ray.init(include_webui=False, ignore_reinit_error=True)
 
     set_device(torch.device(args.device))
+    set_seed(args.seed)
 
     if args.env in ENVS:
         env_id = ENVS[args.env]
