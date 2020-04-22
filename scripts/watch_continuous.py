@@ -5,7 +5,6 @@ import re
 import os
 import time
 from rlil.environments import GymEnvironment
-from rlil.agents import GreedyAgent
 from rlil.presets.online import continuous
 
 
