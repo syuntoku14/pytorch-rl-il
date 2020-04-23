@@ -117,7 +117,9 @@ class AsyncSampler(Sampler):
                         lazy_agent, worker_frames, worker_episodes),
                      "start_info": start_info}
 
-    def store_samples(self, timeout=10, evaluation=False):
+    def store_samples(self, timeout=-1, evaluation=False):
+        # if timeout < 0, wait until the sampling finishes
+
         # result is a dict of {start_info: {"frames": [], "returns": []}}
         result = defaultdict(lambda: {"frames": [], "returns": []})
 
@@ -125,8 +127,11 @@ class AsyncSampler(Sampler):
         for worker, item in self._work_ids.items():
             _id = item["id"]
             start_info = item["start_info"]
-            ready_id, remaining_id = \
-                ray.wait([_id], num_returns=1, timeout=timeout)
+            if timeout > 0:
+                ready_id, remaining_id = \
+                    ray.wait([_id], num_returns=1, timeout=timeout)
+            else:
+                ready_id = [_id]
 
             # if there is at least one finished worker
             if len(ready_id) > 0:

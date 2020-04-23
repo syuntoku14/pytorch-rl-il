@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 from rlil.utils.optim import Schedulable
+from rlil.memory import ExperienceReplayBuffer
 
 
 class Agent(ABC, Schedulable):
@@ -55,11 +56,23 @@ class LazyAgent(ABC):
     """ 
     Agent class for Sampler.
     """
-    @abstractmethod
+
+    def __init__(self,
+                 evaluation=False,
+                 store_samples=True):
+        self._replay_buffer = ExperienceReplayBuffer(1e9)
+        self._states = None
+        self._actions = None
+        self._evaluation = evaluation
+        self._store_samples = store_samples
+
     def act(self, states, reward):
         """
         In the act function, the lazy_agent put a sample 
         (last_state, last_action, reward, states) into self._replay_buffer.
         Then, it outputs a corresponding action.
         """
-        pass
+        if self._store_samples:
+            self._replay_buffer.store(
+                self._states, self._actions, reward, states)
+ 

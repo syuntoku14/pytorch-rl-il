@@ -54,7 +54,8 @@ class Trainer:
 
             # evaluation
             if self._eval_sampler is not None:
-                eval_lazy_agent = self._agent.make_lazy_agent(evaluation=True)
+                eval_lazy_agent = self._agent.make_lazy_agent(
+                    evaluation=True, store_samples=False)
                 self._eval_sampler.start_sampling(
                     lazy_agent,
                     start_info=self._get_current_info(),

@@ -8,7 +8,7 @@ from rlil.environments import GymEnvironment
 from rlil.presets.online import continuous
 
 
-def watch_continuous():
+def main():
     parser = argparse.ArgumentParser(description="Watch a continuous agent.")
     parser.add_argument(
         "dir", help="Directory where the agent's model was saved.")
@@ -61,4 +61,4 @@ def watch(agent, env, fps=60):
 
 
 if __name__ == "__main__":
-    watch_continuous()
+    main()

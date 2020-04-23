@@ -64,17 +64,12 @@ class BCLazyAgent(LazyAgent):
     """ 
     Agent class for sampler.
     """
-    def __init__(self, policy_model, evaluation):
-        self._replay_buffer = ExperienceReplayBuffer(1e9)
+    def __init__(self, policy_model, evaluation, *args, **kwargs):
         self._policy_model = policy_model
-        self._states = None
-        self._actions = None
-        self._evaluation = evaluation
+        super().__init__(*args, **kwargs)
 
     def act(self, states, reward):
-        if not self._evaluation:
-            self._replay_buffer.store(
-                self._states, self._actions, reward, states)
+        super().act(states, reward)
         self._states = states
         with torch.no_grad():
             self._actions = Action(self._policy_model(states))

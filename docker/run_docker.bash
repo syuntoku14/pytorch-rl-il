@@ -11,7 +11,7 @@ docker run --rm -it \
 	-v ~/pytorch-rl-il:/root/pytorch-rl-il \
 	-e DISPLAY=:0 \
 	--name rl \
-	--shm-size 16G \
+	--shm-size 256G \
 	--entrypoint "" \
 	syuntoku/rl_ws:rlil bash -c "umask 0002 && bash"
 }
@@ -27,7 +27,7 @@ docker run --rm -it \
 	-v ~/pytorch-rl-il:/root/pytorch-rl-il \
 	-e DISPLAY=:0 \
 	--name rl \
-	--shm-size 16G \
+	--shm-size 256G \
 	-e NVIDIA_VISIBLE_DEVICES=all \
 	-e NVIDIA_DRIVER_CAPABILITIES=all \
 	--gpus=all \
