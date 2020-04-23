@@ -79,6 +79,12 @@ def test_from_numpy(set_continuous_action_space):
     tt.assert_equal(action.raw, torch.tensor([[1, 2]]))
 
 
+def test_raw_numpy(set_continuous_action_space):
+    actions = np.array([[1, 2]])
+    action = Action.from_numpy(actions)
+    np.testing.assert_equal(actions, action.raw_numpy())
+
+
 def test_get_item():
     action_space = gym.spaces.Box(low=np.array(
         [-1, -2, -3, -4]), high=np.array([1, 2, 3, 4]))

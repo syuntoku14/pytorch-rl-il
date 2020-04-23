@@ -51,14 +51,29 @@ def test_from_list():
     assert state.info == ['a', 'b', None]
 
 
-def test_from_gym():
+def test_from_numpy():
     gym_obs = np.array([1, 2, 3])
     done = True
     info = 'a'
-    state = State.from_gym(gym_obs, done, info)
-    tt.assert_equal(state.raw, torch.tensor([[1, 2, 3]]))
-    tt.assert_equal(state.mask, DONE)
+    with pytest.raises(AssertionError):
+        state = State.from_numpy(gym_obs, done, info)
+    gym_obs = np.random.randn(3, 5)
+    done = np.zeros(3, dtype=np.bool)
+    info = 'a'
+    state = State.from_numpy(gym_obs, done, info)
+    
+    tt.assert_equal(state.raw, torch.FloatTensor(gym_obs), )
+    tt.assert_equal(state.done, torch.tensor(done))
     assert state.info == ['a']
+
+
+def test_raw_numpy():
+    np_raws = np.random.randn(3, 4)
+    np_masks = np.ones(3)
+    state = State(torch.tensor(np_raws), mask=torch.tensor(np_masks))
+    out_np_raws, out_np_dones = state.raw_numpy()
+    np.testing.assert_equal(np_raws, out_np_raws)
+    np.testing.assert_equal(np_masks, ~out_np_dones)
 
 
 def test_get_item():

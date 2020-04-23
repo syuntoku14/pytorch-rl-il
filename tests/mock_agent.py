@@ -52,7 +52,10 @@ class MockLazyAgent:
         self._state = None
         self._action = None
         self.policy_model = policy_model
-        self._replay_buffer = ExperienceReplayBuffer(1e9)
+        self._replay_buffer = None
+
+    def set_replay_buffer(self, env):
+        self._replay_buffer = ExperienceReplayBuffer(1e9, env)
 
     def act(self, state, reward):
         self._replay_buffer.store(self._state,

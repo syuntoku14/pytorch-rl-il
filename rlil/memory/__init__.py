@@ -1,13 +1,10 @@
 from .replay_buffer import (
-    ReplayBuffer,
     ExperienceReplayBuffer,
-    PrioritizedReplayBuffer,
-    NStepReplayBuffer,
 )
+from cpprb import ReplayBuffer
+
 
 __all__ = [
     "ReplayBuffer",
     "ExperienceReplayBuffer",
-    "PrioritizedReplayBuffer",
-    "NStepReplayBuffer",
 ]

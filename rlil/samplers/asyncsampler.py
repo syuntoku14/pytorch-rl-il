@@ -44,6 +44,7 @@ class Worker:
         """
 
         sample_info = {"frames": [], "returns": []}
+        lazy_agent.set_replay_buffer(self._env)
 
         # Sample until it reaches worker_frames or worker_episodes.
         while sum(sample_info["frames"]) < worker_frames \
@@ -63,20 +64,9 @@ class Worker:
             sample_info["frames"].append(_frames)
             sample_info["returns"].append(_return)
 
-        states, actions, rewards, next_states = [], [], [], []
-        for sample in lazy_agent._replay_buffer.buffer:
-            state, action, reward, next_state = sample
-            states.append(state)
-            actions.append(action)
-            rewards.append(reward)
-            next_states.append(next_state)
+        samples = lazy_agent._replay_buffer.get_all_transitions()
 
-        return sample_info, \
-            (State.from_list(states),
-             Action.from_list(actions),
-             torch.tensor(rewards, dtype=torch.float),
-             State.from_list(next_states)
-             )
+        return sample_info, samples
 
 
 class AsyncSampler(Sampler):

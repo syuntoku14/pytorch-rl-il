@@ -18,11 +18,12 @@ from ..mock_agent import MockAgent
 def setUp():
     ray.init(include_webui=False, ignore_reinit_error=True)
 
+    env = GymEnvironment('LunarLanderContinuous-v2')
+
     replay_buffer_size = 100
-    replay_buffer = ExperienceReplayBuffer(replay_buffer_size)
+    replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env)
     set_replay_buffer(replay_buffer)
 
-    env = GymEnvironment('LunarLanderContinuous-v2')
     agent = MockAgent(env)
 
     yield {"env": env, "agent": agent}

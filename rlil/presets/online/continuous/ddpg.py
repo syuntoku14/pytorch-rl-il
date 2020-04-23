@@ -74,10 +74,7 @@ def ddpg(
             ),
         )
 
-        replay_buffer = ExperienceReplayBuffer(
-            replay_buffer_size
-        )
-
+        replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env)
         set_replay_buffer(replay_buffer)
 
         return DDPG(

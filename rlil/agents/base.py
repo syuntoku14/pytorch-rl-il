@@ -60,11 +60,13 @@ class LazyAgent(ABC):
     def __init__(self,
                  evaluation=False,
                  store_samples=True):
-        self._replay_buffer = ExperienceReplayBuffer(1e9)
         self._states = None
         self._actions = None
         self._evaluation = evaluation
         self._store_samples = store_samples
+
+    def set_replay_buffer(self, env):
+        self._replay_buffer = ExperienceReplayBuffer(1e7, env)
 
     def act(self, states, reward):
         """

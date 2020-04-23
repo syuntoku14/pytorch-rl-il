@@ -1,4 +1,4 @@
-import unittest
+import pytest
 import numpy as np
 import torch
 from torch.optim import Adam
@@ -15,41 +15,46 @@ from rlil.presets.online.continuous import sac
 from ..mock_agent import MockAgent
 
 
-class TestTrainer(unittest.TestCase):
-    def setUp(self):
-        ray.init(include_webui=False, ignore_reinit_error=True)
+@pytest.fixture
+def setUp():
+    ray.init(include_webui=False, ignore_reinit_error=True)
 
-        self.replay_buffer_size = 100
-        replay_buffer = ExperienceReplayBuffer(self.replay_buffer_size)
-        set_replay_buffer(replay_buffer)
+    env = GymEnvironment('LunarLanderContinuous-v2')
 
-        self.env = GymEnvironment('LunarLanderContinuous-v2')
-        self.agent = MockAgent(self.env)
-        self.num_workers = 3
-        self.sampler = AsyncSampler(
-            self.env,
-            num_workers=self.num_workers,
-        )
+    replay_buffer_size = 100
+    replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env)
+    set_replay_buffer(replay_buffer)
 
-    def test_trainer_frames(self):
-        max_frames = 100
-        trainer = Trainer(self.agent, self.sampler, max_frames=max_frames)
-        trainer.start_training()
-        assert trainer._writer.sample_frames > max_frames
+    agent = MockAgent(env)
+    num_workers = 3
+    sampler = AsyncSampler(
+        env,
+        num_workers=num_workers,
+    )
 
-    def test_trainer_episodes(self):
-        max_episodes = 5
-        trainer = Trainer(self.agent, self.sampler, max_episodes=max_episodes)
-        trainer.start_training()
-        assert trainer._writer.sample_frames > max_episodes
+    yield env, agent, sampler
 
-    def test_training(self):
-        agent_fn = sac(replay_start_size=50)
-        agent = agent_fn(self.env)
-        self.sampler = AsyncSampler(
-            self.env,
-            num_workers=self.num_workers,
-        )
 
-        trainer = Trainer(agent, self.sampler, max_episodes=5)
-        trainer.start_training()
+def test_trainer_frames(setUp):
+    max_frames = 100
+    env, agent, sampler = setUp
+    trainer = Trainer(agent, sampler, max_frames=max_frames)
+    trainer.start_training()
+    assert trainer._writer.sample_frames > max_frames
+
+
+def test_trainer_episodes(setUp):
+    max_episodes = 5
+    env, agent, sampler = setUp
+    trainer = Trainer(agent, sampler, max_episodes=max_episodes)
+    trainer.start_training()
+    assert trainer._writer.sample_frames > max_episodes
+
+
+def test_training(setUp):
+    env, agent, sampler = setUp
+    agent_fn = sac(replay_start_size=50)
+    agent = agent_fn(env)
+
+    trainer = Trainer(agent, sampler, max_episodes=5)
+    trainer.start_training()

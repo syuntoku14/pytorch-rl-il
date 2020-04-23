@@ -17,21 +17,26 @@ class State:
                 assert 5 > len(raw[0].shape) > 1, \
                     "State.raw[0].shape {} is invalid".format(raw[0].shape)
                 assert len(raw[0].shape) > 1, \
-                    "State.raw[0].shape {} is invalid. Batch_size must be specified".format(raw[0].shape)
+                    "State.raw[0].shape {} is invalid. Batch_size must be specified".format(
+                        raw[0].shape)
             else:
                 assert isinstance(raw, torch.Tensor), \
-                    "Input invalid raw type {}. raw must be torch.Tensor or list of torch.Tensor".format(type(raw))
+                    "Input invalid raw type {}. raw must be torch.Tensor or list of torch.Tensor".format(
+                        type(raw))
                 assert 5 > len(raw.shape), \
                     "State.raw.shape {} is invalid".format(raw.shape)
                 assert len(raw.shape) > 1, \
-                    "State.raw.shape {} is invalid. Batch_size must be specified".format(raw.shape)
+                    "State.raw.shape {} is invalid. Batch_size must be specified".format(
+                        raw.shape)
 
             # check if mask is valid
             if mask is not None:
                 assert isinstance(mask, torch.Tensor), \
-                    "Input invalid mask type {}. mask must be torch.Tensor".format(type(mask))
+                    "Input invalid mask type {}. mask must be torch.Tensor".format(
+                        type(mask))
                 assert len(mask.shape) == 1, \
-                    "mask.shape {} must be 'shape == (batch_size)'".format(mask.shape)
+                    "mask.shape {} must be 'shape == (batch_size)'".format(
+                        mask.shape)
         self._raw = raw
 
         if mask is None:
@@ -53,14 +58,20 @@ class State:
         return cls(raw, done, info)
 
     @classmethod
-    def from_gym(cls, numpy_arr, done, info, device='cpu', dtype=np.float32):
+    def from_numpy(cls,
+                   np_raw,
+                   np_done=None,
+                   info=None,
+                   device='cpu',
+                   dtype=np.float32):
         raw = torch.from_numpy(
             np.array(
-                numpy_arr,
+                np_raw,
                 dtype=dtype
             )
-        ).unsqueeze(0).to(device)
-        mask = DONE.to(device) if done else NOT_DONE.to(device)
+        )
+        mask = ~torch.tensor(
+            np_done, dtype=torch.bool).reshape(-1) if np_done is not None else None
         return cls(raw, mask=mask, info=[info])
 
     @property
@@ -83,6 +94,11 @@ class State:
     def raw(self):
         return self._raw
 
+    def raw_numpy(self):
+        # return raw: np.array and done: np.array
+        return self._raw.cpu().detach().numpy(), \
+            self.done.cpu().detach().numpy()
+
     @property
     def done(self):
         return ~self._mask
@@ -98,6 +114,7 @@ class State:
 
     def detach(self):
         self._raw.detach()
+        return self
 
     def __getitem__(self, idx):
         if isinstance(idx, slice):

@@ -123,6 +123,9 @@ class Action:
     @property
     def device(self):
         return self._raw.device
+    
+    def raw_numpy(self):
+        return self._raw.cpu().detach().numpy()
 
     def to(self, device):
         return Action(
@@ -131,6 +134,7 @@ class Action:
 
     def detach(self):
         self._raw.detach()
+        return self
 
     def __getitem__(self, idx):
         if isinstance(idx, slice):
