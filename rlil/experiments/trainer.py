@@ -59,7 +59,7 @@ class Trainer:
                 eval_lazy_agent = self._agent.make_lazy_agent(
                     evaluation=True, store_samples=False)
                 self._eval_sampler.start_sampling(
-                    lazy_agent,
+                    eval_lazy_agent,
                     start_info=self._get_current_info(),
                     worker_episodes=10)
                 eval_sample_result = self._eval_sampler.store_samples(

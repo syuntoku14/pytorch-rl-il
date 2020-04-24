@@ -7,6 +7,8 @@ import os
 import logging
 import json
 
+# TODO: max_sample_frames is not necessary
+
 
 class Experiment:
     def __init__(
@@ -21,7 +23,7 @@ class Experiment:
             max_sample_frames=np.inf,
             max_sample_episodes=np.inf,
             max_train_frames=np.inf,
-            num_trains_per_iter=100
+            num_trains_per_iter=10
     ):
         # set_seed
         seed = set_seed(seed)
@@ -52,8 +54,10 @@ class Experiment:
         # start training
         agent = agent_fn(env)
 
-        sampler = AsyncSampler(env, num_workers=num_workers)
-        eval_sampler = AsyncSampler(env, num_workers=num_workers_eval)
+        sampler = AsyncSampler(env, num_workers=num_workers) \
+            if num_workers > 0 else None
+        eval_sampler = AsyncSampler(env, num_workers=num_workers_eval) \
+            if num_workers_eval > 0 else None
 
         trainer = Trainer(
             agent=agent,

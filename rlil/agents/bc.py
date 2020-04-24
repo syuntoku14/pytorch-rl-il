@@ -2,9 +2,11 @@ import torch
 from torch.distributions.normal import Normal
 from torch.nn.functional import mse_loss
 from rlil.environments import State, action_decorator, Action
-from rlil.initializer import get_device, get_replay_buffer
+from rlil.initializer import get_device, get_writer, get_replay_buffer
 from rlil import nn
+from copy import deepcopy
 from .base import Agent, LazyAgent
+import os
 
 
 class BC(Agent):
@@ -29,6 +31,7 @@ class BC(Agent):
         # objects
         self.policy = policy
         self.replay_buffer = get_replay_buffer()
+        self.writer = get_writer()
         self.device = get_device()
         # hyperparameters
         self.minibatch_size = minibatch_size
@@ -46,6 +49,7 @@ class BC(Agent):
         if self._should_train():
             (states, actions, _, _, _) = self.replay_buffer.sample(
                 self.minibatch_size)
+            self.writer.train_frames += len(states)
             policy_actions = Action(self.policy(states))
             loss = mse_loss(policy_actions.features, actions.features)
             self.policy.reinforce(loss)
@@ -55,16 +59,22 @@ class BC(Agent):
         self._train_count += 1
         return True
 
-    def make_lazy_agent(self, evaluation=False):
+    def make_lazy_agent(self, *args, **kwargs):
         model = deepcopy(self.policy.model)
-        return BCLazyAgent(model.to("cpu"), evaluation)
+        return BCLazyAgent(model.to("cpu"), *args, **kwargs)
+
+    def load(self, dirname):
+        for filename in os.listdir(dirname):
+            if filename == 'policy.pt':
+                self.policy.model = torch.load(os.path.join(
+                    dirname, filename), map_location=self.device)
 
 
 class BCLazyAgent(LazyAgent):
     """ 
     Agent class for sampler.
     """
-    def __init__(self, policy_model, evaluation, *args, **kwargs):
+    def __init__(self, policy_model, *args, **kwargs):
         self._policy_model = policy_model
         super().__init__(*args, **kwargs)
 

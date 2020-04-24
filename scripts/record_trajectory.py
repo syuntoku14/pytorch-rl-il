@@ -17,7 +17,7 @@ def main():
     parser = argparse.ArgumentParser(description="Record a trajectory of trained agent. \
         The trajectory will be stored as replay_buffer.pkl in the args.dir.")
     parser.add_argument(
-        "dir", help="Directory where the agent's model was saved.")
+        "dir", help="Directory where the agent's model is saved.")
     parser.add_argument(
         "--device",
         default="cpu",
@@ -60,7 +60,7 @@ def main():
 
         sampler.store_samples(timeout=1)
 
-    # # save replay buffer
+    # save replay buffer
     filepath = os.path.join(args.dir, 'buffer.pkl')
 
     with open(filepath, mode='wb') as f:

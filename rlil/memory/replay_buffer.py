@@ -11,6 +11,16 @@ def check_inputs_shapes(store):
     def retfunc(self, states, actions, rewards, next_states):
         if states is None:
             return None
+        # device check
+        assert states.device == torch.device("cpu"), \
+            "Input states.device must be cpu"
+        assert actions.device == torch.device("cpu"), \
+            "Input actions.device must be cpu"
+        assert rewards.device == torch.device("cpu"), \
+            "Input rewards.device must be cpu"
+        assert next_states.device == torch.device("cpu"), \
+            "Input next_states.device must be cpu"
+
         # type check
         assert isinstance(
             states, State), "Input invalid states type {}. states must be all.environments.State".format(type(states))
@@ -85,7 +95,7 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
     def sample(self, batch_size):
         '''Sample from the stored transitions'''
         npsamples = self.buffer.sample(batch_size)
-        samples = self._samples_from_np(npsamples)
+        samples = self.samples_from_np(npsamples)
         weights = torch.ones(batch_size).to(self.device)
 
         return (*samples, weights)
@@ -96,14 +106,16 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
 
     def get_all_transitions(self):
         npsamples = self.buffer.get_all_transitions()
-        return self._samples_from_np(npsamples)
+        return self.samples_from_np(npsamples)
 
-    def _samples_from_np(self, npsamples):
-        states = State.from_numpy(npsamples["obs"]).to(self.device)
-        actions = Action.from_numpy(npsamples["act"]).to(self.device)
-        rewards = torch.FloatTensor(npsamples["rew"]).squeeze().to(self.device)
+    def samples_from_np(self, npsamples, device=None):
+        device = self.device if device is None else device
+
+        states = State.from_numpy(npsamples["obs"]).to(device)
+        actions = Action.from_numpy(npsamples["act"]).to(device)
+        rewards = torch.FloatTensor(npsamples["rew"]).squeeze().to(device)
         next_states = State.from_numpy(
-            npsamples["next_obs"], npsamples["done"]).to(self.device)
+            npsamples["next_obs"], npsamples["done"]).to(device)
         return states, actions, rewards, next_states
 
     def __len__(self):

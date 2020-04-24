@@ -12,8 +12,6 @@ from .models import fc_q, fc_bcq_deterministic_policy, \
 
 def bcq(
         replay_buffer,
-        # pretrained policy path
-        policy_path=None,
         # Common settings
         discount_factor=0.98,
         last_frame=2e6,
@@ -34,7 +32,6 @@ def bcq(
 
     Args:
         replay_buffer (ExperienceReplayBuffer): ExperienceReplayBuffer with expert trajectory
-        policy_path (str): Path to the pretrained policy state_dict.pt
         discount_factor (float): Discount factor for future rewards.
         last_frame (int): Number of frames to train.
         lr_q (float): Learning rate for the Q network.
@@ -77,9 +74,6 @@ def bcq(
         )
 
         policy_model = fc_bcq_deterministic_policy(env).to(device)
-        if policy_path:
-            policy_model.load_state_dict(
-                torch.load(policy_path, map_location=device))
         policy_optimizer = Adam(policy_model.parameters(), lr=lr_pi)
         policy = BCQDeterministicPolicy(
             policy_model,

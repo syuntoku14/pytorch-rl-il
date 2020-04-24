@@ -10,8 +10,6 @@ from .models import fc_q, fc_deterministic_policy
 
 
 def td3(
-        # pretrained policy path
-        policy_path=None,
         # Common settings
         discount_factor=0.99,
         last_frame=2e6,
@@ -33,7 +31,6 @@ def td3(
     TD3 continuous control preset.
 
     Args:
-        policy_path (str): Path to the pretrained policy state_dict.pt
         discount_factor (float): Discount factor for future rewards.
         last_frame (int): Number of frames to train.
         lr_q (float): Learning rate for the Q network.
@@ -77,9 +74,6 @@ def td3(
         )
 
         policy_model = fc_deterministic_policy(env).to(device)
-        if policy_path:
-            policy_model.load_state_dict(
-                torch.load(policy_path, map_location=device))
         policy_optimizer = Adam(policy_model.parameters(), lr=lr_pi)
         policy = DeterministicPolicy(
             policy_model,

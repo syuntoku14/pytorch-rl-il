@@ -7,11 +7,11 @@ from rlil.memory import ExperienceReplayBuffer
 from rlil.environments import Action
 from rlil.initializer import set_replay_buffer
 from copy import deepcopy
-from ....mock_agent import MockAgent
+from ..mock_agent import MockAgent
 
 
-def gen_replay_buffer(env):
-    replay_buffer = ExperienceReplayBuffer(1000)
+def get_transitions(env):
+    replay_buffer = ExperienceReplayBuffer(1000, env)
     set_replay_buffer(replay_buffer)
     agent = MockAgent(env)
  
@@ -20,7 +20,7 @@ def gen_replay_buffer(env):
         while not env.done:
             env.step(agent.act(env.state, env.reward))
 
-    return deepcopy(agent.replay_buffer)
+    return agent.replay_buffer.buffer.get_all_transitions()
 
 
 @pytest.mark.skip
@@ -32,7 +32,7 @@ def test_bcq():
 
 def test_bc():
     env = GymEnvironment('LunarLanderContinuous-v2')
-    replay_buffer = gen_replay_buffer(env)
-    assert len(replay_buffer) > 100
+    transitions = get_transitions(env)
+    assert len(transitions["obs"]) > 100
 
-    validate_agent(bc(replay_buffer), env)
+    validate_agent(bc(transitions), env)

@@ -33,10 +33,9 @@ def main():
                         help="minibatch_size of replay_buffer.sample")
     parser.add_argument("--replay_start_size", type=int, default=50000,
                         help="Number of experiences in replay buffer when training begins.")
-    parser.add_argument("--policy", default=None,
-                        help="Path to the pretrained policy state_dict")
     parser.add_argument("--exp_info", default="default experiment",
-                        help="One line descriptions of the experiment. Experiments' results are saved in 'runs/[exp_info]/[env_id]/'")
+                        help="One line descriptions of the experiment. \
+                            Experiments' results are saved in 'runs/[exp_info]/[env_id]/'")
 
     args = parser.parse_args()
 
@@ -53,8 +52,7 @@ def main():
     env = GymEnvironment(env_id)
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
-    agent_fn = preset(policy_path=args.policy,
-                      minibatch_size=args.minibatch_size,
+    agent_fn = preset(minibatch_size=args.minibatch_size,
                       replay_start_size=args.replay_start_size
                       )
 
@@ -67,6 +65,7 @@ def main():
     Experiment(
         agent_fn, env,
         num_workers=args.num_workers,
+        num_workers_eval=args.num_workers_eval,
         max_train_frames=args.train_frames,
         args_dict=args_dict,
         exp_info=args.exp_info,
