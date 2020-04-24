@@ -64,6 +64,7 @@ class LazyAgent(ABC):
         self._actions = None
         self._evaluation = evaluation
         self._store_samples = store_samples
+        self._replay_buffer = None
 
     def set_replay_buffer(self, env):
         self._replay_buffer = ExperienceReplayBuffer(1e7, env)
@@ -75,6 +76,7 @@ class LazyAgent(ABC):
         Then, it outputs a corresponding action.
         """
         if self._store_samples:
+            assert self._replay_buffer is not None, \
+                "Call self.set_replay_buffer(env) at lazy_agent initialization."
             self._replay_buffer.store(
                 self._states, self._actions, reward, states)
- 

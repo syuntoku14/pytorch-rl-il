@@ -21,7 +21,7 @@ def main():
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)")
     parser.add_argument("--seed", type=int, default=0,
                         help="Random seed")
-    parser.add_argument("--frames", type=int, default=5e7,
+    parser.add_argument("--train_frames", type=int, default=5e7,
                         help="Number of training frames")
     parser.add_argument("--num_workers", type=int, default=1,
                         help="Number of workers for training")
@@ -67,7 +67,7 @@ def main():
     Experiment(
         agent_fn, env,
         num_workers=args.num_workers,
-        max_frames=args.frames,
+        max_train_frames=args.train_frames,
         args_dict=args_dict,
         exp_info=args.exp_info,
         num_trains_per_iter=args.num_trains_per_iter,

@@ -46,7 +46,7 @@ def main():
     lazy_agent = agent.make_lazy_agent(evaluation=True, store_samples=True)
 
     # reset ExperienceReplayBuffer
-    set_replay_buffer(ExperienceReplayBuffer(args.frames + 10))
+    set_replay_buffer(ExperienceReplayBuffer(args.frames + 10, env))
 
     # set sampler
     sampler = AsyncSampler(env, num_workers=args.num_workers)
@@ -62,10 +62,12 @@ def main():
 
     # # save replay buffer
     filepath = os.path.join(args.dir, 'buffer.pkl')
-    with open(filepath, mode='wb') as f:
-        pickle.dump(replay_buffer.buffer, f, protocol=2)
 
-    print("Buffer (size: {}) is saved at {}".format(
+    with open(filepath, mode='wb') as f:
+        samples = replay_buffer.buffer.get_all_transitions()
+        pickle.dump(samples, f)
+
+    print("Transitions (size: {}) is saved at {}".format(
         len(replay_buffer), filepath))
 
 

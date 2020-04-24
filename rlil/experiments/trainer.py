@@ -20,15 +20,17 @@ class Trainer:
             agent,
             sampler=None,
             eval_sampler=None,
-            max_frames=np.inf,
-            max_episodes=np.inf,
+            max_sample_frames=np.inf,
+            max_sample_episodes=np.inf,
+            max_train_frames=np.inf,
             num_trains_per_iter=100,
     ):
         self._agent = agent
         self._sampler = sampler
         self._eval_sampler = eval_sampler
-        self._max_frames = max_frames
-        self._max_episodes = max_episodes
+        self._max_sample_frames = max_sample_frames
+        self._max_sample_episodes = max_sample_episodes
+        self._max_train_frames = max_train_frames
         self._writer = get_writer()
         self._logger = get_logger()
         self._best_returns = -np.inf
@@ -119,6 +121,7 @@ class Trainer:
 
     def _done(self):
         return (
-            self._writer.sample_frames > self._max_frames or
-            self._writer.sample_episodes > self._max_episodes
+            self._writer.sample_frames > self._max_sample_frames or
+            self._writer.sample_episodes > self._max_sample_episodes or
+            self._writer.train_frames > self._max_train_frames
         )

@@ -18,8 +18,9 @@ class Experiment:
             seed=0,
             num_workers=1,
             num_workers_eval=1,
-            max_frames=np.inf,
-            max_episodes=np.inf,
+            max_sample_frames=np.inf,
+            max_sample_episodes=np.inf,
+            max_train_frames=np.inf,
             num_trains_per_iter=100
     ):
         # set_seed
@@ -55,12 +56,13 @@ class Experiment:
         eval_sampler = AsyncSampler(env, num_workers=num_workers_eval)
 
         trainer = Trainer(
-            agent,
-            sampler,
-            eval_sampler,
-            max_frames,
-            max_episodes,
-            num_trains_per_iter
+            agent=agent,
+            sampler=sampler,
+            eval_sampler=eval_sampler,
+            max_sample_frames=max_sample_frames,
+            max_sample_episodes=max_sample_episodes,
+            max_train_frames=max_train_frames,
+            num_trains_per_iter=num_trains_per_iter
         )
 
         trainer.start_training()

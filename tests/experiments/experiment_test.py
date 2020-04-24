@@ -45,8 +45,8 @@ class MockExperiment(Experiment):
             env,
             exp_info='default_experiments',
             num_workers=1,
-            max_frames=np.inf,
-            max_episodes=np.inf,
+            max_sample_frames=np.inf,
+            max_sample_episodes=np.inf,
     ):
 
         # set writer
@@ -64,8 +64,8 @@ class MockExperiment(Experiment):
             agent,
             sampler,
             eval_sampler,
-            max_frames,
-            max_episodes
+            max_sample_frames,
+            max_sample_episodes
         )
 
         trainer.start_training()
@@ -79,7 +79,7 @@ class MockExperiment(Experiment):
 def test_adds_label():
     ray.init(include_webui=False, ignore_reinit_error=True)
     env = GymEnvironment('Pendulum-v0')
-    experiment = MockExperiment(sac(), env, max_episodes=1)
+    experiment = MockExperiment(sac(), env, max_sample_episodes=1)
     assert experiment._writer.label == "_sac_Pendulum-v0"
 
 
@@ -87,7 +87,7 @@ def test_adds_label():
 def test_writes_returns_eps():
     ray.init(include_webui=False, ignore_reinit_error=True)
     env = GymEnvironment('Pendulum-v0')
-    experiment = MockExperiment(sac(), env, max_episodes=3)
+    experiment = MockExperiment(sac(), env, max_sample_episodes=3)
     np.testing.assert_equal(
         experiment._writer.data["returns/episode"]["steps"],
         np.array([1, 2, 3]),

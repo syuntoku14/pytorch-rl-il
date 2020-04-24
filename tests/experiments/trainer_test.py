@@ -36,19 +36,19 @@ def setUp():
 
 
 def test_trainer_frames(setUp):
-    max_frames = 100
+    max_sample_frames = 100
     env, agent, sampler = setUp
-    trainer = Trainer(agent, sampler, max_frames=max_frames)
+    trainer = Trainer(agent, sampler, max_sample_frames=max_sample_frames)
     trainer.start_training()
-    assert trainer._writer.sample_frames > max_frames
+    assert trainer._writer.sample_frames > max_sample_frames
 
 
 def test_trainer_episodes(setUp):
-    max_episodes = 5
+    max_sample_episodes = 5
     env, agent, sampler = setUp
-    trainer = Trainer(agent, sampler, max_episodes=max_episodes)
+    trainer = Trainer(agent, sampler, max_sample_episodes=max_sample_episodes)
     trainer.start_training()
-    assert trainer._writer.sample_frames > max_episodes
+    assert trainer._writer.sample_frames > max_sample_episodes
 
 
 def test_training(setUp):
@@ -56,5 +56,5 @@ def test_training(setUp):
     agent_fn = sac(replay_start_size=50)
     agent = agent_fn(env)
 
-    trainer = Trainer(agent, sampler, max_episodes=5)
+    trainer = Trainer(agent, sampler, max_sample_episodes=5)
     trainer.start_training()

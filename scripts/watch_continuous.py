@@ -37,6 +37,7 @@ def main():
     agent = agent_fn(env)
     agent.load(args.dir)
     lazy_agent = agent.make_lazy_agent(evaluation=True)
+    lazy_agent.set_replay_buffer(env)
 
     # watch
     watch(lazy_agent, env, fps=args.fps)
