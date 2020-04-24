@@ -30,6 +30,7 @@ class SoftDeterministicPolicyNetwork(RLNetwork):
         outputs = super().forward(state)
         if return_mean:
             means = outputs[:, 0: self._action_dim]
+            means = squash_action(means, self._tanh_scale, self._tanh_mean)
             return means
 
         normal = self._normal(outputs)

@@ -119,6 +119,7 @@ class DDPGLazyAgent(LazyAgent):
                  *args, **kwargs):
         self._policy_model = policy_model
         self._noise = noise
+        super().__init__(*args, **kwargs)
 
     def act(self, states, reward):
         super().act(states, reward)
