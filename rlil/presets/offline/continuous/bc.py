@@ -36,7 +36,7 @@ def bc(
 
         replay_buffer = ExperienceReplayBuffer(1e9, env)
         if transitions is not None:
-            samples = replay_buffer.samples_from_np(transitions, device="cpu")
+            samples = replay_buffer.samples_from_cpprb(transitions, device="cpu")
             replay_buffer.store(*samples)
         set_replay_buffer(replay_buffer)
 
