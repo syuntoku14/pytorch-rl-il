@@ -64,7 +64,7 @@ def main():
     filepath = os.path.join(args.dir, 'buffer.pkl')
 
     with open(filepath, mode='wb') as f:
-        samples = replay_buffer.buffer.get_all_transitions()
+        samples = replay_buffer.get_all_transitions(return_cpprb=True)
         pickle.dump(samples, f)
 
     print("Transitions (size: {}) is saved at {}".format(

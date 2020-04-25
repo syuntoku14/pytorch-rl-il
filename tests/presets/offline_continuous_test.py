@@ -20,7 +20,7 @@ def get_transitions(env):
         while not env.done:
             env.step(agent.act(env.state, env.reward))
 
-    return agent.replay_buffer.buffer.get_all_transitions()
+    return agent.replay_buffer.get_all_transitions(return_cpprb=True)
 
 
 @pytest.mark.skip

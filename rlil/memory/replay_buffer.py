@@ -109,8 +109,10 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         '''Update priorities based on the TD error'''
         pass
 
-    def get_all_transitions(self):
+    def get_all_transitions(self, return_cpprb=False):
         npsamples = self.buffer.get_all_transitions()
+        if return_cpprb:
+            return npsamples
         return self.samples_from_cpprb(npsamples)
 
     def samples_from_cpprb(self, npsamples, device=None):
