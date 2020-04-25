@@ -27,7 +27,7 @@ def main():
                         help="Number of workers for training")
     parser.add_argument("--num_workers_eval", type=int,
                         default=1, help="Number of workers for evaluation")
-    parser.add_argument("--num_trains_per_iter", type=int,
+    parser.add_argument("--num_trains_per_episode", type=int,
                         default=10, help="Number of trains called per episode")
     parser.add_argument("--minibatch_size", type=int, default=1000,
                         help="minibatch_size of replay_buffer.sample")
@@ -69,7 +69,7 @@ def main():
         max_train_frames=args.train_frames,
         args_dict=args_dict,
         exp_info=args.exp_info,
-        num_trains_per_iter=args.num_trains_per_iter,
+        num_trains_per_episode=args.num_trains_per_episode,
     )
 
 
