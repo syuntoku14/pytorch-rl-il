@@ -62,7 +62,6 @@ class SAC(Agent):
         # private
         self._states = None
         self._actions = None
-        self._train_count = 0
 
     def act(self, states, reward=None):
         if reward is not None:
@@ -78,7 +77,6 @@ class SAC(Agent):
             # sample from replay buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
                 self.minibatch_size)
-            self.writer.train_frames += len(states)
 
             # compute targets for Q and V
             _actions, _log_probs = self.policy.eval(states)
@@ -115,8 +113,9 @@ class SAC(Agent):
             self.writer.add_scalar('loss/temperature_grad', temperature_grad)
             self.writer.add_scalar('loss/temperature', self.temperature)
 
+            self.writer.train_steps += 1
+
     def _should_train(self):
-        self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size
 
     def make_lazy_agent(self, evaluation=False, store_samples=True):

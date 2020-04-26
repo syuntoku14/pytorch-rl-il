@@ -54,7 +54,6 @@ class DDPG(Agent):
             0, noise * torch.FloatTensor((action_space.high - action_space.low) / 2).to(self.device))
         self._states = None
         self._actions = None
-        self._train_count = 0
 
     def act(self, states, reward=None):
         if reward is not None:
@@ -71,7 +70,6 @@ class DDPG(Agent):
             # sample transitions from buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
                 self.minibatch_size)
-            self.writer.train_frames += len(states)
 
             # train q-network
             q_values = self.q(states, actions)
@@ -88,8 +86,9 @@ class DDPG(Agent):
             self.policy.zero_grad()
             self.q.zero_grad()
 
+            self.writer.train_steps += 1
+
     def _should_train(self):
-        self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size
 
     def make_lazy_agent(self, evaluation=False, store_samples=True):

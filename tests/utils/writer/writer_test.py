@@ -16,7 +16,7 @@ def init_writer():
                               exp_info="test_exp",
                               sample_frame_interval=10,
                               sample_episode_interval=100,
-                              train_frame_interval=1000)
+                              train_step_interval=1000)
 
     # GIVEN sample_frame_interval == 10
     # WHEN add_scalar with step="sample_frame" is called
@@ -30,10 +30,10 @@ def init_writer():
         writer.sample_episodes = i
         writer.add_scalar("test", i, step="sample_episode")
 
-    # same test for train_frames
+    # same test for train_steps
     for i in range(10000):
-        writer.train_frames = i
-        writer.add_scalar("test", i, step="train_frame")
+        writer.train_steps = i
+        writer.add_scalar("test", i, step="train_step")
 
     set_writer(writer)
 
@@ -69,11 +69,11 @@ def test_get_step_value(init_writer):
     writer = get_writer()
     writer.sample_frames = 1
     writer.sample_episodes = 2
-    writer.train_frames = 3
+    writer.train_steps = 3
 
     assert writer._get_step_value("sample_frame") == 1
     assert writer._get_step_value("sample_episode") == 2
-    assert writer._get_step_value("train_frame") == 3
+    assert writer._get_step_value("train_step") == 3
 
 
 def test_add_scalar_interval(init_writer):
@@ -90,7 +90,7 @@ def test_add_scalar_interval(init_writer):
     assert scalars['test_env/test/sample_episode'] == [
         i for i in range(100, 1000, 100)]
 
-    assert scalars['test_env/test/train_frame'] == [
+    assert scalars['test_env/test/train_step'] == [
         i for i in range(1000, 10000, 1000)]
 
 

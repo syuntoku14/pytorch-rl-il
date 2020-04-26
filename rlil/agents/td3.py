@@ -94,7 +94,6 @@ class TD3(Agent):
             # sample transitions from buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
                 self.minibatch_size)
-            self.writer.train_frames += len(states)
 
             # Trick Three: Target Policy Smoothing
             next_actions = self.policy.target(next_states)
@@ -119,6 +118,8 @@ class TD3(Agent):
                 self.policy.zero_grad()
             self.q_1.zero_grad()
             self.q_2.zero_grad()
+
+            self.writer.train_steps += 1
 
     def _should_train(self):
         self._train_count += 1

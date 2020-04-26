@@ -104,7 +104,7 @@ def test_eval_sampler(setUp):
     lazy_agent = agent.make_lazy_agent()
     start_info = StartInfo(sample_frames=100,
                            sample_episodes=1000,
-                           train_frames=10000)
+                           train_steps=10000)
     sampler.start_sampling(
         lazy_agent,
         worker_episodes=worker_episodes,

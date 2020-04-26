@@ -38,7 +38,6 @@ class BC(Agent):
         action_space = Action.action_space()
         self._low = torch.tensor(action_space.low, device=self.device)
         self._high = torch.tensor(action_space.high, device=self.device)
-        self._train_count = 0
 
     def act(self, states, reward):
         self._states = states
@@ -49,14 +48,13 @@ class BC(Agent):
         if self._should_train():
             (states, actions, _, _, _) = self.replay_buffer.sample(
                 self.minibatch_size)
-            self.writer.train_frames += len(states)
             policy_actions = Action(self.policy(states))
             loss = mse_loss(policy_actions.features, actions.features)
             self.policy.reinforce(loss)
             self.policy.zero_grad()
+            self.writer.train_steps += 1
 
     def _should_train(self):
-        self._train_count += 1
         return True
 
     def make_lazy_agent(self, *args, **kwargs):

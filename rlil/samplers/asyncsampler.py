@@ -11,7 +11,7 @@ from collections import defaultdict, namedtuple
 StartInfo = namedtuple("StartInfo",
                        ["sample_frames",
                         "sample_episodes",
-                        "train_frames"],
+                        "train_steps"],
                        defaults=(None, ) * 3)
 
 

@@ -28,8 +28,8 @@ class Writer(ABC):
             return self.sample_frames
         if _type == "sample_episode":
             return self.sample_episodes
-        if _type == "train_frame":
-            return self.train_frames
+        if _type == "train_step":
+            return self.train_steps
         return _type
 
 
@@ -37,7 +37,7 @@ class DummyWriter(Writer):
     def __init__(self):
         self.sample_frames = 0
         self.sample_episodes = 0
-        self.train_frames = 0
+        self.train_steps = 0
 
     def add_scalar(self, name, value, step="sample_frame",
                    step_value=None, save_csv=False):
@@ -51,14 +51,14 @@ class ExperimentWriter(SummaryWriter, Writer):
     def __init__(self, agent_name, env_name,
                  sample_frame_interval=1e4,
                  sample_episode_interval=1e2,
-                 train_frame_interval=1e4,
+                 train_step_interval=1e2,
                  exp_info="default_experiments"):
 
         self.env_name = env_name
         self._add_scalar_interval = \
             {"sample_frame": sample_frame_interval,
              "sample_episode": sample_episode_interval,
-             "train_frame": train_frame_interval}
+             "train_step": train_step_interval}
 
         # make experiment directory
         current_time = str(datetime.now())
@@ -70,7 +70,7 @@ class ExperimentWriter(SummaryWriter, Writer):
         os.makedirs(self.log_dir)
 
         self.sample_frames = 0
-        self.train_frames = 0
+        self.train_steps = 0
         self.sample_episodes = 0
         self._name_frame_history = defaultdict(lambda: 0)
         super().__init__(log_dir=self.log_dir)

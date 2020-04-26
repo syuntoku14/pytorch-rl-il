@@ -16,7 +16,7 @@ class MockWriter(Writer):
         self.label = label
         self.sample_frames = 0
         self.sample_episodes = 1
-        self.train_frames = 0
+        self.train_steps = 0
 
     def add_scalar(self, key, value, step="sample_frame"):
         key = key + "/" + step
@@ -33,8 +33,8 @@ class MockWriter(Writer):
             return self.sample_frames
         if _type == "sample_episode":
             return self.sample_episodes
-        if _type == "train_frame":
-            return self.train_frames
+        if _type == "train_step":
+            return self.train_steps
         return _type
 
 
