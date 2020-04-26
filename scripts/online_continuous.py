@@ -25,51 +25,41 @@ def main():
                         help="Number of training frames")
     parser.add_argument("--num_workers", type=int, default=1,
                         help="Number of workers for training")
-    parser.add_argument("--num_workers_eval", type=int,
-                        default=1, help="Number of workers for evaluation")
-    parser.add_argument("--num_trains_per_episode", type=int,
-                        default=10, help="Number of trains called per episode")
-    parser.add_argument("--minibatch_size", type=int, default=1000,
-                        help="minibatch_size of replay_buffer.sample")
-    parser.add_argument("--replay_start_size", type=int, default=50000,
-                        help="Number of experiences in replay buffer when training begins.")
     parser.add_argument("--exp_info", default="default experiment",
                         help="One line descriptions of the experiment. \
                             Experiments' results are saved in 'runs/[exp_info]/[env_id]/'")
 
     args = parser.parse_args()
 
+    # initialization
     ray.init(include_webui=False, ignore_reinit_error=True)
-
     set_device(torch.device(args.device))
     set_seed(args.seed)
+    logger = get_logger()
+    logger.setLevel(logging.DEBUG)
 
+    # set environment
     if args.env in ENVS:
         env_id = ENVS[args.env]
     else:
         env_id = args.env
-
     env = GymEnvironment(env_id)
+
+    # set agent
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
-    agent_fn = preset(minibatch_size=args.minibatch_size,
-                      replay_start_size=args.replay_start_size
-                      )
+    agent_fn = preset()
 
-    logger = get_logger()
-    logger.setLevel(logging.DEBUG)
-
+    # set args_dict
     args_dict = get_default_args(preset)
     args_dict.update(vars(args))
 
     Experiment(
         agent_fn, env,
         num_workers=args.num_workers,
-        num_workers_eval=args.num_workers_eval,
         max_train_frames=args.train_frames,
         args_dict=args_dict,
         exp_info=args.exp_info,
-        num_trains_per_episode=args.num_trains_per_episode,
     )
 
 
