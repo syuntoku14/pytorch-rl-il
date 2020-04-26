@@ -21,12 +21,14 @@ class GAIL(Agent):
         minibatch_size (int): 
             The number of experiences to sample in each discriminator update.
         replay_start_size (int): Number of experiences in replay buffer when training begins.
+        update_frequency (int): Number of base_agent update per discriminator update
     """
 
     def __init__(self,
                  base_agent,
                  minibatch_size=32,
                  replay_start_size=5000,
+                 update_frequency=10,
                  ):
         # objects
         self.base_agent = base_agent
@@ -40,6 +42,7 @@ class GAIL(Agent):
         # hyperparameters
         self.minibatch_size = minibatch_size
         self.replay_start_size = replay_start_size
+        self.update_frequency = update_frequency
 
     def act(self, *args, **kwargs):
         return self.base_agent.act(*args, **kwargs)
@@ -60,11 +63,16 @@ class GAIL(Agent):
                 self.discrim_criterion(real, torch.zeros_like(real))
             self.discriminator.reinforce(discrim_loss)
 
-            # train base_agent
-            self.base_agent.train()
+            # additional debugging info
+            self.writer.add_scalar('gail/fake', fake.mean())
+            self.writer.add_scalar('gail/real', real.mean())
+
+        # train base_agent
+        self.base_agent.train()
 
     def _should_train(self):
-        return len(self.replay_buffer) > self.replay_start_size
+        return len(self.replay_buffer) > self.replay_start_size and \
+            self.writer.train_steps % self.update_frequency == 0
 
     def make_lazy_agent(self, *args, **kwargs):
         return self.base_agent.make_lazy_agent(*args, **kwargs)
