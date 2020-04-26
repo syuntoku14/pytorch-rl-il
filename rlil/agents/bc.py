@@ -72,6 +72,7 @@ class BCLazyAgent(LazyAgent):
     """ 
     Agent class for sampler.
     """
+
     def __init__(self, policy_model, *args, **kwargs):
         self._policy_model = policy_model
         super().__init__(*args, **kwargs)

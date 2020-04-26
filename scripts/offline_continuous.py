@@ -26,7 +26,7 @@ def main():
     parser.add_argument("--seed", type=int, default=0,
                         help="Random seed")
     parser.add_argument("--train_steps", type=int, default=1e3,
-                        help="Number of training frames")
+                        help="Number of training steps")
     parser.add_argument("--num_workers_eval", type=int,
                         default=1, help="Number of workers for evaluation")
     parser.add_argument("--exp_info", default="default experiment",

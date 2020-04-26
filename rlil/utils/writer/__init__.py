@@ -82,7 +82,8 @@ class ExperimentWriter(SummaryWriter, Writer):
         if isinstance(value, np.ndarray):
             value = value.item()
 
-        step_value = self._get_step_value(step) if step_value is None else step_value
+        step_value = self._get_step_value(
+            step) if step_value is None else step_value
         value_name = self.env_name + "/" + name + "/" + step
 
         # add data every self._add_scalar_interval

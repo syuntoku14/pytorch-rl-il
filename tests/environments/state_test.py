@@ -61,7 +61,7 @@ def test_from_numpy():
     done = np.zeros(3, dtype=np.bool)
     info = 'a'
     state = State.from_numpy(gym_obs, done, info)
-    
+
     tt.assert_equal(state.raw, torch.FloatTensor(gym_obs), )
     tt.assert_equal(state.done, torch.tensor(done))
     assert state.info == ['a']

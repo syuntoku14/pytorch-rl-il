@@ -47,4 +47,3 @@ def test_td3(benchmark):
     collect_samples(agent, env)
     assert agent._should_train()
     benchmark.pedantic(agent.train, rounds=100)
-

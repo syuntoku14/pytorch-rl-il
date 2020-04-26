@@ -60,7 +60,8 @@ class Trainer:
             self._agent.train()
             training_msg = {"training time [sec]": round(time.time() - start_time, 2),
                             "trained steps": self._writer.train_steps - train_steps}
-            self._logger.info("\nTraining:\n" + json.dumps(training_msg, indent=2))
+            self._logger.info("\nTraining:\n" +
+                              json.dumps(training_msg, indent=2))
 
             # evaluation
             if self._eval_sampler is not None:

@@ -14,7 +14,7 @@ def get_transitions(env):
     replay_buffer = ExperienceReplayBuffer(1000, env)
     set_replay_buffer(replay_buffer)
     agent = MockAgent(env)
- 
+
     while len(agent.replay_buffer) < 100:
         env.reset()
         while not env.done:

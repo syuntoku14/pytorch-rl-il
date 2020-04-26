@@ -123,7 +123,7 @@ class Action:
     @property
     def device(self):
         return self._raw.device
-    
+
     def raw_numpy(self):
         return self._raw.cpu().detach().numpy()
 

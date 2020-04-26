@@ -47,7 +47,8 @@ def test_sampler_episode(setUp):
     # GIVEN the store_samples function with infinite timeout
     # WHEN worker_episodes are specified
     # THEN sampler collects samples by the num of num_workers * worker_episodes
-    assert len(sample_result[StartInfo()]["frames"]) == num_workers * worker_episodes
+    assert len(sample_result[StartInfo()]["frames"]
+               ) == num_workers * worker_episodes
 
 
 def test_sampler_frames(setUp):
@@ -69,7 +70,8 @@ def test_sampler_frames(setUp):
     # GIVEN the store_samples function with infinite timeout
     # WHEN worker_frames are specified
     # THEN sampler collects samples until frames exceeds worker_frames * num_workers
-    assert sum(sample_result[StartInfo()]["frames"]) > worker_frames * num_workers
+    assert sum(sample_result[StartInfo()]["frames"]
+               ) > worker_frames * num_workers
 
 
 def test_ray_wait(setUp):

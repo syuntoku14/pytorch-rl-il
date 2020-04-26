@@ -28,9 +28,9 @@ class MockAgent:
 
     def act(self, state, reward):
         self.replay_buffer.store(self._state,
-                                  self._action,
-                                  reward,
-                                  state)
+                                 self._action,
+                                 reward,
+                                 state)
         self._state = state
 
         with torch.no_grad():
