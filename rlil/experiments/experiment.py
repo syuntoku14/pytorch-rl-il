@@ -15,6 +15,7 @@ class Experiment:
             self,
             agent_fn,
             env,
+            agent_name=None,
             args_dict={},
             exp_info="default_experiments",
             seed=0,
@@ -28,7 +29,8 @@ class Experiment:
         seed = set_seed(seed)
 
         # set writer
-        agent_name = agent_fn.__name__
+        if agent_name is None:
+            agent_name = agent_fn.__name__[1:]
         writer = self._make_writer(agent_name, env.name, exp_info)
         message = "# Parameters  \n"
         message += json.dumps(args_dict, indent=4,

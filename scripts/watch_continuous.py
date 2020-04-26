@@ -33,7 +33,7 @@ def main():
 
     # load agent
     agent_name = os.path.basename(
-        os.path.dirname(args.dir)).split("_")[1].strip("_")
+        os.path.dirname(args.dir)).split("_")[0]
     try:
         agent_fn = getattr(online_continuous, agent_name)()
     except AttributeError:

@@ -53,7 +53,7 @@ def get_results(exp_path):
     results = defaultdict(lambda: defaultdict(lambda: []))
     for env in exp_path.glob("[!.]*[!.png]"):
         for result in env.glob("[!.]*"):
-            agent = result.name.split("_")[1]
+            agent = result.name.split("_")[0]
             steps, scalars = read_scalars(result)
             df = get_return_dataframe(steps, scalars)
             results[env.name][agent].append(df)

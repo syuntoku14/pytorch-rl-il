@@ -6,7 +6,7 @@ from rlil.presets.online.continuous import td3
 from rlil.presets import validate_agent
 from rlil.memory import ExperienceReplayBuffer
 from rlil.environments import Action
-from rlil.initializer import set_replay_buffer
+from rlil.initializer import set_replay_buffer, get_writer
 from copy import deepcopy
 from ..mock_agent import MockAgent
 
@@ -24,11 +24,15 @@ def get_transitions(env):
     return agent.replay_buffer.get_all_transitions(return_cpprb=True)
 
 
-def test_bc():
+def test_gail():
     env = GymEnvironment('LunarLanderContinuous-v2')
     transitions = get_transitions(env)
     base_agent_fn = td3()
     assert len(transitions["obs"]) > 100
 
     validate_agent(gail(transitions=transitions,
-                        base_agent_fn=base_agent_fn), env)
+                        base_agent_fn=base_agent_fn,
+                        replay_start_size=0), env)
+
+    writer = get_writer()
+    assert writer.train_steps > 1

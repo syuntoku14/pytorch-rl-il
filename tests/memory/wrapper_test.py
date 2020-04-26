@@ -15,20 +15,23 @@ from rlil.initializer import set_device
 @pytest.fixture
 def setUp(use_cpu):
     env = GymEnvironment('LunarLanderContinuous-v2')
-    replay_buffer = ExperienceReplayBuffer(100, env)
+    replay_buffer = ExperienceReplayBuffer(1000, env)
 
+    # base buffer
     states = State(torch.tensor([env.observation_space.sample()]*100))
     actions = Action(torch.tensor([env.action_space.sample()]*100))
-    rewards = torch.arange(0, 100, dtype=torch.float)
+    rewards = torch.arange(0, 99, dtype=torch.float)
     replay_buffer.store(states[:-1], actions, rewards, states[1:])
 
-    exp_replay_buffer = ExperienceReplayBuffer(100, env)
+    # expert buffer
+    exp_replay_buffer = ExperienceReplayBuffer(1000, env)
     exp_states = State(torch.tensor([env.observation_space.sample()]*100))
     exp_actions = Action(torch.tensor([env.action_space.sample()]*100))
-    exp_rewards = torch.arange(100, 200, dtype=torch.float)
+    exp_rewards = torch.arange(100, 199, dtype=torch.float)
     exp_replay_buffer.store(
         exp_states[:-1], exp_actions, exp_rewards, exp_states[1:])
 
+    # discriminator
     discriminator_model = fc_discriminator(env)
     discriminator_optimizer = Adam(discriminator_model.parameters())
     discriminator = Discriminator(discriminator_model,
@@ -68,3 +71,16 @@ def test_sample(setUp):
 def test_sample_both(setUp):
     gail_buffer, samples = setUp
     samples, expert_samples = gail_buffer.sample_both(4)
+
+
+def test_store(setUp):
+    gail_buffer, samples = setUp
+    assert len(gail_buffer) == 99
+
+    gail_buffer.store(samples["buffer"]["states"][:-1],
+                      samples["buffer"]["actions"],
+                      samples["buffer"]["rewards"],
+                      samples["buffer"]["states"][1:],
+                      )
+
+    assert len(gail_buffer) == 198

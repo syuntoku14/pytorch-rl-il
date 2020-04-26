@@ -31,6 +31,8 @@ class GAIL(Agent):
         # objects
         self.base_agent = base_agent
         self.replay_buffer = get_replay_buffer()
+        # replace base_agent's replay_buffer with gail_buffer
+        self.base_agent.replay_buffer = self.replay_buffer
         self.discriminator = self.replay_buffer.discriminator
         self.writer = get_writer()
         self.device = get_device()
@@ -38,8 +40,6 @@ class GAIL(Agent):
         # hyperparameters
         self.minibatch_size = minibatch_size
         self.replay_start_size = replay_start_size
-        # private
-        self._train_count = 0
 
     def act(self, *args, **kwargs):
         return self.base_agent.act(*args, **kwargs)
@@ -50,19 +50,20 @@ class GAIL(Agent):
             samples, expert_samples = self.replay_buffer.sample_both(
                 self.minibatch_size)
             states, actions, _, _, _ = samples
-            exp_samples, exp_actions, _, _, _ = expert_samples
+            exp_states, exp_actions, _, _, _ = expert_samples
 
-            fake = self.discriminator(states, actions)
-            real = self.discriminator(exp_states, exp_actions)
+            fake = self.discriminator(
+                torch.cat((states.features, actions.features), dim=1))
+            real = self.discriminator(
+                torch.cat((exp_states.features, exp_actions.features), dim=1))
             discrim_loss = self.discrim_criterion(fake, torch.ones_like(fake)) + \
                 self.discrim_criterion(real, torch.zeros_like(real))
             self.discriminator.reinforce(discrim_loss)
 
-        # train base_agent
-        self.base_agent.train()
+            # train base_agent
+            self.base_agent.train()
 
     def _should_train(self):
-        self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size
 
     def make_lazy_agent(self, *args, **kwargs):
