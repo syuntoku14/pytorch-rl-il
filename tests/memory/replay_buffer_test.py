@@ -16,8 +16,7 @@ def test_run():
     states = torch.tensor([env.observation_space.sample()]*20)
     actions = torch.tensor([env.action_space.sample()]*20)
     rewards = torch.arange(0, 20, dtype=torch.float)
-    actual_samples = []
-    actual_weights = []
+
     for i in range(10):
         state = State(states[i].view(1, -1), torch.tensor([1]).bool())
         next_state = State(
@@ -26,8 +25,6 @@ def test_run():
         replay_buffer.store(
             state, action, rewards[i].unsqueeze(0), next_state)
         sample = replay_buffer.sample(3)
-        actual_samples.append(sample[0].features)
-        actual_weights.append(sample[-1])
 
 
 def test_multi_store():
@@ -38,12 +35,8 @@ def test_multi_store():
     actions = torch.tensor([env.action_space.sample()]*20)
     rewards = torch.arange(0, 20, dtype=torch.float)
 
-    actual_samples = []
-    actual_weights = []
     states = State(states)
     actions = Action(actions)
     replay_buffer.store(states[:-1], actions, rewards, states[1:])
     for i in range(2):
         sample = replay_buffer.sample(3)
-        actual_samples.append(sample[0].features)
-        actual_weights.append(sample[-1])

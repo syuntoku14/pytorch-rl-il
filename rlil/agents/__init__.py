@@ -4,6 +4,7 @@ from .sac import SAC
 from .td3 import TD3
 from .bcq import BCQ
 from .bc import BC
+from .gail import GAIL
 
 __all__ = [
     "Agent",
@@ -12,5 +13,6 @@ __all__ = [
     "SAC",
     "TD3",
     "BCQ",
-    "BC"
+    "BC",
+    "GAIL"
 ]
