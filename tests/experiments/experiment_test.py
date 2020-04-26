@@ -61,11 +61,11 @@ class MockExperiment(Experiment):
         eval_sampler = AsyncSampler(env)
 
         trainer = Trainer(
-            agent,
-            sampler,
-            eval_sampler,
-            max_sample_frames,
-            max_sample_episodes
+            agent=agent,
+            sampler=sampler,
+            eval_sampler=eval_sampler,
+            max_sample_frames=max_sample_frames,
+            max_sample_episodes=max_sample_episodes
         )
 
         trainer.start_training()

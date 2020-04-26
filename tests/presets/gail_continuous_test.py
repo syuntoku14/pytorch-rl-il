@@ -27,7 +27,7 @@ def get_transitions(env):
 def test_gail():
     env = GymEnvironment('LunarLanderContinuous-v2')
     transitions = get_transitions(env)
-    base_agent_fn = td3()
+    base_agent_fn = td3(replay_start_size=0)
     assert len(transitions["obs"]) > 100
 
     validate_agent(gail(transitions=transitions,

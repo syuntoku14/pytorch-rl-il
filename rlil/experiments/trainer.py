@@ -21,6 +21,7 @@ class Trainer:
             agent,
             sampler=None,
             eval_sampler=None,
+            trains_per_episode=50,
             max_sample_frames=np.inf,
             max_sample_episodes=np.inf,
             max_train_steps=np.inf,
@@ -28,6 +29,7 @@ class Trainer:
         self._agent = agent
         self._sampler = sampler
         self._eval_sampler = eval_sampler
+        self._train_per_episode = trains_per_episode
         self._max_sample_frames = max_sample_frames
         self._max_sample_episodes = max_sample_episodes
         self._max_train_steps = max_train_steps
@@ -53,8 +55,10 @@ class Trainer:
                 for sample_info in sample_result.values():
                     self._writer.sample_frames += sum(sample_info["frames"])
                     self._writer.sample_episodes += len(sample_info["frames"])
-                    # trains by number of obtained samples
-                    for _ in range(sum(sample_info["frames"])):
+                    # training proportional to num of episodes
+                    num_trains = int(len(sample_info["frames"]) *
+                                     self._train_per_episode)
+                    for _ in range(num_trains):
                         self._agent.train()
 
             self._agent.train()

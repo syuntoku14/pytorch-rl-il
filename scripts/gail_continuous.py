@@ -32,6 +32,8 @@ def main():
                         help="Random seed")
     parser.add_argument("--train_steps", type=int, default=1e7,
                         help="Number of training steps")
+    parser.add_argument("--trains_per_episode", type=int, default=20,
+                        help="Number of training steps per episode")
     parser.add_argument("--num_workers", type=int,
                         default=1, help="Number of workers for training")
     parser.add_argument("--exp_info", default="default experiment",
@@ -81,6 +83,7 @@ def main():
         agent_name=agent_name,
         num_workers=args.num_workers,
         max_train_steps=args.train_steps,
+        trains_per_episode=args.trains_per_episode,
         args_dict=args_dict,
         exp_info=args.exp_info,
     )

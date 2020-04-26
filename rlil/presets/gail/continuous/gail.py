@@ -11,7 +11,7 @@ def gail(
         transitions=None,
         base_agent_fn=None,
         # Adam optimizer settings
-        lr_d=1e-3,
+        lr_d=3e-4,
         # Training settings
         minibatch_size=100,
         # Replay Buffer settings
