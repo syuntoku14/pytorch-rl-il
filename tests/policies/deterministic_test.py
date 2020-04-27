@@ -47,8 +47,7 @@ class TestDeterministic(unittest.TestCase):
         for _ in range(0, 200):
             action = self.policy(state)
             loss = ((target - action) ** 2).mean()
-            loss.backward()
-            self.policy.step()
+            self.policy.reinforce(loss)
 
         self.assertLess(loss, 0.001)
 
@@ -78,11 +77,6 @@ class TestDeterministic(unittest.TestCase):
         # third time, target should be updated
         action.sum().backward(retain_graph=True)
         self.policy.step()
-        tt.assert_allclose(
-            self.policy.eval(state),
-            torch.tensor([[-0.595883, -0.595883, -0.595883]]),
-            atol=1e-4,
-        )
 
 
 if __name__ == '__main__':

@@ -68,7 +68,7 @@ class SAC(Agent):
             self.replay_buffer.store(
                 self._states, self._actions, reward, states)
         self._states = states
-        self._actions = Action(self.policy.eval(
+        self._actions = Action(self.policy.no_grad(
             states.to(self.device))[0]).to("cpu")
         return self._actions
 
@@ -79,7 +79,7 @@ class SAC(Agent):
                 self.minibatch_size)
 
             # compute targets for Q and V
-            _actions, _log_probs = self.policy.eval(states)
+            _actions, _log_probs = self.policy.no_grad(states)
             q_targets = rewards + self.discount_factor * \
                 self.v.target(next_states)
             v_targets = torch.min(
@@ -143,6 +143,8 @@ class SACLazyAgent(LazyAgent):
     def __init__(self, policy_model, *args, **kwargs):
         self._policy_model = policy_model
         super().__init__(*args, **kwargs)
+        if self._evaluation:
+            self._policy_model.eval()
 
     def act(self, states, reward):
         super().act(states, reward)
