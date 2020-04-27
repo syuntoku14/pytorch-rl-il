@@ -47,6 +47,10 @@ def get_results(exp_path):
                 dicimal = -3
                 df_dict[step] = pd.DataFrame(data={"episodes": np.round(steps[key], dicimal),
                                                    "return": scalars[key]})
+            elif "step" in step:
+                dicimal = -6
+                df_dict[step] = pd.DataFrame(data={"steps": np.round(steps[key], dicimal),
+                                                   "return": scalars[key]})
 
         return pd.concat(df_dict, axis=1)
 
@@ -72,11 +76,11 @@ def plot(exp_path, step="sample_frame", xlim=None):
 
     # layout
     if "frame" in step:
-        x = "Number of samples"
+        x = "samples"
     elif "episode" in step:
-        x = "Number of episodes"
+        x = "episodes"
     elif "step" in step:
-        x = "Number of training steps"
+        x = "steps"
     num_cols = len(results)
     fig, axes = plt.subplots(1, num_cols, figsize=(num_cols*6, 4))
     if num_cols == 1:
