@@ -47,7 +47,6 @@ class TestAutoEncoder(unittest.TestCase):
         dec = self.ae.decode(enc)
         loss = self.criterion(states.features, dec)
 
-        self.ae.zero_grad()
         for _ in range(10):
             enc = self.ae.encode(states.features)
             dec = self.ae.decode(enc)

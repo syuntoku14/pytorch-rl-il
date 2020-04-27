@@ -51,7 +51,6 @@ class BC(Agent):
             policy_actions = Action(self.policy(states))
             loss = mse_loss(policy_actions.features, actions.features)
             self.policy.reinforce(loss)
-            self.policy.zero_grad()
             self.writer.train_steps += 1
 
     def _should_train(self):

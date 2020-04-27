@@ -128,9 +128,6 @@ class BCQ(Agent):
                     self.policy(states, greedy_vae_actions))
                 loss = -self.q_1(states, greedy_actions).mean()
                 self.policy.reinforce(loss)
-                self.policy.zero_grad()
-            self.q_1.zero_grad()
-            self.q_2.zero_grad()
 
     def _should_train(self):
         self._train_count += 1

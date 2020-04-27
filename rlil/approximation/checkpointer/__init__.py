@@ -38,7 +38,7 @@ class PeriodicCheckpointer(Checkpointer):
             "ignore", message="Couldn't retrieve source code")
 
     def __call__(self):
-        if self._updates % (self.frequency * 10) == 0:
+        if self._updates % (self.frequency * 1000) == 0:
             torch.save(self._model, self._filename +
                        "_" + str(self._updates) + ".pt")
         if self._updates % self.frequency == 0:
