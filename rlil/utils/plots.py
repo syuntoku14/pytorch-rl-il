@@ -72,9 +72,11 @@ def plot(exp_path, step="sample_frame", xlim=None):
 
     # layout
     if "frame" in step:
-        x = "samples"
+        x = "Number of samples"
     elif "episode" in step:
-        x = "episodes"
+        x = "Number of episodes"
+    elif "step" in step:
+        x = "Number of training steps"
     num_cols = len(results)
     fig, axes = plt.subplots(1, num_cols, figsize=(num_cols*6, 4))
     if num_cols == 1:

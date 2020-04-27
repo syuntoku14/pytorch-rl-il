@@ -14,7 +14,7 @@ def gail(
         lr_d=2e-4,
         # Training settings
         minibatch_size=100,
-        update_frequency=100,
+        update_frequency=50,
         # Replay Buffer settings
         replay_start_size=5000,
         replay_buffer_size=1e6

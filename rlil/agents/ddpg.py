@@ -83,8 +83,6 @@ class DDPG(Agent):
             greedy_actions = Action(self.policy(states))
             loss = -self.q(states, greedy_actions).mean()
             self.policy.reinforce(loss)
-            self.policy.zero_grad()
-            self.q.zero_grad()
 
             self.writer.train_steps += 1
 

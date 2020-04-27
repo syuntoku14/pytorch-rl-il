@@ -99,8 +99,6 @@ class SAC(Agent):
             loss = (-self.q_1(states, Action(_actions2)) +
                     self.temperature * _log_probs2).mean()
             self.policy.reinforce(loss)
-            self.policy.zero_grad()
-            self.q_1.zero_grad()
 
             # adjust temperature
             temperature_grad = (_log_probs + self.entropy_target).mean()
