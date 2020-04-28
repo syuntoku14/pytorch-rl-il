@@ -12,7 +12,7 @@ from .models import fc_q, fc_deterministic_policy
 def ddpg(
         # Common settings
         discount_factor=0.99,
-        last_frame=2e6,
+        last_step=2e6,
         # Adam optimizer settings
         lr_q=1e-3,
         lr_pi=1e-3,
@@ -30,7 +30,7 @@ def ddpg(
 
     Args:
         discount_factor (float): Discount factor for future rewards.
-        last_frame (int): Number of frames to train.
+        last_step (int): Number of steps to train.
         lr_q (float): Learning rate for the Q network.
         lr_pi (float): Learning rate for the policy network.
         minibatch_size (int): Number of experiences to sample in each training update.
@@ -40,7 +40,7 @@ def ddpg(
         noise (float): The amount of exploration noise to add.
     """
     def _ddpg(env):
-        final_anneal_step = (last_frame - replay_start_size)
+        final_anneal_step = (last_step - replay_start_size)
 
         device = get_device()
         q_model = fc_q(env).to(device)

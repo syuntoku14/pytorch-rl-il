@@ -54,12 +54,12 @@ def test_from_list():
 def test_from_numpy():
     gym_obs = np.array([1, 2, 3])
     done = True
-    info = 'a'
+    info = ['a']
     with pytest.raises(AssertionError):
         state = State.from_numpy(gym_obs, done, info)
     gym_obs = np.random.randn(3, 5)
     done = np.zeros(3, dtype=np.bool)
-    info = 'a'
+    info = ['a']
     state = State.from_numpy(gym_obs, done, info)
 
     tt.assert_equal(state.raw, torch.FloatTensor(gym_obs), )

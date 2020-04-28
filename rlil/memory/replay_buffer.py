@@ -62,6 +62,10 @@ class BaseReplayBuffer(ABC):
     def get_all_transitions(self):
         '''Return all the samples'''
 
+    @abstractmethod
+    def clear(self):
+        '''Clear replay buffer'''
+
 
 # TODO: support tuple observation
 class ExperienceReplayBuffer(BaseReplayBuffer):
@@ -138,6 +142,9 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         next_states = State.from_numpy(
             npsamples["next_obs"], npsamples["done"]).to(device)
         return states, actions, rewards, next_states
+
+    def clear(self):
+        self._buffer.clear()
 
     def __len__(self):
         return self._buffer.get_stored_size()

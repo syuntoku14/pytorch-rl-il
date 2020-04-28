@@ -6,6 +6,7 @@ from .auto_encoder import AutoEncoder
 from .discriminator import Discriminator
 from .target import TargetNetwork, FixedTarget, PolyakTarget, TrivialTarget
 from .checkpointer import Checkpointer, DummyCheckpointer, PeriodicCheckpointer
+from .feature_network import FeatureNetwork
 
 
 __all__ = [
@@ -21,5 +22,6 @@ __all__ = [
     "TrivialTarget",
     "Checkpointer",
     "DummyCheckpointer",
-    "PeriodicCheckpointer"
+    "PeriodicCheckpointer",
+    "FeatureNetwork",
 ]

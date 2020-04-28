@@ -40,3 +40,18 @@ def test_multi_store():
     replay_buffer.store(states[:-1], actions, rewards, states[1:])
     for i in range(2):
         sample = replay_buffer.sample(3)
+
+
+def test_clear():
+    env = GymEnvironment('LunarLanderContinuous-v2')
+    replay_buffer = ExperienceReplayBuffer(5, env)
+
+    states = torch.tensor([env.observation_space.sample()]*20)
+    actions = torch.tensor([env.action_space.sample()]*20)
+    rewards = torch.arange(0, 20, dtype=torch.float)
+
+    states = State(states)
+    actions = Action(actions)
+    replay_buffer.store(states[:-1], actions, rewards, states[1:])
+    replay_buffer.clear()
+    assert len(replay_buffer) == 0

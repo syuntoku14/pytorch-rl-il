@@ -27,8 +27,8 @@ class GailWrapper(ExperienceReplayBuffer):
         self.device = get_device()
         self.discriminator = discriminator
 
-    def store(self, states, actions, rewards, next_states):
-        self.buffer.store(states, actions, rewards, next_states)
+    def store(self, *args, **kwargs):
+        self.buffer.store(*args, **kwargs)
 
     def sample(self, batch_size):
         # replace the rewards with gail rewards
@@ -49,6 +49,9 @@ class GailWrapper(ExperienceReplayBuffer):
         # return the sampled trajectories
         # not including expert trajectories
         return self.buffer.get_all_transitions()
+
+    def clear(self):
+        self.buffer.clear()
 
     def __len__(self):
         # return the number of sampled trajectories

@@ -84,3 +84,10 @@ def test_store(setUp):
                       )
 
     assert len(gail_buffer) == 198
+
+
+def test_clear(setUp):
+    gail_buffer, samples = setUp
+    gail_buffer.clear()
+    assert len(gail_buffer) == 0
+    assert len(gail_buffer.expert_buffer) != 0

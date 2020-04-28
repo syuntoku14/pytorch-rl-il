@@ -28,6 +28,11 @@ class State:
                 assert len(raw.shape) > 1, \
                     "State.raw.shape {} is invalid. Batch_size must be specified".format(
                         raw.shape)
+            
+            # check if info is valid
+            if info is not None:
+                assert type(info) == list, \
+                    "info must be None or list"
 
             # check if mask is valid
             if mask is not None:
@@ -72,7 +77,8 @@ class State:
         )
         mask = ~torch.tensor(
             np_done, dtype=torch.bool).reshape(-1) if np_done is not None else None
-        return cls(raw, mask=mask, info=[info])
+        info = info if info is not None else [None] * len(raw)
+        return cls(raw, mask=mask, info=info)
 
     @property
     def features(self):

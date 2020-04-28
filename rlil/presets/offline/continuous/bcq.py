@@ -14,7 +14,7 @@ def bcq(
         replay_buffer,
         # Common settings
         discount_factor=0.98,
-        last_frame=2e6,
+        last_step=2e6,
         # Adam optimizer settings
         lr_q=1e-3,
         lr_pi=1e-3,
@@ -33,7 +33,7 @@ def bcq(
     Args:
         replay_buffer (ExperienceReplayBuffer): ExperienceReplayBuffer with expert trajectory
         discount_factor (float): Discount factor for future rewards.
-        last_frame (int): Number of frames to train.
+        last_step (int): Number of steps to train.
         lr_q (float): Learning rate for the Q network.
         lr_pi (float): Learning rate for the policy network.
         lr_vae (float): Learning rate for the VAE.
@@ -44,7 +44,7 @@ def bcq(
         noise_policy (float): The amount of exploration noise to add.
     """
     def _bcq(env):
-        final_anneal_step = last_frame
+        final_anneal_step = last_step
 
         device = get_device()
         q_1_model = fc_q(env).to(device)
