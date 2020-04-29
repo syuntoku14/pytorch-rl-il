@@ -20,7 +20,7 @@ def ppo(
         lr=3e-4,  # Adam learning rate
         eps=1e-5,  # Adam stability
         # Loss scaling
-        entropy_loss_scaling=0.01,
+        entropy_loss_scaling=0.0,
         value_loss_scaling=0.5,
         # Replay Buffer settings
         replay_start_size=5000,
@@ -29,7 +29,7 @@ def ppo(
         clip_initial=0.2,
         clip_final=0.01,
         minibatches=4,
-        epochs=4,
+        epochs=2,
         # GAE settings
         lam=0.95,
 ):

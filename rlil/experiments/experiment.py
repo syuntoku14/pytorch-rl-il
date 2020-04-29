@@ -27,7 +27,7 @@ class Experiment:
             max_train_steps=np.inf,
     ):
         # set_seed
-        seed = set_seed(seed)
+        set_seed(seed)
 
         # set writer
         if agent_name is None:

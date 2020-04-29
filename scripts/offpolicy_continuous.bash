@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export exp_info=gail
+export exp_info=off_policy
 
 for env in ant humanoid walker lander
     do

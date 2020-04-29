@@ -116,8 +116,8 @@ class PPO(Agent):
             self.entropy_loss_scaling * entropy_loss
 
         # backward pass
-        self.v.reinforce(value_loss)
         self.policy.reinforce(policy_loss)
+        self.v.reinforce(value_loss)
         self.feature_nw.reinforce()
 
         # debugging
@@ -128,6 +128,9 @@ class PPO(Agent):
 
     def _clipped_policy_gradient_loss(self, pi_0, pi_i, advantages):
         ratios = torch.exp(pi_i - pi_0)
+        # debugging
+        self.writer.add_scalar('loss/ratios/max', ratios.max())
+        self.writer.add_scalar('loss/ratios/min', ratios.min())
         surr1 = ratios * advantages
         epsilon = self.epsilon
         surr2 = torch.clamp(ratios, 1.0 - epsilon, 1.0 + epsilon) * advantages
