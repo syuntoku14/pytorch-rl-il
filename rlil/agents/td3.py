@@ -90,7 +90,7 @@ class TD3(Agent):
         return self._actions
 
     def train(self):
-        if self._should_train():
+        if self.should_train():
             # sample transitions from buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
                 self.minibatch_size)
@@ -118,7 +118,7 @@ class TD3(Agent):
 
             self.writer.train_steps += 1
 
-    def _should_train(self):
+    def should_train(self):
         self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size
 

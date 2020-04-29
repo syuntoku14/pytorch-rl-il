@@ -49,7 +49,7 @@ class GAIL(Agent):
 
     def train(self):
         # train discriminator
-        if self._should_train():
+        if self.should_train():
             samples, expert_samples = self.replay_buffer.sample_both(
                 self.minibatch_size)
             states, actions, _, _, _ = samples
@@ -70,7 +70,7 @@ class GAIL(Agent):
         # train base_agent
         self.base_agent.train()
 
-    def _should_train(self):
+    def should_train(self):
         return len(self.replay_buffer) > self.replay_start_size and \
             self.writer.train_steps % self.update_frequency == 0
 

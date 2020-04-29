@@ -86,7 +86,7 @@ class BCQ(Agent):
         return actions.to("cpu")
 
     def train(self):
-        if self._should_train():
+        if self.should_train():
             # sample transitions from buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
                 self.minibatch_size)
@@ -129,6 +129,6 @@ class BCQ(Agent):
                 loss = -self.q_1(states, greedy_actions).mean()
                 self.policy.reinforce(loss)
 
-    def _should_train(self):
+    def should_train(self):
         self._train_count += 1
         return True

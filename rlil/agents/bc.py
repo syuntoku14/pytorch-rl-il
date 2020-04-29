@@ -45,7 +45,7 @@ class BC(Agent):
         return self._actions
 
     def train(self):
-        if self._should_train():
+        if self.should_train():
             (states, actions, _, _, _) = self.replay_buffer.sample(
                 self.minibatch_size)
             policy_actions = Action(self.policy(states))
@@ -53,7 +53,7 @@ class BC(Agent):
             self.policy.reinforce(loss)
             self.writer.train_steps += 1
 
-    def _should_train(self):
+    def should_train(self):
         return True
 
     def make_lazy_agent(self, *args, **kwargs):

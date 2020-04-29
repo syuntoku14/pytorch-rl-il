@@ -73,7 +73,7 @@ class SAC(Agent):
         return self._actions
 
     def train(self):
-        if self._should_train():
+        if self.should_train():
             # sample from replay buffer
             (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
                 self.minibatch_size)
@@ -113,7 +113,7 @@ class SAC(Agent):
 
             self.writer.train_steps += 1
 
-    def _should_train(self):
+    def should_train(self):
         return len(self.replay_buffer) > self.replay_start_size
 
     def make_lazy_agent(self, evaluation=False, store_samples=True):
