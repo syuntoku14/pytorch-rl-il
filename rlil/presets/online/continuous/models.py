@@ -10,9 +10,9 @@ def fc_q(env, hidden1=400, hidden2=300):
     return nn.Sequential(
         nn.Linear(env.state_space.shape[0] +
                   env.action_space.shape[0], hidden1),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden1, hidden2),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden2, 1),
     )
 
@@ -20,9 +20,9 @@ def fc_q(env, hidden1=400, hidden2=300):
 def fc_v(env, hidden1=400, hidden2=300):
     return nn.Sequential(
         nn.Linear(env.state_space.shape[0], hidden1),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden1, hidden2),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden2, 1),
     )
 
@@ -30,9 +30,9 @@ def fc_v(env, hidden1=400, hidden2=300):
 def fc_deterministic_policy(env, hidden1=400, hidden2=300):
     return nn.Sequential(
         nn.Linear(env.state_space.shape[0], hidden1),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden1, hidden2),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden2, env.action_space.shape[0]),
     )
 
@@ -40,9 +40,9 @@ def fc_deterministic_policy(env, hidden1=400, hidden2=300):
 def fc_soft_policy(env, hidden1=400, hidden2=300):
     return nn.Sequential(
         nn.Linear(env.state_space.shape[0], hidden1),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden1, hidden2),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden2, env.action_space.shape[0] * 2),
     )
 
@@ -50,18 +50,18 @@ def fc_soft_policy(env, hidden1=400, hidden2=300):
 def fc_actor_critic(env, hidden1=400, hidden2=300):
     features = nn.Sequential(
         nn.Linear(env.state_space.shape[0], hidden1),
-        nn.ReLU(),
+        nn.LeakyReLU(),
     )
 
     v = nn.Sequential(
         nn.Linear(hidden1, hidden2),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden2, 1)
     )
 
     policy = nn.Sequential(
         nn.Linear(hidden1, hidden2),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden2, env.action_space.shape[0] * 2)
     )
 
@@ -72,9 +72,9 @@ def fc_bcq_deterministic_policy(env, hidden1=400, hidden2=300):
     return nn.Sequential(
         nn.Linear(env.state_space.shape[0] +
                   env.action_space.shape[0], hidden1),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden1, hidden2),
-        nn.ReLU(),
+        nn.LeakyReLU(),
         nn.Linear(hidden2, env.action_space.shape[0]),
     )
 
@@ -85,9 +85,9 @@ class FC_Encoder_BCQ(nn.Module):
         self.head = nn.Sequential(
             nn.Linear(env.state_space.shape[0] +
                       env.action_space.shape[0], hidden1),
-            nn.ReLU(),
+            nn.LeakyReLU(),
             nn.Linear(hidden1, hidden2),
-            nn.ReLU()
+            nn.LeakyReLU()
         )
 
         self.mean = nn.Linear(hidden2, latent_dim)
@@ -105,9 +105,9 @@ class FC_Decoder_BCQ(nn.Module):
         super().__init__()
         self.decoder = nn.Sequential(
             nn.Linear(env.state_space.shape[0] + latent_dim, hidden1),
-            nn.ReLU(),
+            nn.LeakyReLU(),
             nn.Linear(hidden1, hidden2),
-            nn.ReLU(),
+            nn.LeakyReLU(),
             nn.Linear(hidden2, env.action_space.shape[0])
         )
         self.latent_dim = latent_dim
