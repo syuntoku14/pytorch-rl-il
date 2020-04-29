@@ -5,7 +5,9 @@ from rlil.agents import SAC
 from rlil.approximation import QContinuous, PolyakTarget, VNetwork
 from rlil.policies.soft_deterministic import SoftDeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
-from rlil.initializer import get_device, set_replay_buffer
+from rlil.initializer import (get_device,
+                              set_replay_buffer,
+                              disable_on_policy_mode)
 from .models import fc_q, fc_v, fc_soft_policy
 
 
@@ -46,6 +48,7 @@ def sac(
         entropy_target_scaling (float): The target entropy will be -(entropy_target_scaling * env.action_space.shape[0])
     """
     def _sac(env):
+        disable_on_policy_mode()
         final_anneal_step = (last_step - replay_start_size)
 
         device = get_device()

@@ -5,7 +5,9 @@ from rlil.agents import TD3
 from rlil.approximation import QContinuous, PolyakTarget
 from rlil.policies import DeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
-from rlil.initializer import get_device, set_replay_buffer
+from rlil.initializer import (get_device,
+                              set_replay_buffer,
+                              disable_on_policy_mode)
 from .models import fc_q, fc_deterministic_policy
 
 
@@ -44,6 +46,7 @@ def td3(
         noise_policy (float): The amount of exploration noise to add.
     """
     def _td3(env):
+        disable_on_policy_mode()
         final_anneal_step = (last_step - replay_start_size)
 
         device = get_device()

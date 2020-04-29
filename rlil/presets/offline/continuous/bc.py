@@ -1,7 +1,9 @@
 import torch
 from torch.optim import Adam
 from rlil.agents import BC
-from rlil.initializer import get_device, set_replay_buffer
+from rlil.initializer import (get_device,
+                              set_replay_buffer,
+                              disable_on_policy_mode)
 from rlil.policies import DeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
 from .models import fc_deterministic_policy
@@ -24,6 +26,7 @@ def bc(
         minibatch_size (int): Number of experiences to sample in each training update.
     """
     def _bc(env):
+        disable_on_policy_mode()
         device = get_device()
 
         policy_model = fc_deterministic_policy(env).to(device)

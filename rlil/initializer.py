@@ -12,6 +12,7 @@ _DEBUG_MODE = False
 def enable_debug_mode():
     global _DEBUG_MODE
     print("-----DEBUG_MODE: True-----")
+    torch.autograd.set_detect_anomaly(True)
     _DEBUG_MODE = True
 
 
@@ -91,3 +92,23 @@ def get_replay_buffer():
     if _REPLAY_BUFFER is None:
         raise ValueError("replay_buffer is not set")
     return _REPLAY_BUFFER
+
+
+_ON_POLICY_MODE = False
+
+
+def enable_on_policy_mode():
+    global _ON_POLICY_MODE
+    print("-----ON_POLICY_MODE: True-----")
+    _ON_POLICY_MODE = True
+
+
+def disable_on_policy_mode():
+    global _ON_POLICY_MODE
+    print("-----ON_POLICY_MODE: False-----")
+    _ON_POLICY_MODE = False
+
+
+def is_on_policy_mode():
+    global _ON_POLICY_MODE
+    return _ON_POLICY_MODE

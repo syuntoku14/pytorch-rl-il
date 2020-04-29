@@ -1,9 +1,12 @@
 import torch
 from torch.nn.functional import mse_loss
 from .base import Agent, LazyAgent
+from copy import deepcopy
+from rlil.environments import Action
 from rlil.initializer import (get_replay_buffer,
                               get_device,
-                              get_replay_buffer)
+                              get_writer,
+                              enable_debug_mode)
 
 
 class PPO(Agent):
@@ -15,106 +18,113 @@ class PPO(Agent):
     the algorithm from changing the current policy too quickly.
 
     Args:
-        features (FeatureNetwork): Shared feature layers.
+        feature_nw (FeatureNetwork): Shared feature layers.
         v (VNetwork): Value head which approximates the state-value function.
         policy (StochasticPolicy): Policy head which outputs an action distribution.
-        discount_factor (float): Discount factor for future rewards.
         entropy_loss_scaling (float): Contribution of the entropy loss to the total policy loss.
         epochs (int): Number of times to reuse each sample.
         lam (float): The Generalized Advantage Estimate (GAE) decay parameter.
+        replay_start_size (int): Number of experiences in replay buffer when training begins.
         minibatches (int): The number of minibatches to split each batch into.
-        writer (Writer): Used for logging.
+        epochs (int): Number of times to reuse each sample.
     """
 
     def __init__(
             self,
-            features,
+            feature_nw,
             v,
             policy,
-            discount_factor=0.99,
             entropy_loss_scaling=0.01,
-            epochs=4,
             epsilon=0.2,
-            lam=0.95,
+            replay_start_size=5000,
             minibatches=4,
+            epochs=4,
     ):
+        enable_debug_mode()
         # objects
-        self.features = features
+        self.feature_nw = feature_nw
         self.v = v
         self.policy = policy
         self.replay_buffer = get_replay_buffer()
         self.writer = get_writer()
         self.device = get_device()
         # hyperparameters
-        self.discount_factor = discount_factor
         self.entropy_loss_scaling = entropy_loss_scaling
-        self.epochs = epochs
         self.epsilon = epsilon
-        self.lam = lam
         self.minibatches = minibatches
+        self.epochs = epochs
+        self.replay_start_size = replay_start_size
         # private
         self._states = None
         self._actions = None
 
     def act(self, states, rewards=None):
-        if reward is not None:
+        if rewards is not None:
             self.replay_buffer.store(
-                self._states, self._actions, reward, states)
+                self._states, self._actions, rewards, states)
         self._states = states
         self._actions = Action(self.policy.no_grad(
-            self.features(states.to(self.device))).sample())
+            self.feature_nw.no_grad(states.to(self.device))).sample()).to("cpu")
         return self._actions
 
     def train(self):
-        # load trajectories from buffer
-        (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
-            self.minibatch_size)
+        if self.should_train():
+            states, actions, rewards, next_states = \
+                self.replay_buffer.get_all_transitions()
 
-        # compute target values
-        features = self.features.no_grad(states)
-        pi_0 = self.policy.no_grad(features).log_prob(actions)
-        targets = self.v.no_grad(features) + advantages
+            # compute gae
+            features = self.feature_nw.target(states)
+            values = self.v.target(features)
+            next_values = self.v.target(self.feature_nw.target(next_states))
+            advantages = self.replay_buffer.compute_gae(
+                rewards, values, next_values, next_states.mask)
 
-        # train for several epochs
-        for _ in range(self.epochs):
-            self._train_epoch(states, actions, advantages, targets, pi_0)
+            # compute target values
+            # actions.raw is used since .features clip the actions
+            pi_0 = self.policy.no_grad(features).log_prob(actions.raw)
+            targets = values + advantages
 
-    def _train_epoch(self, states, actions, advantages, targets, pi_0):
-        # randomly permute the indexes to generate minibatches
-        minibatch_size = int(self._batch_size / self.minibatches)
-        indexes = torch.randperm(self._batch_size)
-        for n in range(self.minibatches):
-            # load the indexes for the minibatch
-            first = n * minibatch_size
-            last = first + minibatch_size
-            i = indexes[first:last]
+            # train for several epochs
+            for _ in range(self.epochs):
+                # randomly permute the indexes to generate minibatches
+                minibatch_size = int(len(states) / self.minibatches)
+                indexes = torch.randperm(len(states))
+                for n in range(self.minibatches):
+                    # load the indexes for the minibatch
+                    first = n * minibatch_size
+                    last = first + minibatch_size
+                    i = indexes[first:last]
 
-            # perform a single training step
-            self._train_minibatch(
-                states[i], actions[i], pi_0[i], advantages[i], targets[i])
-
+                    # perform a single training step
+                    self._train_minibatch(
+                        states[i], actions[i], pi_0[i], advantages[i], targets[i])
+                    self.writer.train_steps += 1
+            
     def _train_minibatch(self, states, actions, pi_0, advantages, targets):
         # forward pass
-        features = self.features(states)
+        features = self.feature_nw(states)
         values = self.v(features)
         distribution = self.policy(features)
-        pi_i = distribution.log_prob(actions)
+        pi_i = distribution.log_prob(actions.raw)
 
         # compute losses
-        value_loss = mse_loss(values, targets)
+        value_loss = mse_loss(values, targets).mean()
         policy_gradient_loss = self._clipped_policy_gradient_loss(
             pi_0, pi_i, advantages)
         entropy_loss = -distribution.entropy().mean()
-        policy_loss = policy_gradient_loss + self.entropy_loss_scaling * entropy_loss
+        policy_loss = policy_gradient_loss + \
+            self.entropy_loss_scaling * entropy_loss
 
         # backward pass
         self.v.reinforce(value_loss)
         self.policy.reinforce(policy_loss)
-        self.features.reinforce()
+        self.feature_nw.reinforce()
 
         # debugging
-        self.writer.add_loss('policy_gradient', policy_gradient_loss.detach())
-        self.writer.add_loss('entropy', entropy_loss.detach())
+        self.writer.add_scalar('loss/policy_gradient',
+                               policy_gradient_loss.detach())
+        self.writer.add_scalar('loss/entropy',
+                               entropy_loss.detach())
 
     def _clipped_policy_gradient_loss(self, pi_0, pi_i, advantages):
         ratios = torch.exp(pi_i - pi_0)
@@ -122,3 +132,41 @@ class PPO(Agent):
         epsilon = self.epsilon
         surr2 = torch.clamp(ratios, 1.0 - epsilon, 1.0 + epsilon) * advantages
         return -torch.min(surr1, surr2).mean()
+
+    def should_train(self):
+        return len(self.replay_buffer) > self.replay_start_size
+
+    def make_lazy_agent(self, evaluation=False, store_samples=True):
+        policy_model = deepcopy(self.policy.model)
+        feature_model = deepcopy(self.feature_nw.model)
+        return PPOLazyAgent(policy_model.to("cpu"),
+                            feature_model.to("cpu"),
+                            evaluation=evaluation,
+                            store_samples=store_samples)
+
+
+class PPOLazyAgent(LazyAgent):
+    """ 
+    Agent class for sampler.
+    """
+
+    def __init__(self, policy_model, feature_model, *args, **kwargs):
+        self._feature_model = feature_model
+        self._policy_model = policy_model
+        super().__init__(*args, **kwargs)
+        if self._evaluation:
+            self._feature_model.eval()
+            self._policy_model.eval()
+
+    def act(self, states, reward):
+        super().act(states, reward)
+        self._states = states
+        with torch.no_grad():
+            if self._evaluation:
+                outputs = self._policy_model(self._feature_model(states),
+                                             return_mean=True)
+            else:
+                outputs = self._policy_model(
+                    self._feature_model(states)).sample()
+            self._actions = Action(outputs).to("cpu")
+        return self._actions

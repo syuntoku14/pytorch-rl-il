@@ -3,7 +3,6 @@ import torch
 import numpy as np
 from rlil.environments import GymEnvironment, State
 from rlil.presets.online.continuous import ddpg
-from rlil.presets import validate_agent
 
 
 def collect_samples(agent, env):
@@ -20,7 +19,7 @@ def test_ddpg_cuda(benchmark, use_gpu):
     agent_fn = ddpg(replay_start_size=100)
     agent = agent_fn(env)
     collect_samples(agent, env)
-    assert agent._should_train()
+    assert agent.should_train()
     benchmark.pedantic(agent.train, rounds=100)
 
 
@@ -31,5 +30,5 @@ def test_ddpg_cpu(benchmark, use_cpu):
     agent_fn = ddpg(replay_start_size=100)
     agent = agent_fn(env)
     collect_samples(agent, env)
-    assert agent._should_train()
+    assert agent.should_train()
     benchmark.pedantic(agent.train, rounds=100)

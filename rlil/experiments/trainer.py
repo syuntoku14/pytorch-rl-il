@@ -1,6 +1,6 @@
 import logging
 from rlil.environments import State
-from rlil.initializer import get_logger, get_writer
+from rlil.initializer import get_logger, get_writer, is_on_policy_mode
 from rlil.samplers import AsyncSampler, StartInfo
 import numpy as np
 import torch
@@ -14,6 +14,21 @@ import json
 class Trainer:
     """
     Trainer trains the agent with an env and a sampler.
+    Args:
+        agent (rlil.agent): Agent to be trained and evaluated
+        sampler (rlil.sampler): Sampler for online training
+        eval_sampler (rlil.sampler): Sampler for evaluation
+        trains_per_episode (int): 
+            Number of training iterations per episode for online training.
+        max_sample_frames (int): 
+            Training terminates when the number of collected samples 
+            exceeds max_sample_frames.
+        max_sample_episodes (int):
+            Training terminates when the number of collected episodes 
+            exceeds max_sample_frames.
+        max_sample_episodes (int):
+            Training terminates when the number of training steps 
+            exceeds max_sample_frames.
     """
 
     def __init__(
@@ -36,6 +51,7 @@ class Trainer:
         self._writer = get_writer()
         self._logger = get_logger()
         self._best_returns = -np.inf
+        self._timeout = -1 if is_on_policy_mode() else 0.05
 
     def start_training(self):
         while not self._done():
@@ -50,7 +66,8 @@ class Trainer:
                                              start_info=self._get_current_info(),
                                              worker_episodes=1)
 
-                sample_result = self._sampler.store_samples(timeout=0.05)
+                sample_result = \
+                    self._sampler.store_samples(timeout=self._timeout)
 
                 for sample_info in sample_result.values():
                     self._writer.sample_frames += sum(sample_info["frames"])
@@ -59,11 +76,17 @@ class Trainer:
                     num_trains = int(len(sample_info["frames"]) *
                                      self._train_per_episode)
                     for _ in range(num_trains):
-                        self._agent.train()
+                        if not is_on_policy_mode():
+                            self._agent.train()
 
             self._agent.train()
-            training_msg = {"training time [sec]": round(time.time() - start_time, 2),
-                            "trained steps": self._writer.train_steps - train_steps}
+            # clear replay_buffer when on-policy
+            if is_on_policy_mode() and self._agent.should_train():
+                self._agent.replay_buffer.clear()
+
+            training_msg = {
+                "training time [sec]": round(time.time() - start_time, 2),
+                "trained steps": self._writer.train_steps - train_steps}
             self._logger.info("\nTraining:\n" +
                               json.dumps(training_msg, indent=2))
 

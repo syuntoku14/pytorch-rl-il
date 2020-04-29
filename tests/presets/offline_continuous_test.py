@@ -35,4 +35,4 @@ def test_bc():
     transitions = get_transitions(env)
     assert len(transitions["obs"]) > 100
 
-    validate_agent(bc(transitions), env)
+    validate_agent(bc(transitions), env, done_step=50)

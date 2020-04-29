@@ -3,7 +3,8 @@ import torch
 import numpy as np
 from rlil.environments import GymEnvironment, State
 from rlil.presets.online.continuous import ddpg, sac, td3
-from rlil.presets import validate_agent
+from rlil.presets.offline.continuous import bc
+from ..presets.offline_continuous_test import get_transitions
 
 
 def collect_samples(agent, env):
@@ -18,7 +19,7 @@ def test_ddpg(benchmark):
     agent_fn = ddpg(replay_start_size=100)
     agent = agent_fn(env)
     collect_samples(agent, env)
-    assert agent._should_train()
+    assert agent.should_train()
     benchmark.pedantic(agent.train, rounds=100)
 
 
@@ -27,7 +28,7 @@ def test_sac(benchmark):
     agent_fn = sac(replay_start_size=100)
     agent = agent_fn(env)
     collect_samples(agent, env)
-    assert agent._should_train()
+    assert agent.should_train()
     benchmark.pedantic(agent.train, rounds=100)
 
 
@@ -36,5 +37,14 @@ def test_td3(benchmark):
     agent_fn = td3(replay_start_size=100)
     agent = agent_fn(env)
     collect_samples(agent, env)
-    assert agent._should_train()
+    assert agent.should_train()
+    benchmark.pedantic(agent.train, rounds=100)
+
+
+def test_bc(benchmark):
+    env = GymEnvironment('LunarLanderContinuous-v2')
+    transitions = get_transitions(env)
+    agent_fn = bc(transitions)
+    agent = agent_fn(env)
+    assert len(transitions["obs"]) > 100
     benchmark.pedantic(agent.train, rounds=100)
