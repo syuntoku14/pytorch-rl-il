@@ -15,19 +15,24 @@ Also, `rlil` utilizes a library of replay buffers `cpprb` written in cpython.
 
 ### Reinforcement Learning
 
+#### Off-policy algorithms
+
 - [x] [`Deep DPG (DDPG)`](https://arxiv.org/abs/1509.02971)
 - [x] [`Twind Dueling DDPG (TD3)`](https://arxiv.org/abs/1802.09477)
 - [x] [`Soft Actor Critic (SAC)`](https://arxiv.org/abs/1801.01290)
+
+#### On-policy algorithms
+
+- [ ] [`Proximal Policy Optimization Algorithms (PPO)`](https://arxiv.org/abs/1707.06347)
 
 ![continuous_control](assets/continuous.png)
 
 ### Imitation Learning
 
 - [x] `Behavioral Cloning (BC)`
-- [x] [`Generative Adversarial Imitation Learning (GAIL)`]( https://arxiv.org/abs/1606.03476): Our GAIL is implemented with off-policy algorithms. This off-policy GAIL is unstable.
+- [ ] [`Generative Adversarial Imitation Learning (GAIL)`]( https://arxiv.org/abs/1606.03476): Our GAIL is implemented with off-policy algorithms. This off-policy GAIL is unstable.
 
 ### Distributed Sampling
 
 - [x] `Asynchronous Sampling`
-- [ ] `Synchronous Sampling`
 - [ ] `Ape-X`: https://arxiv.org/abs/1803.00933. 
