@@ -19,7 +19,7 @@ def td3(
         lr_q=1e-3,
         lr_pi=1e-3,
         # Training settings
-        minibatch_size=100,
+        minibatch_size=512,
         polyak_rate=0.005,
         noise_td3=0.2,
         policy_update_td3=2,

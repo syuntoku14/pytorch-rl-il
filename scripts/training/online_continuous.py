@@ -21,8 +21,8 @@ def main():
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)")
     parser.add_argument("--seed", type=int, default=0,
                         help="Random seed")
-    parser.add_argument("--train_steps", type=int, default=1e7,
-                        help="Number of training steps")
+    parser.add_argument("--train_minutes", type=int, default=60,
+                        help="Minutes to train.")
     parser.add_argument("--trains_per_episode", type=int, default=20,
                         help="Number of training steps per episode")
     parser.add_argument("--num_workers", type=int, default=1,
@@ -59,8 +59,7 @@ def main():
     Experiment(
         agent_fn, env,
         num_workers=args.num_workers,
-        max_train_steps=args.train_steps,
-        trains_per_episode=args.trains_per_episode,
+        train_minutes=args.train_minutes,
         args_dict=args_dict,
         exp_info=args.exp_info,
     )

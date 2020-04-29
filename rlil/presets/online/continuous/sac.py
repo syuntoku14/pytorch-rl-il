@@ -20,7 +20,7 @@ def sac(
         lr_v=1e-3,
         lr_pi=1e-4,
         # Training settings
-        minibatch_size=100,
+        minibatch_size=512,
         polyak_rate=0.005,
         # Replay Buffer settings
         replay_start_size=5000,

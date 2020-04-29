@@ -29,6 +29,8 @@ class Trainer:
         max_sample_episodes (int):
             Training terminates when the number of training steps 
             exceeds max_sample_frames.
+        train_minutes (int):
+            After train_minutes, training terminates.
     """
 
     def __init__(
@@ -40,6 +42,7 @@ class Trainer:
             max_sample_frames=np.inf,
             max_sample_episodes=np.inf,
             max_train_steps=np.inf,
+            train_minutes=np.inf
     ):
         self._agent = agent
         self._sampler = sampler
@@ -48,15 +51,19 @@ class Trainer:
         self._max_sample_frames = max_sample_frames
         self._max_sample_episodes = max_sample_episodes
         self._max_train_steps = max_train_steps
+        self._train_minutes = train_minutes
+        self._train_start_time = 0
         self._writer = get_writer()
         self._logger = get_logger()
         self._best_returns = -np.inf
-        self._timeout = -1 if is_on_policy_mode() else 0.05
+        self._timeout = -1 
 
     def start_training(self):
+        self._train_start_time = time.time()
+
         while not self._done():
             # training
-            start_time = time.time()
+            iter_start_time = time.time()
             train_steps = self._writer.train_steps
 
             # sampling for training
@@ -85,7 +92,7 @@ class Trainer:
                 self._agent.replay_buffer.clear()
 
             training_msg = {
-                "training time [sec]": round(time.time() - start_time, 2),
+                "training time [sec]": round(time.time() - iter_start_time, 2),
                 "trained steps": self._writer.train_steps - train_steps}
             self._logger.info("\nTraining:\n" +
                               json.dumps(training_msg, indent=2))
@@ -159,5 +166,6 @@ class Trainer:
         return (
             self._writer.sample_frames > self._max_sample_frames or
             self._writer.sample_episodes > self._max_sample_episodes or
-            self._writer.train_steps > self._max_train_steps
+            self._writer.train_steps > self._max_train_steps or
+            (time.time() - self._train_start_time) / 60 > self._train_minutes
         )

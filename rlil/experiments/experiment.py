@@ -25,6 +25,7 @@ class Experiment:
             max_sample_frames=np.inf,
             max_sample_episodes=np.inf,
             max_train_steps=np.inf,
+            train_minutes=np.inf
     ):
         # set_seed
         set_seed(seed)
@@ -69,6 +70,7 @@ class Experiment:
             max_sample_frames=max_sample_frames,
             max_sample_episodes=max_sample_episodes,
             max_train_steps=max_train_steps,
+            train_minutes=train_minutes
         )
 
         trainer.start_training()
