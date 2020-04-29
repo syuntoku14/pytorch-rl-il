@@ -14,11 +14,14 @@ def validate_agent(agent_fn, env, done_step=-1):
     """
 
     agent = agent_fn(env)
+    num_trains = 0
+
     for _ in range(2):
         env.reset()
         done_flag = False
         step = 0
         while not done_flag:
+            num_trains += agent.should_train()
             agent.train()
             env.step(agent.act(env.state, env.reward))
             step += 1
@@ -26,5 +29,8 @@ def validate_agent(agent_fn, env, done_step=-1):
                 done_flag = env.done
             else:
                 done_flag = done_step < step
+        num_trains += agent.should_train()
         agent.train()
         agent.act(env.state, env.reward)
+
+    assert num_trains > 0

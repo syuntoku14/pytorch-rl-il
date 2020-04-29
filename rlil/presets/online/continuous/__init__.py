@@ -2,5 +2,6 @@
 from .ddpg import ddpg
 from .sac import sac
 from .td3 import td3
+from .ppo import ppo
 
-__all__ = ['ddpg', 'sac', 'td3']
+__all__ = ['ddpg', 'sac', 'td3', 'ppo']

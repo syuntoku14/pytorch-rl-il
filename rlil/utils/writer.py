@@ -75,7 +75,7 @@ class ExperimentWriter(SummaryWriter, Writer):
         self._name_frame_history = defaultdict(lambda: 0)
         super().__init__(log_dir=self.log_dir)
 
-    def add_scalar(self, name, value, step="sample_frame",
+    def add_scalar(self, name, value, step="train_step",
                    step_value=None, save_csv=False):
         if isinstance(value, torch.Tensor):
             value = value.cpu().detach().item()
@@ -96,7 +96,7 @@ class ExperimentWriter(SummaryWriter, Writer):
                     csv.writer(csvfile).writerow(
                         [step_value, value])
 
-    def add_text(self, name, text, step="sample_frame"):
+    def add_text(self, name, text, step="train_step"):
         name = self.env_name + "/" + name
         super().add_text(name, text, self._get_step_value(step))
 

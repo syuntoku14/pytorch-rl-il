@@ -25,7 +25,7 @@ class DummyV:
 def setUp(use_cpu):
     env = GymEnvironment('LunarLanderContinuous-v2')
     buffer = ExperienceReplayBuffer(1000, env)
-    gae_buffer = GaeWrapper(buffer, gamma=1, lam=0.3)
+    gae_buffer = GaeWrapper(buffer, discount_factor=1, lam=0.3)
 
     # base buffer
     states = [env.observation_space.sample() for i in range(4)]
@@ -36,22 +36,25 @@ def setUp(use_cpu):
     rewards = torch.arange(0, 3, dtype=torch.float)
     gae_buffer.store(states, actions, rewards, next_states)
 
-    features = DummyFeatures()
+    feature_nw = DummyFeatures()
     v = DummyV()
-    yield gae_buffer, features, v
+    yield gae_buffer, feature_nw, v
 
 
 def test_advantage(setUp):
-    gae_buffer, features, v = setUp
+    gae_buffer, feature_nw, v = setUp
 
     states, _, rewards, next_states = gae_buffer.get_all_transitions()
-    advantages = gae_buffer.compute_gae(states, rewards, next_states,
-                                        features, v)
+    values = v.target(feature_nw.target(states))
+    next_values = v.target(feature_nw.target(next_states))
+    advantages = gae_buffer.compute_gae(rewards, values,
+                                        next_values, next_states.mask)
 
     # rewards: [0, 1, 2]
     # td_errors: [0, 1, 2]
+    expected = torch.tensor([0 + 1 * 0.3 + 2 * 0.3 * 0.3,
+                             1 + 2 * 0.3,
+                             2])
     tt.assert_almost_equal(
         advantages,
-        torch.tensor([0 + 1 * 0.3 + 2 * 0.3 * 0.3,
-                      1 + 2 * 0.3,
-                      2]), decimal=3)
+        (expected - expected.mean()) / expected.std(), decimal=3)

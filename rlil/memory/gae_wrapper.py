@@ -13,7 +13,7 @@ class GaeWrapper(ExperienceReplayBuffer):
     https://arxiv.org/abs/1506.02438
     """
 
-    def __init__(self, buffer, gamma=1, lam=1):
+    def __init__(self, buffer, discount_factor=1, lam=1):
         """
         Args:
             buffer (rlil.memory.ExperienceReplayBuffer): 
@@ -21,7 +21,7 @@ class GaeWrapper(ExperienceReplayBuffer):
         """
         self.buffer = buffer
         self.device = get_device()
-        self.gamma = gamma
+        self.discount_factor = discount_factor
         self.lam = lam
 
     def store(self, *args, **kwargs):
@@ -39,19 +39,20 @@ class GaeWrapper(ExperienceReplayBuffer):
     def __len__(self):
         return len(self.buffer)
 
-    def compute_gae(self, states, rewards, next_states, features, v):
-        values = v.target(features.target(states))
-        next_values = v.target(features.target(next_states))
-        td_errors = rewards + self.gamma * next_values - values
+    def compute_gae(self, rewards, values, next_values, masks):
+        td_errors = rewards + self.discount_factor * next_values - values
 
         # compute_gaes
-        gaes = td_errors.clone().view(-1)
         length = len(td_errors)
+        gaes = torch.zeros(length).to(self.device)
 
-        gae = 0
+        gae = 0.0
         for i in reversed(range(length)):
-            mask = next_states[i].mask.float()
-            gae = td_errors[i] + self.gamma * self.lam * gae * mask
+            mask = masks[i].float()
+            gae = td_errors[i] + self.discount_factor * self.lam * gae * mask
             gaes[i] = gae
 
+        # normalize Advantage
+        # see: https://github.com/ikostrikov/pytorch-a2c-ppo-acktr-gail/issues/102
+        gaes = (gaes - gaes.mean()) / gaes.std()
         return gaes

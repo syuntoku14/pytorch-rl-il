@@ -25,14 +25,14 @@ def get_transitions(env):
 
 
 def test_gail():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment("MountainCarContinuous-v0")
     transitions = get_transitions(env)
     base_agent_fn = td3(replay_start_size=0)
     assert len(transitions["obs"]) > 100
 
     validate_agent(gail(transitions=transitions,
                         base_agent_fn=base_agent_fn,
-                        replay_start_size=0), env)
+                        replay_start_size=10), env, done_step=50)
 
     writer = get_writer()
     assert writer.train_steps > 1

@@ -41,6 +41,7 @@ class FeatureNetwork(Approximation):
         '''
         Backward pass of the model.
         '''
+        self._optimizer.zero_grad()
         graphs, grads = self._dequeue()
         graphs.backward(grads)
         self.step()
