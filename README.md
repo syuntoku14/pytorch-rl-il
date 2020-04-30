@@ -5,11 +5,12 @@
 `rlil` is a library for reinforcement learning and imitation learning research. 
 **The concept of this library is based on the [Autonomous Learning Library (ALL)](https://github.com/cpnota/autonomous-learning-library/tree/master/all) and [rlpyt](https://github.com/astooke/rlpyt).**
 
-Some classes such as `Approximation`, `Agent` are almost the same as `ALL`.
-For the basic concepts of these classes, see the original documentation: https://autonomous-learning-library.readthedocs.io/en/stable/. 
+Some modules such as `Approximation`, `Agent` and `presets` are almost the same as `ALL`.
+For the basic concepts of them, see the original documentation: https://autonomous-learning-library.readthedocs.io/en/stable/. 
 
-Unlike `ALL`, `rlil` uses an distributed sampling method, like `rlpyt`, which makes it easy to switch between offline and online learning.
-Also, `rlil` utilizes a library of replay buffers `cpprb` written in cpython.
+Unlike `ALL`, `rlil` uses an distributed sampling method like `rlpyt`, which makes it easy to switch between offline and online learning.
+Also, `rlil` utilizes a replay buffer library `cpprb` written in cpython.
+
 
 ## Implemented Algorithms
 
@@ -23,16 +24,16 @@ Also, `rlil` utilizes a library of replay buffers `cpprb` written in cpython.
 
 #### On-policy algorithms
 
-- [ ] [`Proximal Policy Optimization Algorithms (PPO)`](https://arxiv.org/abs/1707.06347)
+- [x] [`Proximal Policy Optimization Algorithms (PPO)`](https://arxiv.org/abs/1707.06347)
+- [ ] [`Trust Region Policy Optimization (TRPO)`](https://arxiv.org/abs/1502.05477)
 
 ![continuous_control](assets/continuous.png)
 
 ### Imitation Learning
 
 - [x] `Behavioral Cloning (BC)`
-- [ ] [`Generative Adversarial Imitation Learning (GAIL)`]( https://arxiv.org/abs/1606.03476): Our GAIL is implemented with off-policy algorithms. This off-policy GAIL is unstable.
+- [x] [`Generative Adversarial Imitation Learning (GAIL)`]( https://arxiv.org/abs/1606.03476): Our GAIL can be run with on-policy and off-policy algorithms.
 
 ### Distributed Sampling
 
-- [x] `Asynchronous Sampling`
 - [ ] `Ape-X`: https://arxiv.org/abs/1803.00933. 

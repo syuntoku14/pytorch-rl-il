@@ -59,7 +59,7 @@ class Trainer:
         self._writer = get_writer()
         self._logger = get_logger()
         self._best_returns = -np.inf
-        self._timeout = -1
+        self._timeout = -1  # if -1, store_samples waits for worker.sample()
         call_seed()
 
     def start_training(self):
