@@ -5,9 +5,10 @@ from rlil.environments import State, Action
 from rlil.utils.optim import Schedulable
 from rlil.initializer import get_device, is_debug_mode
 from .replay_buffer import ExperienceReplayBuffer
+from .base import BaseBufferWrapper
 
 
-class GaeWrapper(ExperienceReplayBuffer):
+class GaeWrapper(BaseBufferWrapper):
     """
     A wrapper of ExperienceReplayBuffer for Generalized Advantage Estimation.
     https://arxiv.org/abs/1506.02438
@@ -23,21 +24,6 @@ class GaeWrapper(ExperienceReplayBuffer):
         self.device = get_device()
         self.discount_factor = discount_factor
         self.lam = lam
-
-    def store(self, *args, **kwargs):
-        self.buffer.store(*args, **kwargs)
-
-    def sample(self, *args, **kwargs):
-        pass
-
-    def get_all_transitions(self):
-        return self.buffer.get_all_transitions()
-
-    def clear(self):
-        self.buffer.clear()
-
-    def __len__(self):
-        return len(self.buffer)
 
     def compute_gae(self, rewards, values, next_values, masks):
         td_errors = rewards + self.discount_factor * next_values - values

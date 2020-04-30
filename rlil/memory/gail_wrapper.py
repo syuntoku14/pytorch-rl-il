@@ -5,9 +5,11 @@ from rlil.environments import State, Action
 from rlil.utils.optim import Schedulable
 from rlil.initializer import get_device, is_debug_mode
 from .replay_buffer import ExperienceReplayBuffer
+from .base import BaseBufferWrapper
+from .gae_wrapper import GaeWrapper
 
 
-class GailWrapper(ExperienceReplayBuffer):
+class GailWrapper(BaseBufferWrapper):
     """
     A wrapper of ExperienceReplayBuffer for rlil.agents.GAIL.
     """
@@ -26,9 +28,6 @@ class GailWrapper(ExperienceReplayBuffer):
         self.expert_buffer = expert_buffer
         self.device = get_device()
         self.discriminator = discriminator
-
-    def store(self, *args, **kwargs):
-        self.buffer.store(*args, **kwargs)
 
     def sample(self, batch_size):
         # replace the rewards with gail rewards
@@ -49,6 +48,11 @@ class GailWrapper(ExperienceReplayBuffer):
         # return the sampled trajectories
         # not including expert trajectories
         return self.buffer.get_all_transitions()
+
+    def compute_gae(self, *args, **kwargs):
+        # wrap function for GaeWrapper
+        if isinstance(self.buffer, GaeWrapper):
+            return self.buffer.compute_gae(*args, **kwargs)
 
     def clear(self):
         self.buffer.clear()

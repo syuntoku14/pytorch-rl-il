@@ -1,10 +1,10 @@
-from abc import ABC, abstractmethod
 import numpy as np
 import torch
 from cpprb import ReplayBuffer, create_env_dict, create_before_add_func
 from rlil.environments import State, Action
 from rlil.utils.optim import Schedulable
 from rlil.initializer import get_device, is_debug_mode
+from .base import BaseReplayBuffer
 
 
 def check_inputs_shapes(store):
@@ -37,34 +37,6 @@ def check_inputs_shapes(store):
 
         return store(self, states, actions, rewards, next_states)
     return retfunc
-
-
-class BaseReplayBuffer(ABC):
-    @abstractmethod
-    def store(self, states, actions, rewards, next_states):
-        """Store the transition in the buffer
-        Args:
-            states (rlil.environment.State): batch_size x shape
-            actions (rlil.environment.Action): batch_size x shape
-            rewards (torch.Tensor): batch_size
-            next_states (rlil.environment.State): batch_size x shape
-        """
-
-    @abstractmethod
-    def sample(self, batch_size):
-        '''Sample from the stored transitions'''
-
-    @abstractmethod
-    def update_priorities(self, indexes, td_errors):
-        '''Update priorities based on the TD error'''
-
-    @abstractmethod
-    def get_all_transitions(self):
-        '''Return all the samples'''
-
-    @abstractmethod
-    def clear(self):
-        '''Clear replay buffer'''
 
 
 # TODO: support tuple observation
