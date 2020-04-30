@@ -43,6 +43,7 @@ class GAIL(Agent):
         self.minibatch_size = minibatch_size
         self.replay_start_size = replay_start_size
         self.update_frequency = update_frequency
+        self._train_count = 0
 
     def act(self, *args, **kwargs):
         return self.base_agent.act(*args, **kwargs)
@@ -71,8 +72,9 @@ class GAIL(Agent):
         self.base_agent.train()
 
     def should_train(self):
+        self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size and \
-            self.writer.train_steps % self.update_frequency == 0
+            self._train_count % self.update_frequency == 0
 
     def make_lazy_agent(self, *args, **kwargs):
         return self.base_agent.make_lazy_agent(*args, **kwargs)

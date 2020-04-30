@@ -1,7 +1,7 @@
 import torch
 from torch.optim import Adam
 from rlil.agents import GAIL
-from rlil.initializer import get_device, set_replay_buffer
+from rlil.initializer import get_device, set_replay_buffer, get_replay_buffer
 from .models import fc_discriminator
 from rlil.approximation import Discriminator
 from rlil.memory import ExperienceReplayBuffer, GailWrapper
@@ -13,8 +13,8 @@ def gail(
         # Adam optimizer settings
         lr_d=2e-4,
         # Training settings
-        minibatch_size=100,
-        update_frequency=50,
+        minibatch_size=512,
+        update_frequency=1,
         # Replay Buffer settings
         replay_start_size=5000,
         replay_buffer_size=1e6
@@ -50,7 +50,7 @@ def gail(
                 transitions, device="cpu")
             expert_replay_buffer.store(*samples)
 
-        replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env)
+        replay_buffer = get_replay_buffer()
         replay_buffer = GailWrapper(replay_buffer,
                                     expert_replay_buffer,
                                     discriminator)
