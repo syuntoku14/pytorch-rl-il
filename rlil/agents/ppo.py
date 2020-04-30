@@ -5,8 +5,7 @@ from copy import deepcopy
 from rlil.environments import Action
 from rlil.initializer import (get_replay_buffer,
                               get_device,
-                              get_writer,
-                              enable_debug_mode)
+                              get_writer)
 
 
 class PPO(Agent):
@@ -40,7 +39,6 @@ class PPO(Agent):
             minibatches=4,
             epochs=4,
     ):
-        enable_debug_mode()
         # objects
         self.feature_nw = feature_nw
         self.v = v
