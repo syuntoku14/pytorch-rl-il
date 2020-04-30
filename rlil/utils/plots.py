@@ -25,8 +25,14 @@ def get_results(exp_path):
 
         for tag in event_acc.Tags()['scalars']:
             events = event_acc.Scalars(tag)
+            start_time = events[0].wall_time
             scalars[tag] = [event.value for event in events]
             steps[tag] = [event.step for event in events]
+            # for training minutes steps
+            min_tag = tag.split("/")[:-1] + ["minutes"]
+            scalars["/".join(min_tag)] = [event.value for event in events]
+            steps["/".join(min_tag)] = [(event.wall_time - start_time) / 60
+                                        for event in events]
 
         return steps, scalars
 
@@ -39,18 +45,26 @@ def get_results(exp_path):
             if tag != "returns":
                 continue
 
-            if "frame" in step:
-                dicimal = -5
-                df_dict[step] = pd.DataFrame(data={"samples": np.round(steps[key], dicimal),
-                                                   "return": scalars[key]})
-            elif "episode" in step:
-                dicimal = -3
-                df_dict[step] = pd.DataFrame(data={"episodes": np.round(steps[key], dicimal),
-                                                   "return": scalars[key]})
-            elif "step" in step:
-                dicimal = -3
-                df_dict[step] = pd.DataFrame(data={"steps": np.round(steps[key], dicimal),
-                                                   "return": scalars[key]})
+            if "sample_frames" == step:
+                dicimal = -5  # round 0.1M sample frames
+                df_dict[step] = pd.DataFrame(
+                    data={"samples": np.round(steps[key], dicimal),
+                          "return": scalars[key]})
+            elif "sample_episodes" == step:
+                dicimal = -3  # round 1000 sample episodes
+                df_dict[step] = pd.DataFrame(
+                    data={"episodes": np.round(steps[key], dicimal),
+                          "return": scalars[key]})
+            elif "train_steps" == step:
+                dicimal = -3  # round 1000 train steps
+                df_dict[step] = pd.DataFrame(
+                    data={"steps": np.round(steps[key], dicimal),
+                          "return": scalars[key]})
+            elif "minutes" == step:
+                dicimal = -1  # round 10 minutes
+                df_dict[step] = pd.DataFrame(
+                    data={"minutes": np.round(steps[key], dicimal),
+                          "return": scalars[key]})
 
         return pd.concat(df_dict, axis=1)
 
@@ -70,17 +84,23 @@ def get_results(exp_path):
     return results
 
 
-def plot(exp_path, step="sample_frame", xlim=None):
+def plot(exp_path, step="sample_frames", xlim=None):
     exp_path = Path(exp_path)
     results = get_results(exp_path)
 
     # layout
-    if "frame" in step:
+    if "sample_frames" == step:
         x = "samples"
-    elif "episode" in step:
+    elif "sample_episodes" == step:
         x = "episodes"
-    elif "step" in step:
+    elif "train_steps" == step:
         x = "steps"
+    elif "minutes" == step:
+        x = "minutes"
+    else:
+        raise ValueError("Invalid argument 'step'. step must be from\
+            [sample_frames, sample_episodes, train_steps, minutes]")
+
     num_cols = len(results)
     fig, axes = plt.subplots(1, num_cols, figsize=(num_cols*6, 4))
     if num_cols == 1:

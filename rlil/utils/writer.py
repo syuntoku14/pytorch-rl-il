@@ -13,22 +13,22 @@ class Writer(ABC):
     log_dir = "runs"
 
     @abstractmethod
-    def add_scalar(self, name, value, step="sample_frame",
+    def add_scalar(self, name, value, step="sample_frames",
                    step_value=None, save_csv=False):
         pass
 
     @abstractmethod
-    def add_text(self, name, text, step="sample_frame"):
+    def add_text(self, name, text, step="sample_frames"):
         pass
 
     def _get_step_value(self, _type):
         if type(_type) is not str:
             raise ValueError("step must be str")
-        if _type == "sample_frame":
+        if _type == "sample_frames":
             return self.sample_frames
-        if _type == "sample_episode":
+        if _type == "sample_episodes":
             return self.sample_episodes
-        if _type == "train_step":
+        if _type == "train_steps":
             return self.train_steps
         return _type
 
@@ -39,11 +39,11 @@ class DummyWriter(Writer):
         self.sample_episodes = 0
         self.train_steps = 0
 
-    def add_scalar(self, name, value, step="sample_frame",
+    def add_scalar(self, name, value, step="sample_frames",
                    step_value=None, save_csv=False):
         pass
 
-    def add_text(self, name, text, step="sample_frame"):
+    def add_text(self, name, text, step="sample_frames"):
         pass
 
 
@@ -56,9 +56,9 @@ class ExperimentWriter(SummaryWriter, Writer):
 
         self.env_name = env_name
         self._add_scalar_interval = \
-            {"sample_frame": sample_frame_interval,
-             "sample_episode": sample_episode_interval,
-             "train_step": train_step_interval}
+            {"sample_frames": sample_frame_interval,
+             "sample_episodes": sample_episode_interval,
+             "train_steps": train_step_interval}
 
         # make experiment directory
         current_time = str(datetime.now())
@@ -75,7 +75,7 @@ class ExperimentWriter(SummaryWriter, Writer):
         self._name_frame_history = defaultdict(lambda: 0)
         super().__init__(log_dir=self.log_dir)
 
-    def add_scalar(self, name, value, step="train_step",
+    def add_scalar(self, name, value, step="train_steps",
                    step_value=None, save_csv=False):
         if isinstance(value, torch.Tensor):
             value = value.cpu().detach().item()
@@ -96,7 +96,7 @@ class ExperimentWriter(SummaryWriter, Writer):
                     csv.writer(csvfile).writerow(
                         [step_value, value])
 
-    def add_text(self, name, text, step="train_step"):
+    def add_text(self, name, text, step="train_steps"):
         name = self.env_name + "/" + name
         super().add_text(name, text, self._get_step_value(step))
 

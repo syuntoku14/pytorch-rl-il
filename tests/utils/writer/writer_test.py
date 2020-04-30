@@ -19,21 +19,21 @@ def init_writer():
                               train_step_interval=1000)
 
     # GIVEN sample_frame_interval == 10
-    # WHEN add_scalar with step="sample_frame" is called
+    # WHEN add_scalar with step="sample_frames" is called
     # THEN sample_frames is saved every 10 samples
     for i in range(100):
         writer.sample_frames = i
-        writer.add_scalar("test", i, step="sample_frame")
+        writer.add_scalar("test", i, step="sample_frames")
 
     # same test for sample_episodes
     for i in range(1000):
         writer.sample_episodes = i
-        writer.add_scalar("test", i, step="sample_episode")
+        writer.add_scalar("test", i, step="sample_episodes")
 
     # same test for train_steps
     for i in range(10000):
         writer.train_steps = i
-        writer.add_scalar("test", i, step="train_step")
+        writer.add_scalar("test", i, step="train_steps")
 
     set_writer(writer)
 
@@ -71,9 +71,9 @@ def test_get_step_value(init_writer):
     writer.sample_episodes = 2
     writer.train_steps = 3
 
-    assert writer._get_step_value("sample_frame") == 1
-    assert writer._get_step_value("sample_episode") == 2
-    assert writer._get_step_value("train_step") == 3
+    assert writer._get_step_value("sample_frames") == 1
+    assert writer._get_step_value("sample_episodes") == 2
+    assert writer._get_step_value("train_steps") == 3
 
 
 def test_add_scalar_interval(init_writer):
@@ -84,32 +84,32 @@ def test_add_scalar_interval(init_writer):
     event_acc.Reload()
 
     steps, scalars = read_scalars(event_acc)
-    assert scalars['test_env/test/sample_frame'] == [
+    assert scalars['test_env/test/sample_frames'] == [
         i for i in range(10, 100, 10)]
 
-    assert scalars['test_env/test/sample_episode'] == [
+    assert scalars['test_env/test/sample_episodes'] == [
         i for i in range(100, 1000, 100)]
 
-    assert scalars['test_env/test/train_step'] == [
+    assert scalars['test_env/test/train_steps'] == [
         i for i in range(1000, 10000, 1000)]
 
 
 def test_step_value(init_writer):
     writer = get_writer()
     writer.sample_frames = 1e9
-    writer.add_scalar("test", 999, step="sample_frame", step_value=12345)
+    writer.add_scalar("test", 999, step="sample_frames", step_value=12345)
     writer.close()
 
     event_acc = init_writer
     event_acc.Reload()
     steps, scalars = read_scalars(event_acc)
-    assert 12345 in steps["test_env/test/sample_frame"]
+    assert 12345 in steps["test_env/test/sample_frames"]
 
 
 def test_save_csv(init_writer):
     writer = get_writer()
     writer.sample_frames = 1e9
-    writer.add_scalar("test", 500, step="sample_frame", save_csv=True)
+    writer.add_scalar("test", 500, step="sample_frames", save_csv=True)
 
     test_path = pathlib.Path("runs/test_exp")
     for p in test_path.rglob("*.csv"):

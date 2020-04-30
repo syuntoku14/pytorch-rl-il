@@ -18,22 +18,22 @@ class MockWriter(Writer):
         self.sample_episodes = 1
         self.train_steps = 0
 
-    def add_scalar(self, key, value, step="sample_frame"):
+    def add_scalar(self, key, value, step="sample_frames"):
         key = key + "/" + step
         if key not in self.data:
             self.data[key] = {"values": [], "steps": []}
         self.data[key]["values"].append(value)
         self.data[key]["steps"].append(self._get_step_value(step))
 
-    def add_text(self, name, text, step="sample_frame"):
+    def add_text(self, name, text, step="sample_frames"):
         pass
 
     def _get_step_value(self, _type):
-        if _type == "sample_frame":
+        if _type == "sample_frames":
             return self.sample_frames
-        if _type == "sample_episode":
+        if _type == "sample_episodes":
             return self.sample_episodes
-        if _type == "train_step":
+        if _type == "train_steps":
             return self.train_steps
         return _type
 

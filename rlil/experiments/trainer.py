@@ -146,19 +146,19 @@ class Trainer:
 
         # log sample and train ratio
         self._writer.add_scalar(
-            'train_step', self._writer.train_steps, step="sample_frame")
+            "train_steps", self._writer.train_steps, step="sample_frames")
         self._writer.add_scalar(
-            'sample_frame', self._writer.sample_frames, step="train_step")
+            "sample_frames", self._writer.sample_frames, step="train_steps")
 
     def _add_scalar_all(self, name, value, start_info):
         self._writer.add_scalar(name, value,
-                                step="sample_episode",
+                                step="sample_episodes",
                                 step_value=start_info.sample_episodes)
         self._writer.add_scalar(name, value,
-                                step="sample_frame",
+                                step="sample_frames",
                                 step_value=start_info.sample_frames)
         self._writer.add_scalar(name, value,
-                                step="train_step",
+                                step="train_steps",
                                 step_value=start_info.train_steps)
 
     def _get_current_info(self):
