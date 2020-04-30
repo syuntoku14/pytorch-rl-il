@@ -51,7 +51,7 @@ class ExperimentWriter(SummaryWriter, Writer):
     def __init__(self, agent_name, env_name,
                  sample_frame_interval=1e4,
                  sample_episode_interval=1e2,
-                 train_step_interval=1e3,
+                 train_step_interval=1e2,
                  exp_info="default_experiments"):
 
         self.env_name = env_name

@@ -66,6 +66,7 @@ def main():
         num_workers_eval=args.num_workers_eval,
         train_minutes=args.train_minutes,
         args_dict=args_dict,
+        seed=args.seed,
         exp_info=args.exp_info,
     )
 

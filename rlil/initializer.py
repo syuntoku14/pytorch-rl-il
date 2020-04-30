@@ -51,7 +51,12 @@ def set_seed(seed):
     _SEED = seed
 
 
-def get_seed():
+def call_seed():
+    global _SEED
+    np.random.seed(_SEED)
+    torch.manual_seed(_SEED)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(_SEED)
     return _SEED
 
 

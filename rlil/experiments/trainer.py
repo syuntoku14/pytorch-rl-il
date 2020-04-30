@@ -1,6 +1,9 @@
 import logging
 from rlil.environments import State
-from rlil.initializer import get_logger, get_writer, is_on_policy_mode
+from rlil.initializer import (call_seed,
+                              get_logger,
+                              get_writer,
+                              is_on_policy_mode)
 from rlil.samplers import AsyncSampler, StartInfo
 import numpy as np
 import torch
@@ -56,7 +59,8 @@ class Trainer:
         self._writer = get_writer()
         self._logger = get_logger()
         self._best_returns = -np.inf
-        self._timeout = -1 
+        self._timeout = -1
+        call_seed()
 
     def start_training(self):
         self._train_start_time = time.time()

@@ -104,7 +104,7 @@ def ppo(
             ),
         )
 
-        replay_buffer = ExperienceReplayBuffer(1e9, env)
+        replay_buffer = ExperienceReplayBuffer(1e6, env)
         replay_buffer = GaeWrapper(replay_buffer, discount_factor, lam)
         set_replay_buffer(replay_buffer)
 

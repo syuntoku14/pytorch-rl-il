@@ -40,7 +40,7 @@ def get_results(exp_path):
                 continue
 
             if "frame" in step:
-                dicimal = -6
+                dicimal = -5
                 df_dict[step] = pd.DataFrame(data={"samples": np.round(steps[key], dicimal),
                                                    "return": scalars[key]})
             elif "episode" in step:
@@ -48,7 +48,7 @@ def get_results(exp_path):
                 df_dict[step] = pd.DataFrame(data={"episodes": np.round(steps[key], dicimal),
                                                    "return": scalars[key]})
             elif "step" in step:
-                dicimal = -6
+                dicimal = -3
                 df_dict[step] = pd.DataFrame(data={"steps": np.round(steps[key], dicimal),
                                                    "return": scalars[key]})
 
@@ -63,7 +63,7 @@ def get_results(exp_path):
             results[env.name][agent].append(df)
 
         # concatenate same agent
-        for agent in results[env.name]:
+        for agent in results[env.name].keys():
             results[env.name][agent] = \
                 pd.concat(results[env.name][agent])
 

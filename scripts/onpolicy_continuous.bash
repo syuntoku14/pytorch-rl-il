@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export exp_info=on_policy
+export exp_info=on_policy_seed
 export train_minutes=60
 
 for env in ant humanoid walker lander

@@ -2,7 +2,7 @@ import ray
 import numpy as np
 import os
 import torch
-from rlil.initializer import get_replay_buffer, get_seed
+from rlil.initializer import get_replay_buffer, call_seed
 from rlil.environments import State, Action
 from rlil.samplers import Sampler
 from collections import defaultdict, namedtuple
@@ -21,7 +21,8 @@ class Worker:
         self.seed = seed
         np.random.seed(seed)
         torch.manual_seed(seed)
-
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed_all(seed)
         self._env = make_env()
         self._env.seed(seed)
 
@@ -82,7 +83,7 @@ class AsyncSampler(Sampler):
             num_workers=1,
     ):
         self._env = env
-        seed = get_seed()
+        seed = call_seed()
         self._workers = [Worker.remote(env.duplicate, seed+i)
                          for i in range(num_workers)]
         self._work_ids = {worker: None for worker in self._workers}

@@ -85,6 +85,7 @@ def main():
         train_minutes=args.train_minutes,
         trains_per_episode=args.trains_per_episode,
         args_dict=args_dict,
+        seed=args.seed,
         exp_info=args.exp_info,
     )
 

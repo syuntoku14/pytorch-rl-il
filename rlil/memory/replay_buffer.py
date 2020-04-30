@@ -72,7 +72,9 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
     '''This class utilizes cpprb.ReplayBuffer'''
 
     def __init__(self, size, env):
-        self._buffer = ReplayBuffer(size, create_env_dict(env))
+        env_dict = create_env_dict(env)
+        del env_dict["next_obs"]
+        self._buffer = ReplayBuffer(size, env_dict, next_of="obs")
         self._before_add = create_before_add_func(env)
         self.device = get_device()
 
