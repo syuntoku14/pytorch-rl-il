@@ -1,7 +1,7 @@
 import pytest
 import gym
 from rlil.environments import GymEnvironment
-from rlil.presets.offline.continuous import bcq, bc
+from rlil.presets.continuous import bcq, bc
 from rlil.presets import validate_agent
 from rlil.memory import ExperienceReplayBuffer
 from rlil.environments import Action

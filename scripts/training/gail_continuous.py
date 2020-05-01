@@ -4,8 +4,7 @@ import pybullet_envs
 from rlil.environments import GymEnvironment, ENVS
 from rlil.experiments import Experiment
 from rlil.presets import get_default_args
-from rlil.presets.gail import continuous
-import rlil.presets.online.continuous as online_continuous
+from rlil.presets import continuous
 from rlil.initializer import get_logger, set_device, set_seed
 import torch
 import logging
@@ -57,7 +56,7 @@ def main():
     env = GymEnvironment(env_id)
 
     # set base_agent
-    base_preset = getattr(online_continuous, args.base_agent)
+    base_preset = getattr(continuous, args.base_agent)
     base_agent_fn = base_preset()
 
     # set gail_agent

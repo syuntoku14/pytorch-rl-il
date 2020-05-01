@@ -1,5 +1,5 @@
 '''
-Pytorch models for batch-rl continuous control.
+Pytorch models for continuous control.
 '''
 import numpy as np
 import torch
@@ -17,10 +17,19 @@ def fc_q(env, hidden1=400, hidden2=300):
     )
 
 
-def fc_bcq_deterministic_policy(env, hidden1=400, hidden2=300):
+def fc_v(env, hidden1=400, hidden2=300):
     return nn.Sequential(
-        nn.Linear(env.state_space.shape[0] +
-                  env.action_space.shape[0], hidden1),
+        nn.Linear(env.state_space.shape[0], hidden1),
+        nn.LeakyReLU(),
+        nn.Linear(hidden1, hidden2),
+        nn.LeakyReLU(),
+        nn.Linear(hidden2, 1),
+    )
+
+
+def fc_deterministic_policy(env, hidden1=400, hidden2=300):
+    return nn.Sequential(
+        nn.Linear(env.state_space.shape[0], hidden1),
         nn.LeakyReLU(),
         nn.Linear(hidden1, hidden2),
         nn.LeakyReLU(),
@@ -28,9 +37,41 @@ def fc_bcq_deterministic_policy(env, hidden1=400, hidden2=300):
     )
 
 
-def fc_deterministic_policy(env, hidden1=400, hidden2=300):
+def fc_soft_policy(env, hidden1=400, hidden2=300):
     return nn.Sequential(
         nn.Linear(env.state_space.shape[0], hidden1),
+        nn.LeakyReLU(),
+        nn.Linear(hidden1, hidden2),
+        nn.LeakyReLU(),
+        nn.Linear(hidden2, env.action_space.shape[0] * 2),
+    )
+
+
+def fc_actor_critic(env, hidden1=400, hidden2=300):
+    features = nn.Sequential(
+        nn.Linear(env.state_space.shape[0], hidden1),
+        nn.LeakyReLU(),
+    )
+
+    v = nn.Sequential(
+        nn.Linear(hidden1, hidden2),
+        nn.LeakyReLU(),
+        nn.Linear(hidden2, 1)
+    )
+
+    policy = nn.Sequential(
+        nn.Linear(hidden1, hidden2),
+        nn.LeakyReLU(),
+        nn.Linear(hidden2, env.action_space.shape[0] * 2)
+    )
+
+    return features, v, policy
+
+
+def fc_bcq_deterministic_policy(env, hidden1=400, hidden2=300):
+    return nn.Sequential(
+        nn.Linear(env.state_space.shape[0] +
+                  env.action_space.shape[0], hidden1),
         nn.LeakyReLU(),
         nn.Linear(hidden1, hidden2),
         nn.LeakyReLU(),

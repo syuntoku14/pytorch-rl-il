@@ -33,8 +33,6 @@ class GAIL(Agent):
         # objects
         self.base_agent = base_agent
         self.replay_buffer = get_replay_buffer()
-        # replace base_agent's replay_buffer with gail_buffer
-        self.base_agent.replay_buffer = self.replay_buffer
         self.discriminator = self.replay_buffer.discriminator
         self.writer = get_writer()
         self.device = get_device()

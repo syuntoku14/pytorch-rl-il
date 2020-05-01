@@ -1,10 +1,6 @@
 import unittest
 import numpy as np
 import torch
-import gym
-import time
-import warnings
-import ray
 from rlil import nn
 from rlil.environments import GymEnvironment, Action
 from rlil.policies.deterministic import DeterministicPolicyNetwork

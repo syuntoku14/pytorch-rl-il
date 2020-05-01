@@ -7,7 +7,7 @@ import gym
 import torch_testing as tt
 from rlil.environments import State, Action, GymEnvironment
 from rlil.memory import ExperienceReplayBuffer, GailWrapper
-from rlil.presets.gail.continuous.models import fc_discriminator
+from rlil.presets.continuous.models import fc_discriminator
 from rlil.approximation import Discriminator
 from rlil.initializer import set_device
 

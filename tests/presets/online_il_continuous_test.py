@@ -1,8 +1,7 @@
 import pytest
 import gym
 from rlil.environments import GymEnvironment
-from rlil.presets.gail.continuous import gail
-from rlil.presets.online.continuous import td3
+from rlil.presets.continuous import gail, sqil, td3, sac
 from rlil.presets import validate_agent
 from rlil.memory import ExperienceReplayBuffer
 from rlil.environments import Action
@@ -31,6 +30,20 @@ def test_gail():
     assert len(transitions["obs"]) > 100
 
     validate_agent(gail(transitions=transitions,
+                        base_agent_fn=base_agent_fn,
+                        replay_start_size=10), env, done_step=50)
+
+    writer = get_writer()
+    assert writer.train_steps > 1
+
+
+def test_sqil():
+    env = GymEnvironment("MountainCarContinuous-v0")
+    transitions = get_transitions(env)
+    base_agent_fn = sac(replay_start_size=0)
+    assert len(transitions["obs"]) > 100
+
+    validate_agent(sqil(transitions=transitions,
                         base_agent_fn=base_agent_fn,
                         replay_start_size=10), env, done_step=50)
 

@@ -1,63 +1,60 @@
-import unittest
+import pytest
 import torch
 from torch import nn
 import torch_testing as tt
-from rlil.environments import State
-from rlil.approximation.feature_network import FeatureNetwork
+from torch.optim import Adam
+from rlil.environments import State, GymEnvironment
+from rlil.presets.continuous.models import fc_actor_critic
+from rlil.approximation import FeatureNetwork, VNetwork
+from rlil.policies.gaussian import GaussianPolicy
+
 
 STATE_DIM = 2
 
+@pytest.fixture
+def setUp():
+    env = GymEnvironment('LunarLanderContinuous-v2')
 
-class TestFeatureNetwork(unittest.TestCase):
-    def setUp(self):
-        torch.manual_seed(2)
-        self.model = nn.Sequential(nn.Linear(STATE_DIM, 3))
+    feature_model, value_model, policy_model = fc_actor_critic(env)
+    value_optimizer = Adam(value_model.parameters())
+    policy_optimizer = Adam(policy_model.parameters())
+    feature_optimizer = Adam(feature_model.parameters())
 
-        optimizer = torch.optim.SGD(self.model.parameters(), lr=0.1)
-        self.features = FeatureNetwork(self.model, optimizer)
-        self.states = State(torch.randn(3, STATE_DIM),
-                            mask=torch.tensor([1, 0, 1]))
-        self.expected_features = State(
-            torch.tensor(
-                [
-                    [-0.2385, -0.7263, -0.0340],
-                    [-0.3569, -0.6612, 0.3485],
-                    [-0.0296, -0.7566, -0.4624],
-                ]
-            ),
-            mask=torch.tensor([1, 0, 1]),
-        )
+    feature_nw = FeatureNetwork(feature_model, feature_optimizer)
+    v = VNetwork(value_model, value_optimizer)
+    policy = GaussianPolicy(policy_model, policy_optimizer, env.action_space)
 
-    def test_forward(self):
-        features = self.features(self.states)
-        self.assert_state_equal(features, self.expected_features)
-
-    def test_backward(self):
-        states = self.features(self.states)
-        loss = torch.tensor(0)
-        loss = torch.sum(states.features)
-        loss.backward()
-        self.features.reinforce()
-        features = self.features(self.states)
-        expected = State(
-            torch.tensor([
-                [-0.71, -1.2, -0.5],
-                [-0.72, -1.03, -0.02],
-                [-0.57, -1.3, -1.01]
-            ]),
-            mask=torch.tensor([1, 0, 1]),
-        )
-        self.assert_state_equal(features, expected)
-
-    def test_eval(self):
-        features = self.features.eval(self.states)
-        self.assert_state_equal(features, self.expected_features)
-        self.assertFalse(features.features[0].requires_grad)
-
-    def assert_state_equal(self, actual, expected):
-        tt.assert_almost_equal(actual.features, expected.features, decimal=2)
-        tt.assert_equal(actual.mask, expected.mask)
+    states = env.reset()
+    yield states, feature_nw, v, policy
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_share_output(setUp):
+    states, feature_nw, v, policy = setUp
+
+    states = feature_nw(states)
+    value = v(states)
+    action = policy(states).sample()
+
+    value_loss = value.sum()
+    policy_loss = policy(states).log_prob(action+1).sum()
+
+    policy.reinforce(policy_loss)
+    v.reinforce(value_loss)
+    feature_nw.reinforce()
+
+
+def test_independent_output(setUp):
+    states, feature_nw, v, policy = setUp
+
+    v_states = feature_nw(states)
+    p_states = feature_nw(states)
+    value = v(v_states)
+    action = policy(p_states).sample()
+
+    value_loss = value.sum()
+    policy_loss = policy(p_states).log_prob(action+1).sum()
+
+    policy.reinforce(policy_loss)
+    v.reinforce(value_loss)
+    feature_nw.reinforce()
+

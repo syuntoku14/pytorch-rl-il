@@ -10,7 +10,7 @@ from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import set_replay_buffer, get_replay_buffer
 from rlil.samplers import AsyncSampler
 from rlil.environments import GymEnvironment
-from rlil.presets.online import continuous
+from rlil.presets import continuous
 
 
 def main():

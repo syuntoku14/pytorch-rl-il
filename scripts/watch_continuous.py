@@ -5,8 +5,7 @@ import re
 import os
 import time
 from rlil.environments import GymEnvironment
-import rlil.presets.online.continuous as online_continuous
-import rlil.presets.offline.continuous as offline_continuous
+from rlil.presets import continuous
 
 
 def main():
@@ -34,10 +33,7 @@ def main():
     # load agent
     agent_name = os.path.basename(
         os.path.dirname(args.dir)).split("_")[0]
-    try:
-        agent_fn = getattr(online_continuous, agent_name)()
-    except AttributeError:
-        agent_fn = getattr(offline_continuous, agent_name)()
+    agent_fn = getattr(continuous, agent_name)()
     agent = agent_fn(env)
     agent.load(args.dir)
     lazy_agent = agent.make_lazy_agent(evaluation=True)

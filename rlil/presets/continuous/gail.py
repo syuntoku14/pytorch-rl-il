@@ -44,7 +44,7 @@ def gail(
         discriminator = Discriminator(discriminator_model,
                                       discriminator_optimizer)
 
-        expert_replay_buffer = ExperienceReplayBuffer(1e9, env)
+        expert_replay_buffer = ExperienceReplayBuffer(1e7, env)
         if transitions is not None:
             samples = expert_replay_buffer.samples_from_cpprb(
                 transitions, device="cpu")
@@ -55,6 +55,9 @@ def gail(
                                     expert_replay_buffer,
                                     discriminator)
         set_replay_buffer(replay_buffer)
+
+        # replace base_agent's replay_buffer with gail_buffer
+        base_agent.replay_buffer = replay_buffer
 
         return GAIL(
             base_agent=base_agent,

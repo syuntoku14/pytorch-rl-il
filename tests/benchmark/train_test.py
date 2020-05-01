@@ -2,8 +2,7 @@ import pytest
 import torch
 import numpy as np
 from rlil.environments import GymEnvironment, State
-from rlil.presets.online.continuous import ddpg, sac, td3
-from rlil.presets.offline.continuous import bc
+from rlil.presets.continuous import ddpg, sac, td3, bc
 from ..presets.offline_continuous_test import get_transitions
 
 

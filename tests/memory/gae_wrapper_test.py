@@ -8,7 +8,7 @@ import torch_testing as tt
 from rlil.approximation import VNetwork, FeatureNetwork
 from rlil.environments import State, Action, GymEnvironment
 from rlil.memory import ExperienceReplayBuffer, GaeWrapper
-from rlil.presets.online.continuous.models import fc_actor_critic
+from rlil.presets.continuous.models import fc_actor_critic
 
 
 class DummyFeatures:

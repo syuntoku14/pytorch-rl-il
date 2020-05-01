@@ -2,7 +2,10 @@ import pytest
 import numpy as np
 import torch
 from rlil.initializer import set_seed, enable_debug_mode, set_device, get_device
-from rlil.environments import Action
+from rlil import nn
+from rlil.environments import GymEnvironment, Action
+from rlil.policies.deterministic import DeterministicPolicyNetwork
+from rlil.memory import ExperienceReplayBuffer
 
 
 @pytest.fixture(scope="function", autouse=True)
