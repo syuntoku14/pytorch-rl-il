@@ -1,4 +1,6 @@
 import torch
+import numpy as np
+import torch.nn.functional as F
 from rlil.approximation import Approximation
 from rlil.nn import RLNetwork
 from rlil.environments import squash_action
@@ -45,10 +47,12 @@ class SoftDeterministicPolicyNetwork(RLNetwork):
 
     def _sample(self, normal):
         raw = normal.rsample()
+        # see openai spinningup:
+        # https://github.com/openai/spinningup/blob/e76f3cc1dfbf94fe052a36082dbd724682f0e8fd/spinup/algos/pytorch/sac/core.py#L53
+        log_prob = normal.log_prob(raw).sum(axis=-1)
+        log_prob -= (2*(np.log(2) - raw - F.softplus(-2*raw))).sum(axis=1)
+
         action = squash_action(raw, self._tanh_scale, self._tanh_mean)
-        log_prob = normal.log_prob(raw)
-        log_prob -= torch.log(1 - action.pow(2) + 1e-6)
-        log_prob = log_prob.sum(1)
         return action, log_prob
 
     def to(self, device):
