@@ -15,13 +15,13 @@ import os
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Run a gail benchmark.")
+        description="Run an online_il benchmark.")
     parser.add_argument("env", help="Name of the env")
-    parser.add_argument("gail_agent",
-                        help="Name of the gail agent (e.g. gail). \
-                            See presets for available agents.")
+    parser.add_argument("agent",
+                        help="Name of the online imitation learning agent \
+                            (e.g. gail). See presets for available agents.")
     parser.add_argument("base_agent",
-                        help="Name of the base agent (e.g. ddpg) for gail. \
+                        help="Name of the base agent (e.g. ddpg). \
                             See presets for available agents.")
     parser.add_argument("dir",
                         help="Directory where the transitions.pkl is saved.")
@@ -59,27 +59,27 @@ def main():
     base_preset = getattr(continuous, args.base_agent)
     base_agent_fn = base_preset()
 
-    # set gail_agent
+    # set agent
     with open(os.path.join(args.dir + "transitions.pkl"), mode='rb') as f:
         transitions = pickle.load(f)
-    gail_preset = getattr(continuous, args.gail_agent)
-    agent_fn = gail_preset(
+    preset = getattr(continuous, args.agent)
+    agent_fn = preset(
         transitions=transitions,
         base_agent_fn=base_agent_fn,
     )
 
-    agent_name = agent_fn.__name__[1:] + "-" + \
-        base_agent_fn.__name__[1:]
+    agent_name = agent_fn.__name__[1:]
+    base_agent_name = base_agent_fn.__name__[1:]
 
     # set args_dict
-    args_dict = {"args": {}, "base": {}, "gail": {}}
+    args_dict = {"args": {}, base_agent_name: {}, agent_name: {}}
     args_dict["args"] = vars(args)
-    args_dict["base"] = get_default_args(base_preset)
-    args_dict["gail"] = get_default_args(gail_preset)
+    args_dict[base_agent_name] = get_default_args(base_preset)
+    args_dict[agent_name] = get_default_args(preset)
 
     Experiment(
         agent_fn, env,
-        agent_name=agent_name,
+        agent_name=agent_name + "-" + base_agent_name,
         num_workers=args.num_workers,
         train_minutes=args.train_minutes,
         trains_per_episode=args.trains_per_episode,

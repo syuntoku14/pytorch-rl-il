@@ -1,4 +1,5 @@
 import torch
+import os
 from torch.nn.functional import mse_loss
 from .base import Agent, LazyAgent
 from copy import deepcopy
@@ -97,7 +98,7 @@ class PPO(Agent):
                     self._train_minibatch(
                         states[i], actions[i], pi_0[i], advantages[i], targets[i])
                     self.writer.train_steps += 1
-            
+
     def _train_minibatch(self, states, actions, pi_0, advantages, targets):
         # forward pass
         features = self.feature_nw(states)
@@ -144,6 +145,18 @@ class PPO(Agent):
                             feature_model.to("cpu"),
                             evaluation=evaluation,
                             store_samples=store_samples)
+
+    def load(self, dirname):
+        for filename in os.listdir(dirname):
+            if filename == 'policy.pt':
+                self.policy.model = torch.load(os.path.join(
+                    dirname, filename), map_location=self.device)
+            if filename in ('feature.pt'):
+                self.feature_nw.model = torch.load(os.path.join(dirname, filename),
+                                                   map_location=self.device)
+            if filename in ('v.pt'):
+                self.v.model = torch.load(os.path.join(dirname, filename),
+                                          map_location=self.device)
 
 
 class PPOLazyAgent(LazyAgent):

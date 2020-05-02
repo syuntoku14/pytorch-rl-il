@@ -33,6 +33,8 @@ def main():
     # load agent
     agent_name = os.path.basename(
         os.path.dirname(args.dir)).split("_")[0]
+    if "-" in agent_name:
+        agent_name = agent_name.split("-")[1]
     agent_fn = getattr(continuous, agent_name)()
     agent = agent_fn(env)
     agent.load(args.dir)

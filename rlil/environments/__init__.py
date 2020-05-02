@@ -9,6 +9,7 @@ __all__ = ["Environment", "State", "GymEnvironment", "Action"]
 # can also enter ID directly
 ENVS = {
     # classic continuous environments
+    "pendulum": "Pendulum-v0",
     "mountaincar": "MountainCarContinuous-v0",
     "lander": "LunarLanderContinuous-v2",
     # Bullet robotics environments

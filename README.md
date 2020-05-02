@@ -32,7 +32,10 @@ Also, `rlil` utilizes a replay buffer library `cpprb` written in cpython.
 ### Imitation Learning
 
 - [x] `Behavioral Cloning (BC)`
-- [x] [`Generative Adversarial Imitation Learning (GAIL)`]( https://arxiv.org/abs/1606.03476): Our GAIL can be run with on-policy and off-policy algorithms.
+- [x] [`Generative Adversarial Imitation Learning (GAIL)`](https://arxiv.org/abs/1606.03476)
+- [x] [`Soft Q Imitation Learning (SQIL)`](https://arxiv.org/abs/1905.11108)
+
+![online_il](assets/online_il.png)
 
 ### Distributed Sampling
 
