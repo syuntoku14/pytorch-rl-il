@@ -1,5 +1,3 @@
-# TODO: Better documentation
-
 # PyTorch-RL-IL (rlil): A PyTorch Library for Building Reinforcement Learning and Imitation Learning Agents
 
 `rlil` is a library for reinforcement learning and imitation learning research. 
@@ -36,6 +34,12 @@ Also, `rlil` utilizes a replay buffer library `cpprb` written in cpython.
 - [x] [`Soft Q Imitation Learning (SQIL)`](https://arxiv.org/abs/1905.11108)
 
 ![online_il](assets/online_il.png)
+
+#### Batch-RL 
+
+- [x] [`Batch-Constrained Q-learning (BCQ)`](https://arxiv.org/abs/1812.02900)
+
+![offline](assets/offline.png)
 
 ### Distributed Sampling
 
