@@ -10,10 +10,11 @@ class BCQDeterministicPolicy(Approximation):
             model,
             optimizer,
             space,
+            phi=0.05,
             name='policy',
             **kwargs
     ):
-        model = BCQDeterministicPolicyNetwork(model, space)
+        model = BCQDeterministicPolicyNetwork(model, space, phi)
         super().__init__(
             model,
             optimizer,
@@ -23,20 +24,20 @@ class BCQDeterministicPolicy(Approximation):
 
 
 class BCQDeterministicPolicyNetwork(RLNetwork):
-    def __init__(self, model, space):
+    def __init__(self, model, space, phi=0.05):
         super().__init__(model)
-        self._action_dim = space.shape[0]
         self._tanh_scale = torch.tensor(
             (space.high - space.low) / 2).to(self.device)
         self._tanh_mean = torch.tensor(
             (space.high + space.low) / 2).to(self.device)
+        self.phi = phi
 
     def forward(self, states, vae_actions):
         x = torch.cat((states.features.float(),
                        vae_actions.features.float()), dim=1)
-        a = vae_actions.features + 0.05 * \
-            self.model(x) * states.mask.float().unsqueeze(-1)
-        return squash_action(a, self._tanh_scale, self._tanh_mean)
+        actions = self.model(x) * states.mask.float().unsqueeze(-1)
+        actions = self.phi * squash_action(actions, self._tanh_scale, self._tanh_mean)
+        return vae_actions.features + actions
 
     def to(self, device):
         self._tanh_mean = self._tanh_mean.to(device)

@@ -37,7 +37,7 @@ def bc(
             env.action_space,
         )
 
-        replay_buffer = ExperienceReplayBuffer(1e9, env)
+        replay_buffer = ExperienceReplayBuffer(1e7, env)
         if transitions is not None:
             samples = replay_buffer.samples_from_cpprb(
                 transitions, device="cpu")

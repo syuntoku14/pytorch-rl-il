@@ -2,7 +2,7 @@ from .approximation import Approximation
 from .q_continuous import QContinuous
 from .q_network import QNetwork
 from .v_network import VNetwork
-from .auto_encoder import AutoEncoder
+from .bcq_auto_encoder import BcqEncoder, BcqDecoder
 from .discriminator import Discriminator
 from .target import TargetNetwork, FixedTarget, PolyakTarget, TrivialTarget
 from .checkpointer import Checkpointer, DummyCheckpointer, PeriodicCheckpointer
@@ -14,7 +14,8 @@ __all__ = [
     "QContinuous",
     "QNetwork",
     "VNetwork",
-    "AutoEncoder",
+    "BcqEncoder",
+    "BcqDecoder",
     "Discriminator",
     "TargetNetwork",
     "FixedTarget",

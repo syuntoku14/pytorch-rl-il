@@ -18,6 +18,10 @@ class RLNetwork(nn.Module):
 
     def forward(self, state):
         return self.model(state.features.float()) * state.mask.float().unsqueeze(-1)
+    
+    def to(self, device):
+        self.device = device
+        return super().to(device)
 
 
 class Aggregation(nn.Module):
@@ -183,15 +187,6 @@ class Linear0(nn.Linear):
             nn.init.constant_(self.bias, 0.0)
 
 
-class Scale(nn.Module):
-    def __init__(self, scale):
-        super().__init__()
-        self.scale = scale
-
-    def forward(self, x):
-        return x * self.scale
-
-
 class TanhActionBound(nn.Module):
     def __init__(self, action_space):
         super().__init__()
@@ -206,24 +201,5 @@ class TanhActionBound(nn.Module):
         return torch.tanh(x) * self.weight + self.bias
 
 
-def td_loss(loss):
-    def _loss(estimates, errors):
-        return loss(estimates, errors + estimates.detach())
-
-    return _loss
-
-
-def weighted_mse_loss(input, target, weight, reduction='mean'):
-    loss = (weight * ((target - input) ** 2))
-    return torch.mean(loss) if reduction == 'mean' else torch.sum(loss)
-
-
-def weighted_smooth_l1_loss(input, target, weight, reduction='mean'):
-    t = torch.abs(input - target)
-    loss = torch.where(t < 1, 0.5 * t ** 2, t - 0.5)
-    loss = weight * loss
-    return torch.mean(loss) if reduction == 'mean' else torch.sum(loss)
-
-
 def kl_loss(mean, log_var):
-    return -0.5 * (1 + log_var - mean.pow(2) - log_var.exp()).sum(1).mean()
+    return -0.5 * (1 + log_var - mean.pow(2) - log_var.exp()).mean()

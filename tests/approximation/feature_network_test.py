@@ -57,4 +57,3 @@ def test_independent_output(setUp):
     policy.reinforce(policy_loss)
     v.reinforce(value_loss)
     feature_nw.reinforce()
-

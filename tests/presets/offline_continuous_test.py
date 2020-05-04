@@ -15,7 +15,7 @@ def get_transitions(env):
     set_replay_buffer(replay_buffer)
     agent = MockAgent(env)
 
-    while len(agent.replay_buffer) < 100:
+    while len(agent.replay_buffer) < 200:
         env.reset()
         while not env.done:
             env.step(agent.act(env.state, env.reward))
@@ -23,11 +23,12 @@ def get_transitions(env):
     return agent.replay_buffer.get_all_transitions(return_cpprb=True)
 
 
-@pytest.mark.skip
 def test_bcq():
     env = GymEnvironment('LunarLanderContinuous-v2')
-    replay_buffer = gen_replay_buffer(env)
-    assert len(replay_buffer) > 100
+    transitions = get_transitions(env)
+    assert len(transitions["obs"]) > 100
+
+    validate_agent(bcq(transitions), env, done_step=50)
 
 
 def test_bc():
