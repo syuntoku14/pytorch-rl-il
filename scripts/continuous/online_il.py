@@ -5,12 +5,13 @@ from rlil.environments import GymEnvironment, ENVS
 from rlil.experiments import Experiment
 from rlil.presets import get_default_args
 from rlil.presets import continuous
-from rlil.initializer import get_logger, set_device, set_seed
+from rlil.initializer import get_logger, set_device, set_seed, get_writer
 import torch
 import logging
 import ray
 import pickle
 import os
+import shutil
 
 
 def main():
@@ -87,6 +88,10 @@ def main():
         seed=args.seed,
         exp_info=args.exp_info,
     )
+
+    # copy demo_return.json
+    writer = get_writer()
+    shutil.copy2(os.path.join(args.dir + "demo_return.json"), writer.log_dir)
 
 
 if __name__ == "__main__":

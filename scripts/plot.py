@@ -10,9 +10,7 @@ if __name__ == "__main__":
     parser.add_argument("--step", type=str, default="train_steps",
                         help="The unit of x-axis. You can choose it from \
                             [sample_frames, sample_episodes, train_steps, minutes]")
-    parser.add_argument("--xlim", type=int, default=None,
-                        help="The limit of x-axis.")
 
     args = parser.parse_args()
 
-    plot(args.dir, args.step, args.xlim)
+    plot(args.dir, args.step)

@@ -5,12 +5,13 @@ from rlil.environments import GymEnvironment, ENVS
 from rlil.experiments import Experiment
 from rlil.presets import get_default_args
 from rlil.presets import continuous
-from rlil.initializer import get_logger, set_device, set_seed
+from rlil.initializer import get_logger, set_device, set_seed, get_writer
 import torch
 import logging
 import ray
 import pickle
 import os
+import shutil
 
 
 def main():
@@ -25,7 +26,7 @@ def main():
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)")
     parser.add_argument("--seed", type=int, default=0,
                         help="Random seed")
-    parser.add_argument("--train_minutes", type=int, default=60,
+    parser.add_argument("--train_minutes", type=int, default=30,
                         help="Minutes to train.")
     parser.add_argument("--num_workers_eval", type=int,
                         default=1, help="Number of workers for evaluation")
@@ -69,6 +70,10 @@ def main():
         seed=args.seed,
         exp_info=args.exp_info,
     )
+
+    # copy demo_return.json
+    writer = get_writer()
+    shutil.copy2(os.path.join(args.dir + "demo_return.json"), writer.log_dir)
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ import pybullet_envs
 import os
 import time
 import pickle
+import json
 import numpy as np
 import ray
 from rlil.memory import ExperienceReplayBuffer
@@ -54,15 +55,23 @@ def main():
     # start recording
     replay_buffer = get_replay_buffer()
 
+    returns = []
     while len(replay_buffer) < args.frames:
         sampler.start_sampling(
             lazy_agent, worker_episodes=1)
 
-        sampler.store_samples(timeout=1)
+        sample_result = sampler.store_samples(timeout=1)
+        for sample_info in sample_result.values():
+            returns += sample_info["returns"]
+
+    # save return info of the policy
+    returns_dict = {"mean": np.mean(returns), "std": np.std(returns)}
+    filepath = os.path.join(args.dir, 'demo_return.json')
+    with open(filepath, mode='w') as f:
+        json.dump(returns_dict, f)
 
     # save replay buffer
-    filepath = os.path.join(args.dir, 'buffer.pkl')
-
+    filepath = os.path.join(args.dir, 'transitions.pkl')
     with open(filepath, mode='wb') as f:
         samples = replay_buffer.get_all_transitions(return_cpprb=True)
         pickle.dump(samples, f)

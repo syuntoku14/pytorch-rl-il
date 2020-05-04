@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 import matplotlib
+import json
 matplotlib.use("Agg")
 
 
@@ -68,25 +69,40 @@ def get_results(exp_path):
 
         return pd.concat(df_dict, axis=1)
 
+    def get_demo_return(resultpath):
+        # load demo_return.json
+        for p in resultpath.rglob("demo_return.json"):
+            with open(str(p)) as f:
+                demo_return = json.load(f)
+                return demo_return["mean"]
+        return None
+
     results = defaultdict(lambda: defaultdict(lambda: []))
+    demo_returns = defaultdict(lambda: None)
     for env in exp_path.glob("[!.]*[!.png]"):
         for result in env.glob("[!.]*"):
             agent = result.name.split("_")[0]
+            # load result
             steps, scalars = read_scalars(result)
             df = get_return_dataframe(steps, scalars)
             results[env.name][agent].append(df)
+
+            # load demo_return
+            demo_return = get_demo_return(result)
+            if demo_return is not None:
+                demo_returns[env.name] = demo_return
 
         # concatenate same agent
         for agent in results[env.name].keys():
             results[env.name][agent] = \
                 pd.concat(results[env.name][agent])
 
-    return results
+    return results, demo_returns
 
 
-def plot(exp_path, step="sample_frames", xlim=None):
+def plot(exp_path, step="sample_frames"):
     exp_path = Path(exp_path)
-    results = get_results(exp_path)
+    results, demo_returns = get_results(exp_path)
 
     # layout
     if "sample_frames" == step:
@@ -112,7 +128,9 @@ def plot(exp_path, step="sample_frames", xlim=None):
     agents = []
 
     for i, env in enumerate(results):
+        xlim = 0
         for agent in results[env]:
+            # plot results
             df = results[env][agent][step]
             if agent not in agents:
                 agents.append(agent)
@@ -125,9 +143,20 @@ def plot(exp_path, step="sample_frames", xlim=None):
                          label=agent,
                          legend=None,
                          color=colors[agents.index(agent)])
+            xlim = max(xlim, df[x].max())
 
-            axes[i].set_title(env)
-            axes[i].set_xlim(0, xlim)
+        axes[i].set_title(env)
+        axes[i].set_xlim(0, xlim)
+
+        # plot demonstration
+        demo_return = demo_returns[env]
+        if demo_return is not None:
+            if "Demonstration" not in agents:
+                agents.append("Demonstration")
+            axes[i].axhline(demo_return,
+                            ls='--',
+                            label="Demonstration",
+                            color=colors[agents.index("Demonstration")])
 
     handles = [None] * len(agents)
 
