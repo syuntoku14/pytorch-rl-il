@@ -53,7 +53,7 @@ def main():
     # set agent
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
-    with open(os.path.join(args.dir + "transitions.pkl"), mode='rb') as f:
+    with open(os.path.join(args.dir, "transitions.pkl"), mode='rb') as f:
         transitions = pickle.load(f)
     agent_fn = preset(transitions)
 
@@ -72,7 +72,7 @@ def main():
     )
 
     # copy demo_return.json if exists
-    demo_return_path = os.path.join(args.dir + "demo_return.json")
+    demo_return_path = os.path.join(args.dir, "demo_return.json")
     if os.path.exists(demo_return_path):
         writer = get_writer()
         shutil.copy2(demo_return_path, writer.log_dir)
