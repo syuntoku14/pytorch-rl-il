@@ -89,9 +89,11 @@ def main():
         exp_info=args.exp_info,
     )
 
-    # copy demo_return.json
-    writer = get_writer()
-    shutil.copy2(os.path.join(args.dir + "demo_return.json"), writer.log_dir)
+    # copy demo_return.json if exists
+    demo_return_path = os.path.join(args.dir + "demo_return.json")
+    if os.path.exists(demo_return_path):
+        writer = get_writer()
+        shutil.copy2(demo_return_path, writer.log_dir)
 
 
 if __name__ == "__main__":

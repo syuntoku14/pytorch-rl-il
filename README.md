@@ -1,46 +1,154 @@
 # PyTorch-RL-IL (rlil): A PyTorch Library for Building Reinforcement Learning and Imitation Learning Agents
 
-`rlil` is a library for reinforcement learning and imitation learning research. 
-**The concept of this library is based on the [Autonomous Learning Library (ALL)](https://github.com/cpnota/autonomous-learning-library/tree/master/all) and [rlpyt](https://github.com/astooke/rlpyt).**
+`rlil` is a library for reinforcement learning (RL) and imitation learning (IL) research. 
+
+**The concept of this library is based on the [Autonomous Learning Library (ALL)](https://github.com/cpnota/autonomous-learning-library/tree/master/all).**
 
 Some modules such as `Approximation`, `Agent` and `presets` are almost the same as `ALL`.
 For the basic concepts of them, see the original documentation: https://autonomous-learning-library.readthedocs.io/en/stable/. 
 
-Unlike `ALL`, `rlil` uses an distributed sampling method like `rlpyt`, which makes it easy to switch between offline and online learning.
-Also, `rlil` utilizes a replay buffer library `cpprb` written in cpython.
+Unlike `ALL`, `rlil` uses an distributed sampling method like [rlpyt](https://github.com/astooke/rlpyt) and [machina](https://github.com/DeepX-inc/machina.git), which makes it easy to switch between offline and online learning.
+Also, `rlil` utilizes a replay buffer library `cpprb`.
 
+## Algorithms
 
-## Implemented Algorithms
+### Online RL
 
-### Reinforcement Learning
+These algorithms are run online and do not require demonstrations.
 
-#### Off-policy algorithms
+You can test the algorithms by:
 
-- [x] [`Deep DPG (DDPG)`](https://arxiv.org/abs/1509.02971)
-- [x] [`Twind Dueling DDPG (TD3)`](https://arxiv.org/abs/1802.09477)
-- [x] [`Soft Actor Critic (SAC)`](https://arxiv.org/abs/1801.01290)
+```
+python scripts/continuous/online.py [env] [agent] [options]
+```
 
-#### On-policy algorithms
-
-- [x] [`Proximal Policy Optimization Algorithms (PPO)`](https://arxiv.org/abs/1707.06347)
+- [x] [`Deep DPG (DDPG)`](https://arxiv.org/abs/1509.02971), [code](rlil/agents/ddpg.py)
+- [x] [`Twind Dueling DDPG (TD3)`](https://arxiv.org/abs/1802.09477), [code](rlil/agents/td3.py)
+- [x] [`Soft Actor Critic (SAC)`](https://arxiv.org/abs/1801.01290), [code](rlil/agents/sac.py)
+- [x] [`Proximal Policy Optimization Algorithms (PPO)`](https://arxiv.org/abs/1707.06347), [code](rlil/agents/ppo.py)
 - [ ] [`Trust Region Policy Optimization (TRPO)`](https://arxiv.org/abs/1502.05477)
 
 ![continuous_control](assets/continuous.png)
 
-### Imitation Learning
+### Learning from demonstrations
 
-- [x] `Behavioral Cloning (BC)`
-- [x] [`Generative Adversarial Imitation Learning (GAIL)`](https://arxiv.org/abs/1606.03476)
-- [x] [`Soft Q Imitation Learning (SQIL)`](https://arxiv.org/abs/1905.11108)
+The following offline IL and RL algorithms train an agent with a demonstration and do not require any interaction with the environment.
+
+You can test the algorithms by:
+
+```
+python scripts/continuous/online.py [env] [agent] [path to the directory which includes transitions.pkl]
+```
+
+#### Offline IL
+
+- [x] `Behavioral Cloning (BC)`, [code](rlil/agents/bc.py)
+
+#### Offline RL
+
+- [x] [`Batch-Constrained Q-learning (BCQ)`](https://arxiv.org/abs/1812.02900), [code](rlil/agents/bcq.py)
+
+![offline](assets/offline.png)
+
+### Online IL
+
+The online IL algorithms train an agent with a demonstration and interactions with the environment.
+
+You can test the algorithms by:
+
+```
+python scripts/continuous/online_il.py [env] [agent (e.g. gail)] [base_agent (e.g. ppo)] [path to the directory which includes transitions.pkl]
+```
+
+- [x] [`Generative Adversarial Imitation Learning (GAIL)`](https://arxiv.org/abs/1606.03476), [code](rlil/agents/gail.py)
+- [x] [`Soft Q Imitation Learning (SQIL)`](https://arxiv.org/abs/1905.11108), [code](rlil/memory/sqil_wrapper.py)
 
 ![online_il](assets/online_il.png)
 
-#### Batch-RL 
-
-- [x] [`Batch-Constrained Q-learning (BCQ)`](https://arxiv.org/abs/1812.02900)
-
-![offline](assets/offline.png)
 
 ### Distributed Sampling
 
 - [ ] `Ape-X`: https://arxiv.org/abs/1803.00933. 
+
+## Installation
+
+You can install from source:
+
+```
+git clone git@github.com:syuntoku14/pytorch-rl-il.git
+cd pytorch-rl-il
+pip install -e .
+```
+
+## Getting Started
+
+Follow the installation instruction above, and the get started in the [scripts](scripts) folder.
+
+### Training
+
+The [scripts/continuous](scripts/continuous) folder includes the training scripts for continuous environment. See the Algorithms section above for instructions on how to run them. 
+
+**Example**:
+
+The following code uses PPO to train an agent for 60 minutes.
+The option `--num_workers` allows you to specify the number of workers for distributed sampling.
+The `--exp_info` option is used in order to organize the results directory. 
+It should include a one-line description of the experiment.
+
+The result will be saved in the directory: `runs/[exp_info]/[env]/[agent with ID]`.
+
+```
+cd pytorch-rl-il
+python scripts/continuous/online.py ant ppo --train_minutes 60 --num_workers 5 --exp_info example_training
+```
+
+You can check the training progress using:
+```
+tensorboard --logdir runs
+```
+and opening your browser to http://localhost:6006.
+
+After the training, you can draw the learning curve by `scripts/plot.py`:
+
+```
+python scripts/plot.py runs/[exp_info]/[env]/[agent with ID]
+```
+
+The figure of the learning curve will be saved as `runs/[exp_info]/[env]/[agent with ID]/result.png`.
+
+Same as `ALL`, you can watch the trained model using:
+
+```
+python scripts/continuous/watch_continuous.py runs/[exp_info]/[env]/[agent with ID]
+```
+
+### Record trajectory and train with the trajectory
+
+You can run the trained agent and save the trajectory by [scripts/record_trajectory.py](scripts/record_trajectory.py).
+
+```
+python scripts/record_trajectory.py runs/[exp_info]/[env]/[agent with ID]
+```
+
+Then, `transitions.pkl` file, which is a pickled object generated by [cpprb.ReplayBuffer.get_all_transitions()](https://ymd_h.gitlab.io/cpprb/api/api/cpprb.ReplayBuffer.html), will be saved in `runs/[exp_info]/[env]/[agent with ID]`.
+
+You can train an agent with imitation learning using the `transitions.pkl`.
+
+**Example**:
+
+The following code uses the trained agent in the previous PPO example.
+
+```
+# record trajectory
+python scripts/record_trajectory.py runs/example_training/AntBulletEnv-v0/[ppo_ID]
+
+# start sqil with sac training
+python scripts/online_il.py ant sqil sac runs/example_training/AntBulletEnv-v0/[ppo_ID] --exp_info example_sqil
+
+# plot the result
+python scripts/plot.py runs/example_sqil/AntBulletEnv-v0/[sqil-sac_ID]
+```
+
+## Download demonstrations
+
+The pre-trained models and transitions are available at: https://drive.google.com/open?id=1L62-aah6BONJwWd5w1uxZMMtWYPnk0I0

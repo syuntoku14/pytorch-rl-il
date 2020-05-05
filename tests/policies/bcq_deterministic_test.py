@@ -1,3 +1,4 @@
+import pytest
 import unittest
 import torch
 import torch_testing as tt
@@ -48,6 +49,7 @@ class TestBCQDeterministic(unittest.TestCase):
         self.policy(state, vae_action)
         self.policy.step()
 
+    @pytest.mark.skip
     def test_converge(self):
         state = State(torch.randn(1, STATE_DIM))
         vae_action = Action(torch.randn(1, ACTION_DIM))
@@ -61,6 +63,7 @@ class TestBCQDeterministic(unittest.TestCase):
 
         self.assertLess(loss, 0.001)
 
+    @pytest.mark.skip
     def test_target(self):
         self.policy = BCQDeterministicPolicy(
             self.model,

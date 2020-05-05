@@ -18,7 +18,6 @@ setup(
         "opencv-python",  # used by atari wrappers
         "pybullet",      # continuous environments
         "autopep8",      # code quality tool
-        "tensorboardX",  # visualize results
         "torch-testing",  # testing library for pytorch
         "ray",  # multiprocessing tool
         "pytest",  # python testing library

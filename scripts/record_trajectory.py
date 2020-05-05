@@ -16,7 +16,7 @@ from rlil.presets import continuous
 
 def main():
     parser = argparse.ArgumentParser(description="Record a trajectory of trained agent. \
-        The trajectory will be stored as replay_buffer.pkl in the args.dir.")
+        The trajectory will be stored as transitions.pkl in the args.dir.")
     parser.add_argument(
         "dir", help="Directory where the agent's model is saved.")
     parser.add_argument(
