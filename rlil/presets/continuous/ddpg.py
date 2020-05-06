@@ -23,7 +23,7 @@ def ddpg(
         polyak_rate=0.005,
         # Replay Buffer settings
         replay_start_size=5000,
-        replay_buffer_size=1e6,
+        replay_buffer_size=1e7,
         # Exploration settings
         noise=0.1,
 ):

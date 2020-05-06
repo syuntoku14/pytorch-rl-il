@@ -25,7 +25,7 @@ def td3(
         policy_update_td3=2,
         # Replay Buffer settings
         replay_start_size=5000,
-        replay_buffer_size=1e6,
+        replay_buffer_size=1e7,
         # Exploration settings
         noise_policy=0.1,
 ):

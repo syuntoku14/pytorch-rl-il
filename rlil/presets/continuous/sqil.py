@@ -8,7 +8,7 @@ def sqil(
         base_agent_fn=None,
         # Replay Buffer settings
         replay_start_size=5000,
-        replay_buffer_size=1e6
+        replay_buffer_size=1e7
 ):
     """
     Soft Q Imitation Learning (SQIL) control preset
