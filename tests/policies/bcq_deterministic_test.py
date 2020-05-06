@@ -9,10 +9,6 @@ from rlil.approximation import FixedTarget
 from rlil.environments import State, Action, squash_action
 from rlil.policies import BCQDeterministicPolicy
 
-# import ptvsd
-# ptvsd.enable_attach()
-# ptvsd.wait_for_attach()
-
 STATE_DIM = 2
 ACTION_DIM = 3
 

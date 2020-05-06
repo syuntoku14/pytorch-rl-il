@@ -6,6 +6,7 @@ from .bcq import BCQ
 from .bc import BC
 from .ppo import PPO
 from .gail import GAIL
+from .airl import AIRL
 
 __all__ = [
     "Agent",
@@ -16,5 +17,6 @@ __all__ = [
     "BCQ",
     "BC",
     "PPO",
-    "GAIL"
+    "GAIL",
+    "AIRL"
 ]

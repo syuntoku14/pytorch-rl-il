@@ -5,6 +5,7 @@ from .replay_buffer import (
 from .gail_wrapper import GailWrapper
 from .gae_wrapper import GaeWrapper
 from .sqil_wrapper import SqilWrapper
+from .airl_wrapper import AirlWrapper
 from cpprb import ReplayBuffer
 
 
@@ -14,5 +15,6 @@ __all__ = [
     "ExperienceReplayBuffer",
     "GailWrapper",
     "GaeWrapper",
-    "SqilWrapper"
+    "SqilWrapper",
+    "AirlWrapper"
 ]

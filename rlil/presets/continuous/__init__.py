@@ -7,6 +7,7 @@ from .bc import bc
 from .bcq import bcq
 from .gail import gail
 from .sqil import sqil
+from .airl import airl
 
 __all__ = ['ddpg',
            'sac',
@@ -15,4 +16,5 @@ __all__ = ['ddpg',
            'bcq',
            'bc',
            'gail',
-           'sqil']
+           'sqil',
+           'airl']

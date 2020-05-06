@@ -2,13 +2,13 @@
 
 `rlil` is a library for reinforcement learning (RL) and imitation learning (IL) research. 
 
-**The concept of this library is based on the [Autonomous Learning Library (ALL)](https://github.com/cpnota/autonomous-learning-library/tree/master/all).**
+**This library is developed from [Autonomous Learning Library (ALL)](https://github.com/cpnota/autonomous-learning-library/tree/master/all).**
 
 Some modules such as `Approximation`, `Agent` and `presets` are almost the same as `ALL`.
 For the basic concepts of them, see the original documentation: https://autonomous-learning-library.readthedocs.io/en/stable/. 
 
 Unlike `ALL`, `rlil` uses an distributed sampling method like [rlpyt](https://github.com/astooke/rlpyt) and [machina](https://github.com/DeepX-inc/machina.git), which makes it easy to switch between offline and online learning.
-Also, `rlil` utilizes a replay buffer library `cpprb`.
+Also, `rlil` utilizes a replay buffer library [cpprb](https://ymd_h.gitlab.io/cpprb/).
 
 ## Algorithms
 
@@ -50,7 +50,7 @@ python scripts/continuous/online.py [env] [agent] [path to the directory which i
 
 ![offline](assets/offline.png)
 
-### Online IL
+#### Online IL
 
 The online IL algorithms train an agent with a demonstration and interactions with the environment.
 
@@ -61,6 +61,7 @@ python scripts/continuous/online_il.py [env] [agent (e.g. gail)] [base_agent (e.
 ```
 
 - [x] [`Generative Adversarial Imitation Learning (GAIL)`](https://arxiv.org/abs/1606.03476), [code](rlil/agents/gail.py)
+- [x] [`Learning Robust Rewards with Adversarial Inverse Reinforcement Learning (AIRL)`](https://arxiv.org/abs/1710.11248), [code](rlil/agents/airl.py)
 - [x] [`Soft Q Imitation Learning (SQIL)`](https://arxiv.org/abs/1905.11108), [code](rlil/memory/sqil_wrapper.py)
 
 ![online_il](assets/online_il.png)
@@ -82,7 +83,7 @@ pip install -e .
 
 ## Getting Started
 
-Follow the installation instruction above, and the get started in the [scripts](scripts) folder.
+Follow the installation instruction above, and then get started in the [scripts](scripts) folder.
 
 ### Training
 
