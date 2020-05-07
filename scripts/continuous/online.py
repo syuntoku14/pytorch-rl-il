@@ -15,7 +15,7 @@ def main():
         description="Run a continuous actions benchmark.")
     parser.add_argument("env", help="Name of the env")
     parser.add_argument("agent",
-                        help="Name of the agent (e.g. actor_critic). See presets for available agents.")
+                        help="Name of the agent (e.g. ppo). See presets for available agents.")
     parser.add_argument("--device", default="cuda",
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)")
     parser.add_argument("--seed", type=int, default=0,

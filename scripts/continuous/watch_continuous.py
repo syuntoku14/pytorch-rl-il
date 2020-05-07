@@ -4,12 +4,15 @@ import pybullet_envs
 import re
 import os
 import time
-from rlil.environments import GymEnvironment
+from rlil.environments import GymEnvironment, ENVS
 from rlil.presets import continuous
 
 
 def main():
     parser = argparse.ArgumentParser(description="Watch a continuous agent.")
+    parser.add_argument("env", help="Name of the env")
+    parser.add_argument("agent",
+                        help="Name of the agent (e.g. ppo). See presets for available agents.")
     parser.add_argument(
         "dir", help="Directory where the agent's model was saved.")
     parser.add_argument(
@@ -25,17 +28,10 @@ def main():
     args = parser.parse_args()
 
     # load env
-    if args.dir[-1] != "/":
-        args.dir += "/"
-    env_id = args.dir.split("/")[-3]
-    env = GymEnvironment(env_id)
+    env = GymEnvironment(ENVS[args.env])
 
     # load agent
-    agent_name = os.path.basename(
-        os.path.dirname(args.dir)).split("_")[0]
-    if "-" in agent_name:
-        agent_name = agent_name.split("-")[1]
-    agent_fn = getattr(continuous, agent_name)()
+    agent_fn = getattr(continuous, args.agent)()
     agent = agent_fn(env)
     agent.load(args.dir)
     lazy_agent = agent.make_lazy_agent(evaluation=True)

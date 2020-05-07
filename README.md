@@ -71,6 +71,25 @@ python scripts/continuous/online_il.py [env] [agent (e.g. gail)] [base_agent (e.
 
 - [ ] `Ape-X`: https://arxiv.org/abs/1803.00933. 
 
+## Environments
+
+Some popular imitation learning algorithms, like BC and GAIL, assume that the expert demonstrations come from the same MDP. 
+This assumption does not hold in many real-life scenarios where discrepancies between the expert and the imitator MDPs are common.
+Therefore, rlil has some different dynamics pybullet envs for such different MDP settings.
+For example, the following code makes a pybullet ant env with half the length of its front legs.
+
+```
+import gym
+from rlil.environments import ENVS
+
+gym.make(ENVS["half_front_legs_ant"])
+```
+
+See [rlil/environments/\_\_init\_\_.py](rlil/environments/__init__.py) for the available environments.
+
+![different_gait](assets/different_gait.gif)
+
+
 ## Installation
 
 You can install from source:
