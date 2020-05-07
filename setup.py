@@ -22,7 +22,8 @@ setup(
         "ray",  # multiprocessing tool
         "pytest",  # python testing library
         "cpprb",  # fast replay buffer library
-        "pytest-benchmark"
+        "pytest-benchmark",
+        "gitpython"
         # these should be installed globally:
         # "tensorflow",  # needed for tensorboard
         # "torch",       # deep learning library

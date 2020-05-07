@@ -6,6 +6,8 @@ from .trainer import Trainer
 import os
 import logging
 import json
+import git
+import warnings
 
 # TODO: max_sample_frames is not necessary
 
@@ -34,10 +36,21 @@ class Experiment:
         if agent_name is None:
             agent_name = agent_fn.__name__[1:]
         writer = self._make_writer(agent_name, env.name, exp_info)
-        message = "# Parameters  \n"
+        message = "\n# Experiment: " + exp_info
+        message += "  \n# Parameters:  \n"
         message += json.dumps(args_dict, indent=4,
                               sort_keys=True).replace("\n", "  \n")
-        message += "  \n# Experiment infomation  \n" + exp_info
+
+        # write git diff
+        try:
+            repo = git.Repo('./')
+            t = repo.head.commit.tree
+            diff = repo.git.diff(t).replace("\n", "  \n")
+            message += "  \n# Git diff:  \n" + diff
+        except git.InvalidGitRepositoryError:
+            warnings.warn(
+                "Current repository doesn't have .git. git diff is not recorded.")
+
         writer.add_text("exp_summary", message)
         set_writer(writer)
 
