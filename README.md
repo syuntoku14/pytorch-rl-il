@@ -105,9 +105,12 @@ python scripts/continuous/online.py ant ppo --train_minutes 60 --num_workers 5 -
 
 You can check the training progress using:
 ```
-tensorboard --logdir runs
+tensorboard --logdir runs/[exp_info]
 ```
 and opening your browser to http://localhost:6006.
+The tensorboard records not only the learning curve, but also presets' parameters and settings related to the experiment, such as git diffs.
+
+![tensorboard](assets/TensorBoard.gif)
 
 After the training, you can draw the learning curve by `scripts/plot.py`:
 
