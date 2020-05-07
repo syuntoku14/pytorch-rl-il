@@ -84,7 +84,11 @@ def get_results(exp_path):
             agent = result.name.split("_")[0]
             # load result
             steps, scalars = read_scalars(result)
-            df = get_return_dataframe(steps, scalars)
+            try:
+                df = get_return_dataframe(steps, scalars)
+            except ValueError:
+                print(str(result) + " doesn't have data.")
+                continue
             results[env.name][agent].append(df)
 
             # load demo_return
