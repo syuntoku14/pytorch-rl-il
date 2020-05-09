@@ -32,7 +32,9 @@ python scripts/continuous/online.py [env] [agent] [options]
 
 ### Model-based RL
 
-- [x] [`Neural Network Dynamics for Model-Based Deep Reinforcement Learning with Model-Free Fine-Tuning`](https://arxiv.org/abs/1708.02596), [code](rlil/agent/rs_mpc.py)
+- [x] [`Neural Network Dynamics for Model-Based Deep Reinforcement Learning with Model-Free Fine-Tuning`](https://arxiv.org/abs/1708.02596), [code](rlil/agents/rs_mpc.py)
+
+![mbrl_gif](assets/rs-mpc.gif)
 
 ### Learning from demonstrations
 

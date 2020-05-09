@@ -34,7 +34,7 @@ class Experiment:
 
         # set writer
         if agent_name is None:
-            agent_name = agent_fn.__name__[1:]
+            agent_name = agent_fn.__name__[1:].replace("_", "-")
         writer = self._make_writer(agent_name, env.name, exp_info)
         message = "\n# Experiment: " + exp_info
         message += "  \n# Parameters:  \n"
