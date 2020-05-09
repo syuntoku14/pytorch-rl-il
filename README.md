@@ -30,6 +30,10 @@ python scripts/continuous/online.py [env] [agent] [options]
 
 ![continuous_control](assets/continuous.png)
 
+### Model-based RL
+
+- [x] [`Neural Network Dynamics for Model-Based Deep Reinforcement Learning with Model-Free Fine-Tuning`](https://arxiv.org/abs/1708.02596), [code](rlil/agent/rs_mpc.py)
+
 ### Learning from demonstrations
 
 The following offline IL and RL algorithms train an agent with a demonstration and do not require any interaction with the environment.

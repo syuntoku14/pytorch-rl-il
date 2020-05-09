@@ -7,6 +7,7 @@ from .bc import BC
 from .ppo import PPO
 from .gail import GAIL
 from .airl import AIRL
+from .rs_mpc import RsMPC
 
 __all__ = [
     "Agent",
@@ -18,5 +19,6 @@ __all__ = [
     "BC",
     "PPO",
     "GAIL",
-    "AIRL"
+    "AIRL",
+    "RsMPC"
 ]

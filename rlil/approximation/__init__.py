@@ -7,6 +7,7 @@ from .discriminator import Discriminator
 from .target import TargetNetwork, FixedTarget, PolyakTarget, TrivialTarget
 from .checkpointer import Checkpointer, DummyCheckpointer, PeriodicCheckpointer
 from .feature_network import FeatureNetwork
+from .dynamics import Dynamics
 
 
 __all__ = [
@@ -25,4 +26,5 @@ __all__ = [
     "DummyCheckpointer",
     "PeriodicCheckpointer",
     "FeatureNetwork",
+    "Dynamics"
 ]

@@ -45,7 +45,8 @@ def watch(agent, env, fps=60):
     action = None
     returns = 0
     # have to call this before initial reset for pybullet envs
-    env.render(mode="human")
+    if "Bullet" in env.name:
+        env.render(mode="human")
     while True:
         time.sleep(1 / fps)
         if env.done:

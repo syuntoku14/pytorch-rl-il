@@ -2,6 +2,7 @@ from .base import Environment
 from .gym import GymEnvironment
 from .state import State
 from .action import Action, action_decorator, clip_action, squash_action
+from .reward_fns import *
 import gym
 from gym.envs.registration import registry, make, spec
 
@@ -97,4 +98,9 @@ ENVS = {
     "double_gravity_walker": "DoubleGravityWalker2DBulletEnv-v0",
     # Different gait bullet envs
     "half_front_legs_ant": 'HalfFrontLegsAntBulletEnv-v0'
+}
+
+
+REWARDS = {
+    "Pendulum-v0": PendulumReward
 }

@@ -8,6 +8,7 @@ from .bcq import bcq
 from .gail import gail
 from .sqil import sqil
 from .airl import airl
+from .rs_mpc import rs_mpc
 
 __all__ = ['ddpg',
            'sac',
@@ -17,4 +18,5 @@ __all__ = ['ddpg',
            'bc',
            'gail',
            'sqil',
-           'airl']
+           'airl',
+           'rs_mpc']

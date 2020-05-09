@@ -1,6 +1,6 @@
 import pytest
 from rlil.environments import GymEnvironment
-from rlil.presets.continuous import ddpg, sac, td3, ppo
+from rlil.presets.continuous import ddpg, sac, td3, ppo, rs_mpc
 from rlil.presets import validate_agent
 
 
@@ -22,3 +22,8 @@ def test_td3():
 def test_ppo():
     env = GymEnvironment("MountainCarContinuous-v0")
     validate_agent(ppo(replay_start_size=5), env, done_step=50)
+
+
+def test_rs_mpc():
+    env = GymEnvironment("Pendulum-v0")
+    validate_agent(rs_mpc(replay_start_size=5), env, done_step=50)
