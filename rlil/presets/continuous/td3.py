@@ -1,6 +1,5 @@
 import torch
 from torch.optim import Adam
-from torch.optim.lr_scheduler import CosineAnnealingLR
 from rlil.agents import TD3
 from rlil.approximation import QContinuous, PolyakTarget
 from rlil.policies import DeterministicPolicy
@@ -14,7 +13,6 @@ from .models import fc_q, fc_deterministic_policy
 def td3(
         # Common settings
         discount_factor=0.99,
-        last_step=2e6,
         # Adam optimizer settings
         lr_q=1e-3,
         lr_pi=1e-3,
@@ -34,7 +32,6 @@ def td3(
 
     Args:
         discount_factor (float): Discount factor for future rewards.
-        last_step (int): Number of steps to train.
         lr_q (float): Learning rate for the Q network.
         lr_pi (float): Learning rate for the policy network.
         minibatch_size (int): Number of experiences to sample in each training update.
@@ -47,7 +44,6 @@ def td3(
     """
     def _td3(env):
         disable_on_policy_mode()
-        final_anneal_step = (last_step - replay_start_size)
 
         device = get_device()
         q_1_model = fc_q(env).to(device)
@@ -56,10 +52,6 @@ def td3(
             q_1_model,
             q_1_optimizer,
             target=PolyakTarget(polyak_rate),
-            lr_scheduler=CosineAnnealingLR(
-                q_1_optimizer,
-                final_anneal_step
-            ),
             name='q_1'
         )
 
@@ -69,10 +61,6 @@ def td3(
             q_2_model,
             q_2_optimizer,
             target=PolyakTarget(polyak_rate),
-            lr_scheduler=CosineAnnealingLR(
-                q_2_optimizer,
-                final_anneal_step
-            ),
             name='q_2'
         )
 
@@ -83,10 +71,6 @@ def td3(
             policy_optimizer,
             env.action_space,
             target=PolyakTarget(polyak_rate),
-            lr_scheduler=CosineAnnealingLR(
-                policy_optimizer,
-                final_anneal_step
-            ),
         )
 
         replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env)

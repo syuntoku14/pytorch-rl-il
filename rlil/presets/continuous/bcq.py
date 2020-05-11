@@ -1,6 +1,5 @@
 import torch
 from torch.optim import Adam
-from torch.optim.lr_scheduler import CosineAnnealingLR
 from rlil.agents import BCQ
 from rlil.approximation import (QContinuous,
                                 PolyakTarget,
