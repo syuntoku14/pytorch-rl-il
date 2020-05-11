@@ -11,11 +11,11 @@ from rlil.initializer import set_device
 
 def test_run():
     env = GymEnvironment('LunarLanderContinuous-v2')
-    replay_buffer = ExperienceReplayBuffer(5, env)
+    replay_buffer = ExperienceReplayBuffer(10000, env)
 
     states = torch.tensor([env.observation_space.sample()]*20)
-    actions = torch.tensor([env.action_space.sample()]*20)
-    rewards = torch.arange(0, 20, dtype=torch.float)
+    actions = torch.tensor([env.action_space.sample()]*19)
+    rewards = torch.arange(0, 19, dtype=torch.float)
 
     for i in range(10):
         state = State(states[i].view(1, -1), torch.tensor([1]).bool())
@@ -29,11 +29,11 @@ def test_run():
 
 def test_multi_store():
     env = GymEnvironment('LunarLanderContinuous-v2')
-    replay_buffer = ExperienceReplayBuffer(5, env)
+    replay_buffer = ExperienceReplayBuffer(10000, env)
 
     states = torch.tensor([env.observation_space.sample()]*20)
-    actions = torch.tensor([env.action_space.sample()]*20)
-    rewards = torch.arange(0, 20, dtype=torch.float)
+    actions = torch.tensor([env.action_space.sample()]*19)
+    rewards = torch.arange(0, 19, dtype=torch.float)
 
     states = State(states)
     actions = Action(actions)
@@ -44,11 +44,11 @@ def test_multi_store():
 
 def test_clear():
     env = GymEnvironment('LunarLanderContinuous-v2')
-    replay_buffer = ExperienceReplayBuffer(5, env)
+    replay_buffer = ExperienceReplayBuffer(10000, env)
 
     states = torch.tensor([env.observation_space.sample()]*20)
-    actions = torch.tensor([env.action_space.sample()]*20)
-    rewards = torch.arange(0, 20, dtype=torch.float)
+    actions = torch.tensor([env.action_space.sample()]*19)
+    rewards = torch.arange(0, 19, dtype=torch.float)
 
     states = State(states)
     actions = Action(actions)

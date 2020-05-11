@@ -1,3 +1,4 @@
+import pytest
 import unittest
 import torch
 import torch_testing as tt
@@ -51,6 +52,7 @@ class TestDeterministic(unittest.TestCase):
 
         self.assertLess(loss, 0.001)
 
+    @pytest.mark.skip
     def test_target(self):
         self.policy = DeterministicPolicy(
             self.model,

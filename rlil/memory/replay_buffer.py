@@ -60,21 +60,21 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
             next_states (rlil.environment.State): batch_size x shape
         """
 
+        assert len(states) < self._buffer.get_buffer_size(), \
+            "The sample size exceeds the buffer size."
+
         np_states, np_dones = states.raw_numpy()
         np_actions = actions.raw_numpy()
         np_rewards = rewards.detach().cpu().numpy()
         np_next_states, np_next_dones = next_states.raw_numpy()
 
-        for state, action, reward, next_state, done, next_done in \
-                zip(np_states, np_actions, np_rewards,
-                    np_next_states, np_dones, np_next_dones):
-            if done:
-                continue
-            self._buffer.add(**self._before_add(obs=state,
-                                                act=action,
-                                                rew=reward,
-                                                done=next_done,
-                                                next_obs=next_state))
+        if (~np_dones).any():  # if there is at least one sample to store
+            # remove done==1 by [~np_dones]
+            self._buffer.add(**self._before_add(obs=np_states[~np_dones],
+                                                act=np_actions[~np_dones],
+                                                rew=np_rewards[~np_dones],
+                                                done=np_next_dones[~np_dones],
+                                                next_obs=np_next_states[~np_dones]))
 
     def sample(self, batch_size):
         '''Sample from the stored transitions'''

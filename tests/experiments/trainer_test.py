@@ -21,7 +21,7 @@ def setUp():
 
     env = GymEnvironment('LunarLanderContinuous-v2')
 
-    replay_buffer_size = 100
+    replay_buffer_size = 100000
     replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env)
     set_replay_buffer(replay_buffer)
 
