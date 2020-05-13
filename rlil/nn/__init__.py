@@ -18,7 +18,7 @@ class RLNetwork(nn.Module):
 
     def forward(self, state):
         return self.model(state.features.float()) * state.mask.float().unsqueeze(-1)
-    
+
     def to(self, device):
         self.device = device
         return super().to(device)
@@ -123,15 +123,18 @@ class NoisyLinear(nn.Linear):
         nn.init.uniform_(self.weight, -std, std)
         nn.init.uniform_(self.bias, -std, std)
 
+    def perturb(self):
+        torch.randn(self.epsilon_weight.size(), out=self.epsilon_weight)
+        if self.bias is not None:
+            torch.randn(self.epsilon_bias.size(), out=self.epsilon_bias)
+
     def forward(self, x):
         bias = self.bias
 
         if not self.training:
             return F.linear(x, self.weight, bias)
 
-        torch.randn(self.epsilon_weight.size(), out=self.epsilon_weight)
         if self.bias is not None:
-            torch.randn(self.epsilon_bias.size(), out=self.epsilon_bias)
             bias = bias + self.sigma_bias * self.epsilon_bias
         return F.linear(x, self.weight + self.sigma_weight * self.epsilon_weight, bias)
 
@@ -157,17 +160,13 @@ class NoisyFactorizedLinear(nn.Linear):
                 torch.Tensor(out_features).fill_(sigma_init)
             )
 
-    def reset_parameters(self):
-        std = np.sqrt(self.init_scale / self.in_features)
-        nn.init.uniform_(self.weight, -std, std)
-        nn.init.uniform_(self.bias, -std, std)
+    def perturb(self):
+        torch.randn(self.epsilon_input.size(), out=self.epsilon_input)
+        torch.randn(self.epsilon_output.size(), out=self.epsilon_output)
 
     def forward(self, input):
         if not self.training:
             return F.linear(input, self.weight, self.bias)
-
-        torch.randn(self.epsilon_input.size(), out=self.epsilon_input)
-        torch.randn(self.epsilon_output.size(), out=self.epsilon_output)
 
         def func(x): return torch.sign(x) * torch.sqrt(torch.abs(x))
         eps_in = func(self.epsilon_input)
@@ -180,25 +179,16 @@ class NoisyFactorizedLinear(nn.Linear):
         return F.linear(input, self.weight + self.sigma_weight * noise_v, bias)
 
 
+def perturb_noisy_layers(layer):
+    if type(layer) == NoisyFactorizedLinear or type(layer) == NoisyLinear:
+        layer.perturb()
+
+
 class Linear0(nn.Linear):
     def reset_parameters(self):
         nn.init.constant_(self.weight, 0.0)
         if self.bias is not None:
             nn.init.constant_(self.bias, 0.0)
-
-
-class TanhActionBound(nn.Module):
-    def __init__(self, action_space):
-        super().__init__()
-        self.register_buffer(
-            "weight", torch.tensor((action_space.high - action_space.low) / 2)
-        )
-        self.register_buffer(
-            "bias", torch.tensor((action_space.high + action_space.low) / 2)
-        )
-
-    def forward(self, x):
-        return torch.tanh(x) * self.weight + self.bias
 
 
 def kl_loss(mean, log_var):

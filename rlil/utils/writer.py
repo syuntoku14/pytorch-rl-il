@@ -53,7 +53,10 @@ class ExperimentWriter(SummaryWriter, Writer):
                  sample_episode_interval=1e2,
                  train_step_interval=1e2,
                  exp_info="default_experiments"):
-
+        try:
+            os.mkdir("runs")
+        except FileExistsError:
+            pass
         self.env_name = env_name
         self._add_scalar_interval = \
             {"sample_frames": sample_frame_interval,
@@ -112,8 +115,3 @@ def get_commit_hash():
 
 
 COMMIT_HASH = get_commit_hash()
-
-try:
-    os.mkdir("runs")
-except FileExistsError:
-    pass

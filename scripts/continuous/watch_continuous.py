@@ -13,6 +13,8 @@ def main():
     parser.add_argument("env", help="Name of the env")
     parser.add_argument("agent",
                         help="Name of the agent (e.g. ppo). See presets for available agents.")
+    parser.add_argument("--train", action="store_true",
+                        help="The model of lazy_agent: evaluation or training.")
     parser.add_argument(
         "dir", help="Directory where the agent's model was saved.")
     parser.add_argument(
@@ -34,14 +36,12 @@ def main():
     agent_fn = getattr(continuous, args.agent)()
     agent = agent_fn(env)
     agent.load(args.dir)
-    lazy_agent = agent.make_lazy_agent(evaluation=True)
-    lazy_agent.set_replay_buffer(env)
 
     # watch
-    watch(lazy_agent, env, fps=args.fps)
+    watch(agent, env, fps=args.fps, eval=not args.train)
 
 
-def watch(agent, env, fps=60):
+def watch(agent, env, fps=60, eval=True):
     action = None
     returns = 0
     # have to call this before initial reset for pybullet envs
@@ -50,13 +50,15 @@ def watch(agent, env, fps=60):
     while True:
         time.sleep(1 / fps)
         if env.done:
+            lazy_agent = agent.make_lazy_agent(evaluation=eval)
+            lazy_agent.set_replay_buffer(env)
             print('returns: {}'.format(returns))
             env.reset()
             returns = 0
         else:
             env.step(action)
         env.render()
-        action = agent.act(env.state, env.reward)
+        action = lazy_agent.act(env.state, env.reward)
         returns += env.reward
 
 
