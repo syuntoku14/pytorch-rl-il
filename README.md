@@ -73,8 +73,8 @@ python scripts/continuous/online_il.py [env] [agent (e.g. gail)] [base_agent (e.
 ![online_il](assets/online_il.png)
 
 
-### Distributed Sampling
-
+### Others
+- [x] [`Noisy Networks for Exploration`](https://arxiv.org/abs/1706.10295), [code](rlil/nn/__init__.py)
 - [ ] `Ape-X`: https://arxiv.org/abs/1803.00933. 
 
 ## Environments

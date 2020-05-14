@@ -91,9 +91,6 @@ class Trainer:
                             self._agent.train()
 
             self._agent.train()
-            # clear replay_buffer when on-policy
-            if is_on_policy_mode() and self._agent.should_train():
-                self._agent.replay_buffer.clear()
 
             training_msg = {
                 "training time [sec]": round(time.time() - iter_start_time, 2),

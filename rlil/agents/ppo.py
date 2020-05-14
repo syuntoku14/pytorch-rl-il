@@ -99,6 +99,9 @@ class PPO(Agent):
                         states[i], actions[i], pi_0[i], advantages[i], targets[i])
                     self.writer.train_steps += 1
 
+            # clear buffer for on-policy training
+            self.replay_buffer.clear()
+
     def _train_minibatch(self, states, actions, pi_0, advantages, targets):
         # forward pass
         features = self.feature_nw(states)

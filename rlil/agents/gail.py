@@ -43,6 +43,7 @@ class GAIL(Agent):
         return self.base_agent.act(*args, **kwargs)
 
     def train(self):
+        self._train_count += 1
         # train discriminator
         if self.should_train():
             samples, expert_samples = self.replay_buffer.sample_both(
@@ -66,7 +67,6 @@ class GAIL(Agent):
         self.base_agent.train()
 
     def should_train(self):
-        self._train_count += 1
         return len(self.replay_buffer) > self.replay_start_size and \
             self._train_count % self.update_frequency == 0
 
@@ -74,4 +74,4 @@ class GAIL(Agent):
         return self.base_agent.make_lazy_agent(*args, **kwargs)
 
     def load(self, dirname):
-        self.agent.load(dirname)
+        self.base_agent.load(dirname)
