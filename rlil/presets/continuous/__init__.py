@@ -1,4 +1,5 @@
 # from .actor_critic import actor_critic
+from .vac import vac
 from .ddpg import ddpg
 from .sac import sac
 from .td3 import td3
@@ -11,7 +12,8 @@ from .sqil import sqil
 from .airl import airl
 from .rs_mpc import rs_mpc
 
-__all__ = ['ddpg',
+__all__ = ['vac',
+           'ddpg',
            'sac',
            'td3',
            'noisy_td3',

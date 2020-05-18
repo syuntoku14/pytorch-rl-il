@@ -1,4 +1,5 @@
 from .base import Agent, LazyAgent
+from .vac import VAC
 from .ddpg import DDPG
 from .sac import SAC
 from .td3 import TD3
@@ -13,6 +14,7 @@ from .rs_mpc import RsMPC
 __all__ = [
     "Agent",
     "LazyAgent",
+    "VAC",
     "DDPG",
     "SAC",
     "TD3",

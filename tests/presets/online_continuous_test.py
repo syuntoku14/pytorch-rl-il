@@ -1,7 +1,13 @@
 import pytest
 from rlil.environments import GymEnvironment
-from rlil.presets.continuous import ddpg, sac, td3, noisy_td3, ppo, rs_mpc
+from rlil.presets.continuous import vac, ddpg, sac, td3, noisy_td3, ppo, rs_mpc
 from rlil.presets import env_validation, trainer_validation
+
+
+def test_vac():
+    env = GymEnvironment("MountainCarContinuous-v0")
+    env_validation(vac(replay_start_size=50), env, done_step=50)
+    trainer_validation(vac(replay_start_size=50), env)
 
 
 def test_ddpg():
