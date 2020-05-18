@@ -24,9 +24,11 @@ class SoftDeterministicPolicyNetwork(RLNetwork):
         super().__init__(model)
         self._action_dim = space.shape[0]
         self._tanh_scale = torch.tensor(
-            (space.high - space.low) / 2).to(self.device)
+            (space.high - space.low) / 2,
+            dtype=torch.float32, device=self.device)
         self._tanh_mean = torch.tensor(
-            (space.high + space.low) / 2).to(self.device)
+            (space.high + space.low) / 2,
+            dtype=torch.float32, device=self.device)
 
     def forward(self, state, return_mean=False):
         outputs = super().forward(state)

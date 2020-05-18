@@ -46,8 +46,10 @@ class RsMPC(Agent):
         self._reward_fn = reward_fn
         self._action_space = Action.action_space()
         self._action_uniform = Uniform(
-            low=torch.FloatTensor(self._action_space.low),
-            high=torch.FloatTensor(self._action_space.high),
+            low=torch.tensor(self._action_space.low,
+                             dtype=torch.float32, device=self.device),
+            high=torch.tensor(
+                self._action_space.high, dtype=torch.float32, device=self.device),
         )
         # hyperparameters
         self.minibatch_size = minibatch_size
@@ -64,9 +66,8 @@ class RsMPC(Agent):
 
     def _mpc(self, state):
         init_actions = self._make_random_actions(self._num_samples)
-        total_rewards = torch.zeros(self._num_samples).to(self.device)
-        state = State(torch.FloatTensor(
-            state.features.repeat(self._num_samples, 1))).to(self.device)
+        total_rewards = torch.zeros(self._num_samples, device=self.device)
+        state = State(state.features.repeat(self._num_samples, 1).to(self.device))
         for i in range(self._horizon):
             if i == 0:
                 actions = init_actions
@@ -106,8 +107,10 @@ class RsMPC(Agent):
     def make_lazy_agent(self, *args, **kwargs):
         model = deepcopy(self.dynamics.model)
         action_uniform = Uniform(
-            low=torch.FloatTensor(self._action_space.low).to("cpu"),
-            high=torch.FloatTensor(self._action_space.high).to("cpu"))
+            low=torch.tensor(self._action_space.low,
+                             dtype=torch.float32, device="cpu"),
+            high=torch.tensor(self._action_space.high,
+                              dtype=torch.float32, device="cpu"))
 
         return RsMpcLazyAgent(
             model.to("cpu"),

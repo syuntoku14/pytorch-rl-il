@@ -50,8 +50,10 @@ class DDPG(Agent):
         self.discount_factor = discount_factor
         # private
         action_space = Action.action_space()
-        self._noise = Normal(
-            0, noise * torch.FloatTensor((action_space.high - action_space.low) / 2).to(self.device))
+        self._noise = Normal(0,
+                             noise*torch.tensor(
+                                 (action_space.high - action_space.low) / 2,
+                                 dtype=torch.float32, device=self.device))
         self._states = None
         self._actions = None
 

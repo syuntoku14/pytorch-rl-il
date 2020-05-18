@@ -11,29 +11,32 @@ def check_inputs_shapes(store):
     def retfunc(self, states, actions, rewards, next_states):
         if states is None:
             return None
-        # device check
-        assert states.device == torch.device("cpu"), \
-            "Input states.device must be cpu"
-        assert actions.device == torch.device("cpu"), \
-            "Input actions.device must be cpu"
-        assert rewards.device == torch.device("cpu"), \
-            "Input rewards.device must be cpu"
-        assert next_states.device == torch.device("cpu"), \
-            "Input next_states.device must be cpu"
 
-        # type check
-        assert isinstance(
-            states, State), "Input invalid states type {}. states must be all.environments.State".format(type(states))
-        assert isinstance(
-            actions, Action), "Input invalid states type {}. actions must be all.environments.Action".format(type(actions))
-        assert isinstance(next_states, State), "Input invalid next_states type {}. next_states must be all.environments.State".format(
-            type(next_states))
-        assert isinstance(
-            rewards, torch.FloatTensor), "Input invalid rewards type {}. rewards must be torch.FloatTensor".format(type(rewards))
+        if is_debug_mode():
+            # device check
+            assert states.device == torch.device("cpu"), \
+                "Input states.device must be cpu"
+            assert actions.device == torch.device("cpu"), \
+                "Input actions.device must be cpu"
+            assert rewards.device == torch.device("cpu"), \
+                "Input rewards.device must be cpu"
+            assert next_states.device == torch.device("cpu"), \
+                "Input next_states.device must be cpu"
 
-        # shape check
-        assert len(rewards.shape) == 1, "rewards.shape {} must be 'shape == (batch_size)'".format(
-            rewards.shape)
+            # type check
+            assert isinstance(states, State), "Input invalid states type {}. \
+                states must be all.environments.State".format(type(states))
+            assert isinstance(actions, Action), "Input invalid states type {}. \
+                    actions must be all.environments.Action".format(type(actions))
+            assert isinstance(next_states, State), \
+                "Input invalid next_states type {}. next_states must be all.environments.State".format(
+                type(next_states))
+            assert isinstance(rewards, torch.Tensor), "Input invalid rewards type {}. \
+                rewards must be torch.Tensor".format(type(rewards))
+
+            # shape check
+            assert len(rewards.shape) == 1, "rewards.shape {} must be 'shape == (batch_size)'".format(
+                rewards.shape)
 
         return store(self, states, actions, rewards, next_states)
     return retfunc
@@ -80,7 +83,7 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         '''Sample from the stored transitions'''
         npsamples = self._buffer.sample(batch_size)
         samples = self.samples_from_cpprb(npsamples)
-        weights = torch.ones(batch_size).to(self.device)
+        weights = torch.ones(batch_size, device=self.device)
 
         return (*samples, weights)
 
@@ -110,11 +113,12 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         """
         device = self.device if device is None else device
 
-        states = State.from_numpy(npsamples["obs"]).to(device)
-        actions = Action.from_numpy(npsamples["act"]).to(device)
-        rewards = torch.FloatTensor(npsamples["rew"]).squeeze().to(device)
+        states = State.from_numpy(npsamples["obs"], device=device)
+        actions = Action.from_numpy(npsamples["act"], device=device)
+        rewards = torch.tensor(npsamples["rew"], dtype=torch.float32,
+                               device=device).squeeze()
         next_states = State.from_numpy(
-            npsamples["next_obs"], npsamples["done"]).to(device)
+            npsamples["next_obs"], npsamples["done"], device=device)
         return states, actions, rewards, next_states
 
     def clear(self):

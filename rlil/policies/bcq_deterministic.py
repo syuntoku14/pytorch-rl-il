@@ -27,9 +27,11 @@ class BCQDeterministicPolicyNetwork(RLNetwork):
     def __init__(self, model, space, phi=0.05):
         super().__init__(model)
         self._tanh_scale = torch.tensor(
-            (space.high - space.low) / 2).to(self.device)
+            (space.high - space.low) / 2,
+            dtype=torch.float32, device=self.device)
         self._tanh_mean = torch.tensor(
-            (space.high + space.low) / 2).to(self.device)
+            (space.high + space.low) / 2,
+            dtype=torch.float32, device=self.device)
         self.phi = phi
 
     def forward(self, states, vae_actions):

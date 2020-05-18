@@ -38,8 +38,10 @@ class SqilWrapper(BaseBufferWrapper):
         exp_states, exp_actions, exp_rewards, exp_next_states, exp_weights = \
             self.expert_buffer.sample(batch_size)
 
-        rewards = torch.zeros_like(rewards, dtype=torch.float32)
-        exp_rewards = torch.ones_like(exp_rewards, dtype=torch.float32)
+        rewards = torch.zeros_like(rewards, dtype=torch.float32,
+                                   device=self.device)
+        exp_rewards = torch.ones_like(exp_rewards, dtype=torch.float32,
+                                      device=self.device)
 
         states = State.from_list([states, exp_states])
         actions = Action.from_list([actions, exp_actions])

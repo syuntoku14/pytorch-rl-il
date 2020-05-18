@@ -32,14 +32,14 @@ def test_continuous_action(set_continuous_action_space):
 
     # WHEN a new Action object with valid input is made
     # THEN the raw is equal to Action.raw
-    raw = torch.FloatTensor([[0, 0], [2, 2], [-20, -20]])
+    raw = torch.tensor([[0, 0], [2, 2], [-20, -20]], dtype=torch.float32)
     action = Action(raw)
     tt.assert_equal(action.raw, raw)
 
     # WHEN a new Action object with a raw outside the action_space
     # THEN the action.features should clipped in the range
-    tt.assert_equal(action.features, torch.FloatTensor(
-        [[0, 0], [1, 2], [-1, -10]]))
+    tt.assert_equal(action.features, torch.tensor(
+        [[0, 0], [1, 2], [-1, -10]], dtype=torch.float32))
 
     # WHEN a new Action object with invalid input is made
     # THEN raise a assertion error

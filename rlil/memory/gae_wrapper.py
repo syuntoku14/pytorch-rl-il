@@ -30,7 +30,7 @@ class GaeWrapper(BaseBufferWrapper):
 
         # compute_gaes
         length = len(td_errors)
-        gaes = torch.zeros(length).to(self.device)
+        gaes = torch.zeros(length, device=self.device)
 
         gae = 0.0
         for i in reversed(range(length)):

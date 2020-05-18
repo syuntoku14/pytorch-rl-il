@@ -49,9 +49,9 @@ class NoisyTD3(TD3):
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
         self._noise_td3 = Normal(
-            0, noise_td3*torch.FloatTensor((
-                Action.action_space().high
-                - Action.action_space().low) / 2).to(self.device))
+            0, noise_td3*torch.tensor(
+                (Action.action_space().high - Action.action_space().low) / 2,
+                dtype=torch.float32, device=self.device))
 
         self._policy_update_td3 = policy_update_td3
         self._states = None

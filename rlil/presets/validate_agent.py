@@ -1,10 +1,13 @@
 import torch
 import numpy as np
+import ray
 from rlil.environments import State
 from rlil.initializer import is_on_policy_mode
+from rlil.samplers import AsyncSampler
+from rlil.experiments import Trainer
 
 
-def validate_agent(agent_fn, env, done_step=-1):
+def env_validation(agent_fn, env, done_step=-1):
     """
     Args:
         agent_fn (func): presets of the agent
@@ -36,3 +39,14 @@ def validate_agent(agent_fn, env, done_step=-1):
         agent.act(env.state, env.reward)
 
     assert num_trains > 0
+
+
+def trainer_validation(agent_fn, env, num_workers=3):
+    agent = agent_fn(env)
+    ray.init(include_webui=False, ignore_reinit_error=True)
+    sampler = AsyncSampler(
+        env,
+        num_workers=num_workers,
+    ) if num_workers > 0 else None
+    trainer = Trainer(agent, sampler, max_train_steps=1)
+    trainer.start_training()

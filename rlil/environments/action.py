@@ -36,9 +36,13 @@ def squash_action(raw, tanh_scale=None, tanh_mean=None, action_space=None):
     """
     if tanh_scale is None or tanh_mean is None:
         tanh_scale = torch.tensor(
-            (action_space.high - action_space.low) / 2).to(raw.device)
+            (action_space.high - action_space.low) / 2,
+            dtype=torch.float32,
+            device=raw.device)
         tanh_mean = torch.tensor(
-            (action_space.high + action_space.low) / 2).to(raw.device)
+            (action_space.high + action_space.low) / 2,
+            dtype=torch.float32,
+            device=raw.device)
 
     actions = torch.tanh(raw) * tanh_scale + tanh_mean
     return actions
@@ -87,12 +91,14 @@ class Action:
         cls._action_space = action_space
         device = get_device()
         if isinstance(action_space, gym.spaces.Box):
-            cls._low = torch.tensor(action_space.low, device=device)
-            cls._high = torch.tensor(action_space.high, device=device)
+            cls._low = torch.tensor(action_space.low,
+                                    dtype=torch.float32, device=device)
+            cls._high = torch.tensor(action_space.high,
+                                     dtype=torch.float32, device=device)
 
     @classmethod
-    def from_numpy(cls, actions):
-        raw = torch.from_numpy(actions)
+    def from_numpy(cls, actions, device="cpu"):
+        raw = torch.as_tensor(actions, device=device)
         return cls(raw)
 
     @classmethod

@@ -12,7 +12,7 @@ def set_action_space():
         low=np.array([-1, -10]), high=np.array([1, 10]))
     Action.set_action_space(action_space)
 
-    raw = torch.FloatTensor([[0, 0], [2, 2], [-20, -20]])
+    raw = torch.tensor([[0, 0], [2, 2], [-20, -20]], dtype=torch.float32)
     yield raw
 
 

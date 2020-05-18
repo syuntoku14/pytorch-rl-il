@@ -2,7 +2,7 @@ import pytest
 import gym
 from rlil.environments import GymEnvironment
 from rlil.presets.continuous import bcq, bc
-from rlil.presets import validate_agent
+from rlil.presets import env_validation, trainer_validation
 from rlil.memory import ExperienceReplayBuffer
 from rlil.environments import Action
 from rlil.initializer import set_replay_buffer
@@ -28,7 +28,8 @@ def test_bcq():
     transitions = get_transitions(env)
     assert len(transitions["obs"]) > 100
 
-    validate_agent(bcq(transitions), env, done_step=50)
+    env_validation(bcq(transitions), env, done_step=50)
+    trainer_validation(bcq(transitions), env, num_workers=0)
 
 
 def test_bc():
@@ -36,4 +37,5 @@ def test_bc():
     transitions = get_transitions(env)
     assert len(transitions["obs"]) > 100
 
-    validate_agent(bc(transitions), env, done_step=50)
+    env_validation(bc(transitions), env, done_step=50)
+    trainer_validation(bc(transitions), env, num_workers=0)

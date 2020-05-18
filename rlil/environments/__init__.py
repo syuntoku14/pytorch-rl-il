@@ -102,5 +102,6 @@ ENVS = {
 
 
 REWARDS = {
-    "Pendulum-v0": PendulumReward
+    "Pendulum-v0": PendulumReward,
+    "MountainCarContinuous-v0": MountainCarContinuousReward,
 }

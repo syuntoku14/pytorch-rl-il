@@ -4,11 +4,13 @@ from .base import Environment
 import torch
 import numpy as np
 import gym
+from rlil.initializer import get_device, is_debug_mode
 gym.logger.set_level(40)
 
 
 class GymEnvironment(Environment):
-    def __init__(self, env):
+    def __init__(self, env, device=torch.device("cpu")):
+        self.device = device
         self._name = env
         if isinstance(env, str):
             env = gym.make(env)
@@ -36,13 +38,15 @@ class GymEnvironment(Environment):
         state = self._env.reset()
         self._state = self._make_state(state, 0)
         self._action = None
-        self._reward = torch.FloatTensor([0])
+        self._reward = torch.tensor([0], dtype=torch.float32,
+                                    device=self.device)
         self._done = False
         return self._state
 
     def step(self, action):
-        assert isinstance(
-            action, Action), "Input invalid action type {}. action must be Action".format(type(action))
+        if is_debug_mode():
+            assert isinstance(
+                action, Action), "Input invalid action type {}. action must be Action".format(type(action))
         state, reward, done, info = self._env.step(
             self._convert_action(action))
         self._state = self._make_state(state, done, info)
@@ -102,22 +106,20 @@ class GymEnvironment(Environment):
             self._done_mask = torch.tensor(
                 [0],
                 dtype=torch.bool,
+                device=self.device
             )
             self._not_done_mask = torch.tensor(
                 [1],
                 dtype=torch.bool,
+                device=self.device
             )
             self._init = True
 
     def _make_state(self, raw, done, info=None):
         '''Convert numpy array into State'''
         return State(
-            torch.from_numpy(
-                np.array(
-                    raw,
-                    dtype=self.state_space.dtype
-                )
-            ).unsqueeze(0),
+            torch.as_tensor(raw.astype(self.state_space.dtype),
+                            device=self.device).unsqueeze(0),
             self._done_mask if done else self._not_done_mask,
             [info]
         )
@@ -130,7 +132,8 @@ class GymEnvironment(Environment):
         raise TypeError("Unknown action space type")
 
     def _convert_reward(self, reward):
-        if isinstance(reward, torch.FloatTensor):
+        if isinstance(reward, torch.Tensor):
             return reward
         else:
-            return torch.FloatTensor([reward])
+            return torch.tensor([reward], dtype=torch.float32,
+                                device=self.device)

@@ -2,7 +2,7 @@ import pytest
 import gym
 from rlil.environments import GymEnvironment
 from rlil.presets.continuous import airl, gail, sqil, td3, sac, ppo
-from rlil.presets import validate_agent
+from rlil.presets import env_validation, trainer_validation
 from rlil.memory import ExperienceReplayBuffer
 from rlil.environments import Action
 from rlil.initializer import set_replay_buffer, get_writer
@@ -29,9 +29,12 @@ def test_gail():
     base_agent_fn = td3(replay_start_size=0)
     assert len(transitions["obs"]) > 100
 
-    validate_agent(gail(transitions=transitions,
+    env_validation(gail(transitions=transitions,
                         base_agent_fn=base_agent_fn,
                         replay_start_size=10), env, done_step=50)
+    trainer_validation(gail(transitions=transitions,
+                            base_agent_fn=base_agent_fn,
+                            replay_start_size=10), env)
 
     writer = get_writer()
     assert writer.train_steps > 1
@@ -43,9 +46,12 @@ def test_sqil():
     base_agent_fn = sac(replay_start_size=0)
     assert len(transitions["obs"]) > 100
 
-    validate_agent(sqil(transitions=transitions,
+    env_validation(sqil(transitions=transitions,
                         base_agent_fn=base_agent_fn,
                         replay_start_size=10), env, done_step=50)
+    trainer_validation(sqil(transitions=transitions,
+                            base_agent_fn=base_agent_fn,
+                            replay_start_size=10), env)
 
     writer = get_writer()
     assert writer.train_steps > 1
@@ -57,9 +63,12 @@ def test_airl():
     base_agent_fn = ppo(replay_start_size=0)
     assert len(transitions["obs"]) > 100
 
-    validate_agent(airl(transitions=transitions,
+    env_validation(airl(transitions=transitions,
                         base_agent_fn=base_agent_fn,
                         replay_start_size=10), env, done_step=50)
+    trainer_validation(airl(transitions=transitions,
+                            base_agent_fn=base_agent_fn,
+                            replay_start_size=10), env)
 
     writer = get_writer()
     assert writer.train_steps > 1

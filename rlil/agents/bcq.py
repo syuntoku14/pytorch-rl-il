@@ -61,8 +61,7 @@ class BCQ(Agent):
         action_space = Action.action_space()
 
     def act(self, states, rewards):
-        states = State(torch.FloatTensor(
-            states.features.repeat(100, 1))).to(self.device)
+        states = State(states.features.repeat(100, 1).to(self.device))
         vae_actions = Action(self.decoder(states))
         policy_actions = self.policy.no_grad(states, vae_actions)
         policy_actions = Action(policy_actions)
@@ -178,8 +177,9 @@ class BcqLazyAgent(LazyAgent):
         super().act(states, reward)
         self._states = states
         with torch.no_grad():
-            states = State(torch.FloatTensor(
-                states.features.repeat(100, 1)))
+            states = State(torch.tensor(
+                states.features.repeat(100, 1),
+                dtype=torch.float32))
             vae_actions = Action(self._decoder_model(states))
             policy_actions = self._policy_model(states, vae_actions)
             policy_actions = Action(policy_actions)

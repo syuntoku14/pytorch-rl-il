@@ -89,22 +89,23 @@ class BcqDecoderModule(RLNetwork):
         super().__init__(model)
         self.latent_dim = latent_dim
         self._tanh_scale = torch.tensor(
-            (space.high - space.low) / 2).to(self.device)
+            (space.high - space.low) / 2,
+            dtype=torch.float32, device=self.device)
         self._tanh_mean = torch.tensor(
-            (space.high + space.low) / 2).to(self.device)
+            (space.high + space.low) / 2,
+            dtype=torch.float32, device=self.device)
 
     def forward(self, states, z=None):
         # When sampling from the VAE,
         # the latent vector is clipped to [-0.5, 0.5]
         if z is None:
-            z = torch.randn(states.features.size(0), self.latent_dim).to(
-                self.device).clamp(-0.5, 0.5)
+            z = torch.randn(states.features.size(0), self.latent_dim,
+                            device=self.device).clamp(-0.5, 0.5)
 
         actions = self.model(torch.cat((states.features.float(), z), dim=1))
         return squash_action(actions, self._tanh_scale, self._tanh_mean)
-    
+
     def to(self, device):
         self._tanh_mean = self._tanh_mean.to(device)
         self._tanh_scale = self._tanh_scale.to(device)
         return super().to(device)
-

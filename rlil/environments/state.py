@@ -28,7 +28,7 @@ class State:
                 assert len(raw.shape) > 1, \
                     "State.raw.shape {} is invalid. Batch_size must be specified".format(
                         raw.shape)
-            
+
             # check if info is valid
             if info is not None:
                 assert type(info) == list, \
@@ -67,16 +67,11 @@ class State:
                    np_raw,
                    np_done=None,
                    info=None,
-                   device='cpu',
+                   device="cpu",
                    dtype=np.float32):
-        raw = torch.from_numpy(
-            np.array(
-                np_raw,
-                dtype=dtype
-            )
-        )
-        mask = ~torch.tensor(
-            np_done, dtype=torch.bool).reshape(-1) if np_done is not None else None
+        raw = torch.as_tensor(np_raw.astype(dtype), device=device)
+        mask = ~torch.tensor(np_done, dtype=torch.bool,
+                             device=device).reshape(-1) if np_done is not None else None
         info = info if info is not None else [None] * len(raw)
         return cls(raw, mask=mask, info=info)
 
@@ -143,14 +138,3 @@ class State:
 
     def __len__(self):
         return len(self._raw)
-
-
-DONE = torch.tensor(
-    [0],
-    dtype=torch.bool,
-)
-
-NOT_DONE = torch.tensor(
-    [1],
-    dtype=torch.bool,
-)

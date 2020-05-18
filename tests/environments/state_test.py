@@ -2,7 +2,17 @@ import pytest
 import numpy as np
 import torch
 import torch_testing as tt
-from rlil.environments.state import State, DONE, NOT_DONE
+from rlil.environments.state import State
+
+DONE = torch.tensor(
+    [0],
+    dtype=torch.bool,
+)
+
+NOT_DONE = torch.tensor(
+    [1],
+    dtype=torch.bool,
+)
 
 
 def test_constructor_defaults():
@@ -62,7 +72,7 @@ def test_from_numpy():
     info = ['a']
     state = State.from_numpy(gym_obs, done, info)
 
-    tt.assert_equal(state.raw, torch.FloatTensor(gym_obs), )
+    tt.assert_equal(state.raw, torch.tensor(gym_obs, dtype=torch.float32), )
     tt.assert_equal(state.done, torch.tensor(done))
     assert state.info == ['a']
 
