@@ -7,7 +7,7 @@ test:
 	pytest -v --benchmark-skip
 
 benchmark:
-	pytest -v --benchmark-only --benchmark-autosave
+	pytest -v --benchmark-only
 
 autopep8:
 	autopep8 --in-place --recursive . 

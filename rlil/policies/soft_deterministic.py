@@ -18,6 +18,9 @@ class SoftDeterministicPolicy(Approximation):
         model = SoftDeterministicPolicyNetwork(model, space)
         super().__init__(model, optimizer, name=name, **kwargs)
 
+    def sample_multiple(self, states, num_sample=10):
+        return self.model.sample_multiple(states, num_sample)
+
 
 class SoftDeterministicPolicyNetwork(RLNetwork):
     def __init__(self, model, space):
@@ -37,25 +40,38 @@ class SoftDeterministicPolicyNetwork(RLNetwork):
             means = squash_action(means, self._tanh_scale, self._tanh_mean)
             return means
 
-        normal = self._normal(outputs)
-        action, log_prob = self._sample(normal)
-        return action, log_prob
-
-    def _normal(self, outputs):
+        # make normal distribution
         means = outputs[:, 0: self._action_dim]
         logvars = outputs[:, self._action_dim:]
         std = logvars.mul(0.5).exp_()
-        return torch.distributions.normal.Normal(means, std)
+        normal = torch.distributions.normal.Normal(means, std)
 
-    def _sample(self, normal):
-        raw = normal.rsample()
-        # see openai spinningup:
+        # sample from the normal distribution
+        # see openai spinningup for log_prob computation:
         # https://github.com/openai/spinningup/blob/e76f3cc1dfbf94fe052a36082dbd724682f0e8fd/spinup/algos/pytorch/sac/core.py#L53
+        raw = normal.rsample()
         log_prob = normal.log_prob(raw).sum(axis=-1)
         log_prob -= (2*(np.log(2) - raw - F.softplus(-2*raw))).sum(axis=1)
 
         action = squash_action(raw, self._tanh_scale, self._tanh_mean)
         return action, log_prob
+
+    def sample_multiple(self, state, num_sample=10):
+        # this function is used in BEAR training
+        outputs = super().forward(state)
+
+        # make normal distribution
+        means = outputs[:, 0: self._action_dim]
+        means = torch.repeat_interleave(means.unsqueeze(1), num_sample, 1)
+        logvars = outputs[:, self._action_dim:]
+        logvars = torch.repeat_interleave(logvars.unsqueeze(1), num_sample, 1)
+        std = logvars.mul(0.5).exp_()
+        # batch x num_sample x d
+        normal = torch.distributions.normal.Normal(means, std)
+        raw = normal.rsample()
+
+        action = squash_action(raw, self._tanh_scale, self._tanh_mean)
+        return action, raw
 
     def to(self, device):
         self._tanh_mean = self._tanh_mean.to(device)

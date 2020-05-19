@@ -1,4 +1,5 @@
 from .approximation import Approximation
+from .ensemble_q_continuous import EnsembleQContinuous
 from .q_continuous import QContinuous
 from .q_network import QNetwork
 from .v_network import VNetwork
@@ -12,6 +13,7 @@ from .dynamics import Dynamics
 
 __all__ = [
     "Approximation",
+    "EnsembleQContinuous",
     "QContinuous",
     "QNetwork",
     "VNetwork",

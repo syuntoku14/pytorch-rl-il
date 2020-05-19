@@ -193,3 +193,54 @@ class Linear0(nn.Linear):
 
 def kl_loss(mean, log_var):
     return -0.5 * (1 + log_var - mean.pow(2) - log_var.exp()).mean()
+
+
+def mmd_loss_laplacian(samples1, samples2, sigma=0.2):
+    """
+    MMD constraint with Laplacian kernel for support matching in BEAR
+    This code was stolen from: https://github.com/aviralkumar2907/BEAR/blob/master/algos.py
+    sigma is set to 10.0 for hopper, cheetah and 20 for walker/ant
+    """
+
+    # Batch x num_samples x num_samples x dimension
+    diff_x_x = samples1.unsqueeze(2) - samples1.unsqueeze(1)
+    diff_x_x = torch.mean(
+        (-(diff_x_x.abs()).sum(-1)/(2.0 * sigma)).exp(), dim=(1, 2))
+
+    diff_x_y = samples1.unsqueeze(2) - samples2.unsqueeze(1)
+    diff_x_y = torch.mean(
+        (-(diff_x_y.abs()).sum(-1)/(2.0 * sigma)).exp(), dim=(1, 2))
+
+    # Batch x num_samples x num_samples x dimension
+    diff_y_y = samples2.unsqueeze(2) - samples2.unsqueeze(1)
+    diff_y_y = torch.mean(
+        (-(diff_y_y.abs()).sum(-1)/(2.0 * sigma)).exp(), dim=(1, 2))
+
+    overall_loss = (diff_x_x + diff_y_y - 2.0 * diff_x_y + 1e-6).sqrt()
+    return overall_loss
+
+
+def mmd_loss_gaussian(samples1, samples2, sigma=0.2):
+    """
+    MMD constraint with Gaussian Kernel support matching in BEAR
+    This code was stolen from: https://github.com/aviralkumar2907/BEAR/blob/master/algos.py
+    sigma is set to 10.0 for hopper, cheetah and 20 for walker/ant
+    """
+
+    # Batch x num_samples x num_samples x dimension
+    diff_x_x = samples1.unsqueeze(
+        2) - samples1.unsqueeze(1)
+    diff_x_x = torch.mean(
+        (-(diff_x_x.pow(2)).sum(-1)/(2.0 * sigma)).exp(), dim=(1, 2))
+
+    diff_x_y = samples1.unsqueeze(2) - samples2.unsqueeze(1)
+    diff_x_y = torch.mean(
+        (-(diff_x_y.pow(2)).sum(-1)/(2.0 * sigma)).exp(), dim=(1, 2))
+
+    # Batch x num_samples x num_samples x dimension
+    diff_y_y = samples2.unsqueeze(2) - samples2.unsqueeze(1)
+    diff_y_y = torch.mean(
+        (-(diff_y_y.pow(2)).sum(-1)/(2.0 * sigma)).exp(), dim=(1, 2))
+
+    overall_loss = (diff_x_x + diff_y_y - 2.0 * diff_x_y + 1e-6).sqrt()
+    return overall_loss

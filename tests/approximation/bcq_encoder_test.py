@@ -16,6 +16,7 @@ def setUp():
     env = GymEnvironment('LunarLanderContinuous-v2')
     Action.set_action_space(env.action_space)
     latent_dim = 32
+    num_samples = 5
     encoder_model = fc_bcq_encoder(env, latent_dim=latent_dim)
     decoder_model = fc_bcq_decoder(env, latent_dim=latent_dim)
 
@@ -28,10 +29,9 @@ def setUp():
                          latent_dim=latent_dim,
                          space=env.action_space,
                          optimizer=decoder_optimizer)
-
-    sample_states = env.reset()
+    sample_states = State.from_list([env.reset() for _ in range(num_samples)])
     sample_actions = Action(
-        torch.tensor(env.action_space.sample()).unsqueeze(0))
+        torch.tensor([env.action_space.sample() for _ in range(num_samples)]))
 
     yield encoder, decoder, sample_states, sample_actions
 
@@ -42,6 +42,12 @@ def test_decode(setUp):
     z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
     dec = decoder(states, z)
     assert actions.features.shape == dec.shape
+
+
+def test_decode_multiple(setUp):
+    encoder, decoder, states, actions = setUp
+    dec = decoder.decode_multiple(states, 10)
+    assert (actions.raw.shape[0], 10, actions.raw.shape[-1]) == dec[0].shape
 
 
 def test_reinforce(setUp):
@@ -74,4 +80,3 @@ def test_reinforce(setUp):
         decoder.reinforce(new_loss)
         encoder.reinforce()
     assert new_loss < loss
-

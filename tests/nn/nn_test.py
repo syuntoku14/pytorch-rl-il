@@ -147,6 +147,17 @@ def test_perturb_noisy_layers(setUp):
     help_perturb_noisy_layers(model3, State(inputs))
 
 
+def test_mmd(setUp):
+    batch_size = 10
+    sample_size = 5
+    dimension = 3
+
+    sample_actions1 = torch.randn([batch_size, sample_size, dimension])
+    sample_actions2 = torch.randn([batch_size, sample_size, dimension])
+    nn.mmd_loss_laplacian(sample_actions1, sample_actions2)
+    nn.mmd_loss_gaussian(sample_actions1, sample_actions2)
+
+
 def assert_array_equal(actual, expected):
     for first, second in zip(actual, expected):
         if second is None:

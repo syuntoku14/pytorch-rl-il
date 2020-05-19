@@ -83,6 +83,9 @@ class BcqDecoder(Approximation):
             **kwargs
         )
 
+    def decode_multiple(self, states, num_decode=10):
+        return self.model.decode_multiple(states, num_decode)
+
 
 class BcqDecoderModule(RLNetwork):
     def __init__(self, model, latent_dim, space):
@@ -102,8 +105,22 @@ class BcqDecoderModule(RLNetwork):
             z = torch.randn(states.features.size(0), self.latent_dim,
                             device=self.device).clamp(-0.5, 0.5)
 
-        actions = self.model(torch.cat((states.features.float(), z), dim=1))
+        actions = self.model(torch.cat((states.features, z), dim=1))
         return squash_action(actions, self._tanh_scale, self._tanh_mean)
+
+    def decode_multiple(self, states, num_decode=10):
+        # this function is used in BEAR training
+        # batch x num_decode x latent_dim
+        z = torch.randn(
+            states.features.size(0), num_decode, self.latent_dim,
+            device=self.device).clamp(-0.5, 0.5)
+
+        # batch x num_decode x d
+        repeated_states = torch.repeat_interleave(
+            states.features.unsqueeze(1), num_decode, 1)
+        actions = self.model(torch.cat((repeated_states, z), dim=2))
+        return squash_action(actions, self._tanh_scale, self._tanh_mean), \
+            actions
 
     def to(self, device):
         self._tanh_mean = self._tanh_mean.to(device)

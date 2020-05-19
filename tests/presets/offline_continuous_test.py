@@ -1,7 +1,7 @@
 import pytest
 import gym
 from rlil.environments import GymEnvironment
-from rlil.presets.continuous import bcq, bc
+from rlil.presets.continuous import bcq, bc, bear
 from rlil.presets import env_validation, trainer_validation
 from rlil.memory import ExperienceReplayBuffer
 from rlil.environments import Action
@@ -29,7 +29,16 @@ def test_bcq():
     assert len(transitions["obs"]) > 100
 
     env_validation(bcq(transitions), env, done_step=50)
-    trainer_validation(bcq(transitions), env, num_workers=0)
+    trainer_validation(bcq(transitions), env, num_workers=0, eval_workers=1)
+
+
+def test_bear():
+    env = GymEnvironment('LunarLanderContinuous-v2')
+    transitions = get_transitions(env)
+    assert len(transitions["obs"]) > 100
+
+    # env_validation(bear(transitions), env, done_step=50)
+    trainer_validation(bear(transitions), env, num_workers=0, eval_workers=1)
 
 
 def test_bc():

@@ -1,22 +1,23 @@
 import torch
+from torch import nn
 from torch.optim import Adam
-from rlil.agents import BCQ
-from rlil.approximation import (QContinuous,
+from rlil.agents import BEAR
+from rlil.approximation import (EnsembleQContinuous,
                                 PolyakTarget,
                                 BcqEncoder,
                                 BcqDecoder)
-from rlil.policies import BCQDeterministicPolicy
+from rlil.policies import SoftDeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import (get_device,
                               set_replay_buffer,
                               disable_on_policy_mode)
 from .models import (fc_q,
-                     fc_bcq_deterministic_policy,
+                     fc_soft_policy,
                      fc_bcq_encoder,
                      fc_bcq_decoder)
 
 
-def bcq(
+def bear(
         transitions=None,
         # Common settings
         discount_factor=0.99,
@@ -28,10 +29,12 @@ def bcq(
         # Training settings
         minibatch_size=100,
         polyak_rate=0.005,
-        # Exploration settings
+        # BEAR settings
+        num_qs=2,
+        kernel_type="laplacian",
 ):
     """
-    Batch-Constrained Q-learning (BCQ) control preset
+    Bootstrapping error accumulation reduction (BEAR) control preset
 
     Args:
         transitions:
@@ -43,32 +46,24 @@ def bcq(
         lr_dec (float): Learning rate for the decoder.
         minibatch_size (int): Number of experiences to sample in each training update.
         polyak_rate (float): Speed with which to update the target network towards the online network.
+        num_qs (int): Number of q functions for ensemble.
     """
-    def _bcq(env):
+    def _bear(env):
         disable_on_policy_mode()
 
         device = get_device()
-        q_1_model = fc_q(env).to(device)
-        q_1_optimizer = Adam(q_1_model.parameters(), lr=lr_q)
-        q_1 = QContinuous(
-            q_1_model,
-            q_1_optimizer,
+        q_models = nn.ModuleList([fc_q(env) for _ in range(num_qs)]).to(device)
+        qs_optimizer = Adam(q_models.parameters(), lr=lr_q)
+        qs = EnsembleQContinuous(
+            q_models,
+            qs_optimizer,
             target=PolyakTarget(polyak_rate),
-            name='q_1'
+            name='qs'
         )
 
-        q_2_model = fc_q(env).to(device)
-        q_2_optimizer = Adam(q_2_model.parameters(), lr=lr_q)
-        q_2 = QContinuous(
-            q_2_model,
-            q_2_optimizer,
-            target=PolyakTarget(polyak_rate),
-            name='q_2'
-        )
-
-        policy_model = fc_bcq_deterministic_policy(env).to(device)
+        policy_model = fc_soft_policy(env).to(device)
         policy_optimizer = Adam(policy_model.parameters(), lr=lr_pi)
-        policy = BCQDeterministicPolicy(
+        policy = SoftDeterministicPolicy(
             policy_model,
             policy_optimizer,
             env.action_space,
@@ -76,7 +71,6 @@ def bcq(
         )
 
         latent_dim = env.action_space.shape[0] * 2
-
         encoder_model = fc_bcq_encoder(env, latent_dim=latent_dim).to(device)
         encoder_optimizer = Adam(encoder_model.parameters(), lr=lr_enc)
         encoder = BcqEncoder(
@@ -102,16 +96,16 @@ def bcq(
             replay_buffer.store(*samples)
         set_replay_buffer(replay_buffer)
 
-        return BCQ(
-            q_1=q_1,
-            q_2=q_2,
+        return BEAR(
+            qs=qs,
             encoder=encoder,
             decoder=decoder,
             policy=policy,
+            kernel_type=kernel_type,
             discount_factor=discount_factor,
             minibatch_size=minibatch_size,
         )
-    return _bcq
+    return _bear
 
 
-__all__ = ["bcq"]
+__all__ = ["bear"]

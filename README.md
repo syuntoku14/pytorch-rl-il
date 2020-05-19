@@ -53,6 +53,8 @@ python scripts/continuous/online.py [env] [agent] [path to the directory which i
 #### Offline RL
 
 - [x] [`Batch-Constrained Q-learning (BCQ)`](https://arxiv.org/abs/1812.02900), [code](rlil/agents/bcq.py)
+- [ ] [`Bootstrapping Error Accumulation Reduction (BEAR)`](https://arxiv.org/abs/1906.00949), [code](rlil/agents/bear.py)
+
 
 ![offline](assets/offline.png)
 

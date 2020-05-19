@@ -5,6 +5,7 @@ from .sac import SAC
 from .td3 import TD3
 from .noisy_td3 import NoisyTD3
 from .bcq import BCQ
+from .bear import BEAR
 from .bc import BC
 from .ppo import PPO
 from .gail import GAIL
@@ -20,6 +21,7 @@ __all__ = [
     "TD3",
     "NoisyTD3",
     "BCQ",
+    "BEAR",
     "BC",
     "PPO",
     "GAIL",

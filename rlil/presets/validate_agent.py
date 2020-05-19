@@ -41,12 +41,15 @@ def env_validation(agent_fn, env, done_step=-1):
     assert num_trains > 0
 
 
-def trainer_validation(agent_fn, env, num_workers=3):
+def trainer_validation(agent_fn, env, num_workers=3, eval_workers=0):
     agent = agent_fn(env)
     ray.init(include_webui=False, ignore_reinit_error=True)
     sampler = AsyncSampler(
         env,
         num_workers=num_workers,
     ) if num_workers > 0 else None
-    trainer = Trainer(agent, sampler, max_train_steps=1)
+    eval_sampler = AsyncSampler(
+        env,
+        num_workers=eval_workers) if eval_workers > 0 else None
+    trainer = Trainer(agent, sampler, eval_sampler, max_train_steps=1)
     trainer.start_training()
