@@ -113,7 +113,6 @@ class Approximation():
             loss = self._loss_scaling * loss
             self._writer.add_scalar("loss/" + self._name, loss.detach())
             loss.backward()
-        self._optimizer.zero_grad()
         self.step()
         return self
 
@@ -122,6 +121,7 @@ class Approximation():
         if self._clip_grad != 0:
             utils.clip_grad_norm_(self.model.parameters(), self._clip_grad)
         self._optimizer.step()
+        self._optimizer.zero_grad()
         self._target.update()
         if self._lr_scheduler:
             self._writer.add_scalar(
