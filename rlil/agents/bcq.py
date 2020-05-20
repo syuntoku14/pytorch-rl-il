@@ -57,8 +57,6 @@ class BCQ(Agent):
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
         self.lambda_q = lambda_q
-        # private
-        action_space = Action.action_space()
 
     def act(self, states, rewards):
         states = State(states.features.repeat(100, 1).to(self.device))

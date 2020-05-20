@@ -6,6 +6,7 @@ from .td3 import td3
 from .noisy_td3 import noisy_td3
 from .ppo import ppo
 from .bc import bc
+from .vae_bc import vae_bc
 from .bcq import bcq
 from .bear import bear
 from .gail import gail
@@ -22,6 +23,7 @@ __all__ = ['vac',
            'bcq',
            'bear',
            'bc',
+           'vae_bc',
            'gail',
            'sqil',
            'airl',

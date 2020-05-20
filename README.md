@@ -22,6 +22,7 @@ You can test the algorithms by:
 python scripts/continuous/online.py [env] [agent] [options]
 ```
 
+- [x] [`Vanilla Actor Critic (VAC)`](https://papers.nips.cc/paper/1786-actor-critic-algorithms.pdf), [code](rlil/agents/vac.py)
 - [x] [`Deep DPG (DDPG)`](https://arxiv.org/abs/1509.02971), [code](rlil/agents/ddpg.py)
 - [x] [`Twind Dueling DDPG (TD3)`](https://arxiv.org/abs/1802.09477), [code](rlil/agents/td3.py)
 - [x] [`Soft Actor Critic (SAC)`](https://arxiv.org/abs/1801.01290), [code](rlil/agents/sac.py)
@@ -49,11 +50,12 @@ python scripts/continuous/online.py [env] [agent] [path to the directory which i
 #### Offline IL
 
 - [x] `Behavioral Cloning (BC)`, [code](rlil/agents/bc.py)
+- [x] `VAE Behavioral Cloning (VAE-BC)`, [code](rlil/agents/vae_bc.py)
 
 #### Offline RL
 
 - [x] [`Batch-Constrained Q-learning (BCQ)`](https://arxiv.org/abs/1812.02900), [code](rlil/agents/bcq.py)
-- [ ] [`Bootstrapping Error Accumulation Reduction (BEAR)`](https://arxiv.org/abs/1906.00949), [code](rlil/agents/bear.py)
+- [ ] [`Bootstrapping Error Accumulation Reduction (BEAR)*`](https://arxiv.org/abs/1906.00949), [code](rlil/agents/bear.py)
 
 
 ![offline](assets/offline.png)

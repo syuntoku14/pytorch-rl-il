@@ -35,9 +35,6 @@ class BC(Agent):
         self.device = get_device()
         # hyperparameters
         self.minibatch_size = minibatch_size
-        action_space = Action.action_space()
-        self._low = torch.tensor(action_space.low, device=self.device)
-        self._high = torch.tensor(action_space.high, device=self.device)
 
     def act(self, states, reward):
         self._states = states
