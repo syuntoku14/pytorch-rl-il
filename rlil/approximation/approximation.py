@@ -108,12 +108,12 @@ class Approximation():
         '''Run a forward pass of the target network.'''
         return self._target(*inputs)
 
-    def reinforce(self, loss, backward=True):
-        loss = self._loss_scaling * loss
-        self._writer.add_scalar("loss/" + self._name, loss.detach())
-        self._optimizer.zero_grad()
-        if backward:
+    def reinforce(self, loss=None):
+        if loss is not None:
+            loss = self._loss_scaling * loss
+            self._writer.add_scalar("loss/" + self._name, loss.detach())
             loss.backward()
+        self._optimizer.zero_grad()
         self.step()
         return self
 

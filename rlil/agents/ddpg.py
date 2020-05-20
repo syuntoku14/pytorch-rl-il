@@ -78,13 +78,13 @@ class DDPG(Agent):
             targets = rewards + self.discount_factor * \
                 self.q.target(next_states, Action(
                     self.policy.target(next_states)))
-            loss = mse_loss(q_values, targets)
-            self.q.reinforce(loss)
+            q_loss = mse_loss(q_values, targets)
+            self.q.reinforce(q_loss)
 
             # train policy
             greedy_actions = Action(self.policy(states))
-            loss = -self.q(states, greedy_actions).mean()
-            self.policy.reinforce(loss)
+            policy_loss = -self.q(states, greedy_actions).mean()
+            self.policy.reinforce(policy_loss)
 
             self.writer.train_steps += 1
 

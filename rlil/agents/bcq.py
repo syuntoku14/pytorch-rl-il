@@ -63,8 +63,7 @@ class BCQ(Agent):
     def act(self, states, rewards):
         states = State(states.features.repeat(100, 1).to(self.device))
         vae_actions = Action(self.decoder(states))
-        policy_actions = self.policy.no_grad(states, vae_actions)
-        policy_actions = Action(policy_actions)
+        policy_actions = Action(self.policy.no_grad(states, vae_actions))
         q_1 = self.q_1(states, policy_actions)
         ind = q_1.argmax(0).item()
         return policy_actions[ind].to("cpu")

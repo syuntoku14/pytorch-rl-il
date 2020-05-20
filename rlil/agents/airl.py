@@ -57,8 +57,8 @@ class AIRL(GAIL):
             discrim_loss = self.discrim_criterion(fake, torch.ones_like(fake)) + \
                 self.discrim_criterion(real, torch.zeros_like(real))
             discrim_loss.backward()
-            self.reward_fn.reinforce(discrim_loss, backward=False)
-            self.value_fn.reinforce(discrim_loss, backward=False)
+            self.reward_fn.reinforce()
+            self.value_fn.reinforce()
 
             # additional debugging info
             self.writer.add_scalar('airl/fake', fake.mean())

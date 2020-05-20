@@ -111,11 +111,11 @@ class BEAR(Agent):
                 next_states.features, 10, 0).to(self.device))
 
             # Compute value of perturbed actions sampled from the VAE
-            next_vae_actions = Action(self.decoder(next_states_10))
-            next_actions = Action(
-                self.policy.target(next_states_10, next_vae_actions))
+            next_vae_actions_10 = Action(self.decoder(next_states_10))
+            next_actions_10 = Action(
+                self.policy.target(next_states_10, next_vae_actions_10))
             # (batch x 10) x num_q
-            qs_targets = self.qs.target(next_states_10, next_actions)
+            qs_targets = self.qs.target(next_states_10, next_actions_10)
 
             # Soft Clipped Double Q-learning
             # (batch x 10) x 1
@@ -130,27 +130,24 @@ class BEAR(Agent):
                 next_states.mask.float().reshape(-1, 1)
 
         current_qs = self.qs(states, actions)  # batch x num_q
-        q_targets = torch.repeat_interleave(q_targets, current_qs.shape[1], 1)
-        q_loss = mse_loss(current_qs, q_targets)
+        repeated_q_targets = torch.repeat_interleave(
+            q_targets, current_qs.shape[1], 1)
+        q_loss = mse_loss(current_qs, repeated_q_targets)
         self.qs.reinforce(q_loss)
 
         # train policy
         # batch x num_samples_match x d
         vae_actions, raw_vae_actions = \
             self.decoder.decode_multiple(states, self.num_samples_match)
-        sampled_actions, raw_sampled_actions = \
+        actor_actions, raw_actor_actions = \
             self.policy.sample_multiple(states, self.num_samples_match)
 
         if self.kernel_type == 'gaussian':
             mmd_loss = nn.mmd_loss_gaussian(
-                raw_vae_actions, raw_sampled_actions, sigma=self.mmd_sigma)
+                raw_vae_actions, raw_actor_actions, sigma=self.mmd_sigma)
         else:
             mmd_loss = nn.mmd_loss_laplacian(
-                raw_vae_actions, raw_sampled_actions, sigma=self.mmd_sigma)
-
-        action_divergence = ((vae_actions - sampled_actions)**2).sum(-1)
-        raw_action_divergence = (
-            (raw_vae_actions - raw_sampled_actions)**2).sum(-1)
+                raw_vae_actions, raw_actor_actions, sigma=self.mmd_sigma)
 
         # Update through TD3 style
         # (batch x num_samples_match) x d
@@ -158,7 +155,7 @@ class BEAR(Agent):
             states.features.unsqueeze(1),
             self.num_samples_match, 1).view(-1, states.features.shape[1])
         repeated_actions = \
-            sampled_actions.contiguous().view(-1, sampled_actions.shape[2])
+            actor_actions.contiguous().view(-1, actor_actions.shape[2])
         # (batch x num_samples_match) x num_q
         critic_qs = self.qs(State(repeated_states), Action(repeated_actions))
         # batch x num_samples_match x num_q
@@ -174,21 +171,18 @@ class BEAR(Agent):
         if self._train_count >= 20:
             actor_loss = (-critic_qs + self._lambda *
                           (np.sqrt((1 - self.delta_conf) / self.delta_conf)) *
-                          std_q + self.log_lagrange2.exp() * mmd_loss).mean()
+                          std_q + self.log_lagrange2.exp().detach() * mmd_loss).mean()
         else:
             actor_loss = (self.log_lagrange2.exp() * mmd_loss).mean()
 
         std_loss = self._lambda * (np.sqrt((1 - self.delta_conf) /
                                            self.delta_conf)) * std_q.detach().mean()
-        actor_loss.backward(retain_graph=True)
-        self.policy.reinforce(actor_loss, backward=False)
+        self.policy.reinforce(actor_loss)
 
         # update lagrange multipliers
         thresh = 0.05
-        lagrange_loss = (-critic_qs.detach() + self._lambda *
-                         (np.sqrt((1 - self.delta_conf) / self.delta_conf)) *
-                         std_q.detach() + self.log_lagrange2.exp() *
-                         (mmd_loss.detach() - thresh)).mean()
+        lagrange_loss = (self.log_lagrange2.exp() *
+                         (mmd_loss - thresh).detach()).mean()
 
         self.lagrange2_opt.zero_grad()
         (-lagrange_loss).backward()

@@ -62,12 +62,15 @@ class SoftDeterministicPolicyNetwork(RLNetwork):
 
         # make normal distribution
         means = outputs[:, 0: self._action_dim]
-        means = torch.repeat_interleave(means.unsqueeze(1), num_sample, 1)
+        repeated_means = torch.repeat_interleave(
+            means.unsqueeze(1), num_sample, 1)
         logvars = outputs[:, self._action_dim:]
-        logvars = torch.repeat_interleave(logvars.unsqueeze(1), num_sample, 1)
-        std = logvars.mul(0.5).exp_()
+        repeated_logvars = torch.repeat_interleave(
+            logvars.unsqueeze(1), num_sample, 1)
+        repeated_std = repeated_logvars.mul(0.5).exp_()
         # batch x num_sample x d
-        normal = torch.distributions.normal.Normal(means, std)
+        normal = torch.distributions.normal.Normal(
+            repeated_means, repeated_std)
         raw = normal.rsample()
 
         action = squash_action(raw, self._tanh_scale, self._tanh_mean)

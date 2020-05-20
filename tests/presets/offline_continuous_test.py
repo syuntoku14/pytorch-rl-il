@@ -37,7 +37,7 @@ def test_bear():
     transitions = get_transitions(env)
     assert len(transitions["obs"]) > 100
 
-    # env_validation(bear(transitions), env, done_step=50)
+    env_validation(bear(transitions), env, done_step=50)
     trainer_validation(bear(transitions), env, num_workers=0, eval_workers=1)
 
 
