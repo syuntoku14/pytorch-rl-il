@@ -28,7 +28,7 @@ def brac(
         bc_iters=5000,
         minibatch_size=100,
         polyak_rate=0.005,
-        alpha=0.001
+        alpha=0.1
 ):
     """
     Bootstrapping error accumulation reduction (BEAR) control preset

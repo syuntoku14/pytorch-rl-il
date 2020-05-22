@@ -54,9 +54,12 @@ python scripts/continuous/online.py [env] [agent] [path to the directory which i
 
 #### Offline RL
 
+These offline rl implementations should be incorrect and the result doesn't follow the result of the original paper.
+Any contributions and suggestions are welcome.
+
 - [x] [`Batch-Constrained Q-learning (BCQ)`](https://arxiv.org/abs/1812.02900), [code](rlil/agents/bcq.py)
-- [ ] [`Bootstrapping Error Accumulation Reduction (BEAR)`](https://arxiv.org/abs/1906.00949), [code](rlil/agents/bear.py): RLIL support the code of BEAR, but currently it doesn't work. Use BRAC instead.
-- [ ] [`Behavior Regularized Actor Critic (BRAC)`](https://arxiv.org/abs/1911.11361), [code](rlil/agents/brac.py)
+- [ ] [`Bootstrapping Error Accumulation Reduction (BEAR)`](https://arxiv.org/abs/1906.00949), [code](rlil/agents/bear.py)
+- [x] [`Behavior Regularized Actor Critic (BRAC)`](https://arxiv.org/abs/1911.11361), [code](rlil/agents/brac.py)
 
 
 ![offline](assets/offline.png)
@@ -79,6 +82,7 @@ python scripts/continuous/online_il.py [env] [agent (e.g. gail)] [base_agent (e.
 
 
 ### Others
+
 - [x] [`Noisy Networks for Exploration`](https://arxiv.org/abs/1706.10295), [code](rlil/nn/__init__.py)
 - [ ] `Ape-X`: https://arxiv.org/abs/1803.00933. 
 

@@ -24,6 +24,8 @@ def main():
         default="cpu",
         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)",
     )
+    parser.add_argument("--train", action="store_true",
+                        help="The model of lazy_agent: evaluation or training.")
     parser.add_argument("--num_workers", type=int, default=1,
                         help="Number of workers for training")
     parser.add_argument("--frames", type=int, default=1e6,
@@ -44,7 +46,7 @@ def main():
     agent_fn = getattr(continuous, agent_name)()
     agent = agent_fn(env)
     agent.load(args.dir)
-    lazy_agent = agent.make_lazy_agent(evaluation=True, store_samples=True)
+    lazy_agent = agent.make_lazy_agent(evaluation=not args.train, store_samples=True)
 
     # reset ExperienceReplayBuffer
     set_replay_buffer(ExperienceReplayBuffer(args.frames + 10, env))

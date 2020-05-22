@@ -54,7 +54,7 @@ class BRAC(Agent):
                  policy,
                  behavior_policy,
                  bc_iters=5000,
-                 alpha=0.001,
+                 alpha=0.1,
                  n_div_samples=4,
                  discount_factor=0.99,
                  minibatch_size=100,
@@ -114,7 +114,7 @@ class BRAC(Agent):
 
         # Update policy with a warmstart
         policy_loss = self.alpha * kl
-        if self._train_count >= 30:
+        if self._train_count >= 5000:
             policy_actions, _ = self.policy(states)
             policy_loss -= self.q_1(states, Action(policy_actions))
         self.policy.reinforce(policy_loss.mean())

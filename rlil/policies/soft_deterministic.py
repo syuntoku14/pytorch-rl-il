@@ -74,7 +74,9 @@ class SoftDeterministicPolicyNetwork(RLNetwork):
         # batch x num_sample x d
         normal = torch.distributions.normal.Normal(
             repeated_means, repeated_std)
-        return normal
+        raw = normal.rsample()
+        action = squash_action(raw, self._tanh_scale, self._tanh_mean)
+        return action, raw
 
     def compute_log_prob(self, raw, normal):
         # see openai spinningup for log_prob computation:

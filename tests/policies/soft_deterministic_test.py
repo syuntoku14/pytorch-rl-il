@@ -49,6 +49,6 @@ def test_reinforce_one(setUp):
 def test_sample_multiple(setUp):
     policy = setUp
     state = State(torch.randn(5, STATE_DIM))
-    normal = policy.sample_multiple(state, num_sample=10)
-    raw_actions = normal.rsample()
+    actions, raw_actions = policy.sample_multiple(state, num_sample=10)
+    assert actions.shape == (5, 10, ACTION_DIM)
     assert raw_actions.shape == (5, 10, ACTION_DIM)

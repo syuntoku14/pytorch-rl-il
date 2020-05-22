@@ -34,7 +34,7 @@ class BEAR(Agent):
         discount_factor (float): Discount factor for future rewards.
         minibatch_size (int): The number of experiences to sample in each training update.
         lambda_q (float): Weight for soft clipped double q-learning
-        _lambda (float): Weight for actor loss with mmd_loss
+        _lambda (float): Weight for actor loss with mmd
     """
 
     def __init__(self,
@@ -97,7 +97,7 @@ class BEAR(Agent):
         z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
         vae_actions = Action(self.decoder(states, z))
         vae_mse = mse_loss(actions.features, vae_actions.features)
-        vae_kl = nn.kl_loss(mean, log_var)
+        vae_kl = nn.kl_loss_vae(mean, log_var)
         vae_loss = (vae_mse + 0.5 * vae_kl)
         self.decoder.reinforce(vae_loss)
         self.encoder.reinforce()
@@ -143,17 +143,17 @@ class BEAR(Agent):
             self.policy.sample_multiple(states, self.num_samples_match)
 
         if self.kernel_type == 'gaussian':
-            mmd_loss = nn.mmd_loss_gaussian(
+            mmd = nn.mmd_gaussian(
                 raw_vae_actions, raw_actor_actions, sigma=self.mmd_sigma)
         else:
-            mmd_loss = nn.mmd_loss_laplacian(
+            mmd = nn.mmd_laplacian(
                 raw_vae_actions, raw_actor_actions, sigma=self.mmd_sigma)
 
         # Update through TD3 style
         # (batch x num_samples_match) x d
         repeated_states = torch.repeat_interleave(
             states.features.unsqueeze(1),
-            self.num_samples_match, 1).view(-1, states.features.shape[1])
+            self.num_samples_match, 1).view(-1, states.shape[1])
         repeated_actions = \
             actor_actions.contiguous().view(-1, actor_actions.shape[2])
         # (batch x num_samples_match) x num_q
@@ -171,9 +171,9 @@ class BEAR(Agent):
         if self._train_count >= 20:
             actor_loss = (-critic_qs + self._lambda *
                           (np.sqrt((1 - self.delta_conf) / self.delta_conf)) *
-                          std_q + self.log_lagrange2.exp().detach() * mmd_loss).mean()
+                          std_q + self.log_lagrange2.exp().detach() * mmd).mean()
         else:
-            actor_loss = (self.log_lagrange2.exp() * mmd_loss).mean()
+            actor_loss = (self.log_lagrange2.exp() * mmd).mean()
 
         std_loss = self._lambda * (np.sqrt((1 - self.delta_conf) /
                                            self.delta_conf)) * std_q.detach().mean()
@@ -182,14 +182,14 @@ class BEAR(Agent):
         # update lagrange multipliers
         thresh = 0.05
         lagrange_loss = (self.log_lagrange2.exp() *
-                         (mmd_loss - thresh).detach()).mean()
+                         (mmd - thresh).detach()).mean()
 
         self.lagrange2_opt.zero_grad()
         (-lagrange_loss).backward()
         self.lagrange2_opt.step()
         self.log_lagrange2.data.clamp_(min=-5.0, max=10.0)
 
-        self.writer.add_scalar('loss/mmd', mmd_loss.detach().mean())
+        self.writer.add_scalar('loss/mmd', mmd.detach().mean())
         self.writer.add_scalar('loss/actor', actor_loss.detach())
         self.writer.add_scalar('loss/qs', q_loss.detach())
         self.writer.add_scalar('loss/std', std_loss.detach())
