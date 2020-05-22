@@ -56,8 +56,8 @@ class VaeBC(Agent):
         z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
         vae_actions = Action(self.decoder(states, z))
         vae_mse = mse_loss(actions.features, vae_actions.features)
-        vae_kl = nn.kl_loss(mean, log_var)
-        vae_loss = (vae_mse + 0.5 * vae_kl)
+        vae_kl = nn.kl_loss_vae(mean, log_var)
+        vae_loss = vae_mse + vae_kl
         self.decoder.reinforce(vae_loss)
         self.encoder.reinforce()
         self.writer.add_scalar('loss/vae/mse', vae_mse.detach())

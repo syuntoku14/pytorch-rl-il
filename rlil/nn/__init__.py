@@ -191,11 +191,22 @@ class Linear0(nn.Linear):
             nn.init.constant_(self.bias, 0.0)
 
 
-def kl_loss(mean, log_var):
+def kl_gaussian(mean1, log_var1, mean2, log_var2, epsilon=1e-4):
+    # KL(p||q) when q == N(mean1, log_var1.exp())
+    # and p == N(mean2, log_var2.exp())
+    # epsilon is for numerical instability
+    return 0.5 * (log_var2 - log_var1 +
+                  log_var1.exp() / (log_var2.exp() + epsilon) +
+                  (mean2 - mean1).pow(2) / (log_var2.exp() + epsilon)).sum(-1)
+
+
+def kl_loss_vae(mean, log_var):
+    # loss of KL(q||p) when q == N(mean, log_var.exp()), and p == N(0, 1)
+    # See appendix B in https://arxiv.org/pdf/1312.6114.pdf
     return -0.5 * (1 + log_var - mean.pow(2) - log_var.exp()).mean()
 
 
-def mmd_loss_laplacian(samples1, samples2, sigma=0.2):
+def mmd_laplacian(samples1, samples2, sigma=10.0):
     """
     MMD constraint with Laplacian kernel for support matching in BEAR
     This code was stolen from: https://github.com/aviralkumar2907/BEAR/blob/master/algos.py
@@ -220,7 +231,7 @@ def mmd_loss_laplacian(samples1, samples2, sigma=0.2):
     return overall_loss
 
 
-def mmd_loss_gaussian(samples1, samples2, sigma=0.2):
+def mmd_gaussian(samples1, samples2, sigma=10.0):
     """
     MMD constraint with Gaussian Kernel support matching in BEAR
     This code was stolen from: https://github.com/aviralkumar2907/BEAR/blob/master/algos.py

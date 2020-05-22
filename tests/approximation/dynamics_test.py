@@ -27,7 +27,7 @@ def test_forward(setUp):
         action = Action(
             torch.tensor(env.action_space.sample()).unsqueeze(0))
         output = dynamics(state, action)
-        assert state.features.shape == output.features.shape
+        assert state.shape == output.shape
         tt.assert_equal(state.mask, output.mask)
 
 

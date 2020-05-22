@@ -79,7 +79,7 @@ class SAC(Agent):
                 self.minibatch_size)
 
             # compute targets for Q and V
-            _actions, _log_probs = self.policy.no_grad(states)
+            _actions, _log_probs = self.policy.target(states)
             q_targets = rewards + self.discount_factor * \
                 self.v.target(next_states)
             v_targets = torch.min(

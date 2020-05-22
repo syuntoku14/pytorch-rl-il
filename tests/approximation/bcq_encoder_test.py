@@ -41,13 +41,13 @@ def test_decode(setUp):
     mean, log_var = encoder(states, actions)
     z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
     dec = decoder(states, z)
-    assert actions.features.shape == dec.shape
+    assert actions.shape == dec.shape
 
 
 def test_decode_multiple(setUp):
     encoder, decoder, states, actions = setUp
     dec = decoder.decode_multiple(states, 10)
-    assert (actions.raw.shape[0], 10, actions.raw.shape[-1]) == dec[0].shape
+    assert (actions.shape[0], 10, actions.shape[-1]) == dec[0].shape
 
 
 def test_reinforce(setUp):
@@ -70,13 +70,13 @@ def test_reinforce(setUp):
     # reinforce mse
     z = mean + (0.5 * log_var).exp() * torch.randn_like(log_var)
     dec = decoder(states, z)
-    loss = nn.kl_loss(mean, log_var)
+    loss = nn.kl_loss_vae(mean, log_var)
 
     for _ in range(10):
         mean, log_var = encoder(states, actions)
         z = mean + log_var.exp() * torch.randn_like(log_var)
         dec = decoder(states, z)
-        new_loss = nn.kl_loss(mean, log_var)
+        new_loss = nn.kl_loss_vae(mean, log_var)
         decoder.reinforce(new_loss)
         encoder.reinforce()
     assert new_loss < loss

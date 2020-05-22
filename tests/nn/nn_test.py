@@ -154,8 +154,8 @@ def test_mmd(setUp):
 
     sample_actions1 = torch.randn([batch_size, sample_size, dimension])
     sample_actions2 = torch.randn([batch_size, sample_size, dimension])
-    nn.mmd_loss_laplacian(sample_actions1, sample_actions2)
-    nn.mmd_loss_gaussian(sample_actions1, sample_actions2)
+    nn.mmd_laplacian(sample_actions1, sample_actions2)
+    nn.mmd_gaussian(sample_actions1, sample_actions2)
 
 
 def assert_array_equal(actual, expected):

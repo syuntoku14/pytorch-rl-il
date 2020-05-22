@@ -114,8 +114,13 @@ class State:
         )
 
     def detach(self):
-        self._raw.detach()
-        return self
+        return State(
+            self._raw.detach(), self._mask.detach(), self._info
+        )
+
+    @property
+    def shape(self):
+        return self._raw.shape
 
     def __getitem__(self, idx):
         if isinstance(idx, slice):

@@ -56,6 +56,9 @@ class AIRL(GAIL):
                                               exp_next_states)
             discrim_loss = self.discrim_criterion(fake, torch.ones_like(fake)) + \
                 self.discrim_criterion(real, torch.zeros_like(real))
+
+            self.reward_fn.zero_grad()
+            self.value_fn.zero_grad()
             discrim_loss.backward()
             self.reward_fn.reinforce()
             self.value_fn.reinforce()

@@ -107,7 +107,7 @@ class Trainer:
                     start_info=self._get_current_info(),
                     worker_episodes=10)
                 eval_sample_result = self._eval_sampler.store_samples(
-                    timeout=0.05, evaluation=True)
+                    timeout=1e-5, evaluation=True)
 
                 for start_info, sample_info in eval_sample_result.items():
                     self._log(start_info, sample_info)

@@ -9,6 +9,7 @@ from .bc import bc
 from .vae_bc import vae_bc
 from .bcq import bcq
 from .bear import bear
+from .brac import brac
 from .gail import gail
 from .sqil import sqil
 from .airl import airl
@@ -22,6 +23,7 @@ __all__ = ['vac',
            'ppo',
            'bcq',
            'bear',
+           'brac',
            'bc',
            'vae_bc',
            'gail',
