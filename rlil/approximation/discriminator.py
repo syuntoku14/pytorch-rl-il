@@ -21,7 +21,7 @@ class Discriminator(Approximation):
 
     def expert_reward(self, features):
         rew = torch.log(self.model(features)) - \
-             torch.log(1 - self.model(features))
+            torch.log(1 - self.model(features))
         return rew.squeeze().detach()
 
 

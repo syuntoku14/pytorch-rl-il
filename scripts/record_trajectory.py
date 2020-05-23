@@ -46,7 +46,8 @@ def main():
     agent_fn = getattr(continuous, agent_name)()
     agent = agent_fn(env)
     agent.load(args.dir)
-    lazy_agent = agent.make_lazy_agent(evaluation=not args.train, store_samples=True)
+    lazy_agent = agent.make_lazy_agent(
+        evaluation=not args.train, store_samples=True)
 
     # reset ExperienceReplayBuffer
     set_replay_buffer(ExperienceReplayBuffer(args.frames + 10, env))

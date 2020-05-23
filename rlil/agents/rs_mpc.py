@@ -67,7 +67,8 @@ class RsMPC(Agent):
     def _mpc(self, state):
         init_actions = self._make_random_actions(self._num_samples)
         total_rewards = torch.zeros(self._num_samples, device=self.device)
-        state = State(state.features.repeat(self._num_samples, 1).to(self.device))
+        state = State(state.features.repeat(
+            self._num_samples, 1).to(self.device))
         for i in range(self._horizon):
             if i == 0:
                 actions = init_actions

@@ -27,7 +27,8 @@ class MountainCarContinuousReward:
     def __call__(self, states, next_states, actions):
         positions = states.features[:, 0]
         velocities = states.features[:, 1]
-        goals = (positions >= self.goal_position) & (velocities >= self.goal_velocity)
+        goals = (positions >= self.goal_position) & (
+            velocities >= self.goal_velocity)
 
         rewards = torch.zeros(len(states), dtype=torch.float32)
         rewards += goals * 100.0

@@ -47,7 +47,8 @@ def test_brac():
     assert len(transitions["obs"]) > 100
 
     env_validation(brac(transitions, bc_iters=5), env, done_step=50)
-    trainer_validation(brac(transitions, bc_iters=5), env, num_workers=0, eval_workers=1)
+    trainer_validation(brac(transitions, bc_iters=5),
+                       env, num_workers=0, eval_workers=1)
 
 
 def test_bc():

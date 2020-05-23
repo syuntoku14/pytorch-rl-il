@@ -38,7 +38,8 @@ class BCQDeterministicPolicyNetwork(RLNetwork):
         x = torch.cat((states.features.float(),
                        vae_actions.features.float()), dim=1)
         actions = self.model(x) * states.mask.float().unsqueeze(-1)
-        actions = self.phi * squash_action(actions, self._tanh_scale, self._tanh_mean)
+        actions = self.phi * \
+            squash_action(actions, self._tanh_scale, self._tanh_mean)
         return vae_actions.features + actions
 
     def to(self, device):

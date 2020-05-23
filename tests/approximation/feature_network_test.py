@@ -11,6 +11,7 @@ from rlil.policies.gaussian import GaussianPolicy
 
 STATE_DIM = 2
 
+
 @pytest.fixture
 def setUp():
     env = GymEnvironment('LunarLanderContinuous-v2')
