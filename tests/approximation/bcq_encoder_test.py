@@ -13,7 +13,7 @@ import numpy as np
 # https://github.com/sfujim/BCQ/blob/05c07fc442a2be96f6249b966682cf065045500f/BCQ.py
 @pytest.fixture
 def setUp():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     Action.set_action_space(env.action_space)
     latent_dim = 32
     num_samples = 5

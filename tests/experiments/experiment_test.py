@@ -78,7 +78,7 @@ class MockExperiment(Experiment):
 
 def test_adds_label():
     ray.init(include_webui=False, ignore_reinit_error=True)
-    env = GymEnvironment('Pendulum-v0')
+    env = GymEnvironment('Pendulum-v0', append_time=True)
     experiment = MockExperiment(sac(), env, max_sample_episodes=1)
     assert experiment._writer.label == "_sac_Pendulum-v0"
 
@@ -86,7 +86,7 @@ def test_adds_label():
 @pytest.mark.skip()
 def test_writes_returns_eps():
     ray.init(include_webui=False, ignore_reinit_error=True)
-    env = GymEnvironment('Pendulum-v0')
+    env = GymEnvironment('Pendulum-v0', append_time=True)
     experiment = MockExperiment(sac(), env, max_sample_episodes=3)
     np.testing.assert_equal(
         experiment._writer.data["returns/episode"]["steps"],

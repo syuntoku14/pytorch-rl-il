@@ -48,7 +48,7 @@ def main():
         env_id = ENVS[args.env]
     else:
         env_id = args.env
-    env = GymEnvironment(env_id)
+    env = GymEnvironment(env_id, append_time=True)
 
     # set agent
     agent_name = args.agent

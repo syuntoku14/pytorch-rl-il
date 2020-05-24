@@ -5,42 +5,42 @@ from rlil.presets import env_validation, trainer_validation
 
 
 def test_vac():
-    env = GymEnvironment("MountainCarContinuous-v0")
+    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
     env_validation(vac(replay_start_size=50), env, done_step=50)
     trainer_validation(vac(replay_start_size=50), env)
 
 
 def test_ddpg():
-    env = GymEnvironment("MountainCarContinuous-v0")
+    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
     env_validation(ddpg(replay_start_size=50), env, done_step=50)
     trainer_validation(ddpg(replay_start_size=50), env)
 
 
 def test_sac():
-    env = GymEnvironment("MountainCarContinuous-v0")
+    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
     env_validation(sac(replay_start_size=50), env, done_step=50)
     trainer_validation(sac(replay_start_size=50), env)
 
 
 def test_td3():
-    env = GymEnvironment("MountainCarContinuous-v0")
+    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
     env_validation(td3(replay_start_size=50), env, done_step=50)
     trainer_validation(td3(replay_start_size=50), env)
 
 
 def test_noisy_td3():
-    env = GymEnvironment("MountainCarContinuous-v0")
+    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
     env_validation(noisy_td3(replay_start_size=50), env, done_step=50)
     trainer_validation(noisy_td3(replay_start_size=50), env)
 
 
 def test_ppo():
-    env = GymEnvironment("MountainCarContinuous-v0")
+    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
     env_validation(ppo(replay_start_size=5), env, done_step=50)
     trainer_validation(ppo(replay_start_size=50), env)
 
 
 def test_rs_mpc():
-    env = GymEnvironment("Pendulum-v0")
+    env = GymEnvironment("Pendulum-v0", append_time=True)
     env_validation(rs_mpc(replay_start_size=5), env, done_step=50)
     trainer_validation(rs_mpc(replay_start_size=5), env)

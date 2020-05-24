@@ -10,7 +10,7 @@ from rlil.initializer import set_device
 
 
 def test_run():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     replay_buffer = ExperienceReplayBuffer(10000, env)
 
     states = torch.tensor([env.observation_space.sample()]*20)
@@ -28,7 +28,7 @@ def test_run():
 
 
 def test_multi_store():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     replay_buffer = ExperienceReplayBuffer(10000, env)
 
     states = torch.tensor([env.observation_space.sample()]*20)
@@ -43,7 +43,7 @@ def test_multi_store():
 
 
 def test_clear():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     replay_buffer = ExperienceReplayBuffer(10000, env)
 
     states = torch.tensor([env.observation_space.sample()]*20)

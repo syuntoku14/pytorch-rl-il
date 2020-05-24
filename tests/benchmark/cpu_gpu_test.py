@@ -15,7 +15,7 @@ def collect_samples(agent, env):
 def test_ddpg_cuda(benchmark, use_gpu):
     if not torch.cuda.is_available():
         pytest.skip("CUDA is not available")
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     agent_fn = ddpg(replay_start_size=100)
     agent = agent_fn(env)
     collect_samples(agent, env)
@@ -26,7 +26,7 @@ def test_ddpg_cuda(benchmark, use_gpu):
 def test_ddpg_cpu(benchmark, use_cpu):
     if not torch.cuda.is_available():
         pytest.skip("CUDA is not available")
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     agent_fn = ddpg(replay_start_size=100)
     agent = agent_fn(env)
     collect_samples(agent, env)

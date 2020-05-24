@@ -4,12 +4,21 @@ from .base import Environment
 import torch
 import numpy as np
 import gym
+from gym.wrappers import TimeLimit
 from rlil.initializer import get_device, is_debug_mode
 gym.logger.set_level(40)
 
 
 class GymEnvironment(Environment):
-    def __init__(self, env, device=torch.device("cpu")):
+    """
+    When append_time is True, timestep is appended to the output State.
+    """
+
+    def __init__(self,
+                 env,
+                 device=torch.device("cpu"),
+                 append_time=False):
+
         self.device = device
         self._name = env
         if isinstance(env, str):
@@ -20,7 +29,9 @@ class GymEnvironment(Environment):
         self._reward = None
         self._done = True
         self._info = None
-
+        self._append_time = None
+        self._observation_space = self._env.observation_space
+        self.set_append_time(append_time)
         # lazy init
         self._init = False
         self._done_mask = None
@@ -28,6 +39,20 @@ class GymEnvironment(Environment):
 
         # set action_space
         Action.set_action_space(env.action_space)
+
+    def set_append_time(self, append_time):
+        self._append_time = append_time
+        if append_time:
+            assert isinstance(self._env, TimeLimit), \
+                "env must be TimeLimit when append_time is True."
+            assert len(self._env.observation_space.shape) == 1, \
+                "observation_space must be one dimension when append_time is True."
+            obs_space = type(self._env.observation_space)
+            low = self._env.observation_space.low
+            high = self._env.observation_space.high
+            self._observation_space = \
+                obs_space(low=np.hstack((low, np.array([0, ]))),
+                          high=np.hstack((low, np.array([1.0, ]))))
 
     @property
     def name(self):
@@ -65,11 +90,13 @@ class GymEnvironment(Environment):
         self._env.seed(seed)
 
     def duplicate(self):
-        return GymEnvironment(self._name)
+        return GymEnvironment(self._name,
+                              device=self.device,
+                              append_time=self._append_time)
 
     @property
     def state_space(self):
-        return self._env.observation_space
+        return self._observation_space
 
     @property
     def action_space(self):
@@ -117,6 +144,11 @@ class GymEnvironment(Environment):
 
     def _make_state(self, raw, done, info=None):
         '''Convert numpy array into State'''
+        if self._append_time:
+            timestep = float(self._env._elapsed_steps)
+            max_step = float(self._env._max_episode_steps)
+            raw = np.hstack((raw, np.array([timestep / max_step])))
+
         return State(
             torch.as_tensor(raw.astype(self.state_space.dtype),
                             device=self.device).unsqueeze(0),

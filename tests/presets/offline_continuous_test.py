@@ -24,7 +24,7 @@ def get_transitions(env):
 
 
 def test_bcq():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     transitions = get_transitions(env)
     assert len(transitions["obs"]) > 100
 
@@ -33,7 +33,7 @@ def test_bcq():
 
 
 def test_bear():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     transitions = get_transitions(env)
     assert len(transitions["obs"]) > 100
 
@@ -42,7 +42,7 @@ def test_bear():
 
 
 def test_brac():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     transitions = get_transitions(env)
     assert len(transitions["obs"]) > 100
 
@@ -52,7 +52,7 @@ def test_brac():
 
 
 def test_bc():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     transitions = get_transitions(env)
     assert len(transitions["obs"]) > 100
 
@@ -61,7 +61,7 @@ def test_bc():
 
 
 def test_vae_bc():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     transitions = get_transitions(env)
     assert len(transitions["obs"]) > 100
 

@@ -14,7 +14,7 @@ STATE_DIM = 2
 
 @pytest.fixture
 def setUp():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
 
     feature_model, value_model, policy_model = fc_actor_critic(env)
     value_optimizer = Adam(value_model.parameters())

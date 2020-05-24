@@ -24,7 +24,7 @@ def get_transitions(env):
 
 
 def test_gail():
-    env = GymEnvironment("MountainCarContinuous-v0")
+    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
     transitions = get_transitions(env)
     base_agent_fn = td3(replay_start_size=0)
     assert len(transitions["obs"]) > 100
@@ -41,7 +41,7 @@ def test_gail():
 
 
 def test_sqil():
-    env = GymEnvironment("MountainCarContinuous-v0")
+    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
     transitions = get_transitions(env)
     base_agent_fn = sac(replay_start_size=0)
     assert len(transitions["obs"]) > 100
@@ -58,7 +58,7 @@ def test_sqil():
 
 
 def test_airl():
-    env = GymEnvironment("MountainCarContinuous-v0")
+    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
     transitions = get_transitions(env)
     base_agent_fn = ppo(replay_start_size=0)
     assert len(transitions["obs"]) > 100

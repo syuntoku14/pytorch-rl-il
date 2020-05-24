@@ -10,7 +10,7 @@ from rlil.presets.continuous.models import fc_dynamics
 
 @pytest.fixture
 def setUp():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     dynamics_model = fc_dynamics(env)
 
     dynamics_optimizer = torch.optim.Adam(dynamics_model.parameters())

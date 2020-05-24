@@ -14,7 +14,7 @@ def collect_samples(agent, env):
 
 
 def test_ddpg(benchmark):
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     agent_fn = ddpg(replay_start_size=100)
     agent = agent_fn(env)
     collect_samples(agent, env)
@@ -23,7 +23,7 @@ def test_ddpg(benchmark):
 
 
 def test_sac(benchmark):
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     agent_fn = sac(replay_start_size=100)
     agent = agent_fn(env)
     collect_samples(agent, env)
@@ -32,7 +32,7 @@ def test_sac(benchmark):
 
 
 def test_td3(benchmark):
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     agent_fn = td3(replay_start_size=100)
     agent = agent_fn(env)
     collect_samples(agent, env)
@@ -41,7 +41,7 @@ def test_td3(benchmark):
 
 
 def test_bc(benchmark):
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     transitions = get_transitions(env)
     agent_fn = bc(transitions)
     agent = agent_fn(env)

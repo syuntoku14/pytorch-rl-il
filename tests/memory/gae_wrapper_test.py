@@ -23,7 +23,7 @@ class DummyV:
 
 @pytest.fixture
 def setUp(use_cpu):
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     buffer = ExperienceReplayBuffer(1000, env)
     gae_buffer = GaeWrapper(buffer, discount_factor=1, lam=0.3)
 

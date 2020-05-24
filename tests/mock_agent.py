@@ -2,7 +2,7 @@ import unittest
 import numpy as np
 import torch
 from rlil import nn
-from rlil.environments import GymEnvironment, Action
+from rlil.environments import Action
 from rlil.policies.deterministic import DeterministicPolicyNetwork
 from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import get_replay_buffer

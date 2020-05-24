@@ -12,7 +12,7 @@ from rlil.initializer import set_device
 
 @pytest.fixture
 def setUp(use_cpu):
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     replay_buffer = ExperienceReplayBuffer(1000, env)
 
     # base buffer

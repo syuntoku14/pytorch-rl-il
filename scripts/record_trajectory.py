@@ -38,7 +38,7 @@ def main():
     if args.dir[-1] != "/":
         args.dir += "/"
     env_id = args.dir.split("/")[-3]
-    env = GymEnvironment(env_id)
+    env = GymEnvironment(env_id, append_time=True)
 
     # load agent
     agent_name = os.path.basename(

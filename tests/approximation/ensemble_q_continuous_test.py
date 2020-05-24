@@ -11,7 +11,7 @@ import numpy as np
 
 @pytest.fixture
 def setUp():
-    env = GymEnvironment('LunarLanderContinuous-v2')
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     num_qs = 3
     num_samples = 5
     q_models = nn.ModuleList([fc_q(env) for _ in range(num_qs)])

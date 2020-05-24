@@ -30,7 +30,7 @@ def main():
     args = parser.parse_args()
 
     # load env
-    env = GymEnvironment(ENVS[args.env])
+    env = GymEnvironment(ENVS[args.env], append_time=True)
 
     # load agent
     agent_fn = getattr(continuous, args.agent)()
