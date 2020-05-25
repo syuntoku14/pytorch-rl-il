@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 import numpy as np
 import torch
 from rlil.environments import State, Action
-from rlil.utils.optim import Schedulable
 from rlil.initializer import get_device, is_debug_mode
 from .gail_wrapper import GailWrapper
 

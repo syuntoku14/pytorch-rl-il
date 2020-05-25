@@ -1,4 +1,3 @@
-from .greedy import GreedyPolicy
 from .gaussian import GaussianPolicy
 from .softmax import SoftmaxPolicy
 from .deterministic import DeterministicPolicy
@@ -7,7 +6,6 @@ from .soft_deterministic import SoftDeterministicPolicy
 
 __all__ = [
     "GaussianPolicy",
-    "GreedyPolicy",
     "SoftmaxPolicy",
     "DeterministicPolicy",
     "BCQDeterministicPolicy",

@@ -1,9 +1,8 @@
 from abc import ABC, abstractmethod
-from rlil.utils.optim import Schedulable
 from rlil.memory import ExperienceReplayBuffer
 
 
-class Agent(ABC, Schedulable):
+class Agent(ABC):
     """
     Abstract agent class
     """

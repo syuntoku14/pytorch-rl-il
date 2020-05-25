@@ -2,7 +2,6 @@ import numpy as np
 import torch
 from cpprb import ReplayBuffer, create_env_dict, create_before_add_func
 from rlil.environments import State, Action
-from rlil.utils.optim import Schedulable
 from rlil.initializer import get_device, is_debug_mode
 from .base import BaseReplayBuffer
 
@@ -84,7 +83,6 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         npsamples = self._buffer.sample(batch_size)
         samples = self.samples_from_cpprb(npsamples)
         weights = torch.ones(batch_size, device=self.device)
-
         return (*samples, weights)
 
     def update_priorities(self, indexes, td_errors):
