@@ -5,7 +5,7 @@ from .target import TrivialTarget
 from .checkpointer import PeriodicCheckpointer
 from rlil.initializer import get_writer
 
-DEFAULT_CHECKPOINT_FREQUENCY = 200
+DEFAULT_CHECKPOINT_FREQUENCY = 5000
 
 
 class Approximation():
@@ -61,7 +61,6 @@ class Approximation():
         self._target = target or TrivialTarget()
         self._lr_scheduler = lr_scheduler
         self._target.init(model)
-        self._updates = 0
         self._optimizer = optimizer
         self._loss_scaling = loss_scaling
         self._cache = []
@@ -74,7 +73,8 @@ class Approximation():
         self._checkpointer = checkpointer
         self._checkpointer.init(
             self.model,
-            os.path.join(self._writer.log_dir, name)
+            self._writer.log_dir,
+            name
         )
 
     def __call__(self, *inputs):
