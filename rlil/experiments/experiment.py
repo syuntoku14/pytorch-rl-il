@@ -9,8 +9,6 @@ import json
 import git
 import warnings
 
-# TODO: max_sample_frames is not necessary
-
 
 class Experiment:
     def __init__(

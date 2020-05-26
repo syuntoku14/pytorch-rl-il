@@ -49,7 +49,7 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
     def __init__(self,
                  size, env,
                  prioritized=False, alpha=0.6, beta=0.4, eps=1e-4,
-                 nstep=1, discount_factor=0.95):
+                 n_step=1, discount_factor=0.95):
         """
         Args:
             size (int): The capacity of replay buffer.
@@ -58,10 +58,11 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
             alpha, beta, eps (float): 
                 Hyperparameter of PrioritizedReplayBuffer.
                 See https://arxiv.org/abs/1511.05952.
-            nstep (int, optional):
+            n_step (int, optional):
                Number of steps for Nstep experience replay.
-               If nstep > 1, you need to call self.on_episode_end()
-               before every self.sample().
+               If n_step > 1, you need to call self.on_episode_end()
+               before every self.sample(). The n_step calculation is done
+               in LazyAgent objects, not in Agent objects.
             discount_factor (float, optional): 
                 Discount factor for Nstep experience replay.
         """
@@ -73,10 +74,10 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
 
         # Nstep
         Nstep = None
-        if nstep > 1:
-            Nstep = {"size": nstep, "rew": "rew",
+        if n_step > 1:
+            Nstep = {"size": n_step, "rew": "rew",
                      "next": "next_obs", "gamma": discount_factor}
-        self._nstep = nstep
+        self._n_step = n_step
 
         # PrioritizedReplayBuffer
         self._prioritized = prioritized
@@ -165,7 +166,7 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         return states, actions, rewards, next_states, weights, indexes
 
     def on_episode_end(self):
-        if self._nstep > 1:
+        if self._n_step > 1:
             self._buffer.on_episode_end()
 
     def clear(self):

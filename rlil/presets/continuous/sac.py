@@ -6,7 +6,8 @@ from rlil.policies.soft_deterministic import SoftDeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import (get_device,
                               set_replay_buffer,
-                              disable_on_policy_mode)
+                              disable_on_policy_mode,
+                              set_n_step)
 from .models import fc_q, fc_v, fc_soft_policy
 
 
@@ -23,6 +24,7 @@ def sac(
         # Replay Buffer settings
         replay_start_size=5000,
         replay_buffer_size=1e7,
+        n_step=1,
         # Exploration settings
         temperature_initial=0.1,
         lr_temperature=1e-5,
@@ -40,6 +42,7 @@ def sac(
         polyak_rate (float): Speed with which to update the target network towards the online network.
         replay_start_size (int): Number of experiences in replay buffer when training begins.
         replay_buffer_size (int): Maximum number of experiences to store in the replay buffer.
+        n_step (int): Number of steps for N step experience replay.
         temperature_initial (float): Initial value of the temperature parameter.
         lr_temperature (float): Learning rate for the temperature. Should be low compared to other learning rates.
         entropy_target_scaling (float): The target entropy will be -(entropy_target_scaling * env.action_space.shape[0])
@@ -81,6 +84,7 @@ def sac(
             env.action_space,
         )
 
+        set_n_step(n_step=n_step, discount_factor=discount_factor)
         replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env)
         set_replay_buffer(replay_buffer)
 

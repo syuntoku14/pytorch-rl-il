@@ -71,10 +71,10 @@ def test_clear():
     assert len(replay_buffer) == 0
 
 
-def test_nstep_run():
+def test_n_step_run():
     env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
     replay_buffer = ExperienceReplayBuffer(
-        10000, env, nstep=3, discount_factor=0.9)
+        10000, env, n_step=3, discount_factor=0.9)
 
     states = torch.tensor([env.observation_space.sample()]*20)
     actions = torch.tensor([env.action_space.sample()]*19)

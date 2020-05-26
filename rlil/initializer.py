@@ -117,3 +117,19 @@ def disable_on_policy_mode():
 def is_on_policy_mode():
     global _ON_POLICY_MODE
     return _ON_POLICY_MODE
+
+
+# parameters of NstepExperienceReplay
+_NSTEP = 1
+_DISCOUNT_FACTOR = 0.95
+
+
+def set_n_step(n_step, discount_factor=0.95):
+    global _NSTEP, _DISCOUNT_FACTOR
+    _NSTEP = n_step
+    _DISCOUNT_FACTOR = discount_factor
+
+
+def get_n_step():
+    global _NSTEP, _DISCOUNT_FACTOR
+    return _NSTEP, _DISCOUNT_FACTOR

@@ -91,7 +91,7 @@ def test_ray_wait(setUp):
     # GIVEN the store_samples function with short timeout
     # WHEN worker_episodes is large
     # THEN sampler doesn't wait the worker finishes sampling
-    assert len(sampler._replay_buffer) == 0
+    assert len(sampler.replay_buffer) == 0
 
 
 def test_eval_sampler(setUp):
@@ -115,6 +115,6 @@ def test_eval_sampler(setUp):
 
     result = sampler.store_samples(timeout=1e9, evaluation=True)
     # when evaluation=True, sampler doesn't store samples to the replay_buffer
-    assert len(sampler._replay_buffer) == 0
+    assert len(sampler.replay_buffer) == 0
 
     result["info_list"]

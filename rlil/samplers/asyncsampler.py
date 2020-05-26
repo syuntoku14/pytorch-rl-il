@@ -62,10 +62,11 @@ class Worker:
                 _frames += 1
                 _return += self._env.reward.item()
 
+            lazy_agent.replay_buffer.on_episode_end()
             sample_info["frames"].append(_frames)
             sample_info["returns"].append(_return)
 
-        samples = lazy_agent._replay_buffer.get_all_transitions()
+        samples = lazy_agent.replay_buffer.get_all_transitions()
 
         return sample_info, samples
 
@@ -87,7 +88,7 @@ class AsyncSampler(Sampler):
         self._workers = [Worker.remote(env.duplicate, seed+i)
                          for i in range(num_workers)]
         self._work_ids = {worker: None for worker in self._workers}
-        self._replay_buffer = get_replay_buffer()
+        self.replay_buffer = get_replay_buffer()
 
     def start_sampling(self,
                        lazy_agent,
@@ -133,6 +134,6 @@ class AsyncSampler(Sampler):
 
                 self._work_ids[worker] = None
                 if not evaluation:
-                    self._replay_buffer.store(*samples[:4])
+                    self.replay_buffer.store(*samples[:4])
 
         return result

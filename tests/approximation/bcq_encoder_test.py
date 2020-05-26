@@ -58,7 +58,7 @@ def test_reinforce(setUp):
     dec = decoder(states, z)
     loss = mse_loss(actions.features, dec)
 
-    for _ in range(10):
+    for _ in range(100):
         mean, log_var = encoder(states, actions)
         z = mean + log_var.exp() * torch.randn_like(log_var)
         dec = decoder(states, z)

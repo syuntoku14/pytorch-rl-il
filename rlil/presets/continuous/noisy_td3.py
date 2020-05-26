@@ -6,7 +6,8 @@ from rlil.policies import DeterministicPolicy
 from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import (get_device,
                               set_replay_buffer,
-                              disable_on_policy_mode)
+                              disable_on_policy_mode,
+                              set_n_step)
 from .models import fc_q, fc_deterministic_noisy_policy
 
 
@@ -24,6 +25,7 @@ def noisy_td3(
         # Replay Buffer settings
         replay_start_size=5000,
         replay_buffer_size=1e7,
+        n_step=1
 ):
     """
     TD3 continuous control preset.
@@ -38,6 +40,7 @@ def noisy_td3(
         policy_update_td3 (int): Number of timesteps per training update the policy in trick two.
         replay_start_size (int): Number of experiences in replay buffer when training begins.
         replay_buffer_size (int): Maximum number of experiences to store in the replay buffer.
+        n_step (int): Number of steps for N step experience replay.
     """
     def _noisy_td3(env):
         disable_on_policy_mode()
@@ -70,6 +73,7 @@ def noisy_td3(
             target=PolyakTarget(polyak_rate),
         )
 
+        set_n_step(n_step=n_step, discount_factor=discount_factor)
         replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env)
         set_replay_buffer(replay_buffer)
 
