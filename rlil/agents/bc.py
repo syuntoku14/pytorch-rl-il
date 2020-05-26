@@ -43,7 +43,7 @@ class BC(Agent):
 
     def train(self):
         if self.should_train():
-            (states, actions, _, _, _) = self.replay_buffer.sample(
+            (states, actions, _, _, _, _) = self.replay_buffer.sample(
                 self.minibatch_size)
             policy_actions = Action(self.policy(states))
             loss = mse_loss(policy_actions.features, actions.features)

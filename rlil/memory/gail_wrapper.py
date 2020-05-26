@@ -30,12 +30,12 @@ class GailWrapper(BaseBufferWrapper):
 
     def sample(self, batch_size):
         # replace the rewards with gail rewards
-        states, actions, rewards, next_states, weights = \
+        states, actions, rewards, next_states, weights, indexes = \
             self.buffer.sample(batch_size)
 
         rewards = self.discriminator.expert_reward(
             torch.cat((states.features, actions.features), dim=1))
-        return (states, actions, rewards, next_states, weights)
+        return (states, actions, rewards, next_states, weights, indexes)
 
     def sample_both(self, batch_size):
         batch_size = int(batch_size / 2)

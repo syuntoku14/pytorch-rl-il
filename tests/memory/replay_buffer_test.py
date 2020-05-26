@@ -24,7 +24,7 @@ def test_run():
         action = Action(actions[i].view(1, -1))
         replay_buffer.store(
             state, action, rewards[i].unsqueeze(0), next_state)
-        sample = replay_buffer.sample(3)
+        (s, a, r, n, w, i) = replay_buffer.sample(3)
 
 
 def test_multi_store():
@@ -39,7 +39,21 @@ def test_multi_store():
     actions = Action(actions)
     replay_buffer.store(states[:-1], actions, rewards, states[1:])
     for i in range(2):
-        sample = replay_buffer.sample(3)
+        (s, a, r, n, w, i) = replay_buffer.sample(3)
+
+
+def test_get_all_transitions():
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
+    replay_buffer = ExperienceReplayBuffer(10000, env)
+
+    states = torch.tensor([env.observation_space.sample()]*20)
+    actions = torch.tensor([env.action_space.sample()]*19)
+    rewards = torch.arange(0, 19, dtype=torch.float)
+
+    states = State(states)
+    actions = Action(actions)
+    replay_buffer.store(states[:-1], actions, rewards, states[1:])
+    s, a, r, n = replay_buffer.get_all_transitions()
 
 
 def test_clear():
@@ -55,3 +69,23 @@ def test_clear():
     replay_buffer.store(states[:-1], actions, rewards, states[1:])
     replay_buffer.clear()
     assert len(replay_buffer) == 0
+
+
+def test_nstep_run():
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
+    replay_buffer = ExperienceReplayBuffer(
+        10000, env, nstep=3, discount_factor=0.9)
+
+    states = torch.tensor([env.observation_space.sample()]*20)
+    actions = torch.tensor([env.action_space.sample()]*19)
+    rewards = torch.arange(0, 19, dtype=torch.float)
+
+    for i in range(10):
+        state = State(states[i].view(1, -1), torch.tensor([1]).bool())
+        next_state = State(
+            states[i + 1].view(1, -1), torch.tensor([1]).bool())
+        action = Action(actions[i].view(1, -1))
+        replay_buffer.store(
+            state, action, rewards[i].unsqueeze(0), next_state)
+        replay_buffer.on_episode_end()
+        (s, a, r, n, w, i) = replay_buffer.sample(3)

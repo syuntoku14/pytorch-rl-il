@@ -44,7 +44,7 @@ def setUp(use_cpu):
 
 def test_sample(setUp):
     sqil_buffer, samples = setUp
-    res_states, res_actions, res_rewards, res_next_states, _ = \
+    res_states, res_actions, res_rewards, res_next_states, _, _ = \
         sqil_buffer.sample(40)
 
     # test rewards

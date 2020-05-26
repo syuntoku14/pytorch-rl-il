@@ -88,8 +88,8 @@ class BRAC(Agent):
         self._train_count += 1
 
         # sample transitions from buffer
-        (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
-            self.minibatch_size)
+        (states, actions, rewards,
+         next_states, _, _) = self.replay_buffer.sample(self.minibatch_size)
 
         # Trick 2: KL divergence regularization
         policy_mean, policy_logvar = self.policy.mean_logvar(states)
@@ -125,7 +125,7 @@ class BRAC(Agent):
 
     def train_bc(self):
         for _ in tqdm(range(self.bc_iters)):
-            (states, actions, _, _, _) = self.replay_buffer.sample(
+            (states, actions, _, _, _, _) = self.replay_buffer.sample(
                 self.minibatch_size)
             bc_actions = Action(self.behavior_policy(states)[0])
             loss = mse_loss(bc_actions.features, actions.features)

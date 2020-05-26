@@ -68,8 +68,8 @@ class BCQ(Agent):
 
     def train(self):
         # sample transitions from buffer
-        (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
-            self.minibatch_size)
+        (states, actions, rewards,
+         next_states, _, _) = self.replay_buffer.sample(self.minibatch_size)
 
         # train vae
         mean, log_var = self.encoder(

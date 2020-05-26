@@ -75,8 +75,8 @@ class SAC(Agent):
     def train(self):
         if self.should_train():
             # sample from replay buffer
-            (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
-                self.minibatch_size)
+            (states, actions, rewards, next_states,
+             _, _) = self.replay_buffer.sample(self.minibatch_size)
 
             # compute targets for Q and V
             _actions, _log_probs = self.policy.target(states)

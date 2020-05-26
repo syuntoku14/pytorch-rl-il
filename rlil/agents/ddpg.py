@@ -70,8 +70,8 @@ class DDPG(Agent):
     def train(self):
         if self.should_train():
             # sample transitions from buffer
-            (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
-                self.minibatch_size)
+            (states, actions, rewards, next_states,
+             _, _) = self.replay_buffer.sample(self.minibatch_size)
 
             # train q-network
             q_values = self.q(states, actions)

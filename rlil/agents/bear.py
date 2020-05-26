@@ -87,8 +87,8 @@ class BEAR(Agent):
         self._train_count += 1
 
         # sample transitions from buffer
-        (states, actions, rewards, next_states, _) = self.replay_buffer.sample(
-            self.minibatch_size)
+        (states, actions, rewards,
+         next_states, _, _) = self.replay_buffer.sample(self.minibatch_size)
 
         # Train the Behaviour cloning policy to be able to
         # take more than 1 sample for MMD

@@ -48,8 +48,8 @@ class GAIL(Agent):
         if self.should_train():
             samples, expert_samples = self.replay_buffer.sample_both(
                 self.minibatch_size)
-            states, actions, _, _, _ = samples
-            exp_states, exp_actions, _, _, _ = expert_samples
+            states, actions, _, _, _, _ = samples
+            exp_states, exp_actions, _, _, _, _ = expert_samples
 
             fake = self.discriminator(
                 torch.cat((states.features, actions.features), dim=1))

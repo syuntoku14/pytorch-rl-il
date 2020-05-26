@@ -95,8 +95,8 @@ class RsMPC(Agent):
 
     def train(self):
         if self.should_train():
-            (states, actions, _, next_states, _) = self.replay_buffer.sample(
-                self.minibatch_size)
+            (states, actions, _, next_states,
+             _, _) = self.replay_buffer.sample(self.minibatch_size)
             predictions = self.dynamics(states, actions)
             loss = mse_loss(next_states.features, predictions.features)
             self.dynamics.reinforce(loss)

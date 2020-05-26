@@ -47,8 +47,8 @@ class AIRL(GAIL):
         if self.should_train():
             samples, expert_samples = self.replay_buffer.sample_both(
                 self.minibatch_size)
-            states, actions, _, next_states, _ = samples
-            exp_states, exp_actions, _, exp_next_states, _ = expert_samples
+            states, actions, _, next_states, _, _ = samples
+            exp_states, exp_actions, _, exp_next_states, _, _ = expert_samples
 
             fake = self.replay_buffer.discrim(states, actions, next_states)
             real = self.replay_buffer.discrim(exp_states,

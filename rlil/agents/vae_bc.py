@@ -47,7 +47,7 @@ class VaeBC(Agent):
         return Action(vae_actions)
 
     def train(self):
-        (states, actions, _, _, _) = self.replay_buffer.sample(
+        (states, actions, _, _, _, _) = self.replay_buffer.sample(
             self.minibatch_size)
 
         # train vae

@@ -1,6 +1,7 @@
 import numpy as np
 import torch
-from cpprb import ReplayBuffer, create_env_dict, create_before_add_func
+from cpprb import (ReplayBuffer, PrioritizedReplayBuffer,
+                   create_env_dict, create_before_add_func)
 from rlil.environments import State, Action
 from rlil.initializer import get_device, is_debug_mode
 from .base import BaseReplayBuffer
@@ -45,12 +46,47 @@ def check_inputs_shapes(store):
 class ExperienceReplayBuffer(BaseReplayBuffer):
     '''This class utilizes cpprb.ReplayBuffer'''
 
-    def __init__(self, size, env):
-        env_dict = create_env_dict(env)
-        del env_dict["next_obs"]
-        self._buffer = ReplayBuffer(size, env_dict, next_of="obs")
+    def __init__(self,
+                 size, env,
+                 prioritized=False, alpha=0.6, beta=0.4, eps=1e-4,
+                 nstep=1, discount_factor=0.95):
+        """
+        Args:
+            size (int): The capacity of replay buffer.
+            env (rlil.environments.GymEnvironment)
+            prioritized (bool): Use prioritized replay buffer if True.
+            alpha, beta, eps (float): 
+                Hyperparameter of PrioritizedReplayBuffer.
+                See https://arxiv.org/abs/1511.05952.
+            nstep (int, optional):
+               Number of steps for Nstep experience replay.
+               If nstep > 1, you need to call self.on_episode_end()
+               before every self.sample().
+            discount_factor (float, optional): 
+                Discount factor for Nstep experience replay.
+        """
+
+        # common
         self._before_add = create_before_add_func(env)
         self.device = get_device()
+        env_dict = create_env_dict(env)
+
+        # Nstep
+        Nstep = None
+        if nstep > 1:
+            Nstep = {"size": nstep, "rew": "rew",
+                     "next": "next_obs", "gamma": discount_factor}
+        self._nstep = nstep
+
+        # PrioritizedReplayBuffer
+        self._prioritized = prioritized
+        self._beta = beta
+        if prioritized:
+            self._buffer = PrioritizedReplayBuffer(size, env_dict,
+                                                   alpha=alpha, eps=eps,
+                                                   Nstep=Nstep)
+        else:
+            self._buffer = ReplayBuffer(size, env_dict, Nstep=Nstep)
 
     @check_inputs_shapes
     def store(self, states, actions, rewards, next_states):
@@ -80,10 +116,12 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
 
     def sample(self, batch_size):
         '''Sample from the stored transitions'''
-        npsamples = self._buffer.sample(batch_size)
+        if self._prioritized:
+            npsamples = self._buffer.sample(batch_size, beta=self._beta)
+        else:
+            npsamples = self._buffer.sample(batch_size)
         samples = self.samples_from_cpprb(npsamples)
-        weights = torch.ones(batch_size, device=self.device)
-        return (*samples, weights)
+        return samples
 
     def update_priorities(self, indexes, td_errors):
         '''Update priorities based on the TD error'''
@@ -93,7 +131,7 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         npsamples = self._buffer.get_all_transitions()
         if return_cpprb:
             return npsamples
-        return self.samples_from_cpprb(npsamples)
+        return self.samples_from_cpprb(npsamples)[:4]
 
     def samples_from_cpprb(self, npsamples, device=None):
         """
@@ -117,7 +155,18 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
                                device=device).squeeze()
         next_states = State.from_numpy(
             npsamples["next_obs"], npsamples["done"], device=device)
-        return states, actions, rewards, next_states
+        if self._prioritized:
+            weights = torch.tensor(
+                npsamples["weights"], dtype=torch.float32, device=self.device)
+            indexes = npsamples["indexes"]
+        else:
+            weights = torch.ones(states.shape[0], device=self.device)
+            indexes = None
+        return states, actions, rewards, next_states, weights, indexes
+
+    def on_episode_end(self):
+        if self._nstep > 1:
+            self._buffer.on_episode_end()
 
     def clear(self):
         self._buffer.clear()

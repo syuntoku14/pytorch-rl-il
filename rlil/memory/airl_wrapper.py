@@ -44,12 +44,12 @@ class AirlWrapper(GailWrapper):
 
     def sample(self, batch_size):
         # replace the rewards with gail rewards
-        states, actions, rewards, next_states, weights = \
+        states, actions, rewards, next_states, weights, indexes = \
             self.buffer.sample(batch_size)
 
         ds = self.discrim(states, actions, next_states)
         rewards = self.expert_reward(ds)
-        return (states, actions, rewards, next_states, weights)
+        return (states, actions, rewards, next_states, weights, indexes)
 
     def discrim(self, states, actions, next_states):
         if self.feature_nw is None:

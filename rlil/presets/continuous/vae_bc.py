@@ -57,7 +57,7 @@ def vae_bc(
         if transitions is not None:
             samples = replay_buffer.samples_from_cpprb(
                 transitions, device="cpu")
-            replay_buffer.store(*samples)
+            replay_buffer.store(*samples[:4])
         set_replay_buffer(replay_buffer)
 
         return VaeBC(

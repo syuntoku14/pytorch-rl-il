@@ -70,7 +70,7 @@ def setUp(use_cpu):
 
 def test_sample(setUp):
     gail_buffer, samples = setUp
-    res_states, res_actions, res_rewards, res_next_states, _ = \
+    res_states, res_actions, res_rewards, res_next_states, _, _ = \
         gail_buffer.sample(4)
 
     # test states

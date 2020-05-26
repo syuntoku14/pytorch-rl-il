@@ -61,7 +61,7 @@ def airl(
         if transitions is not None:
             samples = expert_replay_buffer.samples_from_cpprb(
                 transitions, device="cpu")
-            expert_replay_buffer.store(*samples)
+            expert_replay_buffer.store(*samples[:4])
 
         replay_buffer = get_replay_buffer()
         replay_buffer = AirlWrapper(buffer=replay_buffer,

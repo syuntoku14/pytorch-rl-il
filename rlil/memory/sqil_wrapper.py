@@ -32,10 +32,10 @@ class SqilWrapper(BaseBufferWrapper):
 
     def sample(self, batch_size):
         batch_size = int(batch_size / 2)
-        states, actions, rewards, next_states, weights = \
+        states, actions, rewards, next_states, weights, indexes = \
             self.buffer.sample(batch_size)
-        exp_states, exp_actions, exp_rewards, exp_next_states, exp_weights = \
-            self.expert_buffer.sample(batch_size)
+        exp_states, exp_actions, exp_rewards, exp_next_states, \
+            exp_weights, exp_indexes = self.expert_buffer.sample(batch_size)
 
         rewards = torch.zeros_like(rewards, dtype=torch.float32,
                                    device=self.device)
@@ -50,9 +50,14 @@ class SqilWrapper(BaseBufferWrapper):
 
         # shuffle tensors
         index = torch.randperm(len(rewards))
+        if indexes is None or exp_indexes is None:
+            indexes = None
+        else:
+            indexes = torch.cat([indexes, exp_indexes], axis=0)[index]
 
         return (states[index],
                 actions[index],
                 rewards[index],
                 next_states[index],
-                weights[index])
+                weights[index],
+                indexes)
