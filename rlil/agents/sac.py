@@ -78,8 +78,9 @@ class SAC(Agent):
             (states, actions, rewards, next_states,
              weights, indexes) = self.replay_buffer.sample(self.minibatch_size)
 
+            # Target actions come from *current* policy
+            _actions, _log_probs = self.policy.no_grad(states)
             # compute targets for Q and V
-            _actions, _log_probs = self.policy.target(states)
             q_targets = rewards + self.discount_factor * \
                 self.v.target(next_states)
             v_targets = torch.min(
