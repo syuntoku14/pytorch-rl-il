@@ -2,7 +2,6 @@ import torch
 import os
 from copy import deepcopy
 from torch.distributions.normal import Normal
-from torch.nn.functional import mse_loss
 from rlil.environments import Action
 from rlil.initializer import get_device, get_writer, get_replay_buffer
 from rlil.memory import ExperienceReplayBuffer

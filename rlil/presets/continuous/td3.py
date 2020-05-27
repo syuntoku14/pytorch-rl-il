@@ -25,6 +25,7 @@ def td3(
         # Replay Buffer settings
         replay_start_size=5000,
         replay_buffer_size=1e7,
+        prioritized=False,
         n_step=1,
         # Exploration settings
         noise_policy=0.1,
@@ -42,6 +43,7 @@ def td3(
         policy_update_td3 (int): Number of timesteps per training update the policy in trick two.
         replay_start_size (int): Number of experiences in replay buffer when training begins.
         replay_buffer_size (int): Maximum number of experiences to store in the replay buffer.
+        prioritized (bool): Use prioritized experience replay if True.
         n_step (int): Number of steps for N step experience replay.
         noise_policy (float): The amount of exploration noise to add.
     """
@@ -77,7 +79,8 @@ def td3(
         )
 
         set_n_step(n_step=n_step, discount_factor=discount_factor)
-        replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env)
+        replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env,
+                                               prioritized=prioritized)
         set_replay_buffer(replay_buffer)
 
         return TD3(

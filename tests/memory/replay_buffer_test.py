@@ -89,3 +89,22 @@ def test_n_step_run():
             state, action, rewards[i].unsqueeze(0), next_state)
         replay_buffer.on_episode_end()
         (s, a, r, n, w, i) = replay_buffer.sample(3)
+
+
+def test_per_run():
+    env = GymEnvironment('LunarLanderContinuous-v2', append_time=True)
+    replay_buffer = ExperienceReplayBuffer(10000, env, prioritized=True)
+    assert replay_buffer.prioritized
+
+    states = torch.tensor([env.observation_space.sample()]*20)
+    actions = torch.tensor([env.action_space.sample()]*19)
+    rewards = torch.arange(0, 19, dtype=torch.float)
+
+    states = State(states)
+    actions = Action(actions)
+    replay_buffer.store(states[:-1], actions, rewards, states[1:])
+    for i in range(2):
+        (s, a, r, n, w, i) = replay_buffer.sample(3)
+        td_error = s.features.sum(dim=1)
+        assert td_error.shape == (3, )
+        replay_buffer.update_priorities(i, td_error.cpu())

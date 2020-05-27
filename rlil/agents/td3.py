@@ -2,10 +2,10 @@ import torch
 import os
 from copy import deepcopy
 from torch.distributions.normal import Normal
-from torch.nn.functional import mse_loss
 from rlil.environments import Action
 from rlil.initializer import get_device, get_writer, get_replay_buffer
 from rlil.memory import ExperienceReplayBuffer
+from rlil.nn import weighted_mse_loss
 from .base import Agent, LazyAgent
 
 
@@ -95,7 +95,7 @@ class TD3(Agent):
         if self.should_train():
             # sample transitions from buffer
             (states, actions, rewards, next_states,
-             _, _) = self.replay_buffer.sample(self.minibatch_size)
+             weights, indexes) = self.replay_buffer.sample(self.minibatch_size)
 
             # Trick Three: Target Policy Smoothing
             next_actions = self.policy.target(next_states)
@@ -106,10 +106,16 @@ class TD3(Agent):
             q_targets = rewards + self.discount_factor * \
                 torch.min(self.q_1.target(next_states, Action(next_actions)),
                           self.q_2.target(next_states, Action(next_actions)))
-            self.q_1.reinforce(
-                mse_loss(self.q_1(states, actions), q_targets))
-            self.q_2.reinforce(
-                mse_loss(self.q_2(states, actions), q_targets))
+            q_1_values = self.q_1(states, actions)
+            self.q_1.reinforce(weighted_mse_loss(
+                q_1_values, q_targets, weights))
+            q_2_values = self.q_2(states, actions)
+            self.q_2.reinforce(weighted_mse_loss(
+                q_2_values, q_targets, weights))
+
+            # update priorities
+            td_errors = (((q_targets - q_1_values) + (q_targets - q_2_values)) / 2).abs()
+            self.replay_buffer.update_priorities(indexes, td_errors.cpu())
 
             # train policy
             # Trick Two: delayed policy updates
@@ -117,6 +123,9 @@ class TD3(Agent):
                 greedy_actions = self.policy(states)
                 loss = -self.q_1(states, Action(greedy_actions)).mean()
                 self.policy.reinforce(loss)
+
+            # additional debugging info
+            self.writer.add_scalar('loss/td_error', td_errors.mean())
 
             self.writer.train_steps += 1
 

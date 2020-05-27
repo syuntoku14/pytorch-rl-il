@@ -255,3 +255,8 @@ def mmd_gaussian(samples1, samples2, sigma=10.0):
 
     overall_loss = (diff_x_x + diff_y_y - 2.0 * diff_x_y + 1e-6).sqrt()
     return overall_loss
+
+
+def weighted_mse_loss(input, target, weight, reduction='mean'):
+    loss = (weight * ((target - input) ** 2))
+    return torch.mean(loss) if reduction == 'mean' else torch.sum(loss)

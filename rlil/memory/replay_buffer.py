@@ -80,7 +80,7 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         self._n_step = n_step
 
         # PrioritizedReplayBuffer
-        self._prioritized = prioritized
+        self.prioritized = prioritized
         self._beta = beta
         if prioritized:
             self._buffer = PrioritizedReplayBuffer(size, env_dict,
@@ -117,7 +117,7 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
 
     def sample(self, batch_size):
         '''Sample from the stored transitions'''
-        if self._prioritized:
+        if self.prioritized:
             npsamples = self._buffer.sample(batch_size, beta=self._beta)
         else:
             npsamples = self._buffer.sample(batch_size)
@@ -126,7 +126,16 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
 
     def update_priorities(self, indexes, td_errors):
         '''Update priorities based on the TD error'''
-        pass
+        if is_debug_mode():
+            # shape check
+            assert len(td_errors.shape) == 1, \
+                "rewards.shape {} must be 'shape == (batch_size)'".format(
+                    rewards.shape)
+            assert td_errors.device == torch.device("cpu"), \
+                "td_errors must be cpu tensors"
+
+        if self.prioritized:
+            self._buffer.update_priorities(indexes, td_errors.detach().numpy())
 
     def get_all_transitions(self, return_cpprb=False):
         npsamples = self._buffer.get_all_transitions()
@@ -156,7 +165,7 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
                                device=device).squeeze()
         next_states = State.from_numpy(
             npsamples["next_obs"], npsamples["done"], device=device)
-        if self._prioritized:
+        if self.prioritized:
             weights = torch.tensor(
                 npsamples["weights"], dtype=torch.float32, device=self.device)
             indexes = npsamples["indexes"]

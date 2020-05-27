@@ -32,6 +32,13 @@ def test_n_step():
         assert lazy_agent._n_step == 5
 
 
+def test_prioritized():
+    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
+    for preset in [ddpg, td3, sac]:
+        env_validation(preset(prioritized=True, replay_start_size=50),
+                       env, done_step=50)
+
+
 def test_td3():
     env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
     env_validation(td3(replay_start_size=50), env, done_step=50)

@@ -2,10 +2,10 @@ from copy import deepcopy
 import torch
 import os
 from torch.distributions.normal import Normal
-from torch.nn.functional import mse_loss
 from rlil.environments import Action
 from rlil.initializer import get_device, get_writer, get_replay_buffer
 from rlil.memory import ExperienceReplayBuffer
+from rlil.nn import weighted_mse_loss
 from .base import Agent, LazyAgent
 
 
@@ -71,21 +71,27 @@ class DDPG(Agent):
         if self.should_train():
             # sample transitions from buffer
             (states, actions, rewards, next_states,
-             _, _) = self.replay_buffer.sample(self.minibatch_size)
+             weights, indexes) = self.replay_buffer.sample(self.minibatch_size)
 
             # train q-network
             q_values = self.q(states, actions)
             targets = rewards + self.discount_factor * \
                 self.q.target(next_states, Action(
                     self.policy.target(next_states)))
-            q_loss = mse_loss(q_values, targets)
+            q_loss = weighted_mse_loss(q_values, targets, weights)
             self.q.reinforce(q_loss)
+
+            # update prioritized replay buffer
+            td_errors = (targets - q_values).abs()
+            self.replay_buffer.update_priorities(indexes, td_errors.cpu())
 
             # train policy
             policy_actions = Action(self.policy(states))
             policy_loss = -self.q(states, policy_actions).mean()
             self.policy.reinforce(policy_loss)
 
+            # additional debugging info
+            self.writer.add_scalar('loss/td_error', td_errors.mean())
             self.writer.train_steps += 1
 
     def should_train(self):

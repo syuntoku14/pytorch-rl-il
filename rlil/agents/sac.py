@@ -1,10 +1,10 @@
 import torch
 import os
 from copy import deepcopy
-from torch.nn.functional import mse_loss
 from rlil.environments import Action
 from rlil.initializer import get_writer, get_device, get_replay_buffer
 from rlil.memory import ExperienceReplayBuffer
+from rlil.nn import weighted_mse_loss
 from .base import Agent, LazyAgent
 
 
@@ -76,7 +76,7 @@ class SAC(Agent):
         if self.should_train():
             # sample from replay buffer
             (states, actions, rewards, next_states,
-             _, _) = self.replay_buffer.sample(self.minibatch_size)
+             weights, indexes) = self.replay_buffer.sample(self.minibatch_size)
 
             # compute targets for Q and V
             _actions, _log_probs = self.policy.target(states)
@@ -88,11 +88,19 @@ class SAC(Agent):
             ) - self.temperature * _log_probs
 
             # update Q and V-functions
+            q_1_values = self.q_1(states, actions)
             self.q_1.reinforce(
-                mse_loss(self.q_1(states, actions), q_targets))
+                weighted_mse_loss(q_1_values, q_targets, weights))
+            q_2_values = self.q_2(states, actions)
             self.q_2.reinforce(
-                mse_loss(self.q_2(states, actions), q_targets))
-            self.v.reinforce(mse_loss(self.v(states), v_targets))
+                weighted_mse_loss(q_2_values, q_targets, weights))
+            self.v.reinforce(weighted_mse_loss(
+                self.v(states), v_targets, weights))
+
+            # update priorities
+            td_errors = (((q_targets - q_1_values) +
+                          (q_targets - q_2_values)) / 2).abs()
+            self.replay_buffer.update_priorities(indexes, td_errors.cpu())
 
             # update policy
             _actions2, _log_probs2 = self.policy(states)
@@ -110,6 +118,7 @@ class SAC(Agent):
             self.writer.add_scalar('loss/r_mean', rewards.mean())
             self.writer.add_scalar('loss/temperature_grad', temperature_grad)
             self.writer.add_scalar('loss/temperature', self.temperature)
+            self.writer.add_scalar('loss/td_error', td_errors.mean())
 
             self.writer.train_steps += 1
 

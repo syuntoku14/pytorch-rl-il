@@ -23,6 +23,7 @@ def ddpg(
         # Replay Buffer settings
         replay_start_size=5000,
         replay_buffer_size=1e7,
+        prioritized=False,
         n_step=1,
         # Exploration settings
         noise=0.1,
@@ -38,6 +39,7 @@ def ddpg(
         polyak_rate (float): Speed with which to update the target network towards the online network.
         replay_start_size (int): Number of experiences in replay buffer when training begins.
         replay_buffer_size (int): Maximum number of experiences to store in the replay buffer.
+        prioritized (bool): Use prioritized experience replay if True.
         n_step (int): Number of steps for N step experience replay.
         noise (float): The amount of exploration noise to add.
     """
@@ -63,7 +65,8 @@ def ddpg(
         )
 
         set_n_step(n_step=n_step, discount_factor=discount_factor)
-        replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env)
+        replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env,
+                                               prioritized=prioritized)
         set_replay_buffer(replay_buffer)
 
         return DDPG(
