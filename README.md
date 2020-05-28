@@ -33,6 +33,12 @@ python scripts/continuous/online.py [env] [agent] [options]
 
 ### Model-based RL
 
+You can test the algorithms by:
+
+```
+python scripts/continuous/online.py [env] [agent] [options]
+```
+
 - [x] [`Neural Network Dynamics for Model-Based Deep Reinforcement Learning with Model-Free Fine-Tuning`](https://arxiv.org/abs/1708.02596), [code](rlil/agents/rs_mpc.py)
 
 ![mbrl_gif](assets/rs-mpc.gif)
@@ -83,8 +89,17 @@ python scripts/continuous/online_il.py [env] [agent (e.g. gail)] [base_agent (e.
 
 ### Others
 
+Currently, DDPG, TD3 and SAC can be combined with PER and M-step. To enable them, just pass `n_step` or `prioritized` argument to the preset. For example,
+
+```
+from rlil.presets.continuous import ddpg
+ddpg(n_step=5, prioritized=True)
+```
+
 - [x] [`Noisy Networks for Exploration`](https://arxiv.org/abs/1706.10295), [code](rlil/nn/__init__.py)
-- [ ] `Ape-X`: https://arxiv.org/abs/1803.00933. 
+- [x] [`Prioritized Experience Replay (PER)`](https://arxiv.org/abs/1511.05952), [code](rlil/memory/replay_buffer.py)
+- [x] [`Multi-step learning (M-step)`](https://arxiv.org/abs/1710.02298), [code](rlil/memory/replay_buffer.py)
+- [ ] [`Ape-X`](https://arxiv.org/abs/1803.00933)
 
 ## Environments
 
@@ -186,7 +201,3 @@ python scripts/online_il.py ant sqil sac runs/example_training/AntBulletEnv-v0/[
 # plot the result
 python scripts/plot.py runs/example_sqil/AntBulletEnv-v0/[sqil-sac_ID]
 ```
-
-## Download demonstrations
-
-The pre-trained models and transitions are available at: https://drive.google.com/open?id=1L62-aah6BONJwWd5w1uxZMMtWYPnk0I0
