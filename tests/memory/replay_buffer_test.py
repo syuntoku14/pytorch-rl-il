@@ -102,7 +102,9 @@ def test_per_run():
 
     states = State(states)
     actions = Action(actions)
-    replay_buffer.store(states[:-1], actions, rewards, states[1:])
+    priorities = torch.ones(rewards.shape[0])
+    replay_buffer.store(states[:-1], actions, rewards,
+                        states[1:], priorities=priorities)
     for i in range(2):
         (s, a, r, n, w, i) = replay_buffer.sample(3)
         td_error = s.features.sum(dim=1)

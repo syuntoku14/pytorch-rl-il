@@ -8,7 +8,7 @@ from .base import BaseReplayBuffer
 
 
 def check_inputs_shapes(store):
-    def retfunc(self, states, actions, rewards, next_states):
+    def retfunc(self, states, actions, rewards, next_states, priorities=None):
         if states is None:
             return None
 
@@ -22,6 +22,9 @@ def check_inputs_shapes(store):
                 "Input rewards.device must be cpu"
             assert next_states.device == torch.device("cpu"), \
                 "Input next_states.device must be cpu"
+            if priorities is not None:
+                assert priorities.device == torch.device("cpu"), \
+                    "Input priorities.device must be cpu"
 
             # type check
             assert isinstance(states, State), "Input invalid states type {}. \
@@ -33,12 +36,20 @@ def check_inputs_shapes(store):
                 type(next_states))
             assert isinstance(rewards, torch.Tensor), "Input invalid rewards type {}. \
                 rewards must be torch.Tensor".format(type(rewards))
+            if priorities is not None:
+                assert isinstance(priorities, torch.Tensor), "Input invalid priorities type {}. \
+                    priorities must be torch.Tensor".format(type(priorities))
 
             # shape check
-            assert len(rewards.shape) == 1, "rewards.shape {} must be 'shape == (batch_size)'".format(
-                rewards.shape)
+            assert len(rewards.shape) == 1, \
+                "rewards.shape {} must be 'shape == (batch_size)'".format(
+                    rewards.shape)
+            if priorities is not None:
+                assert len(priorities.shape) == 1, \
+                    "priorities.shape {} must be 'shape == (batch_size)'".format(
+                        priorities.shape)
 
-        return store(self, states, actions, rewards, next_states)
+        return store(self, states, actions, rewards, next_states, priorities)
     return retfunc
 
 
@@ -90,13 +101,14 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
             self._buffer = ReplayBuffer(size, env_dict, Nstep=Nstep)
 
     @check_inputs_shapes
-    def store(self, states, actions, rewards, next_states):
+    def store(self, states, actions, rewards, next_states, priorities=None):
         """Store the transition in the buffer
         Args:
             states (rlil.environment.State): batch_size x shape
             actions (rlil.environment.Action): batch_size x shape
             rewards (torch.Tensor): batch_size
             next_states (rlil.environment.State): batch_size x shape
+            priorities (torch.Tensor): batch_size
         """
 
         assert len(states) < self._buffer.get_buffer_size(), \
@@ -107,13 +119,26 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         np_rewards = rewards.detach().cpu().numpy()
         np_next_states, np_next_dones = next_states.raw_numpy()
 
-        if (~np_dones).any():  # if there is at least one sample to store
+        if self.prioritized and (~np_dones).any():
+            np_priorities = None if priorities is None \
+                else priorities.detach().cpu().numpy()[~np_dones]
+            self._buffer.add(
+                **self._before_add(obs=np_states[~np_dones],
+                                   act=np_actions[~np_dones],
+                                   rew=np_rewards[~np_dones],
+                                   done=np_next_dones[~np_dones],
+                                   next_obs=np_next_states[~np_dones]),
+                priorities=np_priorities)
+
+        # if there is at least one sample to store
+        if not self.prioritized and (~np_dones).any():
             # remove done==1 by [~np_dones]
-            self._buffer.add(**self._before_add(obs=np_states[~np_dones],
-                                                act=np_actions[~np_dones],
-                                                rew=np_rewards[~np_dones],
-                                                done=np_next_dones[~np_dones],
-                                                next_obs=np_next_states[~np_dones]))
+            self._buffer.add(
+                **self._before_add(obs=np_states[~np_dones],
+                                   act=np_actions[~np_dones],
+                                   rew=np_rewards[~np_dones],
+                                   done=np_next_dones[~np_dones],
+                                   next_obs=np_next_states[~np_dones]))
 
     def sample(self, batch_size):
         '''Sample from the stored transitions'''
