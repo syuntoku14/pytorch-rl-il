@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import get_n_step
+from rlil.utils import Samples
 
 
 class Agent(ABC):
@@ -84,5 +85,5 @@ class LazyAgent(ABC):
         if self._store_samples:
             assert self.replay_buffer is not None, \
                 "Call self.set_replay_buffer(env) at lazy_agent initialization."
-            self.replay_buffer.store(
-                self._states, self._actions, reward, states)
+            samples = Samples(self._states, self._actions, reward, states)
+            self.replay_buffer.store(samples)

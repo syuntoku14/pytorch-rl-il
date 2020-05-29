@@ -5,6 +5,7 @@ from rlil.environments import Action
 from rlil.initializer import get_writer, get_device, get_replay_buffer
 from rlil.memory import ExperienceReplayBuffer
 from rlil.nn import weighted_mse_loss
+from rlil.utils import Samples
 from .base import Agent, LazyAgent
 
 
@@ -65,8 +66,8 @@ class SAC(Agent):
 
     def act(self, states, reward=None):
         if reward is not None:
-            self.replay_buffer.store(
-                self._states, self._actions, reward, states)
+            samples = Samples(self._states, self._actions, reward, states)
+            self.replay_buffer.store(samples)
         self._states = states
         self._actions = Action(self.policy.no_grad(
             states.to(self.device))[0]).to("cpu")

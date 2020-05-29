@@ -7,6 +7,7 @@ from rlil.environments import Action
 from rlil.initializer import (get_replay_buffer,
                               get_device,
                               get_writer)
+from rlil.utils import Samples
 
 
 class PPO(Agent):
@@ -59,8 +60,8 @@ class PPO(Agent):
 
     def act(self, states, rewards=None):
         if rewards is not None:
-            self.replay_buffer.store(
-                self._states, self._actions, rewards, states)
+            samples = Samples(self._states, self._actions, rewards, states)
+            self.replay_buffer.store(samples)
         self._states = states
         self._actions = Action(self.policy.no_grad(
             self.feature_nw.no_grad(states.to(self.device))).sample()).to("cpu")
@@ -68,7 +69,7 @@ class PPO(Agent):
 
     def train(self):
         if self.should_train():
-            states, actions, rewards, next_states = \
+            states, actions, rewards, next_states, _, _ = \
                 self.replay_buffer.get_all_transitions()
 
             # compute gae

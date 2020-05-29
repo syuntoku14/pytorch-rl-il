@@ -6,6 +6,7 @@ from rlil.environments import Action
 from rlil.initializer import get_device, get_writer, get_replay_buffer
 from rlil.memory import ExperienceReplayBuffer
 from rlil import nn
+from rlil.utils import Samples
 from .td3 import TD3, LazyAgent
 
 
@@ -59,8 +60,8 @@ class NoisyTD3(TD3):
 
     def act(self, states, reward=None):
         if reward is not None:
-            self.replay_buffer.store(
-                self._states, self._actions, reward, states)
+            samples = Samples(self._states, self._actions, reward, states)
+            self.replay_buffer.store(samples)
         self._states = states
         actions = self.policy.no_grad(states.to(self.device))
         self._actions = Action(actions).to("cpu")

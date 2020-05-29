@@ -6,6 +6,7 @@ from rlil.environments import Action
 from rlil.policies.deterministic import DeterministicPolicyNetwork
 from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import get_replay_buffer, get_n_step
+from rlil.utils import Samples
 
 
 class MockAgent:
@@ -23,10 +24,8 @@ class MockAgent:
         self.replay_buffer = get_replay_buffer()
 
     def act(self, state, reward):
-        self.replay_buffer.store(self._state,
-                                 self._action,
-                                 reward,
-                                 state)
+        samples = Samples(self._state, self._action, reward, state)
+        self.replay_buffer.store(samples)
         self._state = state
 
         with torch.no_grad():
@@ -58,10 +57,8 @@ class MockLazyAgent:
             discount_factor=self._discount_factor)
 
     def act(self, state, reward):
-        self.replay_buffer.store(self._state,
-                                 self._action,
-                                 reward,
-                                 state)
+        samples = Samples(self._state, self._action, reward, state)
+        self.replay_buffer.store(samples)
         self._state = state
 
         with torch.no_grad():

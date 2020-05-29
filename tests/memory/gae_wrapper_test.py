@@ -9,6 +9,7 @@ from rlil.approximation import VNetwork, FeatureNetwork
 from rlil.environments import State, Action, GymEnvironment
 from rlil.memory import ExperienceReplayBuffer, GaeWrapper
 from rlil.presets.continuous.models import fc_actor_critic
+from rlil.utils import Samples
 
 
 class DummyFeatures:
@@ -34,7 +35,8 @@ def setUp(use_cpu):
     states, next_states = states[:-1], states[1:]
     actions = Action(torch.tensor(actions))
     rewards = torch.arange(0, 3, dtype=torch.float)
-    gae_buffer.store(states, actions, rewards, next_states)
+    samples = Samples(states, actions, rewards, next_states)
+    gae_buffer.store(samples)
 
     feature_nw = DummyFeatures()
     v = DummyV()
@@ -44,7 +46,7 @@ def setUp(use_cpu):
 def test_advantage(setUp):
     gae_buffer, feature_nw, v = setUp
 
-    states, _, rewards, next_states = gae_buffer.get_all_transitions()
+    states, _, rewards, next_states, _, _ = gae_buffer.get_all_transitions()
     values = v.target(feature_nw.target(states))
     next_values = v.target(feature_nw.target(next_states))
     advantages = gae_buffer.compute_gae(rewards, values,

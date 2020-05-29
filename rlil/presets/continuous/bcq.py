@@ -99,7 +99,7 @@ def bcq(
         if transitions is not None:
             samples = replay_buffer.samples_from_cpprb(
                 transitions, device="cpu")
-            replay_buffer.store(*samples[:4])
+            replay_buffer.store(samples)
         set_replay_buffer(replay_buffer)
 
         return BCQ(

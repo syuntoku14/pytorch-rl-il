@@ -4,56 +4,47 @@ from cpprb import (ReplayBuffer, PrioritizedReplayBuffer,
                    create_env_dict, create_before_add_func)
 from rlil.environments import State, Action
 from rlil.initializer import get_device, is_debug_mode
+from rlil.utils import Samples, samples_to_np
 from .base import BaseReplayBuffer
 
 
+def check_samples(samples, priorities=None):
+    states, actions, rewards, next_states, _, _ = samples
+
+    # type check
+    assert isinstance(states, State), "Input invalid states type {}. \
+        states must be all.environments.State".format(type(states))
+    assert isinstance(actions, Action), "Input invalid states type {}. \
+            actions must be all.environments.Action".format(type(actions))
+    assert isinstance(next_states, State), \
+        "Input invalid next_states type {}. next_states must be all.environments.State".format(
+        type(next_states))
+    assert isinstance(rewards, torch.Tensor), "Input invalid rewards type {}. \
+        rewards must be torch.Tensor".format(type(rewards))
+    if priorities is not None:
+        assert isinstance(priorities, torch.Tensor), "Input invalid priorities type {}. \
+            priorities must be torch.Tensor".format(type(priorities))
+
+    # shape check
+    assert len(rewards.shape) == 1, \
+        "rewards.shape {} must be 'shape == (batch_size)'".format(
+            rewards.shape)
+    if priorities is not None:
+        assert len(priorities.shape) == 1, \
+            "priorities.shape {} must be 'shape == (batch_size)'".format(
+                priorities.shape)
+
+
 def check_inputs_shapes(store):
-    def retfunc(self, states, actions, rewards, next_states, priorities=None):
-        if states is None:
+    def retfunc(self, samples, priorities=None):
+        if samples.states is None:
             return None
-
         if is_debug_mode():
-            # device check
-            assert states.device == torch.device("cpu"), \
-                "Input states.device must be cpu"
-            assert actions.device == torch.device("cpu"), \
-                "Input actions.device must be cpu"
-            assert rewards.device == torch.device("cpu"), \
-                "Input rewards.device must be cpu"
-            assert next_states.device == torch.device("cpu"), \
-                "Input next_states.device must be cpu"
-            if priorities is not None:
-                assert priorities.device == torch.device("cpu"), \
-                    "Input priorities.device must be cpu"
-
-            # type check
-            assert isinstance(states, State), "Input invalid states type {}. \
-                states must be all.environments.State".format(type(states))
-            assert isinstance(actions, Action), "Input invalid states type {}. \
-                    actions must be all.environments.Action".format(type(actions))
-            assert isinstance(next_states, State), \
-                "Input invalid next_states type {}. next_states must be all.environments.State".format(
-                type(next_states))
-            assert isinstance(rewards, torch.Tensor), "Input invalid rewards type {}. \
-                rewards must be torch.Tensor".format(type(rewards))
-            if priorities is not None:
-                assert isinstance(priorities, torch.Tensor), "Input invalid priorities type {}. \
-                    priorities must be torch.Tensor".format(type(priorities))
-
-            # shape check
-            assert len(rewards.shape) == 1, \
-                "rewards.shape {} must be 'shape == (batch_size)'".format(
-                    rewards.shape)
-            if priorities is not None:
-                assert len(priorities.shape) == 1, \
-                    "priorities.shape {} must be 'shape == (batch_size)'".format(
-                        priorities.shape)
-
-        return store(self, states, actions, rewards, next_states, priorities)
+            check_samples(samples, priorities=priorities)
+        return store(self, samples, priorities=priorities)
     return retfunc
 
 
-# TODO: support tuple observation
 class ExperienceReplayBuffer(BaseReplayBuffer):
     '''This class utilizes cpprb.ReplayBuffer'''
 
@@ -101,23 +92,25 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
             self._buffer = ReplayBuffer(size, env_dict, Nstep=Nstep)
 
     @check_inputs_shapes
-    def store(self, states, actions, rewards, next_states, priorities=None):
-        """Store the transition in the buffer
+    def store(self, samples, priorities=None):
+        """Store the samples in the buffer
         Args:
-            states (rlil.environment.State): batch_size x shape
-            actions (rlil.environment.Action): batch_size x shape
-            rewards (torch.Tensor): batch_size
-            next_states (rlil.environment.State): batch_size x shape
+            Samples(
+                states (rlil.environment.State): batch_size x shape
+                actions (rlil.environment.Action): batch_size x shape
+                rewards (torch.Tensor): batch_size
+                next_states (rlil.environment.State): batch_size x shape
+                weights: None
+                indexes: None
+            )
             priorities (torch.Tensor): batch_size
         """
 
-        assert len(states) < self._buffer.get_buffer_size(), \
-            "The sample size exceeds the buffer size."
+        np_states, np_rewards, np_actions, np_next_states, \
+            np_dones, np_next_dones = samples_to_np(samples)
 
-        np_states, np_dones = states.raw_numpy()
-        np_actions = actions.raw_numpy()
-        np_rewards = rewards.detach().cpu().numpy()
-        np_next_states, np_next_dones = next_states.raw_numpy()
+        assert len(np_states) < self._buffer.get_buffer_size(), \
+            "The sample size exceeds the buffer size."
 
         if self.prioritized and (~np_dones).any():
             np_priorities = None if priorities is None \
@@ -166,12 +159,13 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         npsamples = self._buffer.get_all_transitions()
         if return_cpprb:
             return npsamples
-        return self.samples_from_cpprb(npsamples)[:4]
+        return self.samples_from_cpprb(npsamples)
 
     def samples_from_cpprb(self, npsamples, device=None):
         """
         Convert samples generated by cpprb.ReplayBuffer.sample() into 
         State, Action, rewards, State.
+        Return Samples object.
 
         Args:
             npsamples (dict of nparrays): 
@@ -180,7 +174,7 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
             device (optional): The device where the outputs are loaded.
 
         Returns:
-            State, Action, torch.FloatTensor, State
+            Samples(State, Action, torch.FloatTensor, State)
         """
         device = self.device if device is None else device
 
@@ -197,7 +191,7 @@ class ExperienceReplayBuffer(BaseReplayBuffer):
         else:
             weights = torch.ones(states.shape[0], device=self.device)
             indexes = None
-        return states, actions, rewards, next_states, weights, indexes
+        return Samples(states, actions, rewards, next_states, weights, indexes)
 
     def on_episode_end(self):
         if self._n_step > 1:

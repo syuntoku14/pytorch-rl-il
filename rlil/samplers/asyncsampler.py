@@ -134,6 +134,6 @@ class AsyncSampler(Sampler):
 
                 self._work_ids[worker] = None
                 if not evaluation:
-                    self.replay_buffer.store(*samples[:4])
+                    self.replay_buffer.store(samples)
 
         return result

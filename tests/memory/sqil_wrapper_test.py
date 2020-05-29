@@ -8,6 +8,7 @@ import torch_testing as tt
 from rlil.environments import State, Action, GymEnvironment
 from rlil.memory import ExperienceReplayBuffer, SqilWrapper
 from rlil.initializer import set_device
+from rlil.utils import Samples
 
 
 @pytest.fixture
@@ -19,16 +20,17 @@ def setUp(use_cpu):
     states = State(torch.tensor([env.observation_space.sample()]*10))
     actions = Action(torch.tensor([env.action_space.sample()]*9))
     rewards = torch.arange(0, 9, dtype=torch.float)
-    replay_buffer.store(states[:-1], actions, rewards, states[1:])
+    samples = Samples(states[:-1], actions, rewards, states[1:])
+    replay_buffer.store(samples)
 
     # expert buffer
     exp_replay_buffer = ExperienceReplayBuffer(1000, env)
     exp_states = State(torch.tensor([env.observation_space.sample()]*10))
     exp_actions = Action(torch.tensor([env.action_space.sample()]*9))
     exp_rewards = torch.arange(10, 19, dtype=torch.float)
-    exp_replay_buffer.store(
+    exp_samples = Samples(
         exp_states[:-1], exp_actions, exp_rewards, exp_states[1:])
-
+    exp_replay_buffer.store(exp_samples)
     sqil_buffer = SqilWrapper(replay_buffer, exp_replay_buffer)
 
     samples = {

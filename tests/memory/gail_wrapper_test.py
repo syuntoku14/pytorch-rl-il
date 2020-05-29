@@ -10,6 +10,7 @@ from rlil.memory import ExperienceReplayBuffer, GailWrapper
 from rlil.presets.continuous.models import fc_discriminator
 from rlil.approximation import Discriminator
 from rlil.initializer import set_device
+from rlil.utils import Samples
 
 
 @pytest.fixture
@@ -21,16 +22,17 @@ def setUp(use_cpu):
     states = State(torch.tensor([env.observation_space.sample()]*100))
     actions = Action(torch.tensor([env.action_space.sample()]*99))
     rewards = torch.arange(0, 99, dtype=torch.float)
-    replay_buffer.store(states[:-1], actions, rewards, states[1:])
+    samples = Samples(states[:-1], actions, rewards, states[1:])
+    replay_buffer.store(samples)
 
     # expert buffer
     exp_replay_buffer = ExperienceReplayBuffer(1000, env)
     exp_states = State(torch.tensor([env.observation_space.sample()]*100))
     exp_actions = Action(torch.tensor([env.action_space.sample()]*99))
     exp_rewards = torch.arange(100, 199, dtype=torch.float)
-    exp_replay_buffer.store(
+    exp_samples = Samples(
         exp_states[:-1], exp_actions, exp_rewards, exp_states[1:])
-
+    exp_replay_buffer.store(exp_samples)
     # discriminator
     discriminator_model = fc_discriminator(env)
     discriminator_optimizer = Adam(discriminator_model.parameters())
@@ -77,11 +79,11 @@ def test_store(setUp):
     gail_buffer, samples = setUp
     assert len(gail_buffer) == 99
 
-    gail_buffer.store(samples["buffer"]["states"][:-1],
-                      samples["buffer"]["actions"],
-                      samples["buffer"]["rewards"],
-                      samples["buffer"]["states"][1:],
-                      )
+    gail_samples = Samples(samples["buffer"]["states"][:-1],
+                           samples["buffer"]["actions"],
+                           samples["buffer"]["rewards"],
+                           samples["buffer"]["states"][1:])
+    gail_buffer.store(gail_samples)
 
     assert len(gail_buffer) == 198
 

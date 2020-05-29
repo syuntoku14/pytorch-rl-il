@@ -5,6 +5,7 @@ from torch.nn.functional import mse_loss
 from rlil.environments import State, action_decorator, Action
 from rlil.initializer import get_device, get_writer, get_replay_buffer
 from rlil import nn
+from rlil.utils import Samples
 from copy import deepcopy
 from .base import Agent, LazyAgent
 import os
@@ -83,8 +84,8 @@ class RsMPC(Agent):
 
     def act(self, states, reward=None):
         if reward is not None:
-            self.replay_buffer.store(
-                self._states, self._actions, reward, states)
+            samples = Samples(self._states, self._actions, reward, states)
+            self.replay_buffer.store(samples)
         self._states = states
         if self.should_train():
             actions = self._make_random_actions(len(states))
