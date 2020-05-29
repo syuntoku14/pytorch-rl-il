@@ -67,3 +67,6 @@ class MockLazyAgent:
 
         self._action = Action(action).to("cpu")
         return self._action
+
+    def compute_priorities(self, samples):
+        return None

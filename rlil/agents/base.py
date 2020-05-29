@@ -87,3 +87,12 @@ class LazyAgent(ABC):
                 "Call self.set_replay_buffer(env) at lazy_agent initialization."
             samples = Samples(self._states, self._actions, reward, states)
             self.replay_buffer.store(samples)
+
+    def compute_priorities(self, samples):
+        """
+        Compute priorities of the given samples. 
+        This method is useful for Apex implementation.
+        Args:
+            samples (rlil.utils.Samples)
+        """
+        return None

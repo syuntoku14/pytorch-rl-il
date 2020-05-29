@@ -67,6 +67,7 @@ class Worker:
             sample_info["returns"].append(_return)
 
         samples = lazy_agent.replay_buffer.get_all_transitions()
+        samples.weights = lazy_agent.compute_priorities(samples)
 
         return sample_info, samples
 
@@ -134,6 +135,6 @@ class AsyncSampler(Sampler):
 
                 self._work_ids[worker] = None
                 if not evaluation:
-                    self.replay_buffer.store(samples)
+                    self.replay_buffer.store(samples, priorities=samples.weights)
 
         return result

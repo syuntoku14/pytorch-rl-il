@@ -1,9 +1,17 @@
-from collections import namedtuple
+class Samples:
+    def __init__(self, states=None, actions=None, rewards=None,
+                 next_states=None, weights=None, indexes=None):
+        self.states = states
+        self.actions = actions
+        self.rewards = rewards
+        self.next_states = next_states
+        self.weights = weights
+        self.indexes = indexes
+        self._keys = [self.states, self.actions, self.rewards,
+                      self.next_states, self.weights, self.indexes]
 
-Samples = namedtuple("Samples",
-                     ["states", "actions", "rewards", "next_states",
-                      "weights", "indexes"])
-Samples.__new__.__defaults__ = Samples(*[None]*6)
+    def __iter__(self):
+        return iter(self._keys)
 
 
 def samples_to_np(samples):
