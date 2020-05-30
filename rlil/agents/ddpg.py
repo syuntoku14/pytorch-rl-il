@@ -3,7 +3,8 @@ import torch
 import os
 from torch.distributions.normal import Normal
 from rlil.environments import Action
-from rlil.initializer import get_device, get_writer, get_replay_buffer
+from rlil.initializer import (
+    get_device, get_writer, get_replay_buffer, use_apex)
 from rlil.memory import ExperienceReplayBuffer
 from rlil.nn import weighted_mse_loss
 from rlil.utils import Samples
@@ -99,10 +100,18 @@ class DDPG(Agent):
         return len(self.replay_buffer) > self.replay_start_size
 
     def make_lazy_agent(self, evaluation=False, store_samples=True):
-        model = deepcopy(self.policy.model)
+        policy_model = deepcopy(self.policy.model)
+        q_model = deepcopy(self.q.model)
+        policy_target_model = deepcopy(self.policy._target._target)
+        q_target_model = deepcopy(self.q._target._target)
         noise = Normal(0, self._noise.stddev.to("cpu"))
-        return DDPGLazyAgent(model.to("cpu"),
-                             noise,
+        return DDPGLazyAgent(policy_model=policy_model.to("cpu"),
+                             policy_target_model=policy_target_model.to("cpu"),
+                             q_model=q_model.to("cpu"),
+                             q_target_model=q_target_model.to("cpu"),
+                             discount_factor=self.discount_factor,
+                             noise=noise,
+                             use_apex=use_apex(),
                              evaluation=evaluation,
                              store_samples=store_samples)
 
@@ -121,10 +130,16 @@ class DDPGLazyAgent(LazyAgent):
     Agent class for sampler.
     """
 
-    def __init__(self, policy_model, noise,
-                 *args, **kwargs):
+    def __init__(self, policy_model, policy_target_model,
+                 q_model, q_target_model, discount_factor,
+                 noise, use_apex, *args, **kwargs):
         self._policy_model = policy_model
+        self._policy_target_model = policy_target_model
+        self._q_model = q_model
+        self._q_target_model = q_target_model
+        self._discount_factor = discount_factor
         self._noise = noise
+        self._use_apex = use_apex
         super().__init__(*args, **kwargs)
         if self._evaluation:
             self._policy_model.eval()
@@ -138,3 +153,15 @@ class DDPGLazyAgent(LazyAgent):
                 actions += self._noise.sample([actions.shape[0]])
         self._actions = Action(actions)
         return self._actions
+
+    def compute_priorities(self, samples):
+        if self._use_apex:
+            q_values = self._q_model(samples.states, samples.actions)
+            targets = samples.rewards + self._discount_factor * \
+                self._q_target_model(samples.next_states, Action(
+                    self._policy_target_model(samples.next_states)))
+
+            td_errors = (targets - q_values).abs()
+            return td_errors
+        else:
+            return None

@@ -23,8 +23,8 @@ def get_transitions(env):
     return agent.replay_buffer.get_all_transitions(return_cpprb=True)
 
 
-def test_gail():
-    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
+def test_gail(use_cpu):
+    env = GymEnvironment("LunarLanderContinuous-v2", append_time=True)
     transitions = get_transitions(env)
     base_agent_fn = td3(replay_start_size=0)
     assert len(transitions["obs"]) > 100
@@ -40,8 +40,8 @@ def test_gail():
     assert writer.train_steps > 1
 
 
-def test_sqil():
-    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
+def test_sqil(use_cpu):
+    env = GymEnvironment("LunarLanderContinuous-v2", append_time=True)
     transitions = get_transitions(env)
     base_agent_fn = sac(replay_start_size=0)
     assert len(transitions["obs"]) > 100
@@ -58,7 +58,7 @@ def test_sqil():
 
 
 def test_airl():
-    env = GymEnvironment("MountainCarContinuous-v0", append_time=True)
+    env = GymEnvironment("LunarLanderContinuous-v2", append_time=True)
     transitions = get_transitions(env)
     base_agent_fn = ppo(replay_start_size=0)
     assert len(transitions["obs"]) > 100

@@ -49,6 +49,7 @@ def set_seed(seed):
     if torch.cuda.is_available():
         torch.cuda.manual_seed_all(seed)
     _SEED = seed
+    print("-----SEED: {}-----".format(_SEED))
 
 
 def call_seed():
@@ -104,14 +105,14 @@ _ON_POLICY_MODE = False
 
 def enable_on_policy_mode():
     global _ON_POLICY_MODE
-    print("-----ON_POLICY_MODE: True-----")
     _ON_POLICY_MODE = True
+    print("-----ON_POLICY_MODE: {}-----".format(_ON_POLICY_MODE))
 
 
 def disable_on_policy_mode():
     global _ON_POLICY_MODE
-    print("-----ON_POLICY_MODE: False-----")
     _ON_POLICY_MODE = False
+    print("-----ON_POLICY_MODE: {}-----".format(_ON_POLICY_MODE))
 
 
 def is_on_policy_mode():
@@ -128,8 +129,30 @@ def set_n_step(n_step, discount_factor=0.95):
     global _NSTEP, _DISCOUNT_FACTOR
     _NSTEP = n_step
     _DISCOUNT_FACTOR = discount_factor
+    print("-----N step: {}-----".format(_NSTEP))
+    print("-----Discount factor: {}-----".format(_DISCOUNT_FACTOR))
 
 
 def get_n_step():
     global _NSTEP, _DISCOUNT_FACTOR
     return _NSTEP, _DISCOUNT_FACTOR
+
+
+_USE_APEX = False
+
+
+def enable_apex():
+    global _USE_APEX
+    _USE_APEX = True
+    print("-----USE_APEX: {}-----".format(_USE_APEX))
+
+
+def disable_apex():
+    global _USE_APEX
+    _USE_APEX = False
+    print("-----USE_APEX: {}-----".format(_USE_APEX))
+
+
+def use_apex():
+    global _USE_APEX
+    return _USE_APEX

@@ -3,11 +3,13 @@ import os
 from copy import deepcopy
 from torch.distributions.normal import Normal
 from rlil.environments import Action
-from rlil.initializer import get_device, get_writer, get_replay_buffer
+from rlil.initializer import (
+    get_device, get_writer, get_replay_buffer, use_apex)
 from rlil.memory import ExperienceReplayBuffer
 from rlil.nn import weighted_mse_loss
 from rlil.utils import Samples
 from .base import Agent, LazyAgent
+from .ddpg import DDPGLazyAgent
 
 
 class TD3(Agent):
@@ -115,7 +117,7 @@ class TD3(Agent):
                 q_2_values, q_targets, weights))
 
             # update priorities
-            td_errors = (((q_targets - q_1_values) + (q_targets - q_2_values)) / 2).abs()
+            td_errors = (q_targets - q_1_values).abs()
             self.replay_buffer.update_priorities(indexes, td_errors.cpu())
 
             # train policy
@@ -133,15 +135,21 @@ class TD3(Agent):
     def should_train(self):
         return len(self.replay_buffer) > self.replay_start_size
 
-    def make_lazy_agent(self,
-                        evaluation=False,
-                        store_samples=True):
-        model = deepcopy(self.policy.model)
+    def make_lazy_agent(self, evaluation=False, store_samples=True):
+        policy_model = deepcopy(self.policy.model)
+        q_model = deepcopy(self.q_1.model)
+        policy_target_model = deepcopy(self.policy._target._target)
+        q_target_model = deepcopy(self.q_1._target._target)
         noise = Normal(0, self._noise_policy.stddev.to("cpu"))
-        return TD3LazyAgent(model.to("cpu"),
-                            noise,
-                            evaluation=evaluation,
-                            store_samples=store_samples)
+        return DDPGLazyAgent(policy_model=policy_model.to("cpu"),
+                             policy_target_model=policy_target_model.to("cpu"),
+                             q_model=q_model.to("cpu"),
+                             q_target_model=q_target_model.to("cpu"),
+                             discount_factor=self.discount_factor,
+                             noise=noise,
+                             use_apex=use_apex(),
+                             evaluation=evaluation,
+                             store_samples=store_samples)
 
     def load(self, dirname):
         for filename in os.listdir(dirname):
@@ -154,30 +162,3 @@ class TD3(Agent):
             if filename in ('q_2.pt'):
                 self.q_1.model = torch.load(os.path.join(dirname, filename),
                                             map_location=self.device)
-
-
-class TD3LazyAgent(LazyAgent):
-    """ 
-    Agent class for sampler.
-    """
-
-    def __init__(self,
-                 policy_model,
-                 noise_policy,
-                 *args,
-                 **kwargs):
-        self._policy_model = policy_model
-        self._noise_policy = noise_policy
-        super().__init__(*args, **kwargs)
-        if self._evaluation:
-            self._policy_model.eval()
-
-    def act(self, states, reward):
-        super().act(states, reward)
-        self._states = states
-        with torch.no_grad():
-            actions = self._policy_model(states)
-            if not self._evaluation:
-                actions += self._noise_policy.sample([actions.shape[0]])
-        self._actions = Action(actions)
-        return self._actions

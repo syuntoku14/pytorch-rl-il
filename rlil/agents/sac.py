@@ -2,7 +2,8 @@ import torch
 import os
 from copy import deepcopy
 from rlil.environments import Action
-from rlil.initializer import get_writer, get_device, get_replay_buffer
+from rlil.initializer import (
+    get_device, get_writer, get_replay_buffer, use_apex)
 from rlil.memory import ExperienceReplayBuffer
 from rlil.nn import weighted_mse_loss
 from rlil.utils import Samples
@@ -100,8 +101,7 @@ class SAC(Agent):
                 self.v(states), v_targets, weights))
 
             # update priorities
-            td_errors = (((q_targets - q_1_values) +
-                          (q_targets - q_2_values)) / 2).abs()
+            td_errors = (q_targets - q_1_values).abs()
             self.replay_buffer.update_priorities(indexes, td_errors.cpu())
 
             # update policy
@@ -128,8 +128,14 @@ class SAC(Agent):
         return len(self.replay_buffer) > self.replay_start_size
 
     def make_lazy_agent(self, evaluation=False, store_samples=True):
-        model = deepcopy(self.policy.model)
-        return SACLazyAgent(model.to("cpu"),
+        policy_model = deepcopy(self.policy.model)
+        q_model = deepcopy(self.q_1.model)
+        v_target_model = deepcopy(self.v._target._target)
+        return SACLazyAgent(policy_model.to("cpu"),
+                            q_model=q_model.to("cpu"),
+                            v_target_model=v_target_model.to("cpu"),
+                            discount_factor=self.discount_factor,
+                            use_apex=use_apex,
                             evaluation=evaluation,
                             store_samples=store_samples)
 
@@ -151,8 +157,14 @@ class SACLazyAgent(LazyAgent):
     Agent class for sampler.
     """
 
-    def __init__(self, policy_model, *args, **kwargs):
+    def __init__(self, policy_model,
+                 q_model, v_target_model, discount_factor,
+                 use_apex, *args, **kwargs):
         self._policy_model = policy_model
+        self._q_model = q_model
+        self._v_target_model = v_target_model
+        self._discount_factor = discount_factor
+        self._use_apex = use_apex
         super().__init__(*args, **kwargs)
         if self._evaluation:
             self._policy_model.eval()
@@ -167,3 +179,13 @@ class SACLazyAgent(LazyAgent):
                 outputs = self._policy_model(states)[0]
             self._actions = Action(outputs).to("cpu")
         return self._actions
+
+    def compute_priorities(self, samples):
+        if self._use_apex:
+            targets = samples.rewards + self._discount_factor * \
+                self._v_target_model(samples.next_states)
+            q_values = self._q_model(samples.states, samples.actions)
+            td_errors = (targets - q_values).abs()
+            return td_errors
+        else:
+            return None

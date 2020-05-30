@@ -89,17 +89,18 @@ python scripts/continuous/online_il.py [env] [agent (e.g. gail)] [base_agent (e.
 
 ### Others
 
-Currently, DDPG, TD3 and SAC can be combined with PER and M-step. To enable them, just pass `n_step` or `prioritized` argument to the preset. For example,
+Currently, DDPG, TD3 and SAC can be combined with M-step, PER and Ape-X. To enable them, just pass `n_step`, `prioritized` or `use_apex` argument to the preset. For example,
 
 ```
 from rlil.presets.continuous import ddpg
 ddpg(n_step=5, prioritized=True)
+ddpg(apex=True)
 ```
 
 - [x] [`Noisy Networks for Exploration`](https://arxiv.org/abs/1706.10295), [code](rlil/nn/__init__.py)
 - [x] [`Prioritized Experience Replay (PER)`](https://arxiv.org/abs/1511.05952), [code](rlil/memory/replay_buffer.py)
 - [x] [`Multi-step learning (M-step)`](https://arxiv.org/abs/1710.02298), [code](rlil/memory/replay_buffer.py)
-- [ ] [`Ape-X`](https://arxiv.org/abs/1803.00933)
+- [x] [`Ape-X`](https://arxiv.org/abs/1803.00933), [code](rlil/samplers/asyncsampler.py)
 
 ## Environments
 

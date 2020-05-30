@@ -7,7 +7,8 @@ from rlil.memory import ExperienceReplayBuffer
 from rlil.initializer import (get_device,
                               set_replay_buffer,
                               disable_on_policy_mode,
-                              set_n_step)
+                              set_n_step,
+                              enable_apex)
 from .models import fc_q, fc_v, fc_soft_policy
 
 
@@ -25,6 +26,7 @@ def sac(
         replay_start_size=5000,
         replay_buffer_size=1e7,
         prioritized=False,
+        use_apex=False,
         n_step=1,
         # Exploration settings
         temperature_initial=0.1,
@@ -44,6 +46,7 @@ def sac(
         replay_start_size (int): Number of experiences in replay buffer when training begins.
         replay_buffer_size (int): Maximum number of experiences to store in the replay buffer.
         prioritized (bool): Use prioritized experience replay if True.
+        use_apex (bool): Use apex if True.
         n_step (int): Number of steps for N step experience replay.
         temperature_initial (float): Initial value of the temperature parameter.
         lr_temperature (float): Learning rate for the temperature. Should be low compared to other learning rates.
@@ -86,9 +89,12 @@ def sac(
             env.action_space,
         )
 
+        if use_apex:
+            enable_apex()
         set_n_step(n_step=n_step, discount_factor=discount_factor)
-        replay_buffer = ExperienceReplayBuffer(replay_buffer_size, env,
-                                               prioritized=prioritized)
+        replay_buffer = ExperienceReplayBuffer(
+            replay_buffer_size, env,
+            prioritized=prioritized or use_apex)
         set_replay_buffer(replay_buffer)
 
         return SAC(

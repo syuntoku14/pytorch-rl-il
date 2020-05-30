@@ -41,15 +41,28 @@ def env_validation(agent_fn, env, done_step=-1):
     assert num_trains > 0
 
 
-def trainer_validation(agent_fn, env, num_workers=3, eval_workers=0):
+def trainer_validation(agent_fn, env, apex=False):
     agent = agent_fn(env)
-    ray.init(include_webui=False, ignore_reinit_error=True)
-    sampler = AsyncSampler(
-        env,
-        num_workers=num_workers,
-    ) if num_workers > 0 else None
-    eval_sampler = AsyncSampler(
-        env,
-        num_workers=eval_workers) if eval_workers > 0 else None
-    trainer = Trainer(agent, sampler, eval_sampler, max_train_steps=1)
-    trainer.start_training()
+    lazy_agent = agent.make_lazy_agent()
+    eval_lazy_agent = agent.make_lazy_agent(evaluation=True)
+    lazy_agent.set_replay_buffer(env)
+    eval_lazy_agent.set_replay_buffer(env)
+
+    env.reset()
+    action = lazy_agent.act(env.state, env.reward)
+
+    while not env.done:
+        env.step(action)
+        action = lazy_agent.act(env.state, env.reward)
+        _ = eval_lazy_agent.act(env.state, env.reward)
+
+    lazy_agent.replay_buffer.on_episode_end()
+
+    samples = lazy_agent.replay_buffer.get_all_transitions()
+    samples.weights = lazy_agent.compute_priorities(samples)
+    if apex:
+        assert samples.weights is not None
+    agent.replay_buffer.store(samples)
+    agent.train()
+    agent.train()
+    assert agent.writer.train_steps > 1

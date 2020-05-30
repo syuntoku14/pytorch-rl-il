@@ -29,7 +29,7 @@ def test_bcq():
     assert len(transitions["obs"]) > 100
 
     env_validation(bcq(transitions), env, done_step=50)
-    trainer_validation(bcq(transitions), env, num_workers=0, eval_workers=1)
+    trainer_validation(bcq(transitions), env)
 
 
 def test_bear():
@@ -38,7 +38,7 @@ def test_bear():
     assert len(transitions["obs"]) > 100
 
     env_validation(bear(transitions), env, done_step=50)
-    trainer_validation(bear(transitions), env, num_workers=0, eval_workers=1)
+    trainer_validation(bear(transitions), env)
 
 
 def test_brac():
@@ -47,8 +47,7 @@ def test_brac():
     assert len(transitions["obs"]) > 100
 
     env_validation(brac(transitions, bc_iters=5), env, done_step=50)
-    trainer_validation(brac(transitions, bc_iters=5),
-                       env, num_workers=0, eval_workers=1)
+    trainer_validation(brac(transitions, bc_iters=5), env)
 
 
 def test_bc():
@@ -57,7 +56,7 @@ def test_bc():
     assert len(transitions["obs"]) > 100
 
     env_validation(bc(transitions), env, done_step=50)
-    trainer_validation(bc(transitions), env, num_workers=0)
+    trainer_validation(bc(transitions), env)
 
 
 def test_vae_bc():
@@ -66,4 +65,4 @@ def test_vae_bc():
     assert len(transitions["obs"]) > 100
 
     env_validation(vae_bc(transitions), env, done_step=50)
-    trainer_validation(vae_bc(transitions), env, num_workers=0)
+    trainer_validation(vae_bc(transitions), env)
