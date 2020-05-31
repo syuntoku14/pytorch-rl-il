@@ -5,7 +5,7 @@ from .target import TrivialTarget
 from .checkpointer import PeriodicCheckpointer
 from rlil.initializer import get_writer
 
-DEFAULT_CHECKPOINT_FREQUENCY = 5000
+DEFAULT_CHECKPOINT_FREQUENCY = 200
 
 
 class Approximation():

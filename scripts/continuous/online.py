@@ -47,11 +47,13 @@ def main():
     # set agent
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
-    agent_fn = preset()
+    buffer_args = {}  # "n_step": 5, "prioritized": True
+    agent_fn = preset(**buffer_args)
 
     # set args_dict
     args_dict = get_default_args(preset)
     args_dict.update(vars(args))
+    args_dict.update(buffer_args)
 
     Experiment(
         agent_fn, env,
