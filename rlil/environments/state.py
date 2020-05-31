@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 from rlil.initializer import is_debug_mode, get_device
+from copy import deepcopy
 
 
 class State:
@@ -54,6 +55,11 @@ class State:
             self._mask = mask.bool()
 
         self._info = info or [None] * len(raw)
+
+    def clone(self):
+        return State(
+            self._raw.clone(), self._mask.clone(), deepcopy(self._info)
+        )
 
     @classmethod
     def from_list(cls, states):

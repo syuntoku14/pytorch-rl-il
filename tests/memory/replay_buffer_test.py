@@ -100,17 +100,28 @@ def test_per_run():
     replay_buffer = ExperienceReplayBuffer(10000, env, prioritized=True)
     assert replay_buffer.prioritized
 
-    states = torch.tensor([env.observation_space.sample()]*20)
-    actions = torch.tensor([env.action_space.sample()]*19)
-    rewards = torch.arange(0, 19, dtype=torch.float)
-
-    states = State(states)
-    actions = Action(actions)
+    # prioritized
+    states = State(torch.tensor([env.observation_space.sample()]*4))
+    actions = Action(torch.tensor([env.action_space.sample()]*3))
+    rewards = torch.ones(3, dtype=torch.float)
     samples = Samples(states[:-1], actions, rewards, states[1:])
     priorities = torch.ones(rewards.shape[0])
     replay_buffer.store(samples, priorities=priorities)
-    for i in range(2):
-        (s, a, r, n, w, i) = replay_buffer.sample(3)
-        td_error = s.features.sum(dim=1)
-        assert td_error.shape == (3, )
-        replay_buffer.update_priorities(i, td_error.cpu())
+
+    # not prioritized
+    states = State(torch.tensor([env.observation_space.sample()]*11))
+    actions = Action(torch.tensor([env.action_space.sample()]*10))
+    rewards = torch.zeros(10, dtype=torch.float)
+    samples = Samples(states[:-1], actions, rewards, states[1:])
+    priorities = torch.zeros(rewards.shape[0])
+    replay_buffer.store(samples, priorities=priorities)
+
+    (s, a, r, n, w, i) = replay_buffer.sample(3)
+    assert r.sum() == 3
+    assert w.sum() < 3
+
+    td_error = torch.zeros(3)
+    replay_buffer.update_priorities(i, td_error.cpu())
+    (s, a, r, n, w, i) = replay_buffer.sample(3)
+    assert r.sum() < 3
+    assert w.sum() == 3.

@@ -93,7 +93,9 @@ class DDPG(Agent):
             self.policy.reinforce(policy_loss)
 
             # additional debugging info
-            self.writer.add_scalar('loss/td_error', td_errors.mean())
+            self.writer.add_scalar('error/td_error/mean', td_errors.mean())
+            self.writer.add_scalar('error/td_error/max', td_errors.mean())
+            self.writer.add_scalar('error/td_error/min', td_errors.mean())
             self.writer.train_steps += 1
 
     def should_train(self):
