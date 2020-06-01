@@ -97,6 +97,9 @@ ddpg(n_step=5, prioritized=True)
 ddpg(apex=True)
 ```
 
+The implementation of Ape-X is not same as the original paper since `rlil` uses episodic training.
+The implemented Ape-X is unstable and sensitive to the mini-batch size. See [this issue](https://github.com/syuntoku14/pytorch-rl-il/issues/4#issue-628178561).
+
 - [x] [`Noisy Networks for Exploration`](https://arxiv.org/abs/1706.10295), [code](rlil/nn/__init__.py)
 - [x] [`Prioritized Experience Replay (PER)`](https://arxiv.org/abs/1511.05952), [code](rlil/memory/replay_buffer.py)
 - [x] [`Multi-step learning (M-step)`](https://arxiv.org/abs/1710.02298), [code](rlil/memory/replay_buffer.py)
