@@ -103,6 +103,15 @@ class ExperimentWriter(SummaryWriter, Writer):
         name = self.env_name + "/" + name
         super().add_text(name, text, self._get_step_value(step))
 
+    def add_histogram(self, name, values, step="train_steps"):
+        # add histogram every self._add_scalar_interval * 100
+        step_value = self._get_step_value(step)
+        value_name = self.env_name + "/" + name + "/" + step
+        if step_value - self._name_frame_history[value_name] \
+                >= self._add_scalar_interval[step] * 100:
+            super().add_histogram(value_name, values, self._get_step_value(step))
+            self._name_frame_history[value_name] = step_value
+
 
 def get_commit_hash():
     result = subprocess.run(

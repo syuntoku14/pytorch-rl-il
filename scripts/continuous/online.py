@@ -47,7 +47,7 @@ def main():
     # set agent
     agent_name = args.agent
     preset = getattr(continuous, agent_name)
-    buffer_args = {}  # "n_step": 5, "prioritized": True
+    buffer_args = {"n_step": 1, "prioritized": False, "use_apex": False}
     agent_fn = preset(**buffer_args)
 
     # set args_dict
