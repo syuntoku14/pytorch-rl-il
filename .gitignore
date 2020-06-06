@@ -1,22 +1,8 @@
-# python
-*.pyc
-__pycache__
-
-# build directories
-/build
-/dist
-heavy_runs
-scripts/runs/
+# ray
+core 
 
 # editor
 .vscode
-.idea
-
-# non-committed code
-local
-legacy
-/out
-/others
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -40,7 +26,6 @@ parts/
 sdist/
 var/
 wheels/
-pip-wheel-metadata/
 share/python-wheels/
 *.egg-info/
 .installed.cfg
@@ -91,6 +76,10 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+
+# PyBuilder
+.pybuilder/
+target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -150,3 +139,6 @@ dmypy.json
 
 # pytype static type analyzer
 .pytype/
+
+# Cython debug symbols
+cython_debug/

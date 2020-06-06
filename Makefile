@@ -18,9 +18,11 @@ tensorboard:
 clean:
 	rm -rf dist
 	rm -rf build
+	find . -type f -name '*.so' -delete
+	find . -type f -name '*.cpp' -delete
 
-build: clean
-	python setup.py sdist bdist_wheel
+build:
+	python setup.py build_ext --inplace 
 
 deploy: lint test build
 	twine upload dist/*

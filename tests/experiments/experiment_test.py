@@ -25,6 +25,9 @@ class MockWriter(Writer):
         self.data[key]["values"].append(value)
         self.data[key]["steps"].append(self._get_step_value(step))
 
+    def add_histogram(self, *args, **kwargs):
+        pass
+
     def add_text(self, name, text, step="sample_frames"):
         pass
 
