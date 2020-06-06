@@ -1,7 +1,9 @@
 import torch
 import numpy as np
 import os
-from rlil.environments.envs.diag_q import q_iteration, tabular_env, time_limit_wrapper
+from scipy.special import logsumexp as sp_lse
+from rlil.diag_q.envs import (tabular_env, time_limit_wrapper)
+from rlil.diag_q.compute_q import q_iteration
 from rlil.environments import GymEnvironment, ENVS, State, Action
 from rlil.presets import continuous
 
@@ -136,9 +138,11 @@ def predict_state_values_ppo(feature_nw, v_func):
 
 
 def state_to_th_thv_time(states):
-    theta = torch.atan2(states.raw[:, 1], states.raw[:, 0]).cpu().detach().numpy()
+    theta = torch.atan2(
+        states.raw[:, 1], states.raw[:, 0]).cpu().detach().numpy()
     theta_v = states.raw[:, 2].cpu().detach().numpy()
-    time_step = (states.raw[:, -1] * MAX_STEPS).floor().int().cpu().detach().numpy()
+    time_step = (states.raw[:, -1] *
+                 MAX_STEPS).floor().int().cpu().detach().numpy()
     return theta, theta_v, time_step
 
 
@@ -152,3 +156,44 @@ def compute_true_action_values_from_samples(full_qvals, states, actions):
         a_idx = ENV.wrapped_env.id_from_torque(trq)
         qvals[i] = full_qvals[s_idx][a_idx]
     return qvals
+
+
+def logsumexp(q, alpha=1.0, axis=1):
+    if alpha == 0:
+        return np.max(q, axis=axis)
+    return alpha*sp_lse((1.0/alpha)*q, axis=axis)
+
+
+def get_policy(q_fn, ent_wt=1.0):
+    v_rew = logsumexp(q_fn, alpha=ent_wt)
+    adv_rew = q_fn - np.expand_dims(v_rew, axis=1)
+    if ent_wt == 0:
+        pol_probs = adv_rew
+        pol_probs[pol_probs >= 0] = 1.0
+        pol_probs[pol_probs < 0] = 0.0
+    else:
+        pol_probs = np.exp((1.0/ent_wt)*adv_rew)
+    pol_probs /= np.sum(pol_probs, axis=1, keepdims=True)
+    assert np.all(np.isclose(np.sum(pol_probs, axis=1), 1.0)), str(pol_probs)
+    return pol_probs
+
+
+def sample_visitation(q_fn, sample_iters=1000):
+    policy = get_policy(q_fn)
+    visitation = np.zeros((MAX_STEPS, STATE_DISC, STATE_DISC))
+    for _ in range(sample_iters):
+        done = False
+        ENV.reset()
+        wrapped_s = ENV.get_state()
+        while not done:
+            # record visitation
+            time, s = ENV.unwrap_state(wrapped_s)
+            th, thv = ENV.wrapped_env.th_thv_from_id(s)
+            th, thv = ENV.wrapped_env.disc_th_thv(th, thv)
+            visitation[time, th, thv] += 1
+
+            # do step
+            a = np.random.choice(5, p=policy[wrapped_s])
+            _, _, done, _ = ENV.step(a)
+            wrapped_s = ENV.get_state()
+    return visitation / sample_iters

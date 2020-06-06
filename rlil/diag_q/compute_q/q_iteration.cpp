@@ -5,12 +5,12 @@
     "distutils": {
         "depends": [],
         "language": "c++",
-        "name": "rlil.environments.envs.diag_q.q_iteration",
+        "name": "rlil.diag_q.compute_q.q_iteration",
         "sources": [
-            "rlil/environments/envs/diag_q/q_iteration.pyx"
+            "rlil/diag_q/compute_q/q_iteration.pyx"
         ]
     },
-    "module_name": "rlil.environments.envs.diag_q.q_iteration"
+    "module_name": "rlil.diag_q.compute_q.q_iteration"
 }
 END: Cython Metadata */
 
@@ -619,8 +619,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__rlil__environments__envs__diag_q__q_iteration
-#define __PYX_HAVE_API__rlil__environments__envs__diag_q__q_iteration
+#define __PYX_HAVE__rlil__diag_q__compute_q__q_iteration
+#define __PYX_HAVE_API__rlil__diag_q__compute_q__q_iteration
 /* Early includes */
 #include "ios"
 #include "new"
@@ -853,9 +853,9 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "rlil/environments/envs/diag_q/q_iteration.pyx",
+  "rlil/diag_q/compute_q/q_iteration.pyx",
   "stringsource",
-  "rlil/environments/envs/diag_q/tabular_env.pxd",
+  "rlil/diag_q/envs/tabular_env.pxd",
 };
 /* MemviewSliceStruct.proto */
 struct __pyx_memoryview_obj;
@@ -967,22 +967,22 @@ typedef struct {
 
 
 /*--- Type declarations ---*/
-struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv;
-struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv;
-struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv;
-struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum;
-struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar;
+struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv;
+struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv;
+struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv;
+struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum;
+struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
-struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_TimeStep;
-struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_PendulumState;
+struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep;
+struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_PendulumState;
 struct __pyx_ctuple_double__and_double;
 typedef struct __pyx_ctuple_double__and_double __pyx_ctuple_double__and_double;
 struct __pyx_ctuple_int__and_int;
 typedef struct __pyx_ctuple_int__and_int __pyx_ctuple_int__and_int;
-struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCarState;
+struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_MountainCarState;
 
 /* "tabular_env.pxd":4
  * 
@@ -991,7 +991,7 @@ struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCarState
  *     int state
  *     double reward
  */
-struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_TimeStep {
+struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep {
   int state;
   double reward;
   int done;
@@ -1004,7 +1004,7 @@ struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_TimeStep {
  *     double theta
  *     double thetav
  */
-struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_PendulumState {
+struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_PendulumState {
   double theta;
   double thetav;
 };
@@ -1040,21 +1040,21 @@ struct __pyx_ctuple_int__and_int {
  *     double pos
  *     double vel
  */
-struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCarState {
+struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_MountainCarState {
   double pos;
   double vel;
 };
-struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration;
-struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_get_policy;
+struct __pyx_opt_args_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration;
+struct __pyx_opt_args_4rlil_6diag_q_9compute_q_11q_iteration_get_policy;
 
-/* "rlil/environments/envs/diag_q/q_iteration.pyx":61
+/* "rlil/diag_q/compute_q/q_iteration.pyx":61
  * 
  * @cython.boundscheck(False)
  * cpdef softq_iteration(tabular_env.TabularEnv tabular_env,             # <<<<<<<<<<<<<<
  *                          warmstart_q=None,
  *                          int num_itrs=100,
  */
-struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration {
+struct __pyx_opt_args_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration {
   int __pyx_n;
   PyObject *warmstart_q;
   int num_itrs;
@@ -1064,14 +1064,14 @@ struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_ite
   PyObject *verbose;
 };
 
-/* "rlil/environments/envs/diag_q/q_iteration.pyx":126
+/* "rlil/diag_q/compute_q/q_iteration.pyx":126
  * 
  * #@cython.cdivision(True)
  * cpdef get_policy(q_fn, double ent_wt=1.0):             # <<<<<<<<<<<<<<
  *     """Return a policy by normalizing a Q-function."""
  *     cdef double inverse_ent = 1.0/ent_wt
  */
-struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_get_policy {
+struct __pyx_opt_args_4rlil_6diag_q_9compute_q_11q_iteration_get_policy {
   int __pyx_n;
   double ent_wt;
 };
@@ -1083,9 +1083,9 @@ struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_get_polic
  *     cdef public int num_states
  *     cdef public int num_actions
  */
-struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv {
+struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv {
   PyObject_HEAD
-  struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *__pyx_vtab;
+  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_vtab;
   int num_states;
   int num_actions;
   PyObject *observation_space;
@@ -1103,8 +1103,8 @@ struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv {
  *     cdef double transition_noise
  * 
  */
-struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv {
-  struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv {
+  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
   double transition_noise;
 };
 
@@ -1116,8 +1116,8 @@ struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv {
  *     cdef double[:,:,:] _transition_matrix
  *     cdef double[:,:] _reward_matrix
  */
-struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv {
-  struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv {
+  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
   __Pyx_memviewslice _transition_matrix;
   __Pyx_memviewslice _reward_matrix;
 };
@@ -1130,8 +1130,8 @@ struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularE
  *     cdef int _state_disc
  *     cdef int _action_disc
  */
-struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum {
-  struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum {
+  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
   int _state_disc;
   int _action_disc;
   double max_vel;
@@ -1155,8 +1155,8 @@ struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendul
  *     cdef int _pos_disc
  *     cdef int _vel_disc
  */
-struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar {
-  struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar {
+  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
   int _pos_disc;
   int _vel_disc;
   int _action_disc;
@@ -1256,22 +1256,22 @@ struct __pyx_memoryviewslice_obj {
  *     cdef public int num_actions
  */
 
-struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv {
-  PyObject *(*transitions)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int, int, int __pyx_skip_dispatch);
-  std::map<int,double>  (*transitions_cy)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int, int);
-  double (*reward)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int, int, int, int __pyx_skip_dispatch);
-  PyObject *(*observation)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
-  PyObject *(*step)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
-  struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_TimeStep (*step_state)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
-  PyObject *(*reset)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
-  int (*reset_state)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
-  PyObject *(*transition_matrix)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
-  PyObject *(*reward_matrix)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
-  PyObject *(*set_state)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
-  int (*get_state)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
-  PyObject *(*render)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv {
+  PyObject *(*transitions)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int, int __pyx_skip_dispatch);
+  std::map<int,double>  (*transitions_cy)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int);
+  double (*reward)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int, int, int __pyx_skip_dispatch);
+  PyObject *(*observation)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
+  PyObject *(*step)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
+  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep (*step_state)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
+  PyObject *(*reset)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+  int (*reset_state)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+  PyObject *(*transition_matrix)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+  PyObject *(*reward_matrix)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+  PyObject *(*set_state)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
+  int (*get_state)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+  PyObject *(*render)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *__pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv;
+static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_TabularEnv;
 
 
 /* "tabular_env.pxd":32
@@ -1282,10 +1282,10 @@ static struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_
  * 
  */
 
-struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv {
-  struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv {
+  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
 };
-static struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv *__pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv;
+static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv *__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv;
 
 
 /* "tabular_env.pxd":35
@@ -1296,10 +1296,10 @@ static struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_
  *     cdef double[:,:] _reward_matrix
  */
 
-struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv {
-  struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv {
+  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
 };
-static struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv *__pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv;
+static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv *__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv;
 
 
 /* "tabular_env.pxd":45
@@ -1310,19 +1310,19 @@ static struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_
  *     cdef int _action_disc
  */
 
-struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum {
-  struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv __pyx_base;
-  struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_PendulumState (*from_state_id)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum *, int);
-  int (*to_state_id)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum *, struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_PendulumState);
-  double (*action_to_torque)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum *, int);
-  double (*torque_from_id)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum *, int, int __pyx_skip_dispatch);
-  __pyx_ctuple_double__and_double (*th_thv_from_id)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum *, int, int __pyx_skip_dispatch);
-  __pyx_ctuple_int__and_int (*disc_th_thv)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum *, double, double, int __pyx_skip_dispatch);
-  __pyx_ctuple_double__and_double (*from_disced_th_thv)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum *, int, int, int __pyx_skip_dispatch);
-  int (*id_from_th_thv)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum *, double, double, int __pyx_skip_dispatch);
-  int (*id_from_torque)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum *, double, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum {
+  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
+  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_PendulumState (*from_state_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, int);
+  int (*to_state_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_PendulumState);
+  double (*action_to_torque)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, int);
+  double (*torque_from_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, int, int __pyx_skip_dispatch);
+  __pyx_ctuple_double__and_double (*th_thv_from_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, int, int __pyx_skip_dispatch);
+  __pyx_ctuple_int__and_int (*disc_th_thv)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, double, double, int __pyx_skip_dispatch);
+  __pyx_ctuple_double__and_double (*from_disced_th_thv)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, int, int, int __pyx_skip_dispatch);
+  int (*id_from_th_thv)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, double, double, int __pyx_skip_dispatch);
+  int (*id_from_torque)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, double, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum *__pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum;
+static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum;
 
 
 /* "tabular_env.pxd":73
@@ -1333,12 +1333,12 @@ static struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_
  *     cdef int _vel_disc
  */
 
-struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar {
-  struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv __pyx_base;
-  struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCarState (*from_state_id)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar *, int);
-  int (*to_state_id)(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar *, struct __pyx_t_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCarState);
+struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_MountainCar {
+  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
+  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_MountainCarState (*from_state_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar *, int);
+  int (*to_state_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar *, struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_MountainCarState);
 };
-static struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar *__pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar;
+static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_MountainCar *__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_MountainCar;
 
 
 /* "View.MemoryView":105
@@ -2044,14 +2044,16 @@ static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memo
 
 /* Module declarations from 'libc.math' */
 
-/* Module declarations from 'rlil.environments.envs.diag_q.tabular_env' */
-static PyTypeObject *__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv = 0;
-static PyTypeObject *__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv = 0;
-static PyTypeObject *__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv = 0;
-static PyTypeObject *__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum = 0;
-static PyTypeObject *__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar = 0;
+/* Module declarations from 'rlil.diag_q.envs' */
 
-/* Module declarations from 'rlil.environments.envs.diag_q.q_iteration' */
+/* Module declarations from 'rlil.diag_q.envs.tabular_env' */
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv = 0;
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv = 0;
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv = 0;
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum = 0;
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_MountainCar = 0;
+
+/* Module declarations from 'rlil.diag_q.compute_q.q_iteration' */
 static PyTypeObject *__pyx_array_type = 0;
 static PyTypeObject *__pyx_MemviewEnum_type = 0;
 static PyTypeObject *__pyx_memoryview_type = 0;
@@ -2063,10 +2065,10 @@ static PyObject *contiguous = 0;
 static PyObject *indirect_contiguous = 0;
 static int __pyx_memoryview_thread_locks_used;
 static PyThread_type_lock __pyx_memoryview_thread_locks[8];
-static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_compute_value_function(__Pyx_memviewslice, __Pyx_memviewslice, int, int, double); /*proto*/
-static double __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_error(__Pyx_memviewslice, __Pyx_memviewslice, int, int); /*proto*/
-static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *, int __pyx_skip_dispatch, struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration *__pyx_optional_args); /*proto*/
-static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_policy(PyObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_get_policy *__pyx_optional_args); /*proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_compute_value_function(__Pyx_memviewslice, __Pyx_memviewslice, int, int, double); /*proto*/
+static double __pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_max_abs_error(__Pyx_memviewslice, __Pyx_memviewslice, int, int); /*proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch, struct __pyx_opt_args_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration *__pyx_optional_args); /*proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_get_policy(PyObject *, int __pyx_skip_dispatch, struct __pyx_opt_args_4rlil_6diag_q_9compute_q_11q_iteration_get_policy *__pyx_optional_args); /*proto*/
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char *, char *); /*proto*/
 static void *__pyx_align_pointer(void *, size_t); /*proto*/
 static PyObject *__pyx_memoryview_new(PyObject *, int, int, __Pyx_TypeInfo *); /*proto*/
@@ -2101,11 +2103,11 @@ static void __pyx_memoryview_slice_assign_scalar(__Pyx_memviewslice *, int, size
 static void __pyx_memoryview__slice_assign_scalar(char *, Py_ssize_t *, Py_ssize_t *, int, size_t, void *); /*proto*/
 static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *, PyObject *); /*proto*/
 static __Pyx_TypeInfo __Pyx_TypeInfo_double = { "double", NULL, sizeof(double), { 0 }, 0, 'R', 0, 0 };
-#define __Pyx_MODULE_NAME "rlil.environments.envs.diag_q.q_iteration"
-extern int __pyx_module_is_main_rlil__environments__envs__diag_q__q_iteration;
-int __pyx_module_is_main_rlil__environments__envs__diag_q__q_iteration = 0;
+#define __Pyx_MODULE_NAME "rlil.diag_q.compute_q.q_iteration"
+extern int __pyx_module_is_main_rlil__diag_q__compute_q__q_iteration;
+int __pyx_module_is_main_rlil__diag_q__compute_q__q_iteration = 0;
 
-/* Implementation of 'rlil.environments.envs.diag_q.q_iteration' */
+/* Implementation of 'rlil.diag_q.compute_q.q_iteration' */
 static PyObject *__pyx_builtin_range;
 static PyObject *__pyx_builtin_ValueError;
 static PyObject *__pyx_builtin_MemoryError;
@@ -2339,8 +2341,8 @@ static PyObject *__pyx_n_s_update;
 static PyObject *__pyx_n_s_verbose;
 static PyObject *__pyx_n_s_warmstart_q;
 static PyObject *__pyx_n_s_zeros;
-static PyObject *__pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *__pyx_v_tabular_env, PyObject *__pyx_v_warmstart_q, int __pyx_v_num_itrs, double __pyx_v_ent_wt, double __pyx_v_discount, double __pyx_v_atol, PyObject *__pyx_v_verbose); /* proto */
-static PyObject *__pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_2get_policy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q_fn, double __pyx_v_ent_wt); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_v_tabular_env, PyObject *__pyx_v_warmstart_q, int __pyx_v_num_itrs, double __pyx_v_ent_wt, double __pyx_v_discount, double __pyx_v_atol, PyObject *__pyx_v_verbose); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_9compute_q_11q_iteration_2get_policy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q_fn, double __pyx_v_ent_wt); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -2419,7 +2421,7 @@ static PyObject *__pyx_tuple__25;
 static PyObject *__pyx_codeobj__26;
 /* Late includes */
 
-/* "rlil/environments/envs/diag_q/q_iteration.pyx":18
+/* "rlil/diag_q/compute_q/q_iteration.pyx":18
  * @cython.boundscheck(False)
  * @cython.cdivision(True)
  * cdef compute_value_function(double[:, :] q_values, double[:] values, int ds, int da, double ent_wt):             # <<<<<<<<<<<<<<
@@ -2427,7 +2429,7 @@ static PyObject *__pyx_codeobj__26;
  * 
  */
 
-static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_compute_value_function(__Pyx_memviewslice __pyx_v_q_values, __Pyx_memviewslice __pyx_v_values, int __pyx_v_ds, int __pyx_v_da, double __pyx_v_ent_wt) {
+static PyObject *__pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_compute_value_function(__Pyx_memviewslice __pyx_v_q_values, __Pyx_memviewslice __pyx_v_values, int __pyx_v_ds, int __pyx_v_da, double __pyx_v_ent_wt) {
   int __pyx_v_s;
   int __pyx_v_a;
   double __pyx_v_max_val;
@@ -2446,7 +2448,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
   Py_ssize_t __pyx_t_10;
   __Pyx_RefNannySetupContext("compute_value_function", 0);
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":31
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":31
  *     cdef double max_val, total
  * 
  *     if ent_wt > 0:             # <<<<<<<<<<<<<<
@@ -2456,7 +2458,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
   __pyx_t_1 = ((__pyx_v_ent_wt > 0.0) != 0);
   if (__pyx_t_1) {
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":32
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":32
  * 
  *     if ent_wt > 0:
  *         for s in range(ds):             # <<<<<<<<<<<<<<
@@ -2468,7 +2470,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
     for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
       __pyx_v_s = __pyx_t_4;
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":33
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":33
  *     if ent_wt > 0:
  *         for s in range(ds):
  *             max_val = q_values[s, 0]             # <<<<<<<<<<<<<<
@@ -2481,7 +2483,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
       if (__pyx_t_6 < 0) __pyx_t_6 += __pyx_v_q_values.shape[1];
       __pyx_v_max_val = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q_values.data + __pyx_t_5 * __pyx_v_q_values.strides[0]) ) + __pyx_t_6 * __pyx_v_q_values.strides[1]) )));
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":34
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":34
  *         for s in range(ds):
  *             max_val = q_values[s, 0]
  *             for a in range(da):             # <<<<<<<<<<<<<<
@@ -2493,7 +2495,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
       for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
         __pyx_v_a = __pyx_t_9;
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":35
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":35
  *             max_val = q_values[s, 0]
  *             for a in range(da):
  *                 max_val = fmax(max_val, q_values[s,a])             # <<<<<<<<<<<<<<
@@ -2507,7 +2509,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
         __pyx_v_max_val = fmax(__pyx_v_max_val, (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q_values.data + __pyx_t_6 * __pyx_v_q_values.strides[0]) ) + __pyx_t_5 * __pyx_v_q_values.strides[1]) ))));
       }
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":37
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":37
  *                 max_val = fmax(max_val, q_values[s,a])
  * 
  *             total = 0             # <<<<<<<<<<<<<<
@@ -2516,7 +2518,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
  */
       __pyx_v_total = 0.0;
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":38
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":38
  * 
  *             total = 0
  *             for a in range(da):             # <<<<<<<<<<<<<<
@@ -2528,7 +2530,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
       for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
         __pyx_v_a = __pyx_t_9;
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":39
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":39
  *             total = 0
  *             for a in range(da):
  *                 total += exp((q_values[s, a] - max_val)/ent_wt)             # <<<<<<<<<<<<<<
@@ -2542,7 +2544,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
         __pyx_v_total = (__pyx_v_total + exp((((*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q_values.data + __pyx_t_5 * __pyx_v_q_values.strides[0]) ) + __pyx_t_6 * __pyx_v_q_values.strides[1]) ))) - __pyx_v_max_val) / __pyx_v_ent_wt)));
       }
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":40
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":40
  *             for a in range(da):
  *                 total += exp((q_values[s, a] - max_val)/ent_wt)
  *             values[s] = max_val + ent_wt * log(total)             # <<<<<<<<<<<<<<
@@ -2554,7 +2556,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
       *((double *) ( /* dim=0 */ (__pyx_v_values.data + __pyx_t_6 * __pyx_v_values.strides[0]) )) = (__pyx_v_max_val + (__pyx_v_ent_wt * log(__pyx_v_total)));
     }
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":31
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":31
  *     cdef double max_val, total
  * 
  *     if ent_wt > 0:             # <<<<<<<<<<<<<<
@@ -2564,7 +2566,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
     goto __pyx_L3;
   }
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":42
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":42
  *             values[s] = max_val + ent_wt * log(total)
  *     else:
  *         for s in range(ds):             # <<<<<<<<<<<<<<
@@ -2577,7 +2579,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
     for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
       __pyx_v_s = __pyx_t_4;
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":43
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":43
  *     else:
  *         for s in range(ds):
  *             max_val = q_values[s, 0]             # <<<<<<<<<<<<<<
@@ -2590,7 +2592,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
       if (__pyx_t_10 < 0) __pyx_t_10 += __pyx_v_q_values.shape[1];
       __pyx_v_max_val = (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q_values.data + __pyx_t_5 * __pyx_v_q_values.strides[0]) ) + __pyx_t_10 * __pyx_v_q_values.strides[1]) )));
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":44
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":44
  *         for s in range(ds):
  *             max_val = q_values[s, 0]
  *             for a in range(da):             # <<<<<<<<<<<<<<
@@ -2602,7 +2604,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
       for (__pyx_t_9 = 0; __pyx_t_9 < __pyx_t_8; __pyx_t_9+=1) {
         __pyx_v_a = __pyx_t_9;
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":45
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":45
  *             max_val = q_values[s, 0]
  *             for a in range(da):
  *                 max_val = fmax(max_val, q_values[s,a])             # <<<<<<<<<<<<<<
@@ -2616,7 +2618,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
         __pyx_v_max_val = fmax(__pyx_v_max_val, (*((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_q_values.data + __pyx_t_10 * __pyx_v_q_values.strides[0]) ) + __pyx_t_5 * __pyx_v_q_values.strides[1]) ))));
       }
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":46
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":46
  *             for a in range(da):
  *                 max_val = fmax(max_val, q_values[s,a])
  *             values[s] = max_val             # <<<<<<<<<<<<<<
@@ -2630,7 +2632,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
   }
   __pyx_L3:;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":18
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":18
  * @cython.boundscheck(False)
  * @cython.cdivision(True)
  * cdef compute_value_function(double[:, :] q_values, double[:] values, int ds, int da, double ent_wt):             # <<<<<<<<<<<<<<
@@ -2645,7 +2647,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
   return __pyx_r;
 }
 
-/* "rlil/environments/envs/diag_q/q_iteration.pyx":50
+/* "rlil/diag_q/compute_q/q_iteration.pyx":50
  * 
  * @cython.boundscheck(False)
  * cdef double max_abs_error(double[:, :] q1, double[:, :] q2, int ds, int da):             # <<<<<<<<<<<<<<
@@ -2653,7 +2655,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_comput
  *     cdef double max_error
  */
 
-static double __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_error(__Pyx_memviewslice __pyx_v_q1, __Pyx_memviewslice __pyx_v_q2, int __pyx_v_ds, int __pyx_v_da) {
+static double __pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_max_abs_error(__Pyx_memviewslice __pyx_v_q1, __Pyx_memviewslice __pyx_v_q2, int __pyx_v_ds, int __pyx_v_da) {
   double __pyx_v_max_error;
   int __pyx_v_s;
   int __pyx_v_a;
@@ -2671,7 +2673,7 @@ static double __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_e
   Py_ssize_t __pyx_t_10;
   __Pyx_RefNannySetupContext("max_abs_error", 0);
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":53
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":53
  *     """Compute max absolute error between two q values for early stopping."""
  *     cdef double max_error
  *     max_error = 0.0             # <<<<<<<<<<<<<<
@@ -2680,7 +2682,7 @@ static double __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_e
  */
   __pyx_v_max_error = 0.0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":54
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":54
  *     cdef double max_error
  *     max_error = 0.0
  *     for s in range(ds):             # <<<<<<<<<<<<<<
@@ -2692,7 +2694,7 @@ static double __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_e
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_s = __pyx_t_3;
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":55
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":55
  *     max_error = 0.0
  *     for s in range(ds):
  *         for a in range(da):             # <<<<<<<<<<<<<<
@@ -2704,7 +2706,7 @@ static double __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_e
     for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
       __pyx_v_a = __pyx_t_6;
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":56
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":56
  *     for s in range(ds):
  *         for a in range(da):
  *             max_error = fmax(max_error, fabs(q1[s,a]-q2[s,a]))             # <<<<<<<<<<<<<<
@@ -2723,7 +2725,7 @@ static double __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_e
     }
   }
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":57
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":57
  *         for a in range(da):
  *             max_error = fmax(max_error, fabs(q1[s,a]-q2[s,a]))
  *     return max_error             # <<<<<<<<<<<<<<
@@ -2733,7 +2735,7 @@ static double __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_e
   __pyx_r = __pyx_v_max_error;
   goto __pyx_L0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":50
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":50
  * 
  * @cython.boundscheck(False)
  * cdef double max_abs_error(double[:, :] q1, double[:, :] q2, int ds, int da):             # <<<<<<<<<<<<<<
@@ -2747,7 +2749,7 @@ static double __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_e
   return __pyx_r;
 }
 
-/* "rlil/environments/envs/diag_q/q_iteration.pyx":61
+/* "rlil/diag_q/compute_q/q_iteration.pyx":61
  * 
  * @cython.boundscheck(False)
  * cpdef softq_iteration(tabular_env.TabularEnv tabular_env,             # <<<<<<<<<<<<<<
@@ -2755,10 +2757,10 @@ static double __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_e
  *                          int num_itrs=100,
  */
 
-static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_1softq_iteration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *__pyx_v_tabular_env, CYTHON_UNUSED int __pyx_skip_dispatch, struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration *__pyx_optional_args) {
+static PyObject *__pyx_pw_4rlil_6diag_q_9compute_q_11q_iteration_1softq_iteration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_v_tabular_env, CYTHON_UNUSED int __pyx_skip_dispatch, struct __pyx_opt_args_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration *__pyx_optional_args) {
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":62
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":62
  * @cython.boundscheck(False)
  * cpdef softq_iteration(tabular_env.TabularEnv tabular_env,
  *                          warmstart_q=None,             # <<<<<<<<<<<<<<
@@ -2771,7 +2773,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   double __pyx_v_discount = ((double)0.99);
   double __pyx_v_atol = ((double)1e-8);
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":67
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":67
  *                          double discount=0.99,
  *                          double atol=1e-8,
  *                          verbose=False):             # <<<<<<<<<<<<<<
@@ -2848,7 +2850,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
     }
   }
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":83
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":83
  *     """
  *     cdef int ds, da, s, a, i, ns_idx, ns
  *     ds = tabular_env.num_states             # <<<<<<<<<<<<<<
@@ -2858,7 +2860,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __pyx_t_1 = __pyx_v_tabular_env->num_states;
   __pyx_v_ds = __pyx_t_1;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":84
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":84
  *     cdef int ds, da, s, a, i, ns_idx, ns
  *     ds = tabular_env.num_states
  *     da = tabular_env.num_actions             # <<<<<<<<<<<<<<
@@ -2868,7 +2870,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __pyx_t_1 = __pyx_v_tabular_env->num_actions;
   __pyx_v_da = __pyx_t_1;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":86
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":86
  *     da = tabular_env.num_actions
  * 
  *     q_values_np = np.zeros((ds, da), dtype=np.float64)             # <<<<<<<<<<<<<<
@@ -2914,7 +2916,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __pyx_v_q_values_np = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":87
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":87
  * 
  *     q_values_np = np.zeros((ds, da), dtype=np.float64)
  *     if warmstart_q is not None:             # <<<<<<<<<<<<<<
@@ -2925,7 +2927,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __pyx_t_8 = (__pyx_t_7 != 0);
   if (__pyx_t_8) {
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":88
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":88
  *     q_values_np = np.zeros((ds, da), dtype=np.float64)
  *     if warmstart_q is not None:
  *         q_values_np[:, :] = warmstart_q             # <<<<<<<<<<<<<<
@@ -2934,7 +2936,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
  */
     if (unlikely(PyObject_SetItem(__pyx_v_q_values_np, __pyx_tuple__2, __pyx_v_warmstart_q) < 0)) __PYX_ERR(0, 88, __pyx_L1_error)
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":87
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":87
  * 
  *     q_values_np = np.zeros((ds, da), dtype=np.float64)
  *     if warmstart_q is not None:             # <<<<<<<<<<<<<<
@@ -2943,7 +2945,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
  */
   }
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":89
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":89
  *     if warmstart_q is not None:
  *         q_values_np[:, :] = warmstart_q
  *     cdef double[:, :] q_values = q_values_np             # <<<<<<<<<<<<<<
@@ -2955,7 +2957,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __pyx_t_9.memview = NULL;
   __pyx_t_9.data = NULL;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":91
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":91
  *     cdef double[:, :] q_values = q_values_np
  * 
  *     new_q_values_np = np.zeros((ds, da), dtype=np.float64)             # <<<<<<<<<<<<<<
@@ -3001,7 +3003,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __pyx_v_new_q_values_np = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":92
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":92
  * 
  *     new_q_values_np = np.zeros((ds, da), dtype=np.float64)
  *     cdef double[:, :] new_q_values = new_q_values_np             # <<<<<<<<<<<<<<
@@ -3013,7 +3015,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __pyx_t_9.memview = NULL;
   __pyx_t_9.data = NULL;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":94
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":94
  *     cdef double[:, :] new_q_values = new_q_values_np
  * 
  *     v_fn_np = np.zeros((ds), dtype=np.float64)             # <<<<<<<<<<<<<<
@@ -3049,7 +3051,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __pyx_v_v_fn_np = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":95
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":95
  * 
  *     v_fn_np = np.zeros((ds), dtype=np.float64)
  *     cdef double[:] v_fn = v_fn_np             # <<<<<<<<<<<<<<
@@ -3061,7 +3063,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __pyx_t_10.memview = NULL;
   __pyx_t_10.data = NULL;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":97
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":97
  *     cdef double[:] v_fn = v_fn_np
  * 
  *     prev_diff = 1.0             # <<<<<<<<<<<<<<
@@ -3070,7 +3072,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
  */
   __pyx_v_prev_diff = 1.0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":98
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":98
  * 
  *     prev_diff = 1.0
  *     for i in range(num_itrs):             # <<<<<<<<<<<<<<
@@ -3082,18 +3084,18 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   for (__pyx_t_12 = 0; __pyx_t_12 < __pyx_t_11; __pyx_t_12+=1) {
     __pyx_v_i = __pyx_t_12;
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":99
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":99
  *     prev_diff = 1.0
  *     for i in range(num_itrs):
  *         compute_value_function(q_values, v_fn, ds, da, ent_wt)             # <<<<<<<<<<<<<<
  * 
  *         new_q_values[:, :] = 0.0
  */
-    __pyx_t_6 = __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_compute_value_function(__pyx_v_q_values, __pyx_v_v_fn, __pyx_v_ds, __pyx_v_da, __pyx_v_ent_wt); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_6 = __pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_compute_value_function(__pyx_v_q_values, __pyx_v_v_fn, __pyx_v_ds, __pyx_v_da, __pyx_v_ent_wt); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 99, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":101
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":101
  *         compute_value_function(q_values, v_fn, ds, da, ent_wt)
  * 
  *         new_q_values[:, :] = 0.0             # <<<<<<<<<<<<<<
@@ -3123,7 +3125,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
         }
     }
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":102
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":102
  * 
  *         new_q_values[:, :] = 0.0
  *         for s in range(ds):             # <<<<<<<<<<<<<<
@@ -3135,7 +3137,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
     for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
       __pyx_v_s = __pyx_t_15;
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":103
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":103
  *         new_q_values[:, :] = 0.0
  *         for s in range(ds):
  *             for a in range(da):             # <<<<<<<<<<<<<<
@@ -3147,16 +3149,16 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
       for (__pyx_t_18 = 0; __pyx_t_18 < __pyx_t_17; __pyx_t_18+=1) {
         __pyx_v_a = __pyx_t_18;
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":104
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":104
  *         for s in range(ds):
  *             for a in range(da):
  *                 transitions = tabular_env.transitions_cy(s, a)             # <<<<<<<<<<<<<<
  *                 transitions_end = transitions.end()
  *                 transitions_it = transitions.begin()
  */
-        __pyx_v_transitions = ((struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *)__pyx_v_tabular_env->__pyx_vtab)->transitions_cy(__pyx_v_tabular_env, __pyx_v_s, __pyx_v_a);
+        __pyx_v_transitions = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)__pyx_v_tabular_env->__pyx_vtab)->transitions_cy(__pyx_v_tabular_env, __pyx_v_s, __pyx_v_a);
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":105
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":105
  *             for a in range(da):
  *                 transitions = tabular_env.transitions_cy(s, a)
  *                 transitions_end = transitions.end()             # <<<<<<<<<<<<<<
@@ -3165,7 +3167,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
  */
         __pyx_v_transitions_end = __pyx_v_transitions.end();
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":106
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":106
  *                 transitions = tabular_env.transitions_cy(s, a)
  *                 transitions_end = transitions.end()
  *                 transitions_it = transitions.begin()             # <<<<<<<<<<<<<<
@@ -3174,7 +3176,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
  */
         __pyx_v_transitions_it = __pyx_v_transitions.begin();
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":107
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":107
  *                 transitions_end = transitions.end()
  *                 transitions_it = transitions.begin()
  *                 while transitions_it != transitions_end:             # <<<<<<<<<<<<<<
@@ -3185,7 +3187,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
           __pyx_t_8 = ((__pyx_v_transitions_it != __pyx_v_transitions_end) != 0);
           if (!__pyx_t_8) break;
 
-          /* "rlil/environments/envs/diag_q/q_iteration.pyx":108
+          /* "rlil/diag_q/compute_q/q_iteration.pyx":108
  *                 transitions_it = transitions.begin()
  *                 while transitions_it != transitions_end:
  *                     ns = dereference(transitions_it).first             # <<<<<<<<<<<<<<
@@ -3195,16 +3197,16 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
           __pyx_t_19 = (*__pyx_v_transitions_it).first;
           __pyx_v_ns = __pyx_t_19;
 
-          /* "rlil/environments/envs/diag_q/q_iteration.pyx":109
+          /* "rlil/diag_q/compute_q/q_iteration.pyx":109
  *                 while transitions_it != transitions_end:
  *                     ns = dereference(transitions_it).first
  *                     reward = tabular_env.reward(s, a, ns)             # <<<<<<<<<<<<<<
  *                     p = dereference(transitions_it).second
  *                     new_q_values[s, a] += p * (reward + discount * v_fn[ns])
  */
-          __pyx_v_reward = ((struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *)__pyx_v_tabular_env->__pyx_vtab)->reward(__pyx_v_tabular_env, __pyx_v_s, __pyx_v_a, __pyx_v_ns, 0);
+          __pyx_v_reward = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)__pyx_v_tabular_env->__pyx_vtab)->reward(__pyx_v_tabular_env, __pyx_v_s, __pyx_v_a, __pyx_v_ns, 0);
 
-          /* "rlil/environments/envs/diag_q/q_iteration.pyx":110
+          /* "rlil/diag_q/compute_q/q_iteration.pyx":110
  *                     ns = dereference(transitions_it).first
  *                     reward = tabular_env.reward(s, a, ns)
  *                     p = dereference(transitions_it).second             # <<<<<<<<<<<<<<
@@ -3214,7 +3216,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
           __pyx_t_20 = (*__pyx_v_transitions_it).second;
           __pyx_v_p = __pyx_t_20;
 
-          /* "rlil/environments/envs/diag_q/q_iteration.pyx":111
+          /* "rlil/diag_q/compute_q/q_iteration.pyx":111
  *                     reward = tabular_env.reward(s, a, ns)
  *                     p = dereference(transitions_it).second
  *                     new_q_values[s, a] += p * (reward + discount * v_fn[ns])             # <<<<<<<<<<<<<<
@@ -3229,7 +3231,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
           if (__pyx_t_23 < 0) __pyx_t_23 += __pyx_v_new_q_values.shape[1];
           *((double *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_new_q_values.data + __pyx_t_22 * __pyx_v_new_q_values.strides[0]) ) + __pyx_t_23 * __pyx_v_new_q_values.strides[1]) )) += (__pyx_v_p * (__pyx_v_reward + (__pyx_v_discount * (*((double *) ( /* dim=0 */ (__pyx_v_v_fn.data + __pyx_t_21 * __pyx_v_v_fn.strides[0]) ))))));
 
-          /* "rlil/environments/envs/diag_q/q_iteration.pyx":112
+          /* "rlil/diag_q/compute_q/q_iteration.pyx":112
  *                     p = dereference(transitions_it).second
  *                     new_q_values[s, a] += p * (reward + discount * v_fn[ns])
  *                     preincrement(transitions_it)             # <<<<<<<<<<<<<<
@@ -3241,7 +3243,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
       }
     }
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":113
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":113
  *                     new_q_values[s, a] += p * (reward + discount * v_fn[ns])
  *                     preincrement(transitions_it)
  *         if atol > 0:             # <<<<<<<<<<<<<<
@@ -3251,16 +3253,16 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
     __pyx_t_8 = ((__pyx_v_atol > 0.0) != 0);
     if (__pyx_t_8) {
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":114
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":114
  *                     preincrement(transitions_it)
  *         if atol > 0:
  *             diff = max_abs_error(new_q_values, q_values, ds, da)             # <<<<<<<<<<<<<<
  *             if verbose:
  *                 print(i, 'InfNorm:', diff, 'ContractionFactor:',
  */
-      __pyx_v_diff = __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_max_abs_error(__pyx_v_new_q_values, __pyx_v_q_values, __pyx_v_ds, __pyx_v_da);
+      __pyx_v_diff = __pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_max_abs_error(__pyx_v_new_q_values, __pyx_v_q_values, __pyx_v_ds, __pyx_v_da);
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":115
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":115
  *         if atol > 0:
  *             diff = max_abs_error(new_q_values, q_values, ds, da)
  *             if verbose:             # <<<<<<<<<<<<<<
@@ -3270,7 +3272,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
       __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_v_verbose); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 115, __pyx_L1_error)
       if (__pyx_t_8) {
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":116
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":116
  *             diff = max_abs_error(new_q_values, q_values, ds, da)
  *             if verbose:
  *                 print(i, 'InfNorm:', diff, 'ContractionFactor:',             # <<<<<<<<<<<<<<
@@ -3282,7 +3284,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
         __pyx_t_2 = PyFloat_FromDouble(__pyx_v_diff); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":117
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":117
  *             if verbose:
  *                 print(i, 'InfNorm:', diff, 'ContractionFactor:',
  *                     '%0.4f' % (diff/prev_diff))             # <<<<<<<<<<<<<<
@@ -3299,7 +3301,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":116
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":116
  *             diff = max_abs_error(new_q_values, q_values, ds, da)
  *             if verbose:
  *                 print(i, 'InfNorm:', diff, 'ContractionFactor:',             # <<<<<<<<<<<<<<
@@ -3326,7 +3328,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
         if (__Pyx_PrintOne(0, __pyx_t_4) < 0) __PYX_ERR(0, 116, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":115
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":115
  *         if atol > 0:
  *             diff = max_abs_error(new_q_values, q_values, ds, da)
  *             if verbose:             # <<<<<<<<<<<<<<
@@ -3335,7 +3337,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
  */
       }
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":118
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":118
  *                 print(i, 'InfNorm:', diff, 'ContractionFactor:',
  *                     '%0.4f' % (diff/prev_diff))
  *             prev_diff = diff             # <<<<<<<<<<<<<<
@@ -3344,7 +3346,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
  */
       __pyx_v_prev_diff = __pyx_v_diff;
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":119
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":119
  *                     '%0.4f' % (diff/prev_diff))
  *             prev_diff = diff
  *             if diff < atol:             # <<<<<<<<<<<<<<
@@ -3354,7 +3356,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
       __pyx_t_8 = ((__pyx_v_diff < __pyx_v_atol) != 0);
       if (__pyx_t_8) {
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":120
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":120
  *             prev_diff = diff
  *             if diff < atol:
  *                 break             # <<<<<<<<<<<<<<
@@ -3363,7 +3365,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
  */
         goto __pyx_L5_break;
 
-        /* "rlil/environments/envs/diag_q/q_iteration.pyx":119
+        /* "rlil/diag_q/compute_q/q_iteration.pyx":119
  *                     '%0.4f' % (diff/prev_diff))
  *             prev_diff = diff
  *             if diff < atol:             # <<<<<<<<<<<<<<
@@ -3372,7 +3374,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
  */
       }
 
-      /* "rlil/environments/envs/diag_q/q_iteration.pyx":113
+      /* "rlil/diag_q/compute_q/q_iteration.pyx":113
  *                     new_q_values[s, a] += p * (reward + discount * v_fn[ns])
  *                     preincrement(transitions_it)
  *         if atol > 0:             # <<<<<<<<<<<<<<
@@ -3381,7 +3383,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
  */
     }
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":121
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":121
  *             if diff < atol:
  *                 break
  *         q_values[:, :] = new_q_values[:, :]             # <<<<<<<<<<<<<<
@@ -3392,7 +3394,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   }
   __pyx_L5_break:;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":122
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":122
  *                 break
  *         q_values[:, :] = new_q_values[:, :]
  *     return q_values_np             # <<<<<<<<<<<<<<
@@ -3404,7 +3406,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __pyx_r = __pyx_v_q_values_np;
   goto __pyx_L0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":61
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":61
  * 
  * @cython.boundscheck(False)
  * cpdef softq_iteration(tabular_env.TabularEnv tabular_env,             # <<<<<<<<<<<<<<
@@ -3421,7 +3423,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
   __Pyx_XDECREF(__pyx_t_6);
   __PYX_XDEC_MEMVIEW(&__pyx_t_9, 1);
   __PYX_XDEC_MEMVIEW(&__pyx_t_10, 1);
-  __Pyx_AddTraceback("rlil.environments.envs.diag_q.q_iteration.softq_iteration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.compute_q.q_iteration.softq_iteration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_q_values_np);
@@ -3436,10 +3438,10 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_1softq_iteration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration[] = "Computes q-values using sparse q-iteration.\n\n    Args:\n      tabular_env: A cython TabularEnv environment.\n      warmstart_q: A dS x dA array of initial q-values.\n      num_itrs: Number of iterations to run.\n      ent_wt: Entropy weight. Default 0.\n      discount: Discount factor.\n      atol: Absolute error tolerance for early stopping.\n        If atol < 0, this will always run for num_itrs iterations.\n\n    Returns:\n      A dS x dA array of Q-values\n    ";
-static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_1softq_iteration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *__pyx_v_tabular_env = 0;
+static PyObject *__pyx_pw_4rlil_6diag_q_9compute_q_11q_iteration_1softq_iteration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration[] = "Computes q-values using sparse q-iteration.\n\n    Args:\n      tabular_env: A cython TabularEnv environment.\n      warmstart_q: A dS x dA array of initial q-values.\n      num_itrs: Number of iterations to run.\n      ent_wt: Entropy weight. Default 0.\n      discount: Discount factor.\n      atol: Absolute error tolerance for early stopping.\n        If atol < 0, this will always run for num_itrs iterations.\n\n    Returns:\n      A dS x dA array of Q-values\n    ";
+static PyObject *__pyx_pw_4rlil_6diag_q_9compute_q_11q_iteration_1softq_iteration(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_v_tabular_env = 0;
   PyObject *__pyx_v_warmstart_q = 0;
   int __pyx_v_num_itrs;
   double __pyx_v_ent_wt;
@@ -3456,7 +3458,7 @@ static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_1soft
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_tabular_env,&__pyx_n_s_warmstart_q,&__pyx_n_s_num_itrs,&__pyx_n_s_ent_wt,&__pyx_n_s_discount,&__pyx_n_s_atol,&__pyx_n_s_verbose,0};
     PyObject* values[7] = {0,0,0,0,0,0,0};
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":62
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":62
  * @cython.boundscheck(False)
  * cpdef softq_iteration(tabular_env.TabularEnv tabular_env,
  *                          warmstart_q=None,             # <<<<<<<<<<<<<<
@@ -3465,7 +3467,7 @@ static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_1soft
  */
     values[1] = ((PyObject *)Py_None);
 
-    /* "rlil/environments/envs/diag_q/q_iteration.pyx":67
+    /* "rlil/diag_q/compute_q/q_iteration.pyx":67
  *                          double discount=0.99,
  *                          double atol=1e-8,
  *                          verbose=False):             # <<<<<<<<<<<<<<
@@ -3558,7 +3560,7 @@ static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_1soft
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_tabular_env = ((struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *)values[0]);
+    __pyx_v_tabular_env = ((struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)values[0]);
     __pyx_v_warmstart_q = values[1];
     if (values[2]) {
       __pyx_v_num_itrs = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_num_itrs == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 63, __pyx_L3_error)
@@ -3586,14 +3588,14 @@ static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_1soft
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("softq_iteration", 0, 1, 7, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 61, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("rlil.environments.envs.diag_q.q_iteration.softq_iteration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.compute_q.q_iteration.softq_iteration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_tabular_env), __pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv, 1, "tabular_env", 0))) __PYX_ERR(0, 61, __pyx_L1_error)
-  __pyx_r = __pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration(__pyx_self, __pyx_v_tabular_env, __pyx_v_warmstart_q, __pyx_v_num_itrs, __pyx_v_ent_wt, __pyx_v_discount, __pyx_v_atol, __pyx_v_verbose);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_tabular_env), __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv, 1, "tabular_env", 0))) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_r = __pyx_pf_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration(__pyx_self, __pyx_v_tabular_env, __pyx_v_warmstart_q, __pyx_v_num_itrs, __pyx_v_ent_wt, __pyx_v_discount, __pyx_v_atol, __pyx_v_verbose);
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":61
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":61
  * 
  * @cython.boundscheck(False)
  * cpdef softq_iteration(tabular_env.TabularEnv tabular_env,             # <<<<<<<<<<<<<<
@@ -3610,11 +3612,11 @@ static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_1soft
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv *__pyx_v_tabular_env, PyObject *__pyx_v_warmstart_q, int __pyx_v_num_itrs, double __pyx_v_ent_wt, double __pyx_v_discount, double __pyx_v_atol, PyObject *__pyx_v_verbose) {
+static PyObject *__pyx_pf_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_v_tabular_env, PyObject *__pyx_v_warmstart_q, int __pyx_v_num_itrs, double __pyx_v_ent_wt, double __pyx_v_discount, double __pyx_v_atol, PyObject *__pyx_v_verbose) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration __pyx_t_2;
+  struct __pyx_opt_args_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3627,7 +3629,7 @@ static PyObject *__pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_softq
   __pyx_t_2.discount = __pyx_v_discount;
   __pyx_t_2.atol = __pyx_v_atol;
   __pyx_t_2.verbose = __pyx_v_verbose;
-  __pyx_t_1 = __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration(__pyx_v_tabular_env, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration(__pyx_v_tabular_env, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3636,7 +3638,7 @@ static PyObject *__pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_softq
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.environments.envs.diag_q.q_iteration.softq_iteration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.compute_q.q_iteration.softq_iteration", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3644,7 +3646,7 @@ static PyObject *__pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_softq
   return __pyx_r;
 }
 
-/* "rlil/environments/envs/diag_q/q_iteration.pyx":126
+/* "rlil/diag_q/compute_q/q_iteration.pyx":126
  * 
  * #@cython.cdivision(True)
  * cpdef get_policy(q_fn, double ent_wt=1.0):             # <<<<<<<<<<<<<<
@@ -3652,8 +3654,8 @@ static PyObject *__pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_softq
  *     cdef double inverse_ent = 1.0/ent_wt
  */
 
-static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_3get_policy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_policy(PyObject *__pyx_v_q_fn, CYTHON_UNUSED int __pyx_skip_dispatch, struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_get_policy *__pyx_optional_args) {
+static PyObject *__pyx_pw_4rlil_6diag_q_9compute_q_11q_iteration_3get_policy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_get_policy(PyObject *__pyx_v_q_fn, CYTHON_UNUSED int __pyx_skip_dispatch, struct __pyx_opt_args_4rlil_6diag_q_9compute_q_11q_iteration_get_policy *__pyx_optional_args) {
   double __pyx_v_ent_wt = ((double)1.0);
   double __pyx_v_inverse_ent;
   PyObject *__pyx_v_value_fn = NULL;
@@ -3676,7 +3678,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_po
     }
   }
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":128
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":128
  * cpdef get_policy(q_fn, double ent_wt=1.0):
  *     """Return a policy by normalizing a Q-function."""
  *     cdef double inverse_ent = 1.0/ent_wt             # <<<<<<<<<<<<<<
@@ -3689,7 +3691,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_po
   }
   __pyx_v_inverse_ent = (1.0 / __pyx_v_ent_wt);
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":129
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":129
  *     """Return a policy by normalizing a Q-function."""
  *     cdef double inverse_ent = 1.0/ent_wt
  *     value_fn = ent_wt * lse(inverse_ent * q_fn, axis=1)             # <<<<<<<<<<<<<<
@@ -3725,7 +3727,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_po
   __pyx_v_value_fn = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":130
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":130
  *     cdef double inverse_ent = 1.0/ent_wt
  *     value_fn = ent_wt * lse(inverse_ent * q_fn, axis=1)
  *     adv_rew = q_fn - np.expand_dims(value_fn, axis=1)             # <<<<<<<<<<<<<<
@@ -3756,7 +3758,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_po
   __pyx_v_adv_rew = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":131
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":131
  *     value_fn = ent_wt * lse(inverse_ent * q_fn, axis=1)
  *     adv_rew = q_fn - np.expand_dims(value_fn, axis=1)
  *     pol_probs = np.exp(inverse_ent * adv_rew)             # <<<<<<<<<<<<<<
@@ -3791,7 +3793,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_po
   __pyx_v_pol_probs = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":132
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":132
  *     adv_rew = q_fn - np.expand_dims(value_fn, axis=1)
  *     pol_probs = np.exp(inverse_ent * adv_rew)
  *     return pol_probs             # <<<<<<<<<<<<<<
@@ -3801,7 +3803,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_po
   __pyx_r = __pyx_v_pol_probs;
   goto __pyx_L0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":126
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":126
  * 
  * #@cython.cdivision(True)
  * cpdef get_policy(q_fn, double ent_wt=1.0):             # <<<<<<<<<<<<<<
@@ -3816,7 +3818,7 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_po
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("rlil.environments.envs.diag_q.q_iteration.get_policy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.compute_q.q_iteration.get_policy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_value_fn);
@@ -3828,9 +3830,9 @@ static PyObject *__pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_po
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_3get_policy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_4rlil_12environments_4envs_6diag_q_11q_iteration_2get_policy[] = "Return a policy by normalizing a Q-function.";
-static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_3get_policy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_4rlil_6diag_q_9compute_q_11q_iteration_3get_policy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_4rlil_6diag_q_9compute_q_11q_iteration_2get_policy[] = "Return a policy by normalizing a Q-function.";
+static PyObject *__pyx_pw_4rlil_6diag_q_9compute_q_11q_iteration_3get_policy(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_q_fn = 0;
   double __pyx_v_ent_wt;
   int __pyx_lineno = 0;
@@ -3888,22 +3890,22 @@ static PyObject *__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_3get_
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("get_policy", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 126, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("rlil.environments.envs.diag_q.q_iteration.get_policy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.compute_q.q_iteration.get_policy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_2get_policy(__pyx_self, __pyx_v_q_fn, __pyx_v_ent_wt);
+  __pyx_r = __pyx_pf_4rlil_6diag_q_9compute_q_11q_iteration_2get_policy(__pyx_self, __pyx_v_q_fn, __pyx_v_ent_wt);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_2get_policy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q_fn, double __pyx_v_ent_wt) {
+static PyObject *__pyx_pf_4rlil_6diag_q_9compute_q_11q_iteration_2get_policy(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_q_fn, double __pyx_v_ent_wt) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  struct __pyx_opt_args_4rlil_12environments_4envs_6diag_q_11q_iteration_get_policy __pyx_t_2;
+  struct __pyx_opt_args_4rlil_6diag_q_9compute_q_11q_iteration_get_policy __pyx_t_2;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3911,7 +3913,7 @@ static PyObject *__pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_2get_
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.ent_wt = __pyx_v_ent_wt;
-  __pyx_t_1 = __pyx_f_4rlil_12environments_4envs_6diag_q_11q_iteration_get_policy(__pyx_v_q_fn, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_4rlil_6diag_q_9compute_q_11q_iteration_get_policy(__pyx_v_q_fn, 0, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3920,7 +3922,7 @@ static PyObject *__pyx_pf_4rlil_12environments_4envs_6diag_q_11q_iteration_2get_
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.environments.envs.diag_q.q_iteration.get_policy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.compute_q.q_iteration.get_policy", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -17068,7 +17070,7 @@ static PyBufferProcs __pyx_tp_as_buffer_array = {
 
 static PyTypeObject __pyx_type___pyx_array = {
   PyVarObject_HEAD_INIT(0, 0)
-  "rlil.environments.envs.diag_q.q_iteration.array", /*tp_name*/
+  "rlil.diag_q.compute_q.q_iteration.array", /*tp_name*/
   sizeof(struct __pyx_array_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_array, /*tp_dealloc*/
@@ -17187,7 +17189,7 @@ static PyMethodDef __pyx_methods_Enum[] = {
 
 static PyTypeObject __pyx_type___pyx_MemviewEnum = {
   PyVarObject_HEAD_INIT(0, 0)
-  "rlil.environments.envs.diag_q.q_iteration.Enum", /*tp_name*/
+  "rlil.diag_q.compute_q.q_iteration.Enum", /*tp_name*/
   sizeof(struct __pyx_MemviewEnum_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_Enum, /*tp_dealloc*/
@@ -17448,7 +17450,7 @@ static PyBufferProcs __pyx_tp_as_buffer_memoryview = {
 
 static PyTypeObject __pyx_type___pyx_memoryview = {
   PyVarObject_HEAD_INIT(0, 0)
-  "rlil.environments.envs.diag_q.q_iteration.memoryview", /*tp_name*/
+  "rlil.diag_q.compute_q.q_iteration.memoryview", /*tp_name*/
   sizeof(struct __pyx_memoryview_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_memoryview, /*tp_dealloc*/
@@ -17586,7 +17588,7 @@ static struct PyGetSetDef __pyx_getsets__memoryviewslice[] = {
 
 static PyTypeObject __pyx_type___pyx_memoryviewslice = {
   PyVarObject_HEAD_INIT(0, 0)
-  "rlil.environments.envs.diag_q.q_iteration._memoryviewslice", /*tp_name*/
+  "rlil.diag_q.compute_q.q_iteration._memoryviewslice", /*tp_name*/
   sizeof(struct __pyx_memoryviewslice_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc__memoryviewslice, /*tp_dealloc*/
@@ -17662,8 +17664,8 @@ static PyTypeObject __pyx_type___pyx_memoryviewslice = {
 };
 
 static PyMethodDef __pyx_methods[] = {
-  {"softq_iteration", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_1softq_iteration, METH_VARARGS|METH_KEYWORDS, __pyx_doc_4rlil_12environments_4envs_6diag_q_11q_iteration_softq_iteration},
-  {"get_policy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4rlil_12environments_4envs_6diag_q_11q_iteration_3get_policy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_4rlil_12environments_4envs_6diag_q_11q_iteration_2get_policy},
+  {"softq_iteration", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4rlil_6diag_q_9compute_q_11q_iteration_1softq_iteration, METH_VARARGS|METH_KEYWORDS, __pyx_doc_4rlil_6diag_q_9compute_q_11q_iteration_softq_iteration},
+  {"get_policy", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4rlil_6diag_q_9compute_q_11q_iteration_3get_policy, METH_VARARGS|METH_KEYWORDS, __pyx_doc_4rlil_6diag_q_9compute_q_11q_iteration_2get_policy},
   {0, 0, 0, 0}
 };
 
@@ -17842,7 +17844,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":88
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":88
  *     q_values_np = np.zeros((ds, da), dtype=np.float64)
  *     if warmstart_q is not None:
  *         q_values_np[:, :] = warmstart_q             # <<<<<<<<<<<<<<
@@ -18229,23 +18231,23 @@ static int __Pyx_modinit_type_import_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("rlil.environments.envs.diag_q.tabular_env"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 10, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("rlil.diag_q.envs.tabular_env"); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 10, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv = __Pyx_ImportType(__pyx_t_1, "rlil.environments.envs.diag_q.tabular_env", "TabularEnv", sizeof(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv) __PYX_ERR(2, 10, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv = (struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_TabularEnv)) __PYX_ERR(2, 10, __pyx_L1_error)
-  __pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv = __Pyx_ImportType(__pyx_t_1, "rlil.environments.envs.diag_q.tabular_env", "CliffwalkEnv", sizeof(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv) __PYX_ERR(2, 32, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv = (struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_CliffwalkEnv)) __PYX_ERR(2, 32, __pyx_L1_error)
-  __pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv = __Pyx_ImportType(__pyx_t_1, "rlil.environments.envs.diag_q.tabular_env", "RandomTabularEnv", sizeof(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv) __PYX_ERR(2, 35, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv = (struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_RandomTabularEnv)) __PYX_ERR(2, 35, __pyx_L1_error)
-  __pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum = __Pyx_ImportType(__pyx_t_1, "rlil.environments.envs.diag_q.tabular_env", "InvertedPendulum", sizeof(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum) __PYX_ERR(2, 45, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum = (struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum*)__Pyx_GetVtable(__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_InvertedPendulum)) __PYX_ERR(2, 45, __pyx_L1_error)
-  __pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar = __Pyx_ImportType(__pyx_t_1, "rlil.environments.envs.diag_q.tabular_env", "MountainCar", sizeof(struct __pyx_obj_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar) __PYX_ERR(2, 73, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar = (struct __pyx_vtabstruct_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar*)__Pyx_GetVtable(__pyx_ptype_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_12environments_4envs_6diag_q_11tabular_env_MountainCar)) __PYX_ERR(2, 73, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.tabular_env", "TabularEnv", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv) __PYX_ERR(2, 10, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_TabularEnv = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_TabularEnv)) __PYX_ERR(2, 10, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.tabular_env", "CliffwalkEnv", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv) __PYX_ERR(2, 32, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv)) __PYX_ERR(2, 32, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.tabular_env", "RandomTabularEnv", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv) __PYX_ERR(2, 35, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv)) __PYX_ERR(2, 35, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.tabular_env", "InvertedPendulum", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum) __PYX_ERR(2, 45, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum)) __PYX_ERR(2, 45, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_MountainCar = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.tabular_env", "MountainCar", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_MountainCar) __PYX_ERR(2, 73, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_MountainCar = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_MountainCar*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_MountainCar->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_MountainCar)) __PYX_ERR(2, 73, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -18447,14 +18449,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_rlil__environments__envs__diag_q__q_iteration) {
+  if (__pyx_module_is_main_rlil__diag_q__compute_q__q_iteration) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name_2, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "rlil.environments.envs.diag_q.q_iteration")) {
-      if (unlikely(PyDict_SetItemString(modules, "rlil.environments.envs.diag_q.q_iteration", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "rlil.diag_q.compute_q.q_iteration")) {
+      if (unlikely(PyDict_SetItemString(modules, "rlil.diag_q.compute_q.q_iteration", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -18475,7 +18477,7 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":5
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":5
  * import cython
  * 
  * import numpy as np             # <<<<<<<<<<<<<<
@@ -18487,7 +18489,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 5, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":6
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":6
  * 
  * import numpy as np
  * import scipy.misc             # <<<<<<<<<<<<<<
@@ -18499,7 +18501,7 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_scipy, __pyx_t_1) < 0) __PYX_ERR(0, 6, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":7
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":7
  * import numpy as np
  * import scipy.misc
  * from scipy.special import logsumexp as lse             # <<<<<<<<<<<<<<
@@ -18520,7 +18522,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "rlil/environments/envs/diag_q/q_iteration.pyx":1
+  /* "rlil/diag_q/compute_q/q_iteration.pyx":1
  * # distutils: language=c++             # <<<<<<<<<<<<<<
  * """Cython implementation of Q-iteration."""
  * import cython
@@ -18691,11 +18693,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init rlil.environments.envs.diag_q.q_iteration", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init rlil.diag_q.compute_q.q_iteration", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init rlil.environments.envs.diag_q.q_iteration");
+    PyErr_SetString(PyExc_ImportError, "init rlil.diag_q.compute_q.q_iteration");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();

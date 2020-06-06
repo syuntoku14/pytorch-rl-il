@@ -9,7 +9,7 @@ import gym.spaces
 import numpy as np
 import cython
 from .tabular_env cimport TimeStep, PendulumState
-from .math_utils import np_seed
+from rlil.diag_q.math_utils import np_seed
 
 from libc.math cimport fmin, fmax, sin, cos, pi, floor
 from libcpp.map cimport map, pair

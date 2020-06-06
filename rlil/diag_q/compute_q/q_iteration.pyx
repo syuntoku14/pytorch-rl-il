@@ -10,7 +10,7 @@ from cython.operator cimport dereference, preincrement
 from libcpp.map cimport map
 from libc.math cimport fmax, fabs, exp, log
 
-cimport tabular_env
+from rlil.diag_q.envs cimport tabular_env
 
 
 @cython.boundscheck(False)
