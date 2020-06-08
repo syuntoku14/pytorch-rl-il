@@ -73,9 +73,8 @@ class State:
                    np_raw,
                    np_done=None,
                    info=None,
-                   device="cpu",
-                   dtype=np.float32):
-        raw = torch.as_tensor(np_raw.astype(dtype), device=device)
+                   device="cpu"):
+        raw = torch.as_tensor(np_raw, device=device)
         mask = ~torch.tensor(np_done, dtype=torch.bool,
                              device=device).reshape(-1) if np_done is not None else None
         info = info if info is not None else [None] * len(raw)

@@ -72,8 +72,8 @@ def test_from_numpy():
     info = ['a']
     state = State.from_numpy(gym_obs, done, info)
 
-    tt.assert_equal(state.raw, torch.tensor(gym_obs, dtype=torch.float32), )
-    tt.assert_equal(state.done, torch.tensor(done))
+    tt.assert_almost_equal(state.raw, torch.tensor(gym_obs, dtype=torch.float32), )
+    tt.assert_almost_equal(state.done, torch.tensor(done))
     assert state.info == ['a']
 
 

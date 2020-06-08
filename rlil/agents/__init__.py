@@ -13,6 +13,7 @@ from .ppo import PPO
 from .gail import GAIL
 from .airl import AIRL
 from .rs_mpc import RsMPC
+from .dqn import DQN
 
 __all__ = [
     "Agent",
@@ -30,5 +31,6 @@ __all__ = [
     "PPO",
     "GAIL",
     "AIRL",
-    "RsMPC"
+    "RsMPC",
+    "DQN"
 ]

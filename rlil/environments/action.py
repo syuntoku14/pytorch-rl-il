@@ -98,7 +98,8 @@ class Action:
 
     @classmethod
     def from_numpy(cls, actions, device="cpu"):
-        raw = torch.as_tensor(actions, device=device)
+        dtype = np.int64 if actions.dtype == np.int32 else actions.dtype
+        raw = torch.as_tensor(actions.astype(dtype), device=device)
         return cls(raw)
 
     @classmethod

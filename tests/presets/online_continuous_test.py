@@ -1,4 +1,3 @@
-import ptvsd
 import pytest
 from rlil.environments import GymEnvironment
 from rlil.presets.continuous import vac, ddpg, sac, td3, noisy_td3, ppo, rs_mpc

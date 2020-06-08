@@ -46,6 +46,9 @@ class DummyWriter(Writer):
     def add_text(self, name, text, step="sample_frames"):
         pass
 
+    def add_histogram(self, *args, **kwargs):
+        pass
+
 
 class ExperimentWriter(SummaryWriter, Writer):
     def __init__(self, agent_name, env_name,
