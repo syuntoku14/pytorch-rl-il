@@ -5,12 +5,12 @@
     "distutils": {
         "depends": [],
         "language": "c++",
-        "name": "rlil.diag_q.envs.time_limit_wrapper",
+        "name": "rlil.diag_q.tabular.env_wrapper",
         "sources": [
-            "rlil/diag_q/envs/time_limit_wrapper.pyx"
+            "rlil/diag_q/tabular/env_wrapper.pyx"
         ]
     },
-    "module_name": "rlil.diag_q.envs.time_limit_wrapper"
+    "module_name": "rlil.diag_q.tabular.env_wrapper"
 }
 END: Cython Metadata */
 
@@ -619,8 +619,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__rlil__diag_q__envs__time_limit_wrapper
-#define __PYX_HAVE_API__rlil__diag_q__envs__time_limit_wrapper
+#define __PYX_HAVE__rlil__diag_q__tabular__env_wrapper
+#define __PYX_HAVE_API__rlil__diag_q__tabular__env_wrapper
 /* Early includes */
 #include "ios"
 #include "new"
@@ -852,11 +852,10 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "rlil/diag_q/envs/time_limit_wrapper.pyx",
-  "rlil/diag_q/envs/time_limit_wrapper.pxd",
+  "rlil/diag_q/tabular/env_wrapper.pyx",
+  "rlil/diag_q/tabular/env_wrapper.pxd",
   "stringsource",
-  "rlil/diag_q/envs/tabular_env.pxd",
-  "rlil/diag_q/envs/env_wrapper.pxd",
+  "rlil/diag_q/tabular/tabular_env.pxd",
 };
 /* ForceInitThreads.proto */
 #ifndef __PYX_FORCE_INIT_THREADS
@@ -968,26 +967,25 @@ typedef struct {
 
 
 /*--- Type declarations ---*/
-struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv;
-struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv;
-struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv;
-struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum;
-struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar;
-struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper;
-struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper;
-struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper;
-struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_MountainCar;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper;
 struct __pyx_array_obj;
 struct __pyx_MemviewEnum_obj;
 struct __pyx_memoryview_obj;
 struct __pyx_memoryviewslice_obj;
-struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep;
-struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_PendulumState;
+struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep;
+struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_PendulumState;
 struct __pyx_ctuple_double__and_double;
 typedef struct __pyx_ctuple_double__and_double __pyx_ctuple_double__and_double;
 struct __pyx_ctuple_int__and_int;
 typedef struct __pyx_ctuple_int__and_int __pyx_ctuple_int__and_int;
-struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_MountainCarState;
+struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_MountainCarState;
 
 /* "tabular_env.pxd":4
  * 
@@ -996,7 +994,7 @@ struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_MountainCarState;
  *     int state
  *     double reward
  */
-struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep {
+struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep {
   int state;
   double reward;
   int done;
@@ -1009,7 +1007,7 @@ struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep {
  *     double theta
  *     double thetav
  */
-struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_PendulumState {
+struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_PendulumState {
   double theta;
   double thetav;
 };
@@ -1045,7 +1043,7 @@ struct __pyx_ctuple_int__and_int {
  *     double pos
  *     double vel
  */
-struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_MountainCarState {
+struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_MountainCarState {
   double pos;
   double vel;
 };
@@ -1057,9 +1055,9 @@ struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_MountainCarState {
  *     cdef public int num_states
  *     cdef public int num_actions
  */
-struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv {
+struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv {
   PyObject_HEAD
-  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_vtab;
+  struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *__pyx_vtab;
   int num_states;
   int num_actions;
   PyObject *observation_space;
@@ -1077,8 +1075,8 @@ struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv {
  *     cdef double transition_noise
  * 
  */
-struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv {
-  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv __pyx_base;
   double transition_noise;
 };
 
@@ -1090,8 +1088,8 @@ struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv {
  *     cdef double[:,:,:] _transition_matrix
  *     cdef double[:,:] _reward_matrix
  */
-struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv {
-  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv __pyx_base;
   __Pyx_memviewslice _transition_matrix;
   __Pyx_memviewslice _reward_matrix;
 };
@@ -1104,8 +1102,8 @@ struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv {
  *     cdef int _state_disc
  *     cdef int _action_disc
  */
-struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum {
-  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv __pyx_base;
   int _state_disc;
   int _action_disc;
   double max_vel;
@@ -1129,8 +1127,8 @@ struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum {
  *     cdef int _pos_disc
  *     cdef int _vel_disc
  */
-struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar {
-  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_MountainCar {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv __pyx_base;
   int _pos_disc;
   int _vel_disc;
   int _action_disc;
@@ -1144,60 +1142,45 @@ struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar {
 };
 
 
-/* "env_wrapper.pxd":3
+/* "rlil/diag_q/tabular/env_wrapper.pxd":3
  * cimport tabular_env
  * 
  * cdef class TabularEnvWrapper(tabular_env.TabularEnv):             # <<<<<<<<<<<<<<
  *     cdef public tabular_env.TabularEnv wrapped_env
  * 
  */
-struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper {
-  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
-  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *wrapped_env;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv __pyx_base;
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *wrapped_env;
 };
 
 
-/* "env_wrapper.pxd":6
+/* "rlil/diag_q/tabular/env_wrapper.pxd":6
  *     cdef public tabular_env.TabularEnv wrapped_env
  * 
  * cdef class AbsorbingStateWrapper(TabularEnvWrapper):             # <<<<<<<<<<<<<<
  *     cdef int absorb_state
  *     cdef double absorb_reward
  */
-struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper {
-  struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper __pyx_base;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper __pyx_base;
   int absorb_state;
   double absorb_reward;
 };
 
 
-/* "env_wrapper.pxd":10
+/* "rlil/diag_q/tabular/env_wrapper.pxd":10
  *     cdef double absorb_reward
  * 
  * cdef class StochasticActionWrapper(TabularEnvWrapper):             # <<<<<<<<<<<<<<
  *     cdef double eps
  *     cdef double eps_new
  */
-struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper {
-  struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper __pyx_base;
+struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper __pyx_base;
   double eps;
   double eps_new;
   double eps_old;
-};
-
-
-/* "rlil/diag_q/envs/time_limit_wrapper.pxd":3
- * cimport env_wrapper
- * 
- * cdef class TimeLimitWrapper(env_wrapper.TabularEnvWrapper):             # <<<<<<<<<<<<<<
- *     cdef public int num_states_origin
- *     cdef int _time_limit
- */
-struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper {
-  struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper __pyx_base;
-  int num_states_origin;
-  int _time_limit;
-  int _timer;
 };
 
 
@@ -1287,22 +1270,22 @@ struct __pyx_memoryviewslice_obj {
  *     cdef public int num_actions
  */
 
-struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv {
-  PyObject *(*transitions)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int, int __pyx_skip_dispatch);
-  std::map<int,double>  (*transitions_cy)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int);
-  double (*reward)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int, int, int __pyx_skip_dispatch);
-  PyObject *(*observation)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
-  PyObject *(*step)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
-  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep (*step_state)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
-  PyObject *(*reset)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
-  int (*reset_state)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
-  PyObject *(*transition_matrix)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
-  PyObject *(*reward_matrix)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
-  PyObject *(*set_state)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
-  int (*get_state)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
-  PyObject *(*render)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv {
+  PyObject *(*transitions)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int, int __pyx_skip_dispatch);
+  std::map<int,double>  (*transitions_cy)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int);
+  double (*reward)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int, int, int __pyx_skip_dispatch);
+  PyObject *(*observation)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
+  PyObject *(*step)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
+  struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep (*step_state)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
+  PyObject *(*reset)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+  int (*reset_state)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+  PyObject *(*transition_matrix)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+  PyObject *(*reward_matrix)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+  PyObject *(*set_state)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch);
+  int (*get_state)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
+  PyObject *(*render)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_TabularEnv;
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv;
 
 
 /* "tabular_env.pxd":32
@@ -1313,10 +1296,10 @@ static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__p
  * 
  */
 
-struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv {
-  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv {
+  struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv __pyx_base;
 };
-static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv *__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv;
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv *__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv;
 
 
 /* "tabular_env.pxd":35
@@ -1327,10 +1310,10 @@ static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv *_
  *     cdef double[:,:] _reward_matrix
  */
 
-struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv {
-  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv {
+  struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv __pyx_base;
 };
-static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv *__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv;
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv *__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv;
 
 
 /* "tabular_env.pxd":45
@@ -1341,19 +1324,19 @@ static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEn
  *     cdef int _action_disc
  */
 
-struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum {
-  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
-  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_PendulumState (*from_state_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, int);
-  int (*to_state_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_PendulumState);
-  double (*action_to_torque)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, int);
-  double (*torque_from_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, int, int __pyx_skip_dispatch);
-  __pyx_ctuple_double__and_double (*th_thv_from_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, int, int __pyx_skip_dispatch);
-  __pyx_ctuple_int__and_int (*disc_th_thv)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, double, double, int __pyx_skip_dispatch);
-  __pyx_ctuple_double__and_double (*from_disced_th_thv)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, int, int, int __pyx_skip_dispatch);
-  int (*id_from_th_thv)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, double, double, int __pyx_skip_dispatch);
-  int (*id_from_torque)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *, double, int __pyx_skip_dispatch);
+struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum {
+  struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv __pyx_base;
+  struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_PendulumState (*from_state_id)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum *, int);
+  int (*to_state_id)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum *, struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_PendulumState);
+  double (*action_to_torque)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum *, int);
+  double (*torque_from_id)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum *, int, int __pyx_skip_dispatch);
+  __pyx_ctuple_double__and_double (*th_thv_from_id)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum *, int, int __pyx_skip_dispatch);
+  __pyx_ctuple_int__and_int (*disc_th_thv)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum *, double, double, int __pyx_skip_dispatch);
+  __pyx_ctuple_double__and_double (*from_disced_th_thv)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum *, int, int, int __pyx_skip_dispatch);
+  int (*id_from_th_thv)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum *, double, double, int __pyx_skip_dispatch);
+  int (*id_from_torque)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum *, double, int __pyx_skip_dispatch);
 };
-static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum *__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum;
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum *__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum;
 
 
 /* "tabular_env.pxd":73
@@ -1364,29 +1347,29 @@ static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulu
  *     cdef int _vel_disc
  */
 
-struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_MountainCar {
-  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
-  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_MountainCarState (*from_state_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar *, int);
-  int (*to_state_id)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar *, struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_MountainCarState);
+struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_MountainCar {
+  struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv __pyx_base;
+  struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_MountainCarState (*from_state_id)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_MountainCar *, int);
+  int (*to_state_id)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_MountainCar *, struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_MountainCarState);
 };
-static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_MountainCar *__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_MountainCar;
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_MountainCar *__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_MountainCar;
 
 
-/* "env_wrapper.pxd":3
- * cimport tabular_env
+/* "rlil/diag_q/tabular/env_wrapper.pyx":8
+ * from cython.operator cimport dereference, preincrement
  * 
  * cdef class TabularEnvWrapper(tabular_env.TabularEnv):             # <<<<<<<<<<<<<<
- *     cdef public tabular_env.TabularEnv wrapped_env
- * 
+ *     def __init__(self,
+ *                  tabular_env.TabularEnv wrapped_env):
  */
 
-struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper {
-  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv __pyx_base;
+struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper {
+  struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv __pyx_base;
 };
-static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper *__pyx_vtabptr_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper;
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper;
 
 
-/* "env_wrapper.pxd":6
+/* "rlil/diag_q/tabular/env_wrapper.pxd":6
  *     cdef public tabular_env.TabularEnv wrapped_env
  * 
  * cdef class AbsorbingStateWrapper(TabularEnvWrapper):             # <<<<<<<<<<<<<<
@@ -1394,13 +1377,13 @@ static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapp
  *     cdef double absorb_reward
  */
 
-struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper {
-  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper __pyx_base;
+struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper {
+  struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper __pyx_base;
 };
-static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper *__pyx_vtabptr_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper;
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper *__pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper;
 
 
-/* "env_wrapper.pxd":10
+/* "rlil/diag_q/tabular/env_wrapper.pxd":10
  *     cdef double absorb_reward
  * 
  * cdef class StochasticActionWrapper(TabularEnvWrapper):             # <<<<<<<<<<<<<<
@@ -1408,26 +1391,10 @@ static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateW
  *     cdef double eps_new
  */
 
-struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper {
-  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper __pyx_base;
+struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper {
+  struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper __pyx_base;
 };
-static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper *__pyx_vtabptr_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper;
-
-
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":8
- * cimport tabular_env
- * 
- * cdef class TimeLimitWrapper(env_wrapper.TabularEnvWrapper):             # <<<<<<<<<<<<<<
- *     def __init__(self, tabular_env.TabularEnv env, int time_limit):
- *         super(TimeLimitWrapper, self).__init__(env)
- */
-
-struct __pyx_vtabstruct_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper {
-  struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper __pyx_base;
-  __pyx_ctuple_int__and_int (*unwrap_state)(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *, int, int __pyx_skip_dispatch);
-  int (*wrap_state)(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *, int, int, int __pyx_skip_dispatch);
-};
-static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_vtabptr_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper;
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper *__pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper;
 
 
 /* "View.MemoryView":105
@@ -1541,20 +1508,6 @@ static struct __pyx_vtabstruct__memoryviewslice *__pyx_vtabptr__memoryviewslice;
 #define __Pyx_CLEAR(r)    do { PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);} while(0)
 #define __Pyx_XCLEAR(r)   do { if((r) != NULL) {PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);}} while(0)
 
-/* PyObjectGetAttrStr.proto */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name);
-#else
-#define __Pyx_PyObject_GetAttrStr(o,n) PyObject_GetAttr(o,n)
-#endif
-
-/* GetBuiltinName.proto */
-static PyObject *__Pyx_GetBuiltinName(PyObject *name);
-
-/* RaiseArgTupleInvalid.proto */
-static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
-    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
-
 /* RaiseDoubleKeywords.proto */
 static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
 
@@ -1563,59 +1516,15 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
 
+/* RaiseArgTupleInvalid.proto */
+static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
+    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
+
 /* ArgTypeTest.proto */
 #define __Pyx_ArgTypeTest(obj, type, none_allowed, name, exact)\
     ((likely((Py_TYPE(obj) == type) | (none_allowed && (obj == Py_None)))) ? 1 :\
         __Pyx__ArgTypeTest(obj, type, name, exact))
 static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact);
-
-/* PyObjectCall.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
-#else
-#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
-#endif
-
-/* PyCFunctionFastCall.proto */
-#if CYTHON_FAST_PYCCALL
-static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
-#else
-#define __Pyx_PyCFunction_FastCall(func, args, nargs)  (assert(0), NULL)
-#endif
-
-/* PyFunctionFastCall.proto */
-#if CYTHON_FAST_PYCALL
-#define __Pyx_PyFunction_FastCall(func, args, nargs)\
-    __Pyx_PyFunction_FastCallDict((func), (args), (nargs), NULL)
-#if 1 || PY_VERSION_HEX < 0x030600B1
-static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, Py_ssize_t nargs, PyObject *kwargs);
-#else
-#define __Pyx_PyFunction_FastCallDict(func, args, nargs, kwargs) _PyFunction_FastCallDict(func, args, nargs, kwargs)
-#endif
-#define __Pyx_BUILD_ASSERT_EXPR(cond)\
-    (sizeof(char [1 - 2*!(cond)]) - 1)
-#ifndef Py_MEMBER_SIZE
-#define Py_MEMBER_SIZE(type, member) sizeof(((type *)0)->member)
-#endif
-  static size_t __pyx_pyframe_localsplus_offset = 0;
-  #include "frameobject.h"
-  #define __Pxy_PyFrame_Initialize_Offsets()\
-    ((void)__Pyx_BUILD_ASSERT_EXPR(sizeof(PyFrameObject) == offsetof(PyFrameObject, f_localsplus) + Py_MEMBER_SIZE(PyFrameObject, f_localsplus)),\
-     (void)(__pyx_pyframe_localsplus_offset = ((size_t)PyFrame_Type.tp_basicsize) - Py_MEMBER_SIZE(PyFrameObject, f_localsplus)))
-  #define __Pyx_PyFrame_GetLocalsplus(frame)\
-    (assert(__pyx_pyframe_localsplus_offset), (PyObject **)(((char *)(frame)) + __pyx_pyframe_localsplus_offset))
-#endif
-
-/* PyObjectCall2Args.proto */
-static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
-
-/* PyObjectCallMethO.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
-#endif
-
-/* PyObjectCallOneArg.proto */
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
 /* PyDictVersioning.proto */
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
@@ -1643,11 +1552,48 @@ static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UIN
 #define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP)  (VAR) = (LOOKUP);
 #endif
 
-/* PyObjectCallNoArg.proto */
-#if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
+/* PyObjectGetAttrStr.proto */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name);
 #else
-#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
+#define __Pyx_PyObject_GetAttrStr(o,n) PyObject_GetAttr(o,n)
+#endif
+
+/* PyFunctionFastCall.proto */
+#if CYTHON_FAST_PYCALL
+#define __Pyx_PyFunction_FastCall(func, args, nargs)\
+    __Pyx_PyFunction_FastCallDict((func), (args), (nargs), NULL)
+#if 1 || PY_VERSION_HEX < 0x030600B1
+static PyObject *__Pyx_PyFunction_FastCallDict(PyObject *func, PyObject **args, Py_ssize_t nargs, PyObject *kwargs);
+#else
+#define __Pyx_PyFunction_FastCallDict(func, args, nargs, kwargs) _PyFunction_FastCallDict(func, args, nargs, kwargs)
+#endif
+#define __Pyx_BUILD_ASSERT_EXPR(cond)\
+    (sizeof(char [1 - 2*!(cond)]) - 1)
+#ifndef Py_MEMBER_SIZE
+#define Py_MEMBER_SIZE(type, member) sizeof(((type *)0)->member)
+#endif
+  static size_t __pyx_pyframe_localsplus_offset = 0;
+  #include "frameobject.h"
+  #define __Pxy_PyFrame_Initialize_Offsets()\
+    ((void)__Pyx_BUILD_ASSERT_EXPR(sizeof(PyFrameObject) == offsetof(PyFrameObject, f_localsplus) + Py_MEMBER_SIZE(PyFrameObject, f_localsplus)),\
+     (void)(__pyx_pyframe_localsplus_offset = ((size_t)PyFrame_Type.tp_basicsize) - Py_MEMBER_SIZE(PyFrameObject, f_localsplus)))
+  #define __Pyx_PyFrame_GetLocalsplus(frame)\
+    (assert(__pyx_pyframe_localsplus_offset), (PyObject **)(((char *)(frame)) + __pyx_pyframe_localsplus_offset))
+#endif
+
+/* PyCFunctionFastCall.proto */
+#if CYTHON_FAST_PYCCALL
+static CYTHON_INLINE PyObject *__Pyx_PyCFunction_FastCall(PyObject *func, PyObject **args, Py_ssize_t nargs);
+#else
+#define __Pyx_PyCFunction_FastCall(func, args, nargs)  (assert(0), NULL)
+#endif
+
+/* PyObjectCall.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
+#else
+#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
 #endif
 
 /* PyThreadStateGet.proto */
@@ -1691,23 +1637,26 @@ static void __Pyx_WriteUnraisable(const char *name, int clineno,
                                   int lineno, const char *filename,
                                   int full_traceback, int nogil);
 
-/* PyIntBinop.proto */
-#if !CYTHON_COMPILING_IN_PYPY
-static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check);
-#else
-#define __Pyx_PyInt_AddObjC(op1, op2, intval, inplace, zerodivision_check)\
-    (inplace ? PyNumber_InPlaceAdd(op1, op2) : PyNumber_Add(op1, op2))
+/* PyObjectCall2Args.proto */
+static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2);
+
+/* PyObjectCallMethO.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallMethO(PyObject *func, PyObject *arg);
 #endif
 
-/* None.proto */
-static CYTHON_INLINE int __Pyx_div_int(int, int);
+/* PyObjectCallOneArg.proto */
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObject *arg);
 
-/* UnaryNegOverflows.proto */
-#define UNARY_NEG_WOULD_OVERFLOW(x)\
-        (((x) < 0) & ((unsigned long)(x) == 0-(unsigned long)(x)))
+/* PyObjectCallNoArg.proto */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func);
+#else
+#define __Pyx_PyObject_CallNoArg(func) __Pyx_PyObject_Call(func, __pyx_empty_tuple, NULL)
+#endif
 
-/* None.proto */
-static CYTHON_INLINE int __Pyx_mod_int(int, int);
+/* ExtTypeTest.proto */
+static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
 /* PyErrExceptionMatches.proto */
 #if CYTHON_FAST_THREAD_STATE
@@ -1722,6 +1671,9 @@ static CYTHON_INLINE PyObject *__Pyx_GetAttr(PyObject *, PyObject *);
 
 /* GetAttr3.proto */
 static CYTHON_INLINE PyObject *__Pyx_GetAttr3(PyObject *, PyObject *, PyObject *);
+
+/* GetBuiltinName.proto */
+static PyObject *__Pyx_GetBuiltinName(PyObject *name);
 
 /* GetModuleGlobalName.proto */
 #if CYTHON_USE_DICT_VERSIONS
@@ -1774,9 +1726,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize
 static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
 static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
                                                      int is_list, int wraparound, int boundscheck);
-
-/* ExtTypeTest.proto */
-static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type);
 
 /* HasAttr.proto */
 static CYTHON_INLINE int __Pyx_HasAttr(PyObject *, PyObject *);
@@ -1877,6 +1826,10 @@ static CYTHON_INLINE int __Pyx_PyUnicode_Equals(PyObject* s1, PyObject* s2, int 
 /* None.proto */
 static CYTHON_INLINE Py_ssize_t __Pyx_div_Py_ssize_t(Py_ssize_t, Py_ssize_t);
 
+/* UnaryNegOverflows.proto */
+#define UNARY_NEG_WOULD_OVERFLOW(x)\
+        (((x) < 0) & ((unsigned long)(x) == 0-(unsigned long)(x)))
+
 static CYTHON_UNUSED int __pyx_array_getbuffer(PyObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /*proto*/
 static PyObject *__pyx_array_get_memview(struct __pyx_array_obj *); /*proto*/
 /* ObjectGetItem.proto */
@@ -1943,6 +1896,14 @@ static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
 }
 #else
 #define __Pyx_ListComp_Append(L,x) PyList_Append(L,x)
+#endif
+
+/* PyIntBinop.proto */
+#if !CYTHON_COMPILING_IN_PYPY
+static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, long intval, int inplace, int zerodivision_check);
+#else
+#define __Pyx_PyInt_AddObjC(op1, op2, intval, inplace, zerodivision_check)\
+    (inplace ? PyNumber_InPlaceAdd(op1, op2) : PyNumber_Add(op1, op2))
 #endif
 
 /* ListExtend.proto */
@@ -2056,56 +2017,8 @@ static void __Pyx_AddTraceback(const char *funcname, int c_line,
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value);
 
-struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep;
-static PyObject* __pyx_convert__to_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep(struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep s);
-/* CppExceptionConversion.proto */
-#ifndef __Pyx_CppExn2PyErr
-#include <new>
-#include <typeinfo>
-#include <stdexcept>
-#include <ios>
-static void __Pyx_CppExn2PyErr() {
-  try {
-    if (PyErr_Occurred())
-      ; // let the latest Python exn pass through and ignore the current one
-    else
-      throw;
-  } catch (const std::bad_alloc& exn) {
-    PyErr_SetString(PyExc_MemoryError, exn.what());
-  } catch (const std::bad_cast& exn) {
-    PyErr_SetString(PyExc_TypeError, exn.what());
-  } catch (const std::bad_typeid& exn) {
-    PyErr_SetString(PyExc_TypeError, exn.what());
-  } catch (const std::domain_error& exn) {
-    PyErr_SetString(PyExc_ValueError, exn.what());
-  } catch (const std::invalid_argument& exn) {
-    PyErr_SetString(PyExc_ValueError, exn.what());
-  } catch (const std::ios_base::failure& exn) {
-    PyErr_SetString(PyExc_IOError, exn.what());
-  } catch (const std::out_of_range& exn) {
-    PyErr_SetString(PyExc_IndexError, exn.what());
-  } catch (const std::overflow_error& exn) {
-    PyErr_SetString(PyExc_OverflowError, exn.what());
-  } catch (const std::range_error& exn) {
-    PyErr_SetString(PyExc_ArithmeticError, exn.what());
-  } catch (const std::underflow_error& exn) {
-    PyErr_SetString(PyExc_ArithmeticError, exn.what());
-  } catch (const std::exception& exn) {
-    PyErr_SetString(PyExc_RuntimeError, exn.what());
-  }
-  catch (...)
-  {
-    PyErr_SetString(PyExc_RuntimeError, "Unknown exception");
-  }
-}
-#endif
-
-/* FromPyCTupleUtility.proto */
-static __pyx_ctuple_int__and_int __pyx_convert__from_py___pyx_ctuple_int__and_int(PyObject *);
-
-/* ToPyCTupleUtility.proto */
-static PyObject* __pyx_convert__to_py___pyx_ctuple_int__and_int(__pyx_ctuple_int__and_int);
-
+struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep;
+static PyObject* __pyx_convert__to_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep(struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep s);
 /* CIntToPy.proto */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
@@ -2194,15 +2107,14 @@ static int __Pyx_check_binary_version(void);
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
-static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_reset_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
-static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_step_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_action, int __pyx_skip_dispatch); /* proto*/
-static std::map<int,double>  __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_transitions_cy(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_v_action); /* proto*/
-static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_reward(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_v_action, int __pyx_v_wrapped_next_state, int __pyx_skip_dispatch); /* proto*/
-static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_observation(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_skip_dispatch); /* proto*/
-static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_set_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_skip_dispatch); /* proto*/
-static __pyx_ctuple_int__and_int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_unwrap_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_skip_dispatch); /* proto*/
-static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_wrap_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_v_time, int __pyx_skip_dispatch); /* proto*/
-static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_get_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static std::map<int,double>  __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_transitions_cy(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_v_action); /* proto*/
+static double __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_reward(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_v_action, int __pyx_v_next_state, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_observation(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_skip_dispatch); /* proto*/
+static struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_step_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_action, int __pyx_skip_dispatch); /* proto*/
+static int __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_reset_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_set_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_skip_dispatch); /* proto*/
+static int __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_get_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_render(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_skip_dispatch); /* proto*/
 static PyObject *__pyx_array_get_memview(struct __pyx_array_obj *__pyx_v_self); /* proto*/
 static char *__pyx_memoryview_get_item_pointer(struct __pyx_memoryview_obj *__pyx_v_self, PyObject *__pyx_v_index); /* proto*/
 static PyObject *__pyx_memoryview_is_slice(struct __pyx_memoryview_obj *__pyx_v_self, PyObject *__pyx_v_obj); /* proto*/
@@ -2218,20 +2130,17 @@ static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memo
 
 /* Module declarations from 'libcpp.map' */
 
-/* Module declarations from 'rlil.diag_q.envs.tabular_env' */
-static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv = 0;
-static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv = 0;
-static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv = 0;
-static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum = 0;
-static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_MountainCar = 0;
+/* Module declarations from 'rlil.diag_q.tabular.tabular_env' */
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv = 0;
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv = 0;
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv = 0;
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum = 0;
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_MountainCar = 0;
 
-/* Module declarations from 'rlil.diag_q.envs.env_wrapper' */
-static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper = 0;
-static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper = 0;
-static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper = 0;
-
-/* Module declarations from 'rlil.diag_q.envs.time_limit_wrapper' */
-static PyTypeObject *__pyx_ptype_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper = 0;
+/* Module declarations from 'rlil.diag_q.tabular.env_wrapper' */
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper = 0;
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper = 0;
+static PyTypeObject *__pyx_ptype_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper = 0;
 static PyTypeObject *__pyx_array_type = 0;
 static PyTypeObject *__pyx_MemviewEnum_type = 0;
 static PyTypeObject *__pyx_memoryview_type = 0;
@@ -2243,10 +2152,10 @@ static PyObject *contiguous = 0;
 static PyObject *indirect_contiguous = 0;
 static int __pyx_memoryview_thread_locks_used;
 static PyThread_type_lock __pyx_memoryview_thread_locks[8];
-static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle_TimeLimitWrapper__set_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *, PyObject *); /*proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper___pyx_unpickle_TabularEnvWrapper__set_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *, PyObject *); /*proto*/
 static PyObject *__pyx_convert_map_to_py_int____double(std::map<int,double>  const &); /*proto*/
 static std::map<int,double>  __pyx_convert_map_from_py_int__and_double(PyObject *); /*proto*/
-static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep(PyObject *); /*proto*/
+static struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep(PyObject *); /*proto*/
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char *, char *); /*proto*/
 static void *__pyx_align_pointer(void *, size_t); /*proto*/
 static PyObject *__pyx_memoryview_new(PyObject *, int, int, __Pyx_TypeInfo *); /*proto*/
@@ -2280,12 +2189,11 @@ static void __pyx_memoryview_refcount_objects_in_slice(char *, Py_ssize_t *, Py_
 static void __pyx_memoryview_slice_assign_scalar(__Pyx_memviewslice *, int, size_t, void *, int); /*proto*/
 static void __pyx_memoryview__slice_assign_scalar(char *, Py_ssize_t *, Py_ssize_t *, int, size_t, void *); /*proto*/
 static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *, PyObject *); /*proto*/
-#define __Pyx_MODULE_NAME "rlil.diag_q.envs.time_limit_wrapper"
-extern int __pyx_module_is_main_rlil__diag_q__envs__time_limit_wrapper;
-int __pyx_module_is_main_rlil__diag_q__envs__time_limit_wrapper = 0;
+#define __Pyx_MODULE_NAME "rlil.diag_q.tabular.env_wrapper"
+extern int __pyx_module_is_main_rlil__diag_q__tabular__env_wrapper;
+int __pyx_module_is_main_rlil__diag_q__tabular__env_wrapper = 0;
 
-/* Implementation of 'rlil.diag_q.envs.time_limit_wrapper' */
-static PyObject *__pyx_builtin_super;
+/* Implementation of 'rlil.diag_q.tabular.env_wrapper' */
 static PyObject *__pyx_builtin_TypeError;
 static PyObject *__pyx_builtin_KeyError;
 static PyObject *__pyx_builtin_ValueError;
@@ -2298,13 +2206,11 @@ static PyObject *__pyx_builtin_IndexError;
 static const char __pyx_k_O[] = "O";
 static const char __pyx_k_c[] = "c";
 static const char __pyx_k_id[] = "id";
-static const char __pyx_k_env[] = "env";
 static const char __pyx_k_new[] = "__new__";
 static const char __pyx_k_obj[] = "obj";
 static const char __pyx_k_base[] = "base";
 static const char __pyx_k_dict[] = "__dict__";
 static const char __pyx_k_done[] = "done";
-static const char __pyx_k_init[] = "__init__";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_mode[] = "mode";
 static const char __pyx_k_name[] = "name";
@@ -2314,7 +2220,6 @@ static const char __pyx_k_size[] = "size";
 static const char __pyx_k_step[] = "step";
 static const char __pyx_k_stop[] = "stop";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_time[] = "time";
 static const char __pyx_k_ASCII[] = "ASCII";
 static const char __pyx_k_class[] = "__class__";
 static const char __pyx_k_error[] = "error";
@@ -2323,7 +2228,6 @@ static const char __pyx_k_range[] = "range";
 static const char __pyx_k_shape[] = "shape";
 static const char __pyx_k_start[] = "start";
 static const char __pyx_k_state[] = "state";
-static const char __pyx_k_super[] = "super";
 static const char __pyx_k_action[] = "action";
 static const char __pyx_k_encode[] = "encode";
 static const char __pyx_k_format[] = "format";
@@ -2331,6 +2235,7 @@ static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_name_2[] = "__name__";
 static const char __pyx_k_pickle[] = "pickle";
 static const char __pyx_k_reduce[] = "__reduce__";
+static const char __pyx_k_render[] = "render";
 static const char __pyx_k_reward[] = "reward";
 static const char __pyx_k_struct[] = "struct";
 static const char __pyx_k_unpack[] = "unpack";
@@ -2352,48 +2257,48 @@ static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
 static const char __pyx_k_set_state[] = "set_state";
 static const char __pyx_k_IndexError[] = "IndexError";
 static const char __pyx_k_ValueError[] = "ValueError";
+static const char __pyx_k_next_state[] = "next_state";
 static const char __pyx_k_pyx_result[] = "__pyx_result";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static const char __pyx_k_step_state[] = "step_state";
-static const char __pyx_k_time_limit[] = "time_limit";
-static const char __pyx_k_wrap_state[] = "wrap_state";
 static const char __pyx_k_MemoryError[] = "MemoryError";
 static const char __pyx_k_PickleError[] = "PickleError";
 static const char __pyx_k_observation[] = "observation";
 static const char __pyx_k_reset_state[] = "reset_state";
+static const char __pyx_k_wrapped_env[] = "wrapped_env";
 static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
 static const char __pyx_k_stringsource[] = "stringsource";
-static const char __pyx_k_unwrap_state[] = "unwrap_state";
 static const char __pyx_k_pyx_getbuffer[] = "__pyx_getbuffer";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
-static const char __pyx_k_wrapped_state[] = "wrapped_state";
 static const char __pyx_k_View_MemoryView[] = "View.MemoryView";
 static const char __pyx_k_allocate_buffer[] = "allocate_buffer";
 static const char __pyx_k_dtype_is_object[] = "dtype_is_object";
 static const char __pyx_k_pyx_PickleError[] = "__pyx_PickleError";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
-static const char __pyx_k_TimeLimitWrapper[] = "TimeLimitWrapper";
+static const char __pyx_k_TabularEnvWrapper[] = "TabularEnvWrapper";
 static const char __pyx_k_pyx_unpickle_Enum[] = "__pyx_unpickle_Enum";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_strided_and_direct[] = "<strided and direct>";
-static const char __pyx_k_wrapped_next_state[] = "wrapped_next_state";
 static const char __pyx_k_strided_and_indirect[] = "<strided and indirect>";
+static const char __pyx_k_AbsorbingStateWrapper[] = "AbsorbingStateWrapper";
 static const char __pyx_k_contiguous_and_direct[] = "<contiguous and direct>";
 static const char __pyx_k_MemoryView_of_r_object[] = "<MemoryView of %r object>";
 static const char __pyx_k_MemoryView_of_r_at_0x_x[] = "<MemoryView of %r at 0x%x>";
+static const char __pyx_k_StochasticActionWrapper[] = "StochasticActionWrapper";
 static const char __pyx_k_contiguous_and_indirect[] = "<contiguous and indirect>";
 static const char __pyx_k_Cannot_index_with_type_s[] = "Cannot index with type '%s'";
 static const char __pyx_k_Invalid_shape_in_axis_d_d[] = "Invalid shape in axis %d: %d.";
 static const char __pyx_k_itemsize_0_for_cython_array[] = "itemsize <= 0 for cython.array";
-static const char __pyx_k_pyx_unpickle_TimeLimitWrapper[] = "__pyx_unpickle_TimeLimitWrapper";
 static const char __pyx_k_unable_to_allocate_array_data[] = "unable to allocate array data.";
+static const char __pyx_k_pyx_unpickle_TabularEnvWrapper[] = "__pyx_unpickle_TabularEnvWrapper";
 static const char __pyx_k_strided_and_direct_or_indirect[] = "<strided and direct or indirect>";
+static const char __pyx_k_rlil_diag_q_tabular_env_wrapper[] = "rlil.diag_q.tabular.env_wrapper";
 static const char __pyx_k_Buffer_view_does_not_expose_stri[] = "Buffer view does not expose strides";
 static const char __pyx_k_Can_only_create_a_buffer_that_is[] = "Can only create a buffer that is contiguous in memory.";
 static const char __pyx_k_Cannot_assign_to_read_only_memor[] = "Cannot assign to read-only memoryview";
 static const char __pyx_k_Cannot_create_writable_memory_vi[] = "Cannot create writable memory view from read-only memoryview";
 static const char __pyx_k_Empty_shape_tuple_for_cython_arr[] = "Empty shape tuple for cython.array";
-static const char __pyx_k_Incompatible_checksums_s_vs_0x52[] = "Incompatible checksums (%s vs 0x52e33e2 = (_state, _time_limit, _timer, _transition_map, action_space, initial_state_distribution, num_actions, num_states, num_states_origin, observation_space, wrapped_env))";
+static const char __pyx_k_Incompatible_checksums_s_vs_0xa3[] = "Incompatible checksums (%s vs 0xa33c4ba = (_state, _transition_map, action_space, initial_state_distribution, num_actions, num_states, observation_space, wrapped_env))";
 static const char __pyx_k_Incompatible_checksums_s_vs_0xb0[] = "Incompatible checksums (%s vs 0xb068931 = (name))";
 static const char __pyx_k_Indirect_dimensions_not_supporte[] = "Indirect dimensions not supported";
 static const char __pyx_k_Invalid_mode_expected_c_or_fortr[] = "Invalid mode, expected 'c' or 'fortran', got %s";
@@ -2402,11 +2307,11 @@ static const char __pyx_k_Out_of_bounds_on_buffer_access_a[] = "Out of bounds on
 static const char __pyx_k_Unable_to_convert_item_to_object[] = "Unable to convert item to object";
 static const char __pyx_k_got_differing_extents_in_dimensi[] = "got differing extents in dimension %d (got %d and %d)";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
-static const char __pyx_k_rlil_diag_q_envs_time_limit_wrap[] = "rlil.diag_q.envs.time_limit_wrapper";
 static const char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate shape and strides.";
 static const char __pyx_k_No_value_specified_for_struct_at_2[] = "No value specified for struct attribute 'reward'";
 static const char __pyx_k_No_value_specified_for_struct_at_3[] = "No value specified for struct attribute 'done'";
 static PyObject *__pyx_n_s_ASCII;
+static PyObject *__pyx_n_s_AbsorbingStateWrapper;
 static PyObject *__pyx_kp_s_Buffer_view_does_not_expose_stri;
 static PyObject *__pyx_kp_s_Can_only_create_a_buffer_that_is;
 static PyObject *__pyx_kp_s_Cannot_assign_to_read_only_memor;
@@ -2414,7 +2319,7 @@ static PyObject *__pyx_kp_s_Cannot_create_writable_memory_vi;
 static PyObject *__pyx_kp_s_Cannot_index_with_type_s;
 static PyObject *__pyx_n_s_Ellipsis;
 static PyObject *__pyx_kp_s_Empty_shape_tuple_for_cython_arr;
-static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0x52;
+static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xa3;
 static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xb0;
 static PyObject *__pyx_n_s_IndexError;
 static PyObject *__pyx_kp_s_Indirect_dimensions_not_supporte;
@@ -2430,7 +2335,8 @@ static PyObject *__pyx_kp_s_No_value_specified_for_struct_at_3;
 static PyObject *__pyx_n_b_O;
 static PyObject *__pyx_kp_s_Out_of_bounds_on_buffer_access_a;
 static PyObject *__pyx_n_s_PickleError;
-static PyObject *__pyx_n_s_TimeLimitWrapper;
+static PyObject *__pyx_n_s_StochasticActionWrapper;
+static PyObject *__pyx_n_s_TabularEnvWrapper;
 static PyObject *__pyx_n_s_TypeError;
 static PyObject *__pyx_kp_s_Unable_to_convert_item_to_object;
 static PyObject *__pyx_n_s_ValueError;
@@ -2449,7 +2355,6 @@ static PyObject *__pyx_n_s_done;
 static PyObject *__pyx_n_s_dtype_is_object;
 static PyObject *__pyx_n_s_encode;
 static PyObject *__pyx_n_s_enumerate;
-static PyObject *__pyx_n_s_env;
 static PyObject *__pyx_n_s_error;
 static PyObject *__pyx_n_s_flags;
 static PyObject *__pyx_n_s_format;
@@ -2460,7 +2365,6 @@ static PyObject *__pyx_n_s_getstate;
 static PyObject *__pyx_kp_s_got_differing_extents_in_dimensi;
 static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_s_import;
-static PyObject *__pyx_n_s_init;
 static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_iteritems;
@@ -2471,6 +2375,7 @@ static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_name_2;
 static PyObject *__pyx_n_s_ndim;
 static PyObject *__pyx_n_s_new;
+static PyObject *__pyx_n_s_next_state;
 static PyObject *__pyx_kp_s_no_default___reduce___due_to_non;
 static PyObject *__pyx_n_s_obj;
 static PyObject *__pyx_n_s_observation;
@@ -2483,15 +2388,16 @@ static PyObject *__pyx_n_s_pyx_result;
 static PyObject *__pyx_n_s_pyx_state;
 static PyObject *__pyx_n_s_pyx_type;
 static PyObject *__pyx_n_s_pyx_unpickle_Enum;
-static PyObject *__pyx_n_s_pyx_unpickle_TimeLimitWrapper;
+static PyObject *__pyx_n_s_pyx_unpickle_TabularEnvWrapper;
 static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_reduce;
 static PyObject *__pyx_n_s_reduce_cython;
 static PyObject *__pyx_n_s_reduce_ex;
+static PyObject *__pyx_n_s_render;
 static PyObject *__pyx_n_s_reset_state;
 static PyObject *__pyx_n_s_reward;
-static PyObject *__pyx_n_s_rlil_diag_q_envs_time_limit_wrap;
+static PyObject *__pyx_n_s_rlil_diag_q_tabular_env_wrapper;
 static PyObject *__pyx_n_s_set_state;
 static PyObject *__pyx_n_s_setstate;
 static PyObject *__pyx_n_s_setstate_cython;
@@ -2507,34 +2413,26 @@ static PyObject *__pyx_kp_s_strided_and_direct_or_indirect;
 static PyObject *__pyx_kp_s_strided_and_indirect;
 static PyObject *__pyx_kp_s_stringsource;
 static PyObject *__pyx_n_s_struct;
-static PyObject *__pyx_n_s_super;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_n_s_time;
-static PyObject *__pyx_n_s_time_limit;
 static PyObject *__pyx_kp_s_unable_to_allocate_array_data;
 static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
 static PyObject *__pyx_n_s_unpack;
-static PyObject *__pyx_n_s_unwrap_state;
 static PyObject *__pyx_n_s_update;
-static PyObject *__pyx_n_s_wrap_state;
-static PyObject *__pyx_n_s_wrapped_next_state;
-static PyObject *__pyx_n_s_wrapped_state;
-static int __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper___init__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_v_env, int __pyx_v_time_limit); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_2reset_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_10time_limit___get__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5timer___get__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_4step_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_action); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_6reward(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_v_action, int __pyx_v_wrapped_next_state); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_8observation(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_10set_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_12unwrap_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_14wrap_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_v_time); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_16get_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin___get__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self); /* proto */
-static int __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin_2__set__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_18__reduce_cython__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_20__setstate_cython__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle_TimeLimitWrapper(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_n_s_wrapped_env;
+static int __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper___init__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *__pyx_v_wrapped_env); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_2reward(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_v_action, int __pyx_v_next_state); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_4observation(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_6step_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_action); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_8reset_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_10set_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_12get_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_14render(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env___get__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self); /* proto */
+static int __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_2__set__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_4__del__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_16__reduce_cython__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_18__setstate_cython__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper___pyx_unpickle_TabularEnvWrapper(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array___cinit__(struct __pyx_array_obj *__pyx_v_self, PyObject *__pyx_v_shape, Py_ssize_t __pyx_v_itemsize, PyObject *__pyx_v_format, PyObject *__pyx_v_mode, int __pyx_v_allocate_buffer); /* proto */
 static int __pyx_array___pyx_pf_15View_dot_MemoryView_5array_2__getbuffer__(struct __pyx_array_obj *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_array___pyx_pf_15View_dot_MemoryView_5array_4__dealloc__(struct __pyx_array_obj *__pyx_v_self); /* proto */
@@ -2577,14 +2475,16 @@ static PyObject *__pyx_pf_15View_dot_MemoryView_16_memoryviewslice_4base___get__
 static PyObject *__pyx_pf___pyx_memoryviewslice___reduce_cython__(CYTHON_UNUSED struct __pyx_memoryviewslice_obj *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf___pyx_memoryviewslice_2__setstate_cython__(CYTHON_UNUSED struct __pyx_memoryviewslice_obj *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_15View_dot_MemoryView___pyx_unpickle_Enum(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_tp_new_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_array(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_Enum(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_memoryview(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new__memoryviewslice(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
-static PyObject *__pyx_int_86914018;
+static PyObject *__pyx_int_171164858;
 static PyObject *__pyx_int_184977713;
 static PyObject *__pyx_int_neg_1;
 static PyObject *__pyx_tuple_;
@@ -2619,19 +2519,18 @@ static PyObject *__pyx_codeobj__23;
 static PyObject *__pyx_codeobj__30;
 /* Late includes */
 
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":9
+/* "rlil/diag_q/tabular/env_wrapper.pyx":9
  * 
- * cdef class TimeLimitWrapper(env_wrapper.TabularEnvWrapper):
- *     def __init__(self, tabular_env.TabularEnv env, int time_limit):             # <<<<<<<<<<<<<<
- *         super(TimeLimitWrapper, self).__init__(env)
- *         self.num_states_origin = self.num_states
+ * cdef class TabularEnvWrapper(tabular_env.TabularEnv):
+ *     def __init__(self,             # <<<<<<<<<<<<<<
+ *                  tabular_env.TabularEnv wrapped_env):
+ *         self.wrapped_env = wrapped_env
  */
 
 /* Python wrapper */
-static int __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_v_env = 0;
-  int __pyx_v_time_limit;
+static int __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_1__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *__pyx_v_wrapped_env = 0;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2639,14 +2538,12 @@ static int __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_env,&__pyx_n_s_time_limit,0};
-    PyObject* values[2] = {0,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_wrapped_env,0};
+    PyObject* values[1] = {0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
       const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
       switch (pos_args) {
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
         case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
         CYTHON_FALLTHROUGH;
         case  0: break;
@@ -2655,37 +2552,29 @@ static int __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_env)) != 0)) kw_args--;
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_wrapped_env)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_time_limit)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 9, __pyx_L3_error)
-        }
       }
       if (unlikely(kw_args > 0)) {
         if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 9, __pyx_L3_error)
       }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_env = ((struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)values[0]);
-    __pyx_v_time_limit = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_time_limit == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 9, __pyx_L3_error)
+    __pyx_v_wrapped_env = ((struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)values[0]);
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 9, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 9, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_env), __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv, 1, "env", 0))) __PYX_ERR(0, 9, __pyx_L1_error)
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper___init__(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self), __pyx_v_env, __pyx_v_time_limit);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_wrapped_env), __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv, 1, "wrapped_env", 0))) __PYX_ERR(0, 10, __pyx_L1_error)
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper___init__(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self), __pyx_v_wrapped_env);
 
   /* function exit code */
   goto __pyx_L0;
@@ -2696,873 +2585,152 @@ static int __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_
   return __pyx_r;
 }
 
-static int __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper___init__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *__pyx_v_env, int __pyx_v_time_limit) {
+static int __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper___init__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *__pyx_v_wrapped_env) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
+  int __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  int __pyx_t_4;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":10
- * cdef class TimeLimitWrapper(env_wrapper.TabularEnvWrapper):
- *     def __init__(self, tabular_env.TabularEnv env, int time_limit):
- *         super(TimeLimitWrapper, self).__init__(env)             # <<<<<<<<<<<<<<
- *         self.num_states_origin = self.num_states
- *         self.num_states = self.num_states * time_limit + 1  # 1 is done state
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":11
+ *     def __init__(self,
+ *                  tabular_env.TabularEnv wrapped_env):
+ *         self.wrapped_env = wrapped_env             # <<<<<<<<<<<<<<
+ *         self.num_states = self.wrapped_env.num_states
+ *         self.num_actions = self.wrapped_env.num_actions
  */
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_INCREF(((PyObject *)__pyx_ptype_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper));
-  __Pyx_GIVEREF(((PyObject *)__pyx_ptype_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper));
-  PyTuple_SET_ITEM(__pyx_t_2, 0, ((PyObject *)__pyx_ptype_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper));
-  __Pyx_INCREF(((PyObject *)__pyx_v_self));
-  __Pyx_GIVEREF(((PyObject *)__pyx_v_self));
-  PyTuple_SET_ITEM(__pyx_t_2, 1, ((PyObject *)__pyx_v_self));
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_super, __pyx_t_2, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_init); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
-    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
-    if (likely(__pyx_t_3)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
-      __Pyx_INCREF(__pyx_t_3);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_2, function);
-    }
-  }
-  __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, ((PyObject *)__pyx_v_env)) : __Pyx_PyObject_CallOneArg(__pyx_t_2, ((PyObject *)__pyx_v_env));
-  __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 10, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_INCREF(((PyObject *)__pyx_v_wrapped_env));
+  __Pyx_GIVEREF(((PyObject *)__pyx_v_wrapped_env));
+  __Pyx_GOTREF(__pyx_v_self->wrapped_env);
+  __Pyx_DECREF(((PyObject *)__pyx_v_self->wrapped_env));
+  __pyx_v_self->wrapped_env = __pyx_v_wrapped_env;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":11
- *     def __init__(self, tabular_env.TabularEnv env, int time_limit):
- *         super(TimeLimitWrapper, self).__init__(env)
- *         self.num_states_origin = self.num_states             # <<<<<<<<<<<<<<
- *         self.num_states = self.num_states * time_limit + 1  # 1 is done state
- *         self._timer = 0
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":12
+ *                  tabular_env.TabularEnv wrapped_env):
+ *         self.wrapped_env = wrapped_env
+ *         self.num_states = self.wrapped_env.num_states             # <<<<<<<<<<<<<<
+ *         self.num_actions = self.wrapped_env.num_actions
+ *         self.observation_space = self.wrapped_env.observation_space
  */
-  __pyx_t_4 = __pyx_v_self->__pyx_base.__pyx_base.num_states;
-  __pyx_v_self->num_states_origin = __pyx_t_4;
+  __pyx_t_1 = __pyx_v_self->wrapped_env->num_states;
+  __pyx_v_self->__pyx_base.num_states = __pyx_t_1;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":12
- *         super(TimeLimitWrapper, self).__init__(env)
- *         self.num_states_origin = self.num_states
- *         self.num_states = self.num_states * time_limit + 1  # 1 is done state             # <<<<<<<<<<<<<<
- *         self._timer = 0
- *         self._time_limit = time_limit
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":13
+ *         self.wrapped_env = wrapped_env
+ *         self.num_states = self.wrapped_env.num_states
+ *         self.num_actions = self.wrapped_env.num_actions             # <<<<<<<<<<<<<<
+ *         self.observation_space = self.wrapped_env.observation_space
+ *         self.action_space = self.wrapped_env.action_space
  */
-  __pyx_v_self->__pyx_base.__pyx_base.num_states = ((__pyx_v_self->__pyx_base.__pyx_base.num_states * __pyx_v_time_limit) + 1);
+  __pyx_t_1 = __pyx_v_self->wrapped_env->num_actions;
+  __pyx_v_self->__pyx_base.num_actions = __pyx_t_1;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":13
- *         self.num_states_origin = self.num_states
- *         self.num_states = self.num_states * time_limit + 1  # 1 is done state
- *         self._timer = 0             # <<<<<<<<<<<<<<
- *         self._time_limit = time_limit
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":14
+ *         self.num_states = self.wrapped_env.num_states
+ *         self.num_actions = self.wrapped_env.num_actions
+ *         self.observation_space = self.wrapped_env.observation_space             # <<<<<<<<<<<<<<
+ *         self.action_space = self.wrapped_env.action_space
+ *         self.initial_state_distribution = self.wrapped_env.initial_state_distribution
+ */
+  __pyx_t_2 = __pyx_v_self->wrapped_env->observation_space;
+  __Pyx_INCREF(__pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_2);
+  __Pyx_GOTREF(__pyx_v_self->__pyx_base.observation_space);
+  __Pyx_DECREF(__pyx_v_self->__pyx_base.observation_space);
+  __pyx_v_self->__pyx_base.observation_space = __pyx_t_2;
+  __pyx_t_2 = 0;
+
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":15
+ *         self.num_actions = self.wrapped_env.num_actions
+ *         self.observation_space = self.wrapped_env.observation_space
+ *         self.action_space = self.wrapped_env.action_space             # <<<<<<<<<<<<<<
+ *         self.initial_state_distribution = self.wrapped_env.initial_state_distribution
  * 
  */
-  __pyx_v_self->_timer = 0;
+  __pyx_t_2 = __pyx_v_self->wrapped_env->action_space;
+  __Pyx_INCREF(__pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_2);
+  __Pyx_GOTREF(__pyx_v_self->__pyx_base.action_space);
+  __Pyx_DECREF(__pyx_v_self->__pyx_base.action_space);
+  __pyx_v_self->__pyx_base.action_space = __pyx_t_2;
+  __pyx_t_2 = 0;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":14
- *         self.num_states = self.num_states * time_limit + 1  # 1 is done state
- *         self._timer = 0
- *         self._time_limit = time_limit             # <<<<<<<<<<<<<<
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":16
+ *         self.observation_space = self.wrapped_env.observation_space
+ *         self.action_space = self.wrapped_env.action_space
+ *         self.initial_state_distribution = self.wrapped_env.initial_state_distribution             # <<<<<<<<<<<<<<
  * 
- *     cpdef int reset_state(self):
+ *     cdef map[int, double] transitions_cy(self, int state, int action):
  */
-  __pyx_v_self->_time_limit = __pyx_v_time_limit;
+  __pyx_t_2 = __pyx_v_self->wrapped_env->initial_state_distribution;
+  __Pyx_INCREF(__pyx_t_2);
+  __Pyx_GIVEREF(__pyx_t_2);
+  __Pyx_GOTREF(__pyx_v_self->__pyx_base.initial_state_distribution);
+  __Pyx_DECREF(__pyx_v_self->__pyx_base.initial_state_distribution);
+  __pyx_v_self->__pyx_base.initial_state_distribution = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":9
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":9
  * 
- * cdef class TimeLimitWrapper(env_wrapper.TabularEnvWrapper):
- *     def __init__(self, tabular_env.TabularEnv env, int time_limit):             # <<<<<<<<<<<<<<
- *         super(TimeLimitWrapper, self).__init__(env)
- *         self.num_states_origin = self.num_states
+ * cdef class TabularEnvWrapper(tabular_env.TabularEnv):
+ *     def __init__(self,             # <<<<<<<<<<<<<<
+ *                  tabular_env.TabularEnv wrapped_env):
+ *         self.wrapped_env = wrapped_env
  */
 
   /* function exit code */
   __pyx_r = 0;
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = -1;
-  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":16
- *         self._time_limit = time_limit
+/* "rlil/diag_q/tabular/env_wrapper.pyx":18
+ *         self.initial_state_distribution = self.wrapped_env.initial_state_distribution
  * 
- *     cpdef int reset_state(self):             # <<<<<<<<<<<<<<
- *         self._timer = 0
- *         return self.wrapped_env.reset_state()
- */
-
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_3reset_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_reset_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_skip_dispatch) {
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  int __pyx_t_5;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("reset_state", 0);
-  /* Check if called by wrapper */
-  if (unlikely(__pyx_skip_dispatch)) ;
-  /* Check if overridden in Python */
-  else if (unlikely((Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0) || (Py_TYPE(((PyObject *)__pyx_v_self))->tp_flags & (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))) {
-    #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-    static PY_UINT64_T __pyx_tp_dict_version = __PYX_DICT_VERSION_INIT, __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
-    if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
-      PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
-      #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_reset_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_3reset_state)) {
-        __Pyx_INCREF(__pyx_t_1);
-        __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
-          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
-          if (likely(__pyx_t_4)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
-            __Pyx_INCREF(__pyx_t_4);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_3, function);
-          }
-        }
-        __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
-        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 16, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 16, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_r = __pyx_t_5;
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        goto __pyx_L0;
-      }
-      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-      __pyx_tp_dict_version = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
-      __pyx_obj_dict_version = __Pyx_get_object_dict_version(((PyObject *)__pyx_v_self));
-      if (unlikely(__pyx_type_dict_guard != __pyx_tp_dict_version)) {
-        __pyx_tp_dict_version = __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
-      }
-      #endif
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-    }
-    #endif
-  }
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":17
- * 
- *     cpdef int reset_state(self):
- *         self._timer = 0             # <<<<<<<<<<<<<<
- *         return self.wrapped_env.reset_state()
- * 
- */
-  __pyx_v_self->_timer = 0;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":18
- *     cpdef int reset_state(self):
- *         self._timer = 0
- *         return self.wrapped_env.reset_state()             # <<<<<<<<<<<<<<
- * 
- *     @property
- */
-  __pyx_r = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)__pyx_v_self->__pyx_base.wrapped_env->__pyx_vtab)->reset_state(__pyx_v_self->__pyx_base.wrapped_env, 0);
-  goto __pyx_L0;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":16
- *         self._time_limit = time_limit
- * 
- *     cpdef int reset_state(self):             # <<<<<<<<<<<<<<
- *         self._timer = 0
- *         return self.wrapped_env.reset_state()
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.reset_state", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_3reset_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_3reset_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("reset_state (wrapper)", 0);
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_2reset_state(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_2reset_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("reset_state", 0);
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_reset_state(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 16, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.reset_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":21
- * 
- *     @property
- *     def time_limit(self):             # <<<<<<<<<<<<<<
- *         return self._time_limit
+ *     cdef map[int, double] transitions_cy(self, int state, int action):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.transitions_cy(state, action)
  * 
  */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_10time_limit_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_10time_limit_1__get__(PyObject *__pyx_v_self) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_10time_limit___get__(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_10time_limit___get__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__get__", 0);
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":22
- *     @property
- *     def time_limit(self):
- *         return self._time_limit             # <<<<<<<<<<<<<<
- * 
- *     @property
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->_time_limit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 22, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":21
- * 
- *     @property
- *     def time_limit(self):             # <<<<<<<<<<<<<<
- *         return self._time_limit
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.time_limit.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":25
- * 
- *     @property
- *     def timer(self):             # <<<<<<<<<<<<<<
- *         return self._timer
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5timer_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5timer_1__get__(PyObject *__pyx_v_self) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5timer___get__(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5timer___get__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__get__", 0);
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":26
- *     @property
- *     def timer(self):
- *         return self._timer             # <<<<<<<<<<<<<<
- * 
- *     cpdef tabular_env.TimeStep step_state(self, int action):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->_timer); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 26, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":25
- * 
- *     @property
- *     def timer(self):             # <<<<<<<<<<<<<<
- *         return self._timer
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.timer.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":28
- *         return self._timer
- * 
- *     cpdef tabular_env.TimeStep step_state(self, int action):             # <<<<<<<<<<<<<<
- *         ts = self.wrapped_env.step_state(action)
- *         self._timer += 1
- */
-
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5step_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_action); /*proto*/
-static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_step_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_action, int __pyx_skip_dispatch) {
-  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_v_ts;
-  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_t_6;
-  int __pyx_t_7;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("step_state", 0);
-  /* Check if called by wrapper */
-  if (unlikely(__pyx_skip_dispatch)) ;
-  /* Check if overridden in Python */
-  else if (unlikely((Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0) || (Py_TYPE(((PyObject *)__pyx_v_self))->tp_flags & (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))) {
-    #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-    static PY_UINT64_T __pyx_tp_dict_version = __PYX_DICT_VERSION_INIT, __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
-    if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
-      PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
-      #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_step_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5step_state)) {
-        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_action); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 28, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __Pyx_INCREF(__pyx_t_1);
-        __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-          if (likely(__pyx_t_5)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-            __Pyx_INCREF(__pyx_t_5);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_4, function);
-          }
-        }
-        __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3);
-        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_6 = __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 28, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_r = __pyx_t_6;
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        goto __pyx_L0;
-      }
-      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-      __pyx_tp_dict_version = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
-      __pyx_obj_dict_version = __Pyx_get_object_dict_version(((PyObject *)__pyx_v_self));
-      if (unlikely(__pyx_type_dict_guard != __pyx_tp_dict_version)) {
-        __pyx_tp_dict_version = __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
-      }
-      #endif
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-    }
-    #endif
-  }
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":29
- * 
- *     cpdef tabular_env.TimeStep step_state(self, int action):
- *         ts = self.wrapped_env.step_state(action)             # <<<<<<<<<<<<<<
- *         self._timer += 1
- *         if self._timer >= self._time_limit:
- */
-  __pyx_v_ts = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)__pyx_v_self->__pyx_base.wrapped_env->__pyx_vtab)->step_state(__pyx_v_self->__pyx_base.wrapped_env, __pyx_v_action, 0);
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":30
- *     cpdef tabular_env.TimeStep step_state(self, int action):
- *         ts = self.wrapped_env.step_state(action)
- *         self._timer += 1             # <<<<<<<<<<<<<<
- *         if self._timer >= self._time_limit:
- *             ts.done = True
- */
-  __pyx_v_self->_timer = (__pyx_v_self->_timer + 1);
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":31
- *         ts = self.wrapped_env.step_state(action)
- *         self._timer += 1
- *         if self._timer >= self._time_limit:             # <<<<<<<<<<<<<<
- *             ts.done = True
- *         ts.state = self.wrap_state(ts.state, self._timer)
- */
-  __pyx_t_7 = ((__pyx_v_self->_timer >= __pyx_v_self->_time_limit) != 0);
-  if (__pyx_t_7) {
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":32
- *         self._timer += 1
- *         if self._timer >= self._time_limit:
- *             ts.done = True             # <<<<<<<<<<<<<<
- *         ts.state = self.wrap_state(ts.state, self._timer)
- *         return ts
- */
-    __pyx_v_ts.done = 1;
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":31
- *         ts = self.wrapped_env.step_state(action)
- *         self._timer += 1
- *         if self._timer >= self._time_limit:             # <<<<<<<<<<<<<<
- *             ts.done = True
- *         ts.state = self.wrap_state(ts.state, self._timer)
- */
-  }
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":33
- *         if self._timer >= self._time_limit:
- *             ts.done = True
- *         ts.state = self.wrap_state(ts.state, self._timer)             # <<<<<<<<<<<<<<
- *         return ts
- * 
- */
-  __pyx_v_ts.state = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self->__pyx_base.__pyx_base.__pyx_vtab)->wrap_state(__pyx_v_self, __pyx_v_ts.state, __pyx_v_self->_timer, 0);
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":34
- *             ts.done = True
- *         ts.state = self.wrap_state(ts.state, self._timer)
- *         return ts             # <<<<<<<<<<<<<<
- * 
- *     cdef map[int, double] transitions_cy(self, int wrapped_state, int action):
- */
-  __pyx_r = __pyx_v_ts;
-  goto __pyx_L0;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":28
- *         return self._timer
- * 
- *     cpdef tabular_env.TimeStep step_state(self, int action):             # <<<<<<<<<<<<<<
- *         ts = self.wrapped_env.step_state(action)
- *         self._timer += 1
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_WriteUnraisable("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.step_state", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
-  __Pyx_pretend_to_initialize(&__pyx_r);
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5step_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_action); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5step_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_action) {
-  int __pyx_v_action;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("step_state (wrapper)", 0);
-  assert(__pyx_arg_action); {
-    __pyx_v_action = __Pyx_PyInt_As_int(__pyx_arg_action); if (unlikely((__pyx_v_action == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 28, __pyx_L3_error)
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.step_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_4step_state(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self), ((int)__pyx_v_action));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_4step_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_action) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("step_state", 0);
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert__to_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep(__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_step_state(__pyx_v_self, __pyx_v_action, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.step_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":36
- *         return ts
- * 
- *     cdef map[int, double] transitions_cy(self, int wrapped_state, int action):             # <<<<<<<<<<<<<<
- *         time, state = self.unwrap_state(wrapped_state)
- *         transitions = self.wrapped_env.transitions_cy(state, action)
- */
-
-static std::map<int,double>  __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_transitions_cy(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_v_action) {
-  PyObject *__pyx_v_time = NULL;
-  int __pyx_v_state;
-  std::map<int,double>  __pyx_v_transitions;
-  std::map<int,double> ::iterator __pyx_v_transitions_end;
-  std::map<int,double> ::iterator __pyx_v_transitions_it;
-  PyObject *__pyx_v_next_time_idx = NULL;
-  PyObject *__pyx_v_s = NULL;
-  double __pyx_v_p;
+static std::map<int,double>  __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_transitions_cy(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_v_action) {
   std::map<int,double>  __pyx_r;
   __Pyx_RefNannyDeclarations
-  __pyx_ctuple_int__and_int __pyx_t_1;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_t_3;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
-  std::pair<int,double>  __pyx_t_7;
-  double __pyx_t_8;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("transitions_cy", 0);
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":37
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":19
  * 
- *     cdef map[int, double] transitions_cy(self, int wrapped_state, int action):
- *         time, state = self.unwrap_state(wrapped_state)             # <<<<<<<<<<<<<<
- *         transitions = self.wrapped_env.transitions_cy(state, action)
- *         transitions_end = transitions.end()
- */
-  __pyx_t_1 = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self->__pyx_base.__pyx_base.__pyx_vtab)->unwrap_state(__pyx_v_self, __pyx_v_wrapped_state, 0);
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_t_1.f0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 37, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __pyx_t_1.f1;
-  __pyx_v_time = __pyx_t_2;
-  __pyx_t_2 = 0;
-  __pyx_v_state = __pyx_t_3;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":38
- *     cdef map[int, double] transitions_cy(self, int wrapped_state, int action):
- *         time, state = self.unwrap_state(wrapped_state)
- *         transitions = self.wrapped_env.transitions_cy(state, action)             # <<<<<<<<<<<<<<
- *         transitions_end = transitions.end()
- *         transitions_it = transitions.begin()
- */
-  __pyx_v_transitions = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)__pyx_v_self->__pyx_base.wrapped_env->__pyx_vtab)->transitions_cy(__pyx_v_self->__pyx_base.wrapped_env, __pyx_v_state, __pyx_v_action);
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":39
- *         time, state = self.unwrap_state(wrapped_state)
- *         transitions = self.wrapped_env.transitions_cy(state, action)
- *         transitions_end = transitions.end()             # <<<<<<<<<<<<<<
- *         transitions_it = transitions.begin()
- *         self._transition_map.clear()
- */
-  __pyx_v_transitions_end = __pyx_v_transitions.end();
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":40
- *         transitions = self.wrapped_env.transitions_cy(state, action)
- *         transitions_end = transitions.end()
- *         transitions_it = transitions.begin()             # <<<<<<<<<<<<<<
- *         self._transition_map.clear()
- *         if time + 1 >= self._time_limit:
- */
-  __pyx_v_transitions_it = __pyx_v_transitions.begin();
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":41
- *         transitions_end = transitions.end()
- *         transitions_it = transitions.begin()
- *         self._transition_map.clear()             # <<<<<<<<<<<<<<
- *         if time + 1 >= self._time_limit:
- *             self._transition_map.insert(pair[int, double](self.num_states - 1, 1.0))
- */
-  __pyx_v_self->__pyx_base.__pyx_base._transition_map.clear();
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":42
- *         transitions_it = transitions.begin()
- *         self._transition_map.clear()
- *         if time + 1 >= self._time_limit:             # <<<<<<<<<<<<<<
- *             self._transition_map.insert(pair[int, double](self.num_states - 1, 1.0))
- *             return self._transition_map
- */
-  __pyx_t_2 = __Pyx_PyInt_AddObjC(__pyx_v_time, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_self->_time_limit); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 42, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_2, __pyx_t_4, Py_GE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 42, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_6 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 42, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (__pyx_t_6) {
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":43
- *         self._transition_map.clear()
- *         if time + 1 >= self._time_limit:
- *             self._transition_map.insert(pair[int, double](self.num_states - 1, 1.0))             # <<<<<<<<<<<<<<
- *             return self._transition_map
+ *     cdef map[int, double] transitions_cy(self, int state, int action):
+ *         return self.wrapped_env.transitions_cy(state, action)             # <<<<<<<<<<<<<<
  * 
+ *     cpdef double reward(self, int state, int action, int next_state):
  */
-    try {
-      __pyx_t_7 = std::pair<int,double> ((__pyx_v_self->__pyx_base.__pyx_base.num_states - 1), 1.0);
-    } catch(...) {
-      __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 43, __pyx_L1_error)
-    }
-    try {
-      __pyx_v_self->__pyx_base.__pyx_base._transition_map.insert(__pyx_t_7);
-    } catch(...) {
-      __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 43, __pyx_L1_error)
-    }
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":44
- *         if time + 1 >= self._time_limit:
- *             self._transition_map.insert(pair[int, double](self.num_states - 1, 1.0))
- *             return self._transition_map             # <<<<<<<<<<<<<<
- * 
- *         next_time_idx = (time + 1) * self.num_states_origin
- */
-    __pyx_r = __pyx_v_self->__pyx_base.__pyx_base._transition_map;
-    goto __pyx_L0;
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":42
- *         transitions_it = transitions.begin()
- *         self._transition_map.clear()
- *         if time + 1 >= self._time_limit:             # <<<<<<<<<<<<<<
- *             self._transition_map.insert(pair[int, double](self.num_states - 1, 1.0))
- *             return self._transition_map
- */
-  }
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":46
- *             return self._transition_map
- * 
- *         next_time_idx = (time + 1) * self.num_states_origin             # <<<<<<<<<<<<<<
- *         while transitions_it != transitions_end:
- *             s = dereference(transitions_it).first
- */
-  __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_v_time, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 46, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_self->num_states_origin); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 46, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_2 = PyNumber_Multiply(__pyx_t_5, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 46, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_v_next_time_idx = __pyx_t_2;
-  __pyx_t_2 = 0;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":47
- * 
- *         next_time_idx = (time + 1) * self.num_states_origin
- *         while transitions_it != transitions_end:             # <<<<<<<<<<<<<<
- *             s = dereference(transitions_it).first
- *             p = dereference(transitions_it).second
- */
-  while (1) {
-    __pyx_t_6 = ((__pyx_v_transitions_it != __pyx_v_transitions_end) != 0);
-    if (!__pyx_t_6) break;
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":48
- *         next_time_idx = (time + 1) * self.num_states_origin
- *         while transitions_it != transitions_end:
- *             s = dereference(transitions_it).first             # <<<<<<<<<<<<<<
- *             p = dereference(transitions_it).second
- *             self._transition_map.insert(pair[int, double](s + next_time_idx, p))
- */
-    __pyx_t_2 = __Pyx_PyInt_From_int((*__pyx_v_transitions_it).first); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 48, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_XDECREF_SET(__pyx_v_s, __pyx_t_2);
-    __pyx_t_2 = 0;
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":49
- *         while transitions_it != transitions_end:
- *             s = dereference(transitions_it).first
- *             p = dereference(transitions_it).second             # <<<<<<<<<<<<<<
- *             self._transition_map.insert(pair[int, double](s + next_time_idx, p))
- *             preincrement(transitions_it)
- */
-    __pyx_t_8 = (*__pyx_v_transitions_it).second;
-    __pyx_v_p = __pyx_t_8;
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":50
- *             s = dereference(transitions_it).first
- *             p = dereference(transitions_it).second
- *             self._transition_map.insert(pair[int, double](s + next_time_idx, p))             # <<<<<<<<<<<<<<
- *             preincrement(transitions_it)
- *         return self._transition_map
- */
-    __pyx_t_2 = PyNumber_Add(__pyx_v_s, __pyx_v_next_time_idx); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_3 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_3 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    try {
-      __pyx_t_7 = std::pair<int,double> (__pyx_t_3, __pyx_v_p);
-    } catch(...) {
-      __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 50, __pyx_L1_error)
-    }
-    try {
-      __pyx_v_self->__pyx_base.__pyx_base._transition_map.insert(__pyx_t_7);
-    } catch(...) {
-      __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 50, __pyx_L1_error)
-    }
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":51
- *             p = dereference(transitions_it).second
- *             self._transition_map.insert(pair[int, double](s + next_time_idx, p))
- *             preincrement(transitions_it)             # <<<<<<<<<<<<<<
- *         return self._transition_map
- * 
- */
-    (void)((++__pyx_v_transitions_it));
-  }
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":52
- *             self._transition_map.insert(pair[int, double](s + next_time_idx, p))
- *             preincrement(transitions_it)
- *         return self._transition_map             # <<<<<<<<<<<<<<
- * 
- *     cpdef double reward(self, int wrapped_state, int action, int wrapped_next_state):
- */
-  __pyx_r = __pyx_v_self->__pyx_base.__pyx_base._transition_map;
+  __pyx_r = ((struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)__pyx_v_self->wrapped_env->__pyx_vtab)->transitions_cy(__pyx_v_self->wrapped_env, __pyx_v_state, __pyx_v_action);
   goto __pyx_L0;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":36
- *         return ts
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":18
+ *         self.initial_state_distribution = self.wrapped_env.initial_state_distribution
  * 
- *     cdef map[int, double] transitions_cy(self, int wrapped_state, int action):             # <<<<<<<<<<<<<<
- *         time, state = self.unwrap_state(wrapped_state)
- *         transitions = self.wrapped_env.transitions_cy(state, action)
+ *     cdef map[int, double] transitions_cy(self, int state, int action):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.transitions_cy(state, action)
+ * 
  */
 
   /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_WriteUnraisable("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.transitions_cy", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
-  __Pyx_pretend_to_initialize(&__pyx_r);
   __pyx_L0:;
-  __Pyx_XDECREF(__pyx_v_time);
-  __Pyx_XDECREF(__pyx_v_next_time_idx);
-  __Pyx_XDECREF(__pyx_v_s);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":54
- *         return self._transition_map
+/* "rlil/diag_q/tabular/env_wrapper.pyx":21
+ *         return self.wrapped_env.transitions_cy(state, action)
  * 
- *     cpdef double reward(self, int wrapped_state, int action, int wrapped_next_state):             # <<<<<<<<<<<<<<
- *         timer, state = self.unwrap_state(wrapped_state)
- *         next_timer, next_state = self.unwrap_state(wrapped_next_state)
+ *     cpdef double reward(self, int state, int action, int next_state):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.reward(state, action, next_state)
+ * 
  */
 
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_7reward(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_reward(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_v_action, int __pyx_v_wrapped_next_state, int __pyx_skip_dispatch) {
-  CYTHON_UNUSED int __pyx_v_timer;
-  int __pyx_v_state;
-  int __pyx_v_next_timer;
-  int __pyx_v_next_state;
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_3reward(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static double __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_reward(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_v_action, int __pyx_v_next_state, int __pyx_skip_dispatch) {
   double __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3575,9 +2743,6 @@ static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrappe
   int __pyx_t_8;
   PyObject *__pyx_t_9 = NULL;
   double __pyx_t_10;
-  __pyx_ctuple_int__and_int __pyx_t_11;
-  int __pyx_t_12;
-  int __pyx_t_13;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3591,14 +2756,14 @@ static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrappe
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_reward); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_reward); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_7reward)) {
-        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_wrapped_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_3reward)) {
+        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_action); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 54, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_action); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 21, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
-        __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_wrapped_next_state); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 54, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_next_state); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 21, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_6 = __pyx_t_1; __pyx_t_7 = NULL;
@@ -3616,7 +2781,7 @@ static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrappe
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_6)) {
           PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_t_3, __pyx_t_4, __pyx_t_5};
-          __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3627,7 +2792,7 @@ static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrappe
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
           PyObject *__pyx_temp[4] = {__pyx_t_7, __pyx_t_3, __pyx_t_4, __pyx_t_5};
-          __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_8, 3+__pyx_t_8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -3636,7 +2801,7 @@ static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrappe
         } else
         #endif
         {
-          __pyx_t_9 = PyTuple_New(3+__pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 54, __pyx_L1_error)
+          __pyx_t_9 = PyTuple_New(3+__pyx_t_8); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 21, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           if (__pyx_t_7) {
             __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -3650,12 +2815,12 @@ static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrappe
           __pyx_t_3 = 0;
           __pyx_t_4 = 0;
           __pyx_t_5 = 0;
-          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_9, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_2);
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         }
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-        __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 54, __pyx_L1_error)
+        __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_t_2); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_r = __pyx_t_10;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3674,77 +2839,22 @@ static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrappe
     #endif
   }
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":55
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":22
  * 
- *     cpdef double reward(self, int wrapped_state, int action, int wrapped_next_state):
- *         timer, state = self.unwrap_state(wrapped_state)             # <<<<<<<<<<<<<<
- *         next_timer, next_state = self.unwrap_state(wrapped_next_state)
- *         if next_timer >= self._time_limit:
- */
-  __pyx_t_11 = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self->__pyx_base.__pyx_base.__pyx_vtab)->unwrap_state(__pyx_v_self, __pyx_v_wrapped_state, 0);
-  __pyx_t_8 = __pyx_t_11.f0;
-  __pyx_t_12 = __pyx_t_11.f1;
-  __pyx_v_timer = __pyx_t_8;
-  __pyx_v_state = __pyx_t_12;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":56
- *     cpdef double reward(self, int wrapped_state, int action, int wrapped_next_state):
- *         timer, state = self.unwrap_state(wrapped_state)
- *         next_timer, next_state = self.unwrap_state(wrapped_next_state)             # <<<<<<<<<<<<<<
- *         if next_timer >= self._time_limit:
- *             return 0
- */
-  __pyx_t_11 = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self->__pyx_base.__pyx_base.__pyx_vtab)->unwrap_state(__pyx_v_self, __pyx_v_wrapped_next_state, 0);
-  __pyx_t_12 = __pyx_t_11.f0;
-  __pyx_t_8 = __pyx_t_11.f1;
-  __pyx_v_next_timer = __pyx_t_12;
-  __pyx_v_next_state = __pyx_t_8;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":57
- *         timer, state = self.unwrap_state(wrapped_state)
- *         next_timer, next_state = self.unwrap_state(wrapped_next_state)
- *         if next_timer >= self._time_limit:             # <<<<<<<<<<<<<<
- *             return 0
- *         return self.wrapped_env.reward(state, action, next_state)
- */
-  __pyx_t_13 = ((__pyx_v_next_timer >= __pyx_v_self->_time_limit) != 0);
-  if (__pyx_t_13) {
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":58
- *         next_timer, next_state = self.unwrap_state(wrapped_next_state)
- *         if next_timer >= self._time_limit:
- *             return 0             # <<<<<<<<<<<<<<
- *         return self.wrapped_env.reward(state, action, next_state)
- * 
- */
-    __pyx_r = 0.0;
-    goto __pyx_L0;
-
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":57
- *         timer, state = self.unwrap_state(wrapped_state)
- *         next_timer, next_state = self.unwrap_state(wrapped_next_state)
- *         if next_timer >= self._time_limit:             # <<<<<<<<<<<<<<
- *             return 0
- *         return self.wrapped_env.reward(state, action, next_state)
- */
-  }
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":59
- *         if next_timer >= self._time_limit:
- *             return 0
+ *     cpdef double reward(self, int state, int action, int next_state):
  *         return self.wrapped_env.reward(state, action, next_state)             # <<<<<<<<<<<<<<
  * 
- *     cpdef observation(self, int wrapped_state):
+ *     cpdef observation(self, int state):
  */
-  __pyx_r = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)__pyx_v_self->__pyx_base.wrapped_env->__pyx_vtab)->reward(__pyx_v_self->__pyx_base.wrapped_env, __pyx_v_state, __pyx_v_action, __pyx_v_next_state, 0);
+  __pyx_r = ((struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)__pyx_v_self->wrapped_env->__pyx_vtab)->reward(__pyx_v_self->wrapped_env, __pyx_v_state, __pyx_v_action, __pyx_v_next_state, 0);
   goto __pyx_L0;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":54
- *         return self._transition_map
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":21
+ *         return self.wrapped_env.transitions_cy(state, action)
  * 
- *     cpdef double reward(self, int wrapped_state, int action, int wrapped_next_state):             # <<<<<<<<<<<<<<
- *         timer, state = self.unwrap_state(wrapped_state)
- *         next_timer, next_state = self.unwrap_state(wrapped_next_state)
+ *     cpdef double reward(self, int state, int action, int next_state):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.reward(state, action, next_state)
+ * 
  */
 
   /* function exit code */
@@ -3757,7 +2867,7 @@ static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrappe
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_WriteUnraisable("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.reward", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.reward", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -3765,11 +2875,11 @@ static double __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrappe
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_7reward(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_7reward(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  int __pyx_v_wrapped_state;
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_3reward(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_3reward(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  int __pyx_v_state;
   int __pyx_v_action;
-  int __pyx_v_wrapped_next_state;
+  int __pyx_v_next_state;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3777,7 +2887,7 @@ static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("reward (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_wrapped_state,&__pyx_n_s_action,&__pyx_n_s_wrapped_next_state,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_state,&__pyx_n_s_action,&__pyx_n_s_next_state,0};
     PyObject* values[3] = {0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -3795,23 +2905,23 @@ static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_wrapped_state)) != 0)) kw_args--;
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_state)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_action)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("reward", 1, 3, 3, 1); __PYX_ERR(0, 54, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("reward", 1, 3, 3, 1); __PYX_ERR(0, 21, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
-        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_wrapped_next_state)) != 0)) kw_args--;
+        if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_next_state)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("reward", 1, 3, 3, 2); __PYX_ERR(0, 54, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("reward", 1, 3, 3, 2); __PYX_ERR(0, 21, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "reward") < 0)) __PYX_ERR(0, 54, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "reward") < 0)) __PYX_ERR(0, 21, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -3820,26 +2930,26 @@ static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
       values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
     }
-    __pyx_v_wrapped_state = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_wrapped_state == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 54, __pyx_L3_error)
-    __pyx_v_action = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_action == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 54, __pyx_L3_error)
-    __pyx_v_wrapped_next_state = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_wrapped_next_state == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 54, __pyx_L3_error)
+    __pyx_v_state = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_state == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L3_error)
+    __pyx_v_action = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_action == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L3_error)
+    __pyx_v_next_state = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_next_state == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("reward", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 54, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("reward", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 21, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.reward", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.reward", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_6reward(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self), __pyx_v_wrapped_state, __pyx_v_action, __pyx_v_wrapped_next_state);
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_2reward(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self), __pyx_v_state, __pyx_v_action, __pyx_v_next_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_6reward(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_v_action, int __pyx_v_wrapped_next_state) {
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_2reward(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_v_action, int __pyx_v_next_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3848,7 +2958,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("reward", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_reward(__pyx_v_self, __pyx_v_wrapped_state, __pyx_v_action, __pyx_v_wrapped_next_state, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_reward(__pyx_v_self, __pyx_v_state, __pyx_v_action, __pyx_v_next_state, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3857,7 +2967,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.reward", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.reward", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3865,18 +2975,16 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   return __pyx_r;
 }
 
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":61
+/* "rlil/diag_q/tabular/env_wrapper.pyx":24
  *         return self.wrapped_env.reward(state, action, next_state)
  * 
- *     cpdef observation(self, int wrapped_state):             # <<<<<<<<<<<<<<
- *         _, state = self.unwrap_state(wrapped_state)
+ *     cpdef observation(self, int state):             # <<<<<<<<<<<<<<
  *         return self.wrapped_env.observation(state)
+ * 
  */
 
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_9observation(PyObject *__pyx_v_self, PyObject *__pyx_arg_wrapped_state); /*proto*/
-static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_observation(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_skip_dispatch) {
-  CYTHON_UNUSED int __pyx_v__;
-  int __pyx_v_state;
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_5observation(PyObject *__pyx_v_self, PyObject *__pyx_arg_state); /*proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_observation(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_skip_dispatch) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -3884,9 +2992,6 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWra
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  __pyx_ctuple_int__and_int __pyx_t_6;
-  int __pyx_t_7;
-  int __pyx_t_8;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -3900,11 +3005,11 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWra
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_observation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_observation); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_9observation)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_5observation)) {
         __Pyx_XDECREF(__pyx_r);
-        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_wrapped_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 61, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 24, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
@@ -3920,7 +3025,7 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWra
         __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3);
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 61, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_r = __pyx_t_2;
@@ -3941,39 +3046,26 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWra
     #endif
   }
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":62
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":25
  * 
- *     cpdef observation(self, int wrapped_state):
- *         _, state = self.unwrap_state(wrapped_state)             # <<<<<<<<<<<<<<
- *         return self.wrapped_env.observation(state)
- * 
- */
-  __pyx_t_6 = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self->__pyx_base.__pyx_base.__pyx_vtab)->unwrap_state(__pyx_v_self, __pyx_v_wrapped_state, 0);
-  __pyx_t_7 = __pyx_t_6.f0;
-  __pyx_t_8 = __pyx_t_6.f1;
-  __pyx_v__ = __pyx_t_7;
-  __pyx_v_state = __pyx_t_8;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":63
- *     cpdef observation(self, int wrapped_state):
- *         _, state = self.unwrap_state(wrapped_state)
+ *     cpdef observation(self, int state):
  *         return self.wrapped_env.observation(state)             # <<<<<<<<<<<<<<
  * 
- *     cpdef set_state(self, int wrapped_state):
+ *     cpdef tabular_env.TimeStep step_state(self, int action):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)__pyx_v_self->__pyx_base.wrapped_env->__pyx_vtab)->observation(__pyx_v_self->__pyx_base.wrapped_env, __pyx_v_state, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __pyx_t_1 = ((struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)__pyx_v_self->wrapped_env->__pyx_vtab)->observation(__pyx_v_self->wrapped_env, __pyx_v_state, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":61
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":24
  *         return self.wrapped_env.reward(state, action, next_state)
  * 
- *     cpdef observation(self, int wrapped_state):             # <<<<<<<<<<<<<<
- *         _, state = self.unwrap_state(wrapped_state)
+ *     cpdef observation(self, int state):             # <<<<<<<<<<<<<<
  *         return self.wrapped_env.observation(state)
+ * 
  */
 
   /* function exit code */
@@ -3983,7 +3075,7 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWra
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.observation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.observation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -3992,32 +3084,32 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWra
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_9observation(PyObject *__pyx_v_self, PyObject *__pyx_arg_wrapped_state); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_9observation(PyObject *__pyx_v_self, PyObject *__pyx_arg_wrapped_state) {
-  int __pyx_v_wrapped_state;
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_5observation(PyObject *__pyx_v_self, PyObject *__pyx_arg_state); /*proto*/
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_5observation(PyObject *__pyx_v_self, PyObject *__pyx_arg_state) {
+  int __pyx_v_state;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("observation (wrapper)", 0);
-  assert(__pyx_arg_wrapped_state); {
-    __pyx_v_wrapped_state = __Pyx_PyInt_As_int(__pyx_arg_wrapped_state); if (unlikely((__pyx_v_wrapped_state == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 61, __pyx_L3_error)
+  assert(__pyx_arg_state); {
+    __pyx_v_state = __Pyx_PyInt_As_int(__pyx_arg_state); if (unlikely((__pyx_v_state == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.observation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.observation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_8observation(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self), ((int)__pyx_v_wrapped_state));
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_4observation(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self), ((int)__pyx_v_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_8observation(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state) {
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_4observation(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4026,7 +3118,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("observation", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_observation(__pyx_v_self, __pyx_v_wrapped_state, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_observation(__pyx_v_self, __pyx_v_state, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4035,7 +3127,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.observation", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.observation", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4043,32 +3135,28 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   return __pyx_r;
 }
 
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":65
+/* "rlil/diag_q/tabular/env_wrapper.pyx":27
  *         return self.wrapped_env.observation(state)
  * 
- *     cpdef set_state(self, int wrapped_state):             # <<<<<<<<<<<<<<
- *         time, state = self.unwrap_state(wrapped_state)
- *         self._timer = time
+ *     cpdef tabular_env.TimeStep step_state(self, int action):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.step_state(action)
+ * 
  */
 
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_11set_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_wrapped_state); /*proto*/
-static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_set_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_skip_dispatch) {
-  int __pyx_v_time;
-  int __pyx_v_state;
-  PyObject *__pyx_r = NULL;
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_7step_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_action); /*proto*/
+static struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_step_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_action, int __pyx_skip_dispatch) {
+  struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  __pyx_ctuple_int__and_int __pyx_t_6;
-  int __pyx_t_7;
-  int __pyx_t_8;
+  struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep __pyx_t_6;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("set_state", 0);
+  __Pyx_RefNannySetupContext("step_state", 0);
   /* Check if called by wrapper */
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
@@ -4078,11 +3166,10 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWra
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_step_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_11set_state)) {
-        __Pyx_XDECREF(__pyx_r);
-        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_wrapped_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_7step_state)) {
+        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_action); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 27, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
@@ -4098,194 +3185,10 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWra
         __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3);
         __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 65, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 27, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_r = __pyx_t_2;
-        __pyx_t_2 = 0;
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        goto __pyx_L0;
-      }
-      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-      __pyx_tp_dict_version = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
-      __pyx_obj_dict_version = __Pyx_get_object_dict_version(((PyObject *)__pyx_v_self));
-      if (unlikely(__pyx_type_dict_guard != __pyx_tp_dict_version)) {
-        __pyx_tp_dict_version = __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
-      }
-      #endif
-      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-    }
-    #endif
-  }
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":66
- * 
- *     cpdef set_state(self, int wrapped_state):
- *         time, state = self.unwrap_state(wrapped_state)             # <<<<<<<<<<<<<<
- *         self._timer = time
- *         return self.wrapped_env.set_state(state)
- */
-  __pyx_t_6 = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self->__pyx_base.__pyx_base.__pyx_vtab)->unwrap_state(__pyx_v_self, __pyx_v_wrapped_state, 0);
-  __pyx_t_7 = __pyx_t_6.f0;
-  __pyx_t_8 = __pyx_t_6.f1;
-  __pyx_v_time = __pyx_t_7;
-  __pyx_v_state = __pyx_t_8;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":67
- *     cpdef set_state(self, int wrapped_state):
- *         time, state = self.unwrap_state(wrapped_state)
- *         self._timer = time             # <<<<<<<<<<<<<<
- *         return self.wrapped_env.set_state(state)
- * 
- */
-  __pyx_v_self->_timer = __pyx_v_time;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":68
- *         time, state = self.unwrap_state(wrapped_state)
- *         self._timer = time
- *         return self.wrapped_env.set_state(state)             # <<<<<<<<<<<<<<
- * 
- *     cpdef (int, int) unwrap_state(self, int wrapped_state):
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)__pyx_v_self->__pyx_base.wrapped_env->__pyx_vtab)->set_state(__pyx_v_self->__pyx_base.wrapped_env, __pyx_v_state, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":65
- *         return self.wrapped_env.observation(state)
- * 
- *     cpdef set_state(self, int wrapped_state):             # <<<<<<<<<<<<<<
- *         time, state = self.unwrap_state(wrapped_state)
- *         self._timer = time
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = 0;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_11set_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_wrapped_state); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_11set_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_wrapped_state) {
-  int __pyx_v_wrapped_state;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("set_state (wrapper)", 0);
-  assert(__pyx_arg_wrapped_state); {
-    __pyx_v_wrapped_state = __Pyx_PyInt_As_int(__pyx_arg_wrapped_state); if (unlikely((__pyx_v_wrapped_state == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 65, __pyx_L3_error)
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_10set_state(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self), ((int)__pyx_v_wrapped_state));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_10set_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("set_state", 0);
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_set_state(__pyx_v_self, __pyx_v_wrapped_state, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":70
- *         return self.wrapped_env.set_state(state)
- * 
- *     cpdef (int, int) unwrap_state(self, int wrapped_state):             # <<<<<<<<<<<<<<
- *         # convert timestepped state to state without timestep
- *         time = wrapped_state // self.num_states_origin
- */
-
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_13unwrap_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_wrapped_state); /*proto*/
-static __pyx_ctuple_int__and_int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_unwrap_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state, int __pyx_skip_dispatch) {
-  int __pyx_v_time;
-  int __pyx_v_unwrapped_state;
-  __pyx_ctuple_int__and_int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  PyObject *__pyx_t_3 = NULL;
-  PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  __pyx_ctuple_int__and_int __pyx_t_6;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("unwrap_state", 0);
-  /* Check if called by wrapper */
-  if (unlikely(__pyx_skip_dispatch)) ;
-  /* Check if overridden in Python */
-  else if (unlikely((Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0) || (Py_TYPE(((PyObject *)__pyx_v_self))->tp_flags & (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))) {
-    #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
-    static PY_UINT64_T __pyx_tp_dict_version = __PYX_DICT_VERSION_INIT, __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
-    if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
-      PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
-      #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_unwrap_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_13unwrap_state)) {
-        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_wrapped_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 70, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __Pyx_INCREF(__pyx_t_1);
-        __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
-          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
-          if (likely(__pyx_t_5)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
-            __Pyx_INCREF(__pyx_t_5);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_4, function);
-          }
-        }
-        __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3);
-        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 70, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        __pyx_t_6 = __pyx_convert__from_py___pyx_ctuple_int__and_int(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L1_error)
+        __pyx_t_6 = __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_r = __pyx_t_6;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -4304,54 +3207,22 @@ static __pyx_ctuple_int__and_int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrappe
     #endif
   }
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":72
- *     cpdef (int, int) unwrap_state(self, int wrapped_state):
- *         # convert timestepped state to state without timestep
- *         time = wrapped_state // self.num_states_origin             # <<<<<<<<<<<<<<
- *         unwrapped_state = wrapped_state % self.num_states_origin
- *         return time, unwrapped_state
- */
-  if (unlikely(__pyx_v_self->num_states_origin == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-    __PYX_ERR(0, 72, __pyx_L1_error)
-  }
-  else if (sizeof(int) == sizeof(long) && (!(((int)-1) > 0)) && unlikely(__pyx_v_self->num_states_origin == (int)-1)  && unlikely(UNARY_NEG_WOULD_OVERFLOW(__pyx_v_wrapped_state))) {
-    PyErr_SetString(PyExc_OverflowError, "value too large to perform division");
-    __PYX_ERR(0, 72, __pyx_L1_error)
-  }
-  __pyx_v_time = __Pyx_div_int(__pyx_v_wrapped_state, __pyx_v_self->num_states_origin);
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":73
- *         # convert timestepped state to state without timestep
- *         time = wrapped_state // self.num_states_origin
- *         unwrapped_state = wrapped_state % self.num_states_origin             # <<<<<<<<<<<<<<
- *         return time, unwrapped_state
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":28
  * 
- */
-  if (unlikely(__pyx_v_self->num_states_origin == 0)) {
-    PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-    __PYX_ERR(0, 73, __pyx_L1_error)
-  }
-  __pyx_v_unwrapped_state = __Pyx_mod_int(__pyx_v_wrapped_state, __pyx_v_self->num_states_origin);
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":74
- *         time = wrapped_state // self.num_states_origin
- *         unwrapped_state = wrapped_state % self.num_states_origin
- *         return time, unwrapped_state             # <<<<<<<<<<<<<<
+ *     cpdef tabular_env.TimeStep step_state(self, int action):
+ *         return self.wrapped_env.step_state(action)             # <<<<<<<<<<<<<<
  * 
- *     cpdef (int) wrap_state(self, int state, int time):
+ *     cpdef int reset_state(self):
  */
-  __pyx_t_6.f0 = __pyx_v_time;
-  __pyx_t_6.f1 = __pyx_v_unwrapped_state;
-  __pyx_r = __pyx_t_6;
+  __pyx_r = ((struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)__pyx_v_self->wrapped_env->__pyx_vtab)->step_state(__pyx_v_self->wrapped_env, __pyx_v_action, 0);
   goto __pyx_L0;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":70
- *         return self.wrapped_env.set_state(state)
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":27
+ *         return self.wrapped_env.observation(state)
  * 
- *     cpdef (int, int) unwrap_state(self, int wrapped_state):             # <<<<<<<<<<<<<<
- *         # convert timestepped state to state without timestep
- *         time = wrapped_state // self.num_states_origin
+ *     cpdef tabular_env.TimeStep step_state(self, int action):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.step_state(action)
+ * 
  */
 
   /* function exit code */
@@ -4361,7 +3232,7 @@ static __pyx_ctuple_int__and_int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrappe
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_WriteUnraisable("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.unwrap_state", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.step_state", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __Pyx_pretend_to_initialize(&__pyx_r);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4369,41 +3240,41 @@ static __pyx_ctuple_int__and_int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrappe
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_13unwrap_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_wrapped_state); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_13unwrap_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_wrapped_state) {
-  int __pyx_v_wrapped_state;
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_7step_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_action); /*proto*/
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_7step_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_action) {
+  int __pyx_v_action;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("unwrap_state (wrapper)", 0);
-  assert(__pyx_arg_wrapped_state); {
-    __pyx_v_wrapped_state = __Pyx_PyInt_As_int(__pyx_arg_wrapped_state); if (unlikely((__pyx_v_wrapped_state == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L3_error)
+  __Pyx_RefNannySetupContext("step_state (wrapper)", 0);
+  assert(__pyx_arg_action); {
+    __pyx_v_action = __Pyx_PyInt_As_int(__pyx_arg_action); if (unlikely((__pyx_v_action == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 27, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.unwrap_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.step_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_12unwrap_state(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self), ((int)__pyx_v_wrapped_state));
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_6step_state(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self), ((int)__pyx_v_action));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_12unwrap_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_wrapped_state) {
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_6step_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_action) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("unwrap_state", 0);
+  __Pyx_RefNannySetupContext("step_state", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert__to_py___pyx_ctuple_int__and_int(__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_unwrap_state(__pyx_v_self, __pyx_v_wrapped_state, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 70, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert__to_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep(__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_step_state(__pyx_v_self, __pyx_v_action, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4412,7 +3283,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.unwrap_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.step_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4420,32 +3291,27 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   return __pyx_r;
 }
 
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":76
- *         return time, unwrapped_state
+/* "rlil/diag_q/tabular/env_wrapper.pyx":30
+ *         return self.wrapped_env.step_state(action)
  * 
- *     cpdef (int) wrap_state(self, int state, int time):             # <<<<<<<<<<<<<<
- *         if time >= self.time_limit:
- *             return self.num_states - 1
+ *     cpdef int reset_state(self):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.reset_state()
+ * 
  */
 
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_15wrap_state(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_wrap_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_v_time, int __pyx_skip_dispatch) {
-  int __pyx_v_wrapped_state;
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_9reset_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static int __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_reset_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_skip_dispatch) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
-  PyObject *__pyx_t_5 = NULL;
-  PyObject *__pyx_t_6 = NULL;
-  int __pyx_t_7;
-  PyObject *__pyx_t_8 = NULL;
-  int __pyx_t_9;
+  int __pyx_t_5;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("wrap_state", 0);
+  __Pyx_RefNannySetupContext("reset_state", 0);
   /* Check if called by wrapper */
   if (unlikely(__pyx_skip_dispatch)) ;
   /* Check if overridden in Python */
@@ -4455,66 +3321,28 @@ static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_w
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_wrap_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_reset_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_15wrap_state)) {
-        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_3);
-        __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_time); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 76, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_9reset_state)) {
         __Pyx_INCREF(__pyx_t_1);
-        __pyx_t_5 = __pyx_t_1; __pyx_t_6 = NULL;
-        __pyx_t_7 = 0;
-        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_5))) {
-          __pyx_t_6 = PyMethod_GET_SELF(__pyx_t_5);
-          if (likely(__pyx_t_6)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-            __Pyx_INCREF(__pyx_t_6);
+        __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
+          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+          if (likely(__pyx_t_4)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+            __Pyx_INCREF(__pyx_t_4);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_5, function);
-            __pyx_t_7 = 1;
+            __Pyx_DECREF_SET(__pyx_t_3, function);
           }
         }
-        #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_5)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_3, __pyx_t_4};
-          __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __Pyx_GOTREF(__pyx_t_2);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        } else
-        #endif
-        #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_t_3, __pyx_t_4};
-          __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-          __Pyx_GOTREF(__pyx_t_2);
-          __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-          __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-        } else
-        #endif
-        {
-          __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 76, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_8);
-          if (__pyx_t_6) {
-            __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
-          }
-          __Pyx_GIVEREF(__pyx_t_3);
-          PyTuple_SET_ITEM(__pyx_t_8, 0+__pyx_t_7, __pyx_t_3);
-          __Pyx_GIVEREF(__pyx_t_4);
-          PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_t_4);
-          __pyx_t_3 = 0;
-          __pyx_t_4 = 0;
-          __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_8, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 76, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_2);
-          __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-        }
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-        __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L1_error)
+        __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 30, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 30, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-        __pyx_r = __pyx_t_7;
+        __pyx_r = __pyx_t_5;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         goto __pyx_L0;
       }
@@ -4531,68 +3359,167 @@ static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_w
     #endif
   }
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":77
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":31
  * 
- *     cpdef (int) wrap_state(self, int state, int time):
- *         if time >= self.time_limit:             # <<<<<<<<<<<<<<
- *             return self.num_states - 1
- *         wrapped_state = state + self.num_states_origin * time
+ *     cpdef int reset_state(self):
+ *         return self.wrapped_env.reset_state()             # <<<<<<<<<<<<<<
+ * 
+ *     # cpdef transition_matrix(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_time); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_r = ((struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)__pyx_v_self->wrapped_env->__pyx_vtab)->reset_state(__pyx_v_self->wrapped_env, 0);
+  goto __pyx_L0;
+
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":30
+ *         return self.wrapped_env.step_state(action)
+ * 
+ *     cpdef int reset_state(self):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.reset_state()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_WriteUnraisable("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.reset_state", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_9reset_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_9reset_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("reset_state (wrapper)", 0);
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_8reset_state(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_8reset_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("reset_state", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_reset_state(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_time_limit); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_5 = PyObject_RichCompare(__pyx_t_1, __pyx_t_2, Py_GE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 77, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_9 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 77, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (__pyx_t_9) {
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
 
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":78
- *     cpdef (int) wrap_state(self, int state, int time):
- *         if time >= self.time_limit:
- *             return self.num_states - 1             # <<<<<<<<<<<<<<
- *         wrapped_state = state + self.num_states_origin * time
- *         return wrapped_state
- */
-    __pyx_r = (__pyx_v_self->__pyx_base.__pyx_base.num_states - 1);
-    goto __pyx_L0;
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.reset_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
 
-    /* "rlil/diag_q/envs/time_limit_wrapper.pyx":77
+/* "rlil/diag_q/tabular/env_wrapper.pyx":39
+ *     #    return self.wrapped_env.reward_matrix()
  * 
- *     cpdef (int) wrap_state(self, int state, int time):
- *         if time >= self.time_limit:             # <<<<<<<<<<<<<<
- *             return self.num_states - 1
- *         wrapped_state = state + self.num_states_origin * time
+ *     cpdef set_state(self, int state):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.set_state(state)
+ * 
  */
+
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11set_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_state); /*proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_set_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_skip_dispatch) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("set_state", 0);
+  /* Check if called by wrapper */
+  if (unlikely(__pyx_skip_dispatch)) ;
+  /* Check if overridden in Python */
+  else if (unlikely((Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0) || (Py_TYPE(((PyObject *)__pyx_v_self))->tp_flags & (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))) {
+    #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+    static PY_UINT64_T __pyx_tp_dict_version = __PYX_DICT_VERSION_INIT, __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
+    if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
+      PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
+      #endif
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_set_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11set_state)) {
+        __Pyx_XDECREF(__pyx_r);
+        __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_state); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 39, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_3);
+        __Pyx_INCREF(__pyx_t_1);
+        __pyx_t_4 = __pyx_t_1; __pyx_t_5 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_4))) {
+          __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_4);
+          if (likely(__pyx_t_5)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+            __Pyx_INCREF(__pyx_t_5);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_4, function);
+          }
+        }
+        __pyx_t_2 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_5, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3);
+        __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        __pyx_r = __pyx_t_2;
+        __pyx_t_2 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        goto __pyx_L0;
+      }
+      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+      __pyx_tp_dict_version = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
+      __pyx_obj_dict_version = __Pyx_get_object_dict_version(((PyObject *)__pyx_v_self));
+      if (unlikely(__pyx_type_dict_guard != __pyx_tp_dict_version)) {
+        __pyx_tp_dict_version = __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
+      }
+      #endif
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+    }
+    #endif
   }
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":79
- *         if time >= self.time_limit:
- *             return self.num_states - 1
- *         wrapped_state = state + self.num_states_origin * time             # <<<<<<<<<<<<<<
- *         return wrapped_state
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":40
  * 
- */
-  __pyx_v_wrapped_state = (__pyx_v_state + (__pyx_v_self->num_states_origin * __pyx_v_time));
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":80
- *             return self.num_states - 1
- *         wrapped_state = state + self.num_states_origin * time
- *         return wrapped_state             # <<<<<<<<<<<<<<
+ *     cpdef set_state(self, int state):
+ *         return self.wrapped_env.set_state(state)             # <<<<<<<<<<<<<<
  * 
  *     cpdef int get_state(self):
  */
-  __pyx_r = __pyx_v_wrapped_state;
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)__pyx_v_self->wrapped_env->__pyx_vtab)->set_state(__pyx_v_self->wrapped_env, __pyx_v_state, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":76
- *         return time, unwrapped_state
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":39
+ *     #    return self.wrapped_env.reward_matrix()
  * 
- *     cpdef (int) wrap_state(self, int state, int time):             # <<<<<<<<<<<<<<
- *         if time >= self.time_limit:
- *             return self.num_states - 1
+ *     cpdef set_state(self, int state):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.set_state(state)
+ * 
  */
 
   /* function exit code */
@@ -4602,89 +3529,50 @@ static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_w
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_WriteUnraisable("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.wrap_state", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_15wrap_state(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_15wrap_state(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11set_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_state); /*proto*/
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11set_state(PyObject *__pyx_v_self, PyObject *__pyx_arg_state) {
   int __pyx_v_state;
-  int __pyx_v_time;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("wrap_state (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_state,&__pyx_n_s_time,0};
-    PyObject* values[2] = {0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_state)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_time)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("wrap_state", 1, 2, 2, 1); __PYX_ERR(0, 76, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "wrap_state") < 0)) __PYX_ERR(0, 76, __pyx_L3_error)
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-    }
-    __pyx_v_state = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_state == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L3_error)
-    __pyx_v_time = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_time == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 76, __pyx_L3_error)
+  __Pyx_RefNannySetupContext("set_state (wrapper)", 0);
+  assert(__pyx_arg_state); {
+    __pyx_v_state = __Pyx_PyInt_As_int(__pyx_arg_state); if (unlikely((__pyx_v_state == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("wrap_state", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 76, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.wrap_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_14wrap_state(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self), __pyx_v_state, __pyx_v_time);
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_10set_state(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self), ((int)__pyx_v_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_14wrap_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_v_state, int __pyx_v_time) {
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_10set_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_v_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("wrap_state", 0);
+  __Pyx_RefNannySetupContext("set_state", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_wrap_state(__pyx_v_self, __pyx_v_state, __pyx_v_time, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_set_state(__pyx_v_self, __pyx_v_state, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4693,7 +3581,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.wrap_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4701,17 +3589,16 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   return __pyx_r;
 }
 
-/* "rlil/diag_q/envs/time_limit_wrapper.pyx":82
- *         return wrapped_state
+/* "rlil/diag_q/tabular/env_wrapper.pyx":42
+ *         return self.wrapped_env.set_state(state)
  * 
  *     cpdef int get_state(self):             # <<<<<<<<<<<<<<
- *         state = self.wrapped_env.get_state()
- *         return self.wrap_state(state, self._timer)
+ *         return self.wrapped_env.get_state()
+ * 
  */
 
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17get_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_get_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, int __pyx_skip_dispatch) {
-  int __pyx_v_state;
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_13get_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static int __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_get_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_skip_dispatch) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4732,9 +3619,9 @@ static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_g
     if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
       PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
       #endif
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_get_state); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17get_state)) {
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_13get_state)) {
         __Pyx_INCREF(__pyx_t_1);
         __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
         if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -4748,10 +3635,10 @@ static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_g
         }
         __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
         __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 82, __pyx_L1_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 82, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 42, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __pyx_r = __pyx_t_5;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -4770,28 +3657,22 @@ static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_g
     #endif
   }
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":83
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":43
  * 
  *     cpdef int get_state(self):
- *         state = self.wrapped_env.get_state()             # <<<<<<<<<<<<<<
- *         return self.wrap_state(state, self._timer)
+ *         return self.wrapped_env.get_state()             # <<<<<<<<<<<<<<
+ * 
+ *     cpdef render(self):
  */
-  __pyx_v_state = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)__pyx_v_self->__pyx_base.wrapped_env->__pyx_vtab)->get_state(__pyx_v_self->__pyx_base.wrapped_env, 0);
-
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":84
- *     cpdef int get_state(self):
- *         state = self.wrapped_env.get_state()
- *         return self.wrap_state(state, self._timer)             # <<<<<<<<<<<<<<
- */
-  __pyx_r = ((struct __pyx_vtabstruct_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self->__pyx_base.__pyx_base.__pyx_vtab)->wrap_state(__pyx_v_self, __pyx_v_state, __pyx_v_self->_timer, 0);
+  __pyx_r = ((struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)__pyx_v_self->wrapped_env->__pyx_vtab)->get_state(__pyx_v_self->wrapped_env, 0);
   goto __pyx_L0;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":82
- *         return wrapped_state
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":42
+ *         return self.wrapped_env.set_state(state)
  * 
  *     cpdef int get_state(self):             # <<<<<<<<<<<<<<
- *         state = self.wrapped_env.get_state()
- *         return self.wrap_state(state, self._timer)
+ *         return self.wrapped_env.get_state()
+ * 
  */
 
   /* function exit code */
@@ -4800,7 +3681,7 @@ static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_g
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_WriteUnraisable("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.get_state", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
+  __Pyx_WriteUnraisable("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.get_state", __pyx_clineno, __pyx_lineno, __pyx_filename, 1, 0);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -4808,19 +3689,19 @@ static int __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_g
 }
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17get_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17get_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_13get_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_13get_state(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("get_state (wrapper)", 0);
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_16get_state(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_12get_state(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_16get_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_12get_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4829,7 +3710,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_state", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_get_state(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_get_state(__pyx_v_self, 1)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 42, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4838,7 +3719,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.get_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.get_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4846,37 +3727,131 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   return __pyx_r;
 }
 
-/* "rlil/diag_q/envs/time_limit_wrapper.pxd":4
+/* "rlil/diag_q/tabular/env_wrapper.pyx":45
+ *         return self.wrapped_env.get_state()
  * 
- * cdef class TimeLimitWrapper(env_wrapper.TabularEnvWrapper):
- *     cdef public int num_states_origin             # <<<<<<<<<<<<<<
- *     cdef int _time_limit
- *     cdef int _timer
+ *     cpdef render(self):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.render()
+ * 
  */
 
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_15render(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_render(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, int __pyx_skip_dispatch) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("render", 0);
+  /* Check if called by wrapper */
+  if (unlikely(__pyx_skip_dispatch)) ;
+  /* Check if overridden in Python */
+  else if (unlikely((Py_TYPE(((PyObject *)__pyx_v_self))->tp_dictoffset != 0) || (Py_TYPE(((PyObject *)__pyx_v_self))->tp_flags & (Py_TPFLAGS_IS_ABSTRACT | Py_TPFLAGS_HEAPTYPE)))) {
+    #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+    static PY_UINT64_T __pyx_tp_dict_version = __PYX_DICT_VERSION_INIT, __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
+    if (unlikely(!__Pyx_object_dict_version_matches(((PyObject *)__pyx_v_self), __pyx_tp_dict_version, __pyx_obj_dict_version))) {
+      PY_UINT64_T __pyx_type_dict_guard = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
+      #endif
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_render); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_1);
+      if (!PyCFunction_Check(__pyx_t_1) || (PyCFunction_GET_FUNCTION(__pyx_t_1) != (PyCFunction)(void*)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_15render)) {
+        __Pyx_XDECREF(__pyx_r);
+        __Pyx_INCREF(__pyx_t_1);
+        __pyx_t_3 = __pyx_t_1; __pyx_t_4 = NULL;
+        if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
+          __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_3);
+          if (likely(__pyx_t_4)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+            __Pyx_INCREF(__pyx_t_4);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_3, function);
+          }
+        }
+        __pyx_t_2 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
+        __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 45, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
+        __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+        __pyx_r = __pyx_t_2;
+        __pyx_t_2 = 0;
+        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        goto __pyx_L0;
+      }
+      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+      __pyx_tp_dict_version = __Pyx_get_tp_dict_version(((PyObject *)__pyx_v_self));
+      __pyx_obj_dict_version = __Pyx_get_object_dict_version(((PyObject *)__pyx_v_self));
+      if (unlikely(__pyx_type_dict_guard != __pyx_tp_dict_version)) {
+        __pyx_tp_dict_version = __pyx_obj_dict_version = __PYX_DICT_VERSION_INIT;
+      }
+      #endif
+      __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+      #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_PYTYPE_LOOKUP && CYTHON_USE_TYPE_SLOTS
+    }
+    #endif
+  }
+
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":46
+ * 
+ *     cpdef render(self):
+ *         return self.wrapped_env.render()             # <<<<<<<<<<<<<<
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = ((struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)__pyx_v_self->wrapped_env->__pyx_vtab)->render(__pyx_v_self->wrapped_env, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 46, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":45
+ *         return self.wrapped_env.get_state()
+ * 
+ *     cpdef render(self):             # <<<<<<<<<<<<<<
+ *         return self.wrapped_env.render()
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.render", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_15render(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_15render(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin___get__(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("render (wrapper)", 0);
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_14render(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin___get__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_14render(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_RefNannySetupContext("render", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->num_states_origin); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 4, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_render(__pyx_v_self, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -4885,7 +3860,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.num_states_origin.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.render", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4893,37 +3868,110 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   return __pyx_r;
 }
 
+/* "rlil/diag_q/tabular/env_wrapper.pxd":4
+ * 
+ * cdef class TabularEnvWrapper(tabular_env.TabularEnv):
+ *     cdef public tabular_env.TabularEnv wrapped_env             # <<<<<<<<<<<<<<
+ * 
+ * cdef class AbsorbingStateWrapper(TabularEnvWrapper):
+ */
+
 /* Python wrapper */
-static int __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
-static int __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
-  int __pyx_r;
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin_2__set__(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env___get__(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin_2__set__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, PyObject *__pyx_v_value) {
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env___get__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(((PyObject *)__pyx_v_self->wrapped_env));
+  __pyx_r = ((PyObject *)__pyx_v_self->wrapped_env);
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_2__set__(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_2__set__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 4, __pyx_L1_error)
-  __pyx_v_self->num_states_origin = __pyx_t_1;
+  if (!(likely(((__pyx_v_value) == Py_None) || likely(__Pyx_TypeTest(__pyx_v_value, __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv))))) __PYX_ERR(1, 4, __pyx_L1_error)
+  __pyx_t_1 = __pyx_v_value;
+  __Pyx_INCREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->wrapped_env);
+  __Pyx_DECREF(((PyObject *)__pyx_v_self->wrapped_env));
+  __pyx_v_self->wrapped_env = ((struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)__pyx_t_1);
+  __pyx_t_1 = 0;
 
   /* function exit code */
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.num_states_origin.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.wrapped_env.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_4__del__(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_4__del__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->wrapped_env);
+  __Pyx_DECREF(((PyObject *)__pyx_v_self->wrapped_env));
+  __pyx_v_self->wrapped_env = ((struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)Py_None);
+
+  /* function exit code */
+  __pyx_r = 0;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
@@ -4935,19 +3983,19 @@ static int __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_19__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_19__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_17__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_17__reduce_cython__(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__reduce_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_18__reduce_cython__(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self));
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_16__reduce_cython__(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_18__reduce_cython__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self) {
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_16__reduce_cython__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -4958,12 +4006,9 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
-  PyObject *__pyx_t_6 = NULL;
-  PyObject *__pyx_t_7 = NULL;
-  PyObject *__pyx_t_8 = NULL;
-  int __pyx_t_9;
-  int __pyx_t_10;
-  int __pyx_t_11;
+  int __pyx_t_6;
+  int __pyx_t_7;
+  int __pyx_t_8;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -4972,84 +4017,69 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   /* "(tree fragment)":5
  *     cdef object _dict
  *     cdef bint use_setstate
- *     state = (self._state, self._time_limit, self._timer, self._transition_map, self.action_space, self.initial_state_distribution, self.num_actions, self.num_states, self.num_states_origin, self.observation_space, self.wrapped_env)             # <<<<<<<<<<<<<<
+ *     state = (self._state, self._transition_map, self.action_space, self.initial_state_distribution, self.num_actions, self.num_states, self.observation_space, self.wrapped_env)             # <<<<<<<<<<<<<<
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->__pyx_base.__pyx_base._state); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 5, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->__pyx_base._state); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->_time_limit); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 5, __pyx_L1_error)
+  __pyx_t_2 = __pyx_convert_map_to_py_int____double(__pyx_v_self->__pyx_base._transition_map); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->_timer); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 5, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_v_self->__pyx_base.num_actions); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __pyx_convert_map_to_py_int____double(__pyx_v_self->__pyx_base.__pyx_base._transition_map); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 5, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_self->__pyx_base.num_states); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_self->__pyx_base.__pyx_base.num_actions); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 5, __pyx_L1_error)
+  __pyx_t_5 = PyTuple_New(8); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_self->__pyx_base.__pyx_base.num_states); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 5, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_self->num_states_origin); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 5, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = PyTuple_New(11); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 5, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_t_2);
+  __Pyx_INCREF(__pyx_v_self->__pyx_base.action_space);
+  __Pyx_GIVEREF(__pyx_v_self->__pyx_base.action_space);
+  PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_v_self->__pyx_base.action_space);
+  __Pyx_INCREF(__pyx_v_self->__pyx_base.initial_state_distribution);
+  __Pyx_GIVEREF(__pyx_v_self->__pyx_base.initial_state_distribution);
+  PyTuple_SET_ITEM(__pyx_t_5, 3, __pyx_v_self->__pyx_base.initial_state_distribution);
   __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_5, 4, __pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_8, 3, __pyx_t_4);
-  __Pyx_INCREF(__pyx_v_self->__pyx_base.__pyx_base.action_space);
-  __Pyx_GIVEREF(__pyx_v_self->__pyx_base.__pyx_base.action_space);
-  PyTuple_SET_ITEM(__pyx_t_8, 4, __pyx_v_self->__pyx_base.__pyx_base.action_space);
-  __Pyx_INCREF(__pyx_v_self->__pyx_base.__pyx_base.initial_state_distribution);
-  __Pyx_GIVEREF(__pyx_v_self->__pyx_base.__pyx_base.initial_state_distribution);
-  PyTuple_SET_ITEM(__pyx_t_8, 5, __pyx_v_self->__pyx_base.__pyx_base.initial_state_distribution);
-  __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_8, 6, __pyx_t_5);
-  __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_8, 7, __pyx_t_6);
-  __Pyx_GIVEREF(__pyx_t_7);
-  PyTuple_SET_ITEM(__pyx_t_8, 8, __pyx_t_7);
-  __Pyx_INCREF(__pyx_v_self->__pyx_base.__pyx_base.observation_space);
-  __Pyx_GIVEREF(__pyx_v_self->__pyx_base.__pyx_base.observation_space);
-  PyTuple_SET_ITEM(__pyx_t_8, 9, __pyx_v_self->__pyx_base.__pyx_base.observation_space);
-  __Pyx_INCREF(((PyObject *)__pyx_v_self->__pyx_base.wrapped_env));
-  __Pyx_GIVEREF(((PyObject *)__pyx_v_self->__pyx_base.wrapped_env));
-  PyTuple_SET_ITEM(__pyx_t_8, 10, ((PyObject *)__pyx_v_self->__pyx_base.wrapped_env));
+  PyTuple_SET_ITEM(__pyx_t_5, 5, __pyx_t_4);
+  __Pyx_INCREF(__pyx_v_self->__pyx_base.observation_space);
+  __Pyx_GIVEREF(__pyx_v_self->__pyx_base.observation_space);
+  PyTuple_SET_ITEM(__pyx_t_5, 6, __pyx_v_self->__pyx_base.observation_space);
+  __Pyx_INCREF(((PyObject *)__pyx_v_self->wrapped_env));
+  __Pyx_GIVEREF(((PyObject *)__pyx_v_self->wrapped_env));
+  PyTuple_SET_ITEM(__pyx_t_5, 7, ((PyObject *)__pyx_v_self->wrapped_env));
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
   __pyx_t_4 = 0;
+  __pyx_v_state = ((PyObject*)__pyx_t_5);
   __pyx_t_5 = 0;
-  __pyx_t_6 = 0;
-  __pyx_t_7 = 0;
-  __pyx_v_state = ((PyObject*)__pyx_t_8);
-  __pyx_t_8 = 0;
 
   /* "(tree fragment)":6
  *     cdef bint use_setstate
- *     state = (self._state, self._time_limit, self._timer, self._transition_map, self.action_space, self.initial_state_distribution, self.num_actions, self.num_states, self.num_states_origin, self.observation_space, self.wrapped_env)
+ *     state = (self._state, self._transition_map, self.action_space, self.initial_state_distribution, self.num_actions, self.num_states, self.observation_space, self.wrapped_env)
  *     _dict = getattr(self, '__dict__', None)             # <<<<<<<<<<<<<<
  *     if _dict is not None:
  *         state += (_dict,)
  */
-  __pyx_t_8 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_v__dict = __pyx_t_8;
-  __pyx_t_8 = 0;
+  __pyx_t_5 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_v__dict = __pyx_t_5;
+  __pyx_t_5 = 0;
 
   /* "(tree fragment)":7
- *     state = (self._state, self._time_limit, self._timer, self._transition_map, self.action_space, self.initial_state_distribution, self.num_actions, self.num_states, self.num_states_origin, self.observation_space, self.wrapped_env)
+ *     state = (self._state, self._transition_map, self.action_space, self.initial_state_distribution, self.num_actions, self.num_states, self.observation_space, self.wrapped_env)
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:             # <<<<<<<<<<<<<<
  *         state += (_dict,)
  *         use_setstate = True
  */
-  __pyx_t_9 = (__pyx_v__dict != Py_None);
-  __pyx_t_10 = (__pyx_t_9 != 0);
-  if (__pyx_t_10) {
+  __pyx_t_6 = (__pyx_v__dict != Py_None);
+  __pyx_t_7 = (__pyx_t_6 != 0);
+  if (__pyx_t_7) {
 
     /* "(tree fragment)":8
  *     _dict = getattr(self, '__dict__', None)
@@ -5058,16 +4088,16 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
  *         use_setstate = True
  *     else:
  */
-    __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 8, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
     __Pyx_INCREF(__pyx_v__dict);
     __Pyx_GIVEREF(__pyx_v__dict);
-    PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_v__dict);
-    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 8, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF_SET(__pyx_v_state, ((PyObject*)__pyx_t_7));
-    __pyx_t_7 = 0;
+    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_v__dict);
+    __pyx_t_4 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_5); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __Pyx_DECREF_SET(__pyx_v_state, ((PyObject*)__pyx_t_4));
+    __pyx_t_4 = 0;
 
     /* "(tree fragment)":9
  *     if _dict is not None:
@@ -5079,7 +4109,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
     __pyx_v_use_setstate = 1;
 
     /* "(tree fragment)":7
- *     state = (self._state, self._time_limit, self._timer, self._transition_map, self.action_space, self.initial_state_distribution, self.num_actions, self.num_states, self.num_states_origin, self.observation_space, self.wrapped_env)
+ *     state = (self._state, self._transition_map, self.action_space, self.initial_state_distribution, self.num_actions, self.num_states, self.observation_space, self.wrapped_env)
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:             # <<<<<<<<<<<<<<
  *         state += (_dict,)
@@ -5093,35 +4123,35 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
  *     else:
  *         use_setstate = self.action_space is not None or self.initial_state_distribution is not None or self.observation_space is not None or self.wrapped_env is not None             # <<<<<<<<<<<<<<
  *     if use_setstate:
- *         return __pyx_unpickle_TimeLimitWrapper, (type(self), 0x52e33e2, None), state
+ *         return __pyx_unpickle_TabularEnvWrapper, (type(self), 0xa33c4ba, None), state
  */
   /*else*/ {
-    __pyx_t_9 = (__pyx_v_self->__pyx_base.__pyx_base.action_space != Py_None);
-    __pyx_t_11 = (__pyx_t_9 != 0);
-    if (!__pyx_t_11) {
+    __pyx_t_6 = (__pyx_v_self->__pyx_base.action_space != Py_None);
+    __pyx_t_8 = (__pyx_t_6 != 0);
+    if (!__pyx_t_8) {
     } else {
-      __pyx_t_10 = __pyx_t_11;
+      __pyx_t_7 = __pyx_t_8;
       goto __pyx_L4_bool_binop_done;
     }
-    __pyx_t_11 = (__pyx_v_self->__pyx_base.__pyx_base.initial_state_distribution != ((PyObject*)Py_None));
-    __pyx_t_9 = (__pyx_t_11 != 0);
-    if (!__pyx_t_9) {
+    __pyx_t_8 = (__pyx_v_self->__pyx_base.initial_state_distribution != ((PyObject*)Py_None));
+    __pyx_t_6 = (__pyx_t_8 != 0);
+    if (!__pyx_t_6) {
     } else {
-      __pyx_t_10 = __pyx_t_9;
+      __pyx_t_7 = __pyx_t_6;
       goto __pyx_L4_bool_binop_done;
     }
-    __pyx_t_9 = (__pyx_v_self->__pyx_base.__pyx_base.observation_space != Py_None);
-    __pyx_t_11 = (__pyx_t_9 != 0);
-    if (!__pyx_t_11) {
+    __pyx_t_6 = (__pyx_v_self->__pyx_base.observation_space != Py_None);
+    __pyx_t_8 = (__pyx_t_6 != 0);
+    if (!__pyx_t_8) {
     } else {
-      __pyx_t_10 = __pyx_t_11;
+      __pyx_t_7 = __pyx_t_8;
       goto __pyx_L4_bool_binop_done;
     }
-    __pyx_t_11 = (((PyObject *)__pyx_v_self->__pyx_base.wrapped_env) != Py_None);
-    __pyx_t_9 = (__pyx_t_11 != 0);
-    __pyx_t_10 = __pyx_t_9;
+    __pyx_t_8 = (((PyObject *)__pyx_v_self->wrapped_env) != Py_None);
+    __pyx_t_6 = (__pyx_t_8 != 0);
+    __pyx_t_7 = __pyx_t_6;
     __pyx_L4_bool_binop_done:;
-    __pyx_v_use_setstate = __pyx_t_10;
+    __pyx_v_use_setstate = __pyx_t_7;
   }
   __pyx_L3:;
 
@@ -5129,89 +4159,89 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
  *     else:
  *         use_setstate = self.action_space is not None or self.initial_state_distribution is not None or self.observation_space is not None or self.wrapped_env is not None
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_TimeLimitWrapper, (type(self), 0x52e33e2, None), state
+ *         return __pyx_unpickle_TabularEnvWrapper, (type(self), 0xa33c4ba, None), state
  *     else:
  */
-  __pyx_t_10 = (__pyx_v_use_setstate != 0);
-  if (__pyx_t_10) {
+  __pyx_t_7 = (__pyx_v_use_setstate != 0);
+  if (__pyx_t_7) {
 
     /* "(tree fragment)":13
  *         use_setstate = self.action_space is not None or self.initial_state_distribution is not None or self.observation_space is not None or self.wrapped_env is not None
  *     if use_setstate:
- *         return __pyx_unpickle_TimeLimitWrapper, (type(self), 0x52e33e2, None), state             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_TabularEnvWrapper, (type(self), 0xa33c4ba, None), state             # <<<<<<<<<<<<<<
  *     else:
- *         return __pyx_unpickle_TimeLimitWrapper, (type(self), 0x52e33e2, state)
+ *         return __pyx_unpickle_TabularEnvWrapper, (type(self), 0xa33c4ba, state)
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_pyx_unpickle_TimeLimitWrapper); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 13, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 13, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_pyx_unpickle_TabularEnvWrapper); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
     __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    PyTuple_SET_ITEM(__pyx_t_8, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    __Pyx_INCREF(__pyx_int_86914018);
-    __Pyx_GIVEREF(__pyx_int_86914018);
-    PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_int_86914018);
+    PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_171164858);
+    __Pyx_GIVEREF(__pyx_int_171164858);
+    PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_int_171164858);
     __Pyx_INCREF(Py_None);
     __Pyx_GIVEREF(Py_None);
-    PyTuple_SET_ITEM(__pyx_t_8, 2, Py_None);
-    __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 13, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GIVEREF(__pyx_t_7);
-    PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_7);
-    __Pyx_GIVEREF(__pyx_t_8);
-    PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_8);
+    PyTuple_SET_ITEM(__pyx_t_5, 2, Py_None);
+    __pyx_t_3 = PyTuple_New(3); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_4);
+    PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_5);
     __Pyx_INCREF(__pyx_v_state);
     __Pyx_GIVEREF(__pyx_v_state);
-    PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_v_state);
-    __pyx_t_7 = 0;
-    __pyx_t_8 = 0;
-    __pyx_r = __pyx_t_6;
-    __pyx_t_6 = 0;
+    PyTuple_SET_ITEM(__pyx_t_3, 2, __pyx_v_state);
+    __pyx_t_4 = 0;
+    __pyx_t_5 = 0;
+    __pyx_r = __pyx_t_3;
+    __pyx_t_3 = 0;
     goto __pyx_L0;
 
     /* "(tree fragment)":12
  *     else:
  *         use_setstate = self.action_space is not None or self.initial_state_distribution is not None or self.observation_space is not None or self.wrapped_env is not None
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_TimeLimitWrapper, (type(self), 0x52e33e2, None), state
+ *         return __pyx_unpickle_TabularEnvWrapper, (type(self), 0xa33c4ba, None), state
  *     else:
  */
   }
 
   /* "(tree fragment)":15
- *         return __pyx_unpickle_TimeLimitWrapper, (type(self), 0x52e33e2, None), state
+ *         return __pyx_unpickle_TabularEnvWrapper, (type(self), 0xa33c4ba, None), state
  *     else:
- *         return __pyx_unpickle_TimeLimitWrapper, (type(self), 0x52e33e2, state)             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_TabularEnvWrapper, (type(self), 0xa33c4ba, state)             # <<<<<<<<<<<<<<
  * def __setstate_cython__(self, __pyx_state):
- *     __pyx_unpickle_TimeLimitWrapper__set_state(self, __pyx_state)
+ *     __pyx_unpickle_TabularEnvWrapper__set_state(self, __pyx_state)
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_pyx_unpickle_TimeLimitWrapper); if (unlikely(!__pyx_t_6)) __PYX_ERR(2, 15, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 15, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_pyx_unpickle_TabularEnvWrapper); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_3);
+    __pyx_t_5 = PyTuple_New(3); if (unlikely(!__pyx_t_5)) __PYX_ERR(2, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
     __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    PyTuple_SET_ITEM(__pyx_t_8, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    __Pyx_INCREF(__pyx_int_86914018);
-    __Pyx_GIVEREF(__pyx_int_86914018);
-    PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_int_86914018);
+    PyTuple_SET_ITEM(__pyx_t_5, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_171164858);
+    __Pyx_GIVEREF(__pyx_int_171164858);
+    PyTuple_SET_ITEM(__pyx_t_5, 1, __pyx_int_171164858);
     __Pyx_INCREF(__pyx_v_state);
     __Pyx_GIVEREF(__pyx_v_state);
-    PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_v_state);
-    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(2, 15, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GIVEREF(__pyx_t_6);
-    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6);
-    __Pyx_GIVEREF(__pyx_t_8);
-    PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_8);
-    __pyx_t_6 = 0;
-    __pyx_t_8 = 0;
-    __pyx_r = __pyx_t_7;
-    __pyx_t_7 = 0;
+    PyTuple_SET_ITEM(__pyx_t_5, 2, __pyx_v_state);
+    __pyx_t_4 = PyTuple_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3);
+    __Pyx_GIVEREF(__pyx_t_5);
+    PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_t_5);
+    __pyx_t_3 = 0;
+    __pyx_t_5 = 0;
+    __pyx_r = __pyx_t_4;
+    __pyx_t_4 = 0;
     goto __pyx_L0;
   }
 
@@ -5228,10 +4258,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_XDECREF(__pyx_t_7);
-  __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_state);
@@ -5243,25 +4270,25 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
 
 /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_TimeLimitWrapper, (type(self), 0x52e33e2, state)
+ *         return __pyx_unpickle_TabularEnvWrapper, (type(self), 0xa33c4ba, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_unpickle_TimeLimitWrapper__set_state(self, __pyx_state)
+ *     __pyx_unpickle_TabularEnvWrapper__set_state(self, __pyx_state)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_21__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_21__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_19__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state); /*proto*/
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_19__setstate_cython__(PyObject *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__setstate_cython__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_20__setstate_cython__(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_18__setstate_cython__(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v_self), ((PyObject *)__pyx_v___pyx_state));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_20__setstate_cython__(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_18__setstate_cython__(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5271,20 +4298,20 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   __Pyx_RefNannySetupContext("__setstate_cython__", 0);
 
   /* "(tree fragment)":17
- *         return __pyx_unpickle_TimeLimitWrapper, (type(self), 0x52e33e2, state)
+ *         return __pyx_unpickle_TabularEnvWrapper, (type(self), 0xa33c4ba, state)
  * def __setstate_cython__(self, __pyx_state):
- *     __pyx_unpickle_TimeLimitWrapper__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
+ *     __pyx_unpickle_TabularEnvWrapper__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
  */
   if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(2, 17, __pyx_L1_error)
-  __pyx_t_1 = __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle_TimeLimitWrapper__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 17, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper___pyx_unpickle_TabularEnvWrapper__set_state(__pyx_v_self, ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 17, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_TimeLimitWrapper, (type(self), 0x52e33e2, state)
+ *         return __pyx_unpickle_TabularEnvWrapper, (type(self), 0xa33c4ba, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_unpickle_TimeLimitWrapper__set_state(self, __pyx_state)
+ *     __pyx_unpickle_TabularEnvWrapper__set_state(self, __pyx_state)
  */
 
   /* function exit code */
@@ -5292,7 +4319,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper.__setstate_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5301,15 +4328,15 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWr
 }
 
 /* "(tree fragment)":1
- * def __pyx_unpickle_TimeLimitWrapper(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_TabularEnvWrapper(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_1__pyx_unpickle_TimeLimitWrapper(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_4rlil_6diag_q_4envs_18time_limit_wrapper_1__pyx_unpickle_TimeLimitWrapper = {"__pyx_unpickle_TimeLimitWrapper", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_1__pyx_unpickle_TimeLimitWrapper, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_1__pyx_unpickle_TimeLimitWrapper(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_1__pyx_unpickle_TabularEnvWrapper(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_4rlil_6diag_q_7tabular_11env_wrapper_1__pyx_unpickle_TabularEnvWrapper = {"__pyx_unpickle_TabularEnvWrapper", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_1__pyx_unpickle_TabularEnvWrapper, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_1__pyx_unpickle_TabularEnvWrapper(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v___pyx_type = 0;
   long __pyx_v___pyx_checksum;
   PyObject *__pyx_v___pyx_state = 0;
@@ -5318,7 +4345,7 @@ static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_1__pyx_unpick
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__pyx_unpickle_TimeLimitWrapper (wrapper)", 0);
+  __Pyx_RefNannySetupContext("__pyx_unpickle_TabularEnvWrapper (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_pyx_type,&__pyx_n_s_pyx_checksum,&__pyx_n_s_pyx_state,0};
     PyObject* values[3] = {0,0,0};
@@ -5344,17 +4371,17 @@ static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_1__pyx_unpick
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_checksum)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_TimeLimitWrapper", 1, 3, 3, 1); __PYX_ERR(2, 1, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_TabularEnvWrapper", 1, 3, 3, 1); __PYX_ERR(2, 1, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
         if (likely((values[2] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_pyx_state)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_TimeLimitWrapper", 1, 3, 3, 2); __PYX_ERR(2, 1, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_TabularEnvWrapper", 1, 3, 3, 2); __PYX_ERR(2, 1, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__pyx_unpickle_TimeLimitWrapper") < 0)) __PYX_ERR(2, 1, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__pyx_unpickle_TabularEnvWrapper") < 0)) __PYX_ERR(2, 1, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 3) {
       goto __pyx_L5_argtuple_error;
@@ -5369,20 +4396,20 @@ static PyObject *__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_1__pyx_unpick
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_TimeLimitWrapper", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 1, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__pyx_unpickle_TabularEnvWrapper", 1, 3, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(2, 1, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.__pyx_unpickle_TimeLimitWrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.__pyx_unpickle_TabularEnvWrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle_TimeLimitWrapper(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper___pyx_unpickle_TabularEnvWrapper(__pyx_self, __pyx_v___pyx_type, __pyx_v___pyx_checksum, __pyx_v___pyx_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle_TimeLimitWrapper(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_4rlil_6diag_q_7tabular_11env_wrapper___pyx_unpickle_TabularEnvWrapper(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_v___pyx_PickleError = 0;
   PyObject *__pyx_v___pyx_result = 0;
   PyObject *__pyx_r = NULL;
@@ -5396,24 +4423,24 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickl
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__pyx_unpickle_TimeLimitWrapper", 0);
+  __Pyx_RefNannySetupContext("__pyx_unpickle_TabularEnvWrapper", 0);
 
   /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0x52e33e2:             # <<<<<<<<<<<<<<
+ *     if __pyx_checksum != 0xa33c4ba:             # <<<<<<<<<<<<<<
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x52e33e2 = (_state, _time_limit, _timer, _transition_map, action_space, initial_state_distribution, num_actions, num_states, num_states_origin, observation_space, wrapped_env))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xa33c4ba = (_state, _transition_map, action_space, initial_state_distribution, num_actions, num_states, observation_space, wrapped_env))" % __pyx_checksum)
  */
-  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0x52e33e2) != 0);
+  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0xa33c4ba) != 0);
   if (__pyx_t_1) {
 
     /* "(tree fragment)":5
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0x52e33e2:
+ *     if __pyx_checksum != 0xa33c4ba:
  *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x52e33e2 = (_state, _time_limit, _timer, _transition_map, action_space, initial_state_distribution, num_actions, num_states, num_states_origin, observation_space, wrapped_env))" % __pyx_checksum)
- *     __pyx_result = TimeLimitWrapper.__new__(__pyx_type)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xa33c4ba = (_state, _transition_map, action_space, initial_state_distribution, num_actions, num_states, observation_space, wrapped_env))" % __pyx_checksum)
+ *     __pyx_result = TabularEnvWrapper.__new__(__pyx_type)
  */
     __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 5, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
@@ -5431,15 +4458,15 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickl
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
     /* "(tree fragment)":6
- *     if __pyx_checksum != 0x52e33e2:
+ *     if __pyx_checksum != 0xa33c4ba:
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x52e33e2 = (_state, _time_limit, _timer, _transition_map, action_space, initial_state_distribution, num_actions, num_states, num_states_origin, observation_space, wrapped_env))" % __pyx_checksum)             # <<<<<<<<<<<<<<
- *     __pyx_result = TimeLimitWrapper.__new__(__pyx_type)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xa33c4ba = (_state, _transition_map, action_space, initial_state_distribution, num_actions, num_states, observation_space, wrapped_env))" % __pyx_checksum)             # <<<<<<<<<<<<<<
+ *     __pyx_result = TabularEnvWrapper.__new__(__pyx_type)
  *     if __pyx_state is not None:
  */
     __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0x52, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 6, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0xa3, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(2, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_INCREF(__pyx_v___pyx_PickleError);
@@ -5466,20 +4493,20 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickl
     /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0x52e33e2:             # <<<<<<<<<<<<<<
+ *     if __pyx_checksum != 0xa33c4ba:             # <<<<<<<<<<<<<<
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x52e33e2 = (_state, _time_limit, _timer, _transition_map, action_space, initial_state_distribution, num_actions, num_states, num_states_origin, observation_space, wrapped_env))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xa33c4ba = (_state, _transition_map, action_space, initial_state_distribution, num_actions, num_states, observation_space, wrapped_env))" % __pyx_checksum)
  */
   }
 
   /* "(tree fragment)":7
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x52e33e2 = (_state, _time_limit, _timer, _transition_map, action_space, initial_state_distribution, num_actions, num_states, num_states_origin, observation_space, wrapped_env))" % __pyx_checksum)
- *     __pyx_result = TimeLimitWrapper.__new__(__pyx_type)             # <<<<<<<<<<<<<<
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xa33c4ba = (_state, _transition_map, action_space, initial_state_distribution, num_actions, num_states, observation_space, wrapped_env))" % __pyx_checksum)
+ *     __pyx_result = TabularEnvWrapper.__new__(__pyx_type)             # <<<<<<<<<<<<<<
  *     if __pyx_state is not None:
- *         __pyx_unpickle_TimeLimitWrapper__set_state(<TimeLimitWrapper> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_TabularEnvWrapper__set_state(<TabularEnvWrapper> __pyx_result, __pyx_state)
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 7, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper), __pyx_n_s_new); if (unlikely(!__pyx_t_2)) __PYX_ERR(2, 7, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -5500,10 +4527,10 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickl
   __pyx_t_3 = 0;
 
   /* "(tree fragment)":8
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x52e33e2 = (_state, _time_limit, _timer, _transition_map, action_space, initial_state_distribution, num_actions, num_states, num_states_origin, observation_space, wrapped_env))" % __pyx_checksum)
- *     __pyx_result = TimeLimitWrapper.__new__(__pyx_type)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xa33c4ba = (_state, _transition_map, action_space, initial_state_distribution, num_actions, num_states, observation_space, wrapped_env))" % __pyx_checksum)
+ *     __pyx_result = TabularEnvWrapper.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
- *         __pyx_unpickle_TimeLimitWrapper__set_state(<TimeLimitWrapper> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_TabularEnvWrapper__set_state(<TabularEnvWrapper> __pyx_result, __pyx_state)
  *     return __pyx_result
  */
   __pyx_t_1 = (__pyx_v___pyx_state != Py_None);
@@ -5511,32 +4538,32 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickl
   if (__pyx_t_6) {
 
     /* "(tree fragment)":9
- *     __pyx_result = TimeLimitWrapper.__new__(__pyx_type)
+ *     __pyx_result = TabularEnvWrapper.__new__(__pyx_type)
  *     if __pyx_state is not None:
- *         __pyx_unpickle_TimeLimitWrapper__set_state(<TimeLimitWrapper> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
+ *         __pyx_unpickle_TabularEnvWrapper__set_state(<TabularEnvWrapper> __pyx_result, __pyx_state)             # <<<<<<<<<<<<<<
  *     return __pyx_result
- * cdef __pyx_unpickle_TimeLimitWrapper__set_state(TimeLimitWrapper __pyx_result, tuple __pyx_state):
+ * cdef __pyx_unpickle_TabularEnvWrapper__set_state(TabularEnvWrapper __pyx_result, tuple __pyx_state):
  */
     if (!(likely(PyTuple_CheckExact(__pyx_v___pyx_state))||((__pyx_v___pyx_state) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "tuple", Py_TYPE(__pyx_v___pyx_state)->tp_name), 0))) __PYX_ERR(2, 9, __pyx_L1_error)
-    __pyx_t_3 = __pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle_TimeLimitWrapper__set_state(((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 9, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_4rlil_6diag_q_7tabular_11env_wrapper___pyx_unpickle_TabularEnvWrapper__set_state(((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)__pyx_v___pyx_result), ((PyObject*)__pyx_v___pyx_state)); if (unlikely(!__pyx_t_3)) __PYX_ERR(2, 9, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
     /* "(tree fragment)":8
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x52e33e2 = (_state, _time_limit, _timer, _transition_map, action_space, initial_state_distribution, num_actions, num_states, num_states_origin, observation_space, wrapped_env))" % __pyx_checksum)
- *     __pyx_result = TimeLimitWrapper.__new__(__pyx_type)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xa33c4ba = (_state, _transition_map, action_space, initial_state_distribution, num_actions, num_states, observation_space, wrapped_env))" % __pyx_checksum)
+ *     __pyx_result = TabularEnvWrapper.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
- *         __pyx_unpickle_TimeLimitWrapper__set_state(<TimeLimitWrapper> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_TabularEnvWrapper__set_state(<TabularEnvWrapper> __pyx_result, __pyx_state)
  *     return __pyx_result
  */
   }
 
   /* "(tree fragment)":10
  *     if __pyx_state is not None:
- *         __pyx_unpickle_TimeLimitWrapper__set_state(<TimeLimitWrapper> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_TabularEnvWrapper__set_state(<TabularEnvWrapper> __pyx_result, __pyx_state)
  *     return __pyx_result             # <<<<<<<<<<<<<<
- * cdef __pyx_unpickle_TimeLimitWrapper__set_state(TimeLimitWrapper __pyx_result, tuple __pyx_state):
- *     __pyx_result._state = __pyx_state[0]; __pyx_result._time_limit = __pyx_state[1]; __pyx_result._timer = __pyx_state[2]; __pyx_result._transition_map = __pyx_state[3]; __pyx_result.action_space = __pyx_state[4]; __pyx_result.initial_state_distribution = __pyx_state[5]; __pyx_result.num_actions = __pyx_state[6]; __pyx_result.num_states = __pyx_state[7]; __pyx_result.num_states_origin = __pyx_state[8]; __pyx_result.observation_space = __pyx_state[9]; __pyx_result.wrapped_env = __pyx_state[10]
+ * cdef __pyx_unpickle_TabularEnvWrapper__set_state(TabularEnvWrapper __pyx_result, tuple __pyx_state):
+ *     __pyx_result._state = __pyx_state[0]; __pyx_result._transition_map = __pyx_state[1]; __pyx_result.action_space = __pyx_state[2]; __pyx_result.initial_state_distribution = __pyx_state[3]; __pyx_result.num_actions = __pyx_state[4]; __pyx_result.num_states = __pyx_state[5]; __pyx_result.observation_space = __pyx_state[6]; __pyx_result.wrapped_env = __pyx_state[7]
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v___pyx_result);
@@ -5544,7 +4571,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickl
   goto __pyx_L0;
 
   /* "(tree fragment)":1
- * def __pyx_unpickle_TimeLimitWrapper(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_TabularEnvWrapper(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
@@ -5555,7 +4582,7 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickl
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.__pyx_unpickle_TimeLimitWrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.__pyx_unpickle_TabularEnvWrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v___pyx_PickleError);
@@ -5566,14 +4593,14 @@ static PyObject *__pyx_pf_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickl
 }
 
 /* "(tree fragment)":11
- *         __pyx_unpickle_TimeLimitWrapper__set_state(<TimeLimitWrapper> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_TabularEnvWrapper__set_state(<TabularEnvWrapper> __pyx_result, __pyx_state)
  *     return __pyx_result
- * cdef __pyx_unpickle_TimeLimitWrapper__set_state(TimeLimitWrapper __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_result._state = __pyx_state[0]; __pyx_result._time_limit = __pyx_state[1]; __pyx_result._timer = __pyx_state[2]; __pyx_result._transition_map = __pyx_state[3]; __pyx_result.action_space = __pyx_state[4]; __pyx_result.initial_state_distribution = __pyx_state[5]; __pyx_result.num_actions = __pyx_state[6]; __pyx_result.num_states = __pyx_state[7]; __pyx_result.num_states_origin = __pyx_state[8]; __pyx_result.observation_space = __pyx_state[9]; __pyx_result.wrapped_env = __pyx_state[10]
- *     if len(__pyx_state) > 11 and hasattr(__pyx_result, '__dict__'):
+ * cdef __pyx_unpickle_TabularEnvWrapper__set_state(TabularEnvWrapper __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_result._state = __pyx_state[0]; __pyx_result._transition_map = __pyx_state[1]; __pyx_result.action_space = __pyx_state[2]; __pyx_result.initial_state_distribution = __pyx_state[3]; __pyx_result.num_actions = __pyx_state[4]; __pyx_result.num_states = __pyx_state[5]; __pyx_result.observation_space = __pyx_state[6]; __pyx_result.wrapped_env = __pyx_state[7]
+ *     if len(__pyx_state) > 8 and hasattr(__pyx_result, '__dict__'):
  */
 
-static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle_TimeLimitWrapper__set_state(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper___pyx_unpickle_TabularEnvWrapper__set_state(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5589,14 +4616,14 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__pyx_unpickle_TimeLimitWrapper__set_state", 0);
+  __Pyx_RefNannySetupContext("__pyx_unpickle_TabularEnvWrapper__set_state", 0);
 
   /* "(tree fragment)":12
  *     return __pyx_result
- * cdef __pyx_unpickle_TimeLimitWrapper__set_state(TimeLimitWrapper __pyx_result, tuple __pyx_state):
- *     __pyx_result._state = __pyx_state[0]; __pyx_result._time_limit = __pyx_state[1]; __pyx_result._timer = __pyx_state[2]; __pyx_result._transition_map = __pyx_state[3]; __pyx_result.action_space = __pyx_state[4]; __pyx_result.initial_state_distribution = __pyx_state[5]; __pyx_result.num_actions = __pyx_state[6]; __pyx_result.num_states = __pyx_state[7]; __pyx_result.num_states_origin = __pyx_state[8]; __pyx_result.observation_space = __pyx_state[9]; __pyx_result.wrapped_env = __pyx_state[10]             # <<<<<<<<<<<<<<
- *     if len(__pyx_state) > 11 and hasattr(__pyx_result, '__dict__'):
- *         __pyx_result.__dict__.update(__pyx_state[11])
+ * cdef __pyx_unpickle_TabularEnvWrapper__set_state(TabularEnvWrapper __pyx_result, tuple __pyx_state):
+ *     __pyx_result._state = __pyx_state[0]; __pyx_result._transition_map = __pyx_state[1]; __pyx_result.action_space = __pyx_state[2]; __pyx_result.initial_state_distribution = __pyx_state[3]; __pyx_result.num_actions = __pyx_state[4]; __pyx_result.num_states = __pyx_state[5]; __pyx_result.observation_space = __pyx_state[6]; __pyx_result.wrapped_env = __pyx_state[7]             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 8 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[8])
  */
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -5606,120 +4633,93 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v___pyx_result->__pyx_base.__pyx_base._state = __pyx_t_2;
+  __pyx_v___pyx_result->__pyx_base._state = __pyx_t_2;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
+  __pyx_t_3 = __pyx_convert_map_from_py_int__and_double(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v___pyx_result->_time_limit = __pyx_t_2;
+  __pyx_v___pyx_result->__pyx_base._transition_map = __pyx_t_3;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v___pyx_result->_timer = __pyx_t_2;
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->__pyx_base.action_space);
+  __Pyx_DECREF(__pyx_v___pyx_result->__pyx_base.action_space);
+  __pyx_v___pyx_result->__pyx_base.action_space = __pyx_t_1;
+  __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __pyx_convert_map_from_py_int__and_double(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v___pyx_result->__pyx_base.__pyx_base._transition_map = __pyx_t_3;
+  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->__pyx_base.initial_state_distribution);
+  __Pyx_DECREF(__pyx_v___pyx_result->__pyx_base.initial_state_distribution);
+  __pyx_v___pyx_result->__pyx_base.initial_state_distribution = ((PyObject*)__pyx_t_1);
+  __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __Pyx_GIVEREF(__pyx_t_1);
-  __Pyx_GOTREF(__pyx_v___pyx_result->__pyx_base.__pyx_base.action_space);
-  __Pyx_DECREF(__pyx_v___pyx_result->__pyx_base.__pyx_base.action_space);
-  __pyx_v___pyx_result->__pyx_base.__pyx_base.action_space = __pyx_t_1;
-  __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v___pyx_result->__pyx_base.num_actions = __pyx_t_2;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None)||(PyErr_Format(PyExc_TypeError, "Expected %.16s, got %.200s", "dict", Py_TYPE(__pyx_t_1)->tp_name), 0))) __PYX_ERR(2, 12, __pyx_L1_error)
-  __Pyx_GIVEREF(__pyx_t_1);
-  __Pyx_GOTREF(__pyx_v___pyx_result->__pyx_base.__pyx_base.initial_state_distribution);
-  __Pyx_DECREF(__pyx_v___pyx_result->__pyx_base.__pyx_base.initial_state_distribution);
-  __pyx_v___pyx_result->__pyx_base.__pyx_base.initial_state_distribution = ((PyObject*)__pyx_t_1);
-  __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v___pyx_result->__pyx_base.num_states = __pyx_t_2;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v___pyx_result->__pyx_base.__pyx_base.num_actions = __pyx_t_2;
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->__pyx_base.observation_space);
+  __Pyx_DECREF(__pyx_v___pyx_result->__pyx_base.observation_space);
+  __pyx_v___pyx_result->__pyx_base.observation_space = __pyx_t_1;
+  __pyx_t_1 = 0;
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(2, 12, __pyx_L1_error)
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v___pyx_result->__pyx_base.__pyx_base.num_states = __pyx_t_2;
-  if (unlikely(__pyx_v___pyx_state == Py_None)) {
-    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(2, 12, __pyx_L1_error)
-  }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(2, 12, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_v___pyx_result->num_states_origin = __pyx_t_2;
-  if (unlikely(__pyx_v___pyx_state == Py_None)) {
-    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(2, 12, __pyx_L1_error)
-  }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
+  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv))))) __PYX_ERR(2, 12, __pyx_L1_error)
   __Pyx_GIVEREF(__pyx_t_1);
-  __Pyx_GOTREF(__pyx_v___pyx_result->__pyx_base.__pyx_base.observation_space);
-  __Pyx_DECREF(__pyx_v___pyx_result->__pyx_base.__pyx_base.observation_space);
-  __pyx_v___pyx_result->__pyx_base.__pyx_base.observation_space = __pyx_t_1;
-  __pyx_t_1 = 0;
-  if (unlikely(__pyx_v___pyx_state == Py_None)) {
-    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(2, 12, __pyx_L1_error)
-  }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 12, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (!(likely(((__pyx_t_1) == Py_None) || likely(__Pyx_TypeTest(__pyx_t_1, __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv))))) __PYX_ERR(2, 12, __pyx_L1_error)
-  __Pyx_GIVEREF(__pyx_t_1);
-  __Pyx_GOTREF(__pyx_v___pyx_result->__pyx_base.wrapped_env);
-  __Pyx_DECREF(((PyObject *)__pyx_v___pyx_result->__pyx_base.wrapped_env));
-  __pyx_v___pyx_result->__pyx_base.wrapped_env = ((struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *)__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v___pyx_result->wrapped_env);
+  __Pyx_DECREF(((PyObject *)__pyx_v___pyx_result->wrapped_env));
+  __pyx_v___pyx_result->wrapped_env = ((struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)__pyx_t_1);
   __pyx_t_1 = 0;
 
   /* "(tree fragment)":13
- * cdef __pyx_unpickle_TimeLimitWrapper__set_state(TimeLimitWrapper __pyx_result, tuple __pyx_state):
- *     __pyx_result._state = __pyx_state[0]; __pyx_result._time_limit = __pyx_state[1]; __pyx_result._timer = __pyx_state[2]; __pyx_result._transition_map = __pyx_state[3]; __pyx_result.action_space = __pyx_state[4]; __pyx_result.initial_state_distribution = __pyx_state[5]; __pyx_result.num_actions = __pyx_state[6]; __pyx_result.num_states = __pyx_state[7]; __pyx_result.num_states_origin = __pyx_state[8]; __pyx_result.observation_space = __pyx_state[9]; __pyx_result.wrapped_env = __pyx_state[10]
- *     if len(__pyx_state) > 11 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
- *         __pyx_result.__dict__.update(__pyx_state[11])
+ * cdef __pyx_unpickle_TabularEnvWrapper__set_state(TabularEnvWrapper __pyx_result, tuple __pyx_state):
+ *     __pyx_result._state = __pyx_state[0]; __pyx_result._transition_map = __pyx_state[1]; __pyx_result.action_space = __pyx_state[2]; __pyx_result.initial_state_distribution = __pyx_state[3]; __pyx_result.num_actions = __pyx_state[4]; __pyx_result.num_states = __pyx_state[5]; __pyx_result.observation_space = __pyx_state[6]; __pyx_result.wrapped_env = __pyx_state[7]
+ *     if len(__pyx_state) > 8 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[8])
  */
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     __PYX_ERR(2, 13, __pyx_L1_error)
   }
   __pyx_t_5 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(2, 13, __pyx_L1_error)
-  __pyx_t_6 = ((__pyx_t_5 > 11) != 0);
+  __pyx_t_6 = ((__pyx_t_5 > 8) != 0);
   if (__pyx_t_6) {
   } else {
     __pyx_t_4 = __pyx_t_6;
@@ -5732,9 +4732,9 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle
   if (__pyx_t_4) {
 
     /* "(tree fragment)":14
- *     __pyx_result._state = __pyx_state[0]; __pyx_result._time_limit = __pyx_state[1]; __pyx_result._timer = __pyx_state[2]; __pyx_result._transition_map = __pyx_state[3]; __pyx_result.action_space = __pyx_state[4]; __pyx_result.initial_state_distribution = __pyx_state[5]; __pyx_result.num_actions = __pyx_state[6]; __pyx_result.num_states = __pyx_state[7]; __pyx_result.num_states_origin = __pyx_state[8]; __pyx_result.observation_space = __pyx_state[9]; __pyx_result.wrapped_env = __pyx_state[10]
- *     if len(__pyx_state) > 11 and hasattr(__pyx_result, '__dict__'):
- *         __pyx_result.__dict__.update(__pyx_state[11])             # <<<<<<<<<<<<<<
+ *     __pyx_result._state = __pyx_state[0]; __pyx_result._transition_map = __pyx_state[1]; __pyx_result.action_space = __pyx_state[2]; __pyx_result.initial_state_distribution = __pyx_state[3]; __pyx_result.num_actions = __pyx_state[4]; __pyx_result.num_states = __pyx_state[5]; __pyx_result.observation_space = __pyx_state[6]; __pyx_result.wrapped_env = __pyx_state[7]
+ *     if len(__pyx_state) > 8 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[8])             # <<<<<<<<<<<<<<
  */
     __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 14, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
@@ -5745,7 +4745,7 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
       __PYX_ERR(2, 14, __pyx_L1_error)
     }
-    __pyx_t_8 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 11, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 14, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(2, 14, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_10 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
@@ -5766,19 +4766,19 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
     /* "(tree fragment)":13
- * cdef __pyx_unpickle_TimeLimitWrapper__set_state(TimeLimitWrapper __pyx_result, tuple __pyx_state):
- *     __pyx_result._state = __pyx_state[0]; __pyx_result._time_limit = __pyx_state[1]; __pyx_result._timer = __pyx_state[2]; __pyx_result._transition_map = __pyx_state[3]; __pyx_result.action_space = __pyx_state[4]; __pyx_result.initial_state_distribution = __pyx_state[5]; __pyx_result.num_actions = __pyx_state[6]; __pyx_result.num_states = __pyx_state[7]; __pyx_result.num_states_origin = __pyx_state[8]; __pyx_result.observation_space = __pyx_state[9]; __pyx_result.wrapped_env = __pyx_state[10]
- *     if len(__pyx_state) > 11 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
- *         __pyx_result.__dict__.update(__pyx_state[11])
+ * cdef __pyx_unpickle_TabularEnvWrapper__set_state(TabularEnvWrapper __pyx_result, tuple __pyx_state):
+ *     __pyx_result._state = __pyx_state[0]; __pyx_result._transition_map = __pyx_state[1]; __pyx_result.action_space = __pyx_state[2]; __pyx_result.initial_state_distribution = __pyx_state[3]; __pyx_result.num_actions = __pyx_state[4]; __pyx_result.num_states = __pyx_state[5]; __pyx_result.observation_space = __pyx_state[6]; __pyx_result.wrapped_env = __pyx_state[7]
+ *     if len(__pyx_state) > 8 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[8])
  */
   }
 
   /* "(tree fragment)":11
- *         __pyx_unpickle_TimeLimitWrapper__set_state(<TimeLimitWrapper> __pyx_result, __pyx_state)
+ *         __pyx_unpickle_TabularEnvWrapper__set_state(<TabularEnvWrapper> __pyx_result, __pyx_state)
  *     return __pyx_result
- * cdef __pyx_unpickle_TimeLimitWrapper__set_state(TimeLimitWrapper __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_result._state = __pyx_state[0]; __pyx_result._time_limit = __pyx_state[1]; __pyx_result._timer = __pyx_state[2]; __pyx_result._transition_map = __pyx_state[3]; __pyx_result.action_space = __pyx_state[4]; __pyx_result.initial_state_distribution = __pyx_state[5]; __pyx_result.num_actions = __pyx_state[6]; __pyx_result.num_states = __pyx_state[7]; __pyx_result.num_states_origin = __pyx_state[8]; __pyx_result.observation_space = __pyx_state[9]; __pyx_result.wrapped_env = __pyx_state[10]
- *     if len(__pyx_state) > 11 and hasattr(__pyx_result, '__dict__'):
+ * cdef __pyx_unpickle_TabularEnvWrapper__set_state(TabularEnvWrapper __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
+ *     __pyx_result._state = __pyx_state[0]; __pyx_result._transition_map = __pyx_state[1]; __pyx_result.action_space = __pyx_state[2]; __pyx_result.initial_state_distribution = __pyx_state[3]; __pyx_result.num_actions = __pyx_state[4]; __pyx_result.num_states = __pyx_state[5]; __pyx_result.observation_space = __pyx_state[6]; __pyx_result.wrapped_env = __pyx_state[7]
+ *     if len(__pyx_state) > 8 and hasattr(__pyx_result, '__dict__'):
  */
 
   /* function exit code */
@@ -5789,7 +4789,7 @@ static PyObject *__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper___pyx_unpickle
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
   __Pyx_XDECREF(__pyx_t_10);
-  __Pyx_AddTraceback("rlil.diag_q.envs.time_limit_wrapper.__pyx_unpickle_TimeLimitWrapper__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("rlil.diag_q.tabular.env_wrapper.__pyx_unpickle_TabularEnvWrapper__set_state", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -6035,16 +5035,16 @@ static std::map<int,double>  __pyx_convert_map_from_py_int__and_double(PyObject 
 
 /* "FromPyStructUtility":11
  * 
- * @cname("__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep")
- * cdef struct_type __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep(obj) except *:             # <<<<<<<<<<<<<<
+ * @cname("__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep")
+ * cdef struct_type __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep(obj) except *:             # <<<<<<<<<<<<<<
  *     cdef struct_type result
  *     if not PyMapping_Check(obj):
  */
 
-static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep(PyObject *__pyx_v_obj) {
-  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_v_result;
+static struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep(PyObject *__pyx_v_obj) {
+  struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep __pyx_v_result;
   PyObject *__pyx_v_value = NULL;
-  struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_r;
+  struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep __pyx_r;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   PyObject *__pyx_t_2 = NULL;
@@ -6059,10 +5059,10 @@ static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_convert__
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep", 0);
+  __Pyx_RefNannySetupContext("__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep", 0);
 
   /* "FromPyStructUtility":13
- * cdef struct_type __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep(obj) except *:
+ * cdef struct_type __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep(obj) except *:
  *     cdef struct_type result
  *     if not PyMapping_Check(obj):             # <<<<<<<<<<<<<<
  *         PyErr_Format(TypeError, b"Expected %.16s, got %.200s", b"a mapping", Py_TYPE(obj).tp_name)
@@ -6083,7 +5083,7 @@ static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_convert__
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
     /* "FromPyStructUtility":13
- * cdef struct_type __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep(obj) except *:
+ * cdef struct_type __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep(obj) except *:
  *     cdef struct_type result
  *     if not PyMapping_Check(obj):             # <<<<<<<<<<<<<<
  *         PyErr_Format(TypeError, b"Expected %.16s, got %.200s", b"a mapping", Py_TYPE(obj).tp_name)
@@ -6143,7 +5143,7 @@ static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_convert__
  */
     __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
     if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep", __pyx_clineno, __pyx_lineno, __pyx_filename);
       if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 18, __pyx_L6_except_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GOTREF(__pyx_t_7);
@@ -6245,7 +5245,7 @@ static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_convert__
  */
     __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
     if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep", __pyx_clineno, __pyx_lineno, __pyx_filename);
       if (__Pyx_GetException(&__pyx_t_8, &__pyx_t_7, &__pyx_t_2) < 0) __PYX_ERR(2, 23, __pyx_L14_except_error)
       __Pyx_GOTREF(__pyx_t_8);
       __Pyx_GOTREF(__pyx_t_7);
@@ -6347,7 +5347,7 @@ static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_convert__
  */
     __pyx_t_6 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_KeyError);
     if (__pyx_t_6) {
-      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep", __pyx_clineno, __pyx_lineno, __pyx_filename);
       if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_7, &__pyx_t_8) < 0) __PYX_ERR(2, 28, __pyx_L22_except_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_GOTREF(__pyx_t_7);
@@ -6406,8 +5406,8 @@ static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_convert__
 
   /* "FromPyStructUtility":11
  * 
- * @cname("__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep")
- * cdef struct_type __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep(obj) except *:             # <<<<<<<<<<<<<<
+ * @cname("__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep")
+ * cdef struct_type __pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep(obj) except *:             # <<<<<<<<<<<<<<
  *     cdef struct_type result
  *     if not PyMapping_Check(obj):
  */
@@ -6418,7 +5418,7 @@ static struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep __pyx_convert__
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("FromPyStructUtility.__pyx_convert__from_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_pretend_to_initialize(&__pyx_r);
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_value);
@@ -19443,88 +18443,88 @@ static PyObject *__pyx_unpickle_Enum__set_state(struct __pyx_MemviewEnum_obj *__
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static struct __pyx_vtabstruct_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper;
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper;
 
-static PyObject *__pyx_tp_new_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper(PyTypeObject *t, PyObject *a, PyObject *k) {
-  struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *p;
-  PyObject *o = __pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper->tp_new(t, a, k);
+static PyObject *__pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *p;
+  PyObject *o = __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv->tp_new(t, a, k);
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *)o);
-  p->__pyx_base.__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv*)__pyx_vtabptr_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper;
+  p = ((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)o);
+  p->__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv*)__pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper;
+  p->wrapped_env = ((struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)Py_None); Py_INCREF(Py_None);
   return o;
 }
 
-static void __pyx_tp_dealloc_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper(PyObject *o) {
+static void __pyx_tp_dealloc_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper(PyObject *o) {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *p = (struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)o;
   #if CYTHON_USE_TP_FINALIZE
   if (unlikely(PyType_HasFeature(Py_TYPE(o), Py_TPFLAGS_HAVE_FINALIZE) && Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
   }
   #endif
   PyObject_GC_UnTrack(o);
+  Py_CLEAR(p->wrapped_env);
   PyObject_GC_Track(o);
-  if (likely(__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper)) __pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper->tp_dealloc(o); else __Pyx_call_next_tp_dealloc(o, __pyx_tp_dealloc_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper);
+  if (likely(__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv)) __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv->tp_dealloc(o); else __Pyx_call_next_tp_dealloc(o, __pyx_tp_dealloc_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper);
 }
 
-static int __pyx_tp_traverse_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper(PyObject *o, visitproc v, void *a) {
   int e;
-  e = ((likely(__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper)) ? ((__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper->tp_traverse) ? __pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper->tp_traverse(o, v, a) : 0) : __Pyx_call_next_tp_traverse(o, v, a, __pyx_tp_traverse_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper)); if (e) return e;
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *p = (struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)o;
+  e = ((likely(__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv)) ? ((__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv->tp_traverse) ? __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv->tp_traverse(o, v, a) : 0) : __Pyx_call_next_tp_traverse(o, v, a, __pyx_tp_traverse_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper)); if (e) return e;
+  if (p->wrapped_env) {
+    e = (*v)(((PyObject *)p->wrapped_env), a); if (e) return e;
+  }
   return 0;
 }
 
-static int __pyx_tp_clear_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper(PyObject *o) {
-  if (likely(__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper)) { if (__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper->tp_clear) __pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper->tp_clear(o); } else __Pyx_call_next_tp_clear(o, __pyx_tp_clear_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper);
+static int __pyx_tp_clear_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *p = (struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper *)o;
+  if (likely(__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv)) { if (__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv->tp_clear) __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv->tp_clear(o); } else __Pyx_call_next_tp_clear(o, __pyx_tp_clear_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper);
+  tmp = ((PyObject*)p->wrapped_env);
+  p->wrapped_env = ((struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *)Py_None); Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
   return 0;
 }
 
-static PyObject *__pyx_getprop_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_time_limit(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_10time_limit_1__get__(o);
+static PyObject *__pyx_getprop_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_wrapped_env(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_1__get__(o);
 }
 
-static PyObject *__pyx_getprop_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_timer(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5timer_1__get__(o);
-}
-
-static PyObject *__pyx_getprop_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_num_states_origin(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin_1__get__(o);
-}
-
-static int __pyx_setprop_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_num_states_origin(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+static int __pyx_setprop_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_wrapped_env(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
   if (v) {
-    return __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17num_states_origin_3__set__(o, v);
+    return __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_3__set__(o, v);
   }
   else {
-    PyErr_SetString(PyExc_NotImplementedError, "__del__");
-    return -1;
+    return __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11wrapped_env_5__del__(o);
   }
 }
 
-static PyMethodDef __pyx_methods_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper[] = {
-  {"reset_state", (PyCFunction)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_3reset_state, METH_NOARGS, 0},
-  {"step_state", (PyCFunction)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_5step_state, METH_O, 0},
-  {"reward", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_7reward, METH_VARARGS|METH_KEYWORDS, 0},
-  {"observation", (PyCFunction)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_9observation, METH_O, 0},
-  {"set_state", (PyCFunction)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_11set_state, METH_O, 0},
-  {"unwrap_state", (PyCFunction)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_13unwrap_state, METH_O, 0},
-  {"wrap_state", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_15wrap_state, METH_VARARGS|METH_KEYWORDS, 0},
-  {"get_state", (PyCFunction)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_17get_state, METH_NOARGS, 0},
-  {"__reduce_cython__", (PyCFunction)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_19__reduce_cython__, METH_NOARGS, 0},
-  {"__setstate_cython__", (PyCFunction)__pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_21__setstate_cython__, METH_O, 0},
+static PyMethodDef __pyx_methods_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper[] = {
+  {"reward", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_3reward, METH_VARARGS|METH_KEYWORDS, 0},
+  {"observation", (PyCFunction)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_5observation, METH_O, 0},
+  {"step_state", (PyCFunction)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_7step_state, METH_O, 0},
+  {"reset_state", (PyCFunction)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_9reset_state, METH_NOARGS, 0},
+  {"set_state", (PyCFunction)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_11set_state, METH_O, 0},
+  {"get_state", (PyCFunction)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_13get_state, METH_NOARGS, 0},
+  {"render", (PyCFunction)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_15render, METH_NOARGS, 0},
+  {"__reduce_cython__", (PyCFunction)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_17__reduce_cython__, METH_NOARGS, 0},
+  {"__setstate_cython__", (PyCFunction)__pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_19__setstate_cython__, METH_O, 0},
   {0, 0, 0, 0}
 };
 
-static struct PyGetSetDef __pyx_getsets_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper[] = {
-  {(char *)"time_limit", __pyx_getprop_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_time_limit, 0, (char *)0, 0},
-  {(char *)"timer", __pyx_getprop_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_timer, 0, (char *)0, 0},
-  {(char *)"num_states_origin", __pyx_getprop_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_num_states_origin, __pyx_setprop_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_num_states_origin, (char *)0, 0},
+static struct PyGetSetDef __pyx_getsets_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper[] = {
+  {(char *)"wrapped_env", __pyx_getprop_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_wrapped_env, __pyx_setprop_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_wrapped_env, (char *)0, 0},
   {0, 0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper = {
+static PyTypeObject __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper = {
   PyVarObject_HEAD_INIT(0, 0)
-  "rlil.diag_q.envs.time_limit_wrapper.TimeLimitWrapper", /*tp_name*/
-  sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper), /*tp_basicsize*/
+  "rlil.diag_q.tabular.env_wrapper.TabularEnvWrapper", /*tp_name*/
+  sizeof(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper, /*tp_dealloc*/
+  __pyx_tp_dealloc_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_dealloc*/
   #if PY_VERSION_HEX < 0x030800b4
   0, /*tp_print*/
   #endif
@@ -19551,23 +18551,189 @@ static PyTypeObject __pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimi
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   0, /*tp_doc*/
-  __pyx_tp_traverse_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper, /*tp_traverse*/
-  __pyx_tp_clear_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper, /*tp_clear*/
+  __pyx_tp_traverse_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_traverse*/
+  __pyx_tp_clear_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper, /*tp_methods*/
+  __pyx_methods_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_methods*/
   0, /*tp_members*/
-  __pyx_getsets_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper, /*tp_getset*/
+  __pyx_getsets_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_1__init__, /*tp_init*/
+  __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_1__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper, /*tp_new*/
+  __pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b4 && PY_VERSION_HEX < 0x03090000
+  0, /*tp_print*/
+  #endif
+};
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper;
+
+static PyObject *__pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper *p;
+  PyObject *o = __pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper(t, a, k);
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper *)o);
+  p->__pyx_base.__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv*)__pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper;
+  return o;
+}
+
+static PyTypeObject __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "rlil.diag_q.tabular.env_wrapper.AbsorbingStateWrapper", /*tp_name*/
+  sizeof(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_dealloc*/
+  #if PY_VERSION_HEX < 0x030800b4
+  0, /*tp_print*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b4
+  0, /*tp_vectorcall_offset*/
+  #endif
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_traverse*/
+  __pyx_tp_clear_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  #if CYTHON_COMPILING_IN_PYPY
+  __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_1__init__, /*tp_init*/
+  #else
+  0, /*tp_init*/
+  #endif
+  0, /*tp_alloc*/
+  __pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper, /*tp_new*/
+  0, /*tp_free*/
+  0, /*tp_is_gc*/
+  0, /*tp_bases*/
+  0, /*tp_mro*/
+  0, /*tp_cache*/
+  0, /*tp_subclasses*/
+  0, /*tp_weaklist*/
+  0, /*tp_del*/
+  0, /*tp_version_tag*/
+  #if PY_VERSION_HEX >= 0x030400a1
+  0, /*tp_finalize*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b1
+  0, /*tp_vectorcall*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b4 && PY_VERSION_HEX < 0x03090000
+  0, /*tp_print*/
+  #endif
+};
+static struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper;
+
+static PyObject *__pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper *p;
+  PyObject *o = __pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper(t, a, k);
+  if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper *)o);
+  p->__pyx_base.__pyx_base.__pyx_vtab = (struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv*)__pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper;
+  return o;
+}
+
+static PyTypeObject __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper = {
+  PyVarObject_HEAD_INIT(0, 0)
+  "rlil.diag_q.tabular.env_wrapper.StochasticActionWrapper", /*tp_name*/
+  sizeof(struct __pyx_obj_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper), /*tp_basicsize*/
+  0, /*tp_itemsize*/
+  __pyx_tp_dealloc_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_dealloc*/
+  #if PY_VERSION_HEX < 0x030800b4
+  0, /*tp_print*/
+  #endif
+  #if PY_VERSION_HEX >= 0x030800b4
+  0, /*tp_vectorcall_offset*/
+  #endif
+  0, /*tp_getattr*/
+  0, /*tp_setattr*/
+  #if PY_MAJOR_VERSION < 3
+  0, /*tp_compare*/
+  #endif
+  #if PY_MAJOR_VERSION >= 3
+  0, /*tp_as_async*/
+  #endif
+  0, /*tp_repr*/
+  0, /*tp_as_number*/
+  0, /*tp_as_sequence*/
+  0, /*tp_as_mapping*/
+  0, /*tp_hash*/
+  0, /*tp_call*/
+  0, /*tp_str*/
+  0, /*tp_getattro*/
+  0, /*tp_setattro*/
+  0, /*tp_as_buffer*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  0, /*tp_doc*/
+  __pyx_tp_traverse_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_traverse*/
+  __pyx_tp_clear_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper, /*tp_clear*/
+  0, /*tp_richcompare*/
+  0, /*tp_weaklistoffset*/
+  0, /*tp_iter*/
+  0, /*tp_iternext*/
+  0, /*tp_methods*/
+  0, /*tp_members*/
+  0, /*tp_getset*/
+  0, /*tp_base*/
+  0, /*tp_dict*/
+  0, /*tp_descr_get*/
+  0, /*tp_descr_set*/
+  0, /*tp_dictoffset*/
+  #if CYTHON_COMPILING_IN_PYPY
+  __pyx_pw_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_1__init__, /*tp_init*/
+  #else
+  0, /*tp_init*/
+  #endif
+  0, /*tp_alloc*/
+  __pyx_tp_new_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -19710,7 +18876,7 @@ static PyBufferProcs __pyx_tp_as_buffer_array = {
 
 static PyTypeObject __pyx_type___pyx_array = {
   PyVarObject_HEAD_INIT(0, 0)
-  "rlil.diag_q.envs.time_limit_wrapper.array", /*tp_name*/
+  "rlil.diag_q.tabular.env_wrapper.array", /*tp_name*/
   sizeof(struct __pyx_array_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_array, /*tp_dealloc*/
@@ -19829,7 +18995,7 @@ static PyMethodDef __pyx_methods_Enum[] = {
 
 static PyTypeObject __pyx_type___pyx_MemviewEnum = {
   PyVarObject_HEAD_INIT(0, 0)
-  "rlil.diag_q.envs.time_limit_wrapper.Enum", /*tp_name*/
+  "rlil.diag_q.tabular.env_wrapper.Enum", /*tp_name*/
   sizeof(struct __pyx_MemviewEnum_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_Enum, /*tp_dealloc*/
@@ -20090,7 +19256,7 @@ static PyBufferProcs __pyx_tp_as_buffer_memoryview = {
 
 static PyTypeObject __pyx_type___pyx_memoryview = {
   PyVarObject_HEAD_INIT(0, 0)
-  "rlil.diag_q.envs.time_limit_wrapper.memoryview", /*tp_name*/
+  "rlil.diag_q.tabular.env_wrapper.memoryview", /*tp_name*/
   sizeof(struct __pyx_memoryview_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc_memoryview, /*tp_dealloc*/
@@ -20228,7 +19394,7 @@ static struct PyGetSetDef __pyx_getsets__memoryviewslice[] = {
 
 static PyTypeObject __pyx_type___pyx_memoryviewslice = {
   PyVarObject_HEAD_INIT(0, 0)
-  "rlil.diag_q.envs.time_limit_wrapper._memoryviewslice", /*tp_name*/
+  "rlil.diag_q.tabular.env_wrapper._memoryviewslice", /*tp_name*/
   sizeof(struct __pyx_memoryviewslice_obj), /*tp_basicsize*/
   0, /*tp_itemsize*/
   __pyx_tp_dealloc__memoryviewslice, /*tp_dealloc*/
@@ -20310,17 +19476,17 @@ static PyMethodDef __pyx_methods[] = {
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_time_limit_wrapper(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_env_wrapper(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_time_limit_wrapper},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_env_wrapper},
   {0, NULL}
 };
 #endif
 
 static struct PyModuleDef __pyx_moduledef = {
     PyModuleDef_HEAD_INIT,
-    "time_limit_wrapper",
+    "env_wrapper",
     0, /* m_doc */
   #if CYTHON_PEP489_MULTI_PHASE_INIT
     0, /* m_size */
@@ -20350,6 +19516,7 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_ASCII, __pyx_k_ASCII, sizeof(__pyx_k_ASCII), 0, 0, 1, 1},
+  {&__pyx_n_s_AbsorbingStateWrapper, __pyx_k_AbsorbingStateWrapper, sizeof(__pyx_k_AbsorbingStateWrapper), 0, 0, 1, 1},
   {&__pyx_kp_s_Buffer_view_does_not_expose_stri, __pyx_k_Buffer_view_does_not_expose_stri, sizeof(__pyx_k_Buffer_view_does_not_expose_stri), 0, 0, 1, 0},
   {&__pyx_kp_s_Can_only_create_a_buffer_that_is, __pyx_k_Can_only_create_a_buffer_that_is, sizeof(__pyx_k_Can_only_create_a_buffer_that_is), 0, 0, 1, 0},
   {&__pyx_kp_s_Cannot_assign_to_read_only_memor, __pyx_k_Cannot_assign_to_read_only_memor, sizeof(__pyx_k_Cannot_assign_to_read_only_memor), 0, 0, 1, 0},
@@ -20357,7 +19524,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_Cannot_index_with_type_s, __pyx_k_Cannot_index_with_type_s, sizeof(__pyx_k_Cannot_index_with_type_s), 0, 0, 1, 0},
   {&__pyx_n_s_Ellipsis, __pyx_k_Ellipsis, sizeof(__pyx_k_Ellipsis), 0, 0, 1, 1},
   {&__pyx_kp_s_Empty_shape_tuple_for_cython_arr, __pyx_k_Empty_shape_tuple_for_cython_arr, sizeof(__pyx_k_Empty_shape_tuple_for_cython_arr), 0, 0, 1, 0},
-  {&__pyx_kp_s_Incompatible_checksums_s_vs_0x52, __pyx_k_Incompatible_checksums_s_vs_0x52, sizeof(__pyx_k_Incompatible_checksums_s_vs_0x52), 0, 0, 1, 0},
+  {&__pyx_kp_s_Incompatible_checksums_s_vs_0xa3, __pyx_k_Incompatible_checksums_s_vs_0xa3, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xa3), 0, 0, 1, 0},
   {&__pyx_kp_s_Incompatible_checksums_s_vs_0xb0, __pyx_k_Incompatible_checksums_s_vs_0xb0, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xb0), 0, 0, 1, 0},
   {&__pyx_n_s_IndexError, __pyx_k_IndexError, sizeof(__pyx_k_IndexError), 0, 0, 1, 1},
   {&__pyx_kp_s_Indirect_dimensions_not_supporte, __pyx_k_Indirect_dimensions_not_supporte, sizeof(__pyx_k_Indirect_dimensions_not_supporte), 0, 0, 1, 0},
@@ -20373,7 +19540,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_b_O, __pyx_k_O, sizeof(__pyx_k_O), 0, 0, 0, 1},
   {&__pyx_kp_s_Out_of_bounds_on_buffer_access_a, __pyx_k_Out_of_bounds_on_buffer_access_a, sizeof(__pyx_k_Out_of_bounds_on_buffer_access_a), 0, 0, 1, 0},
   {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
-  {&__pyx_n_s_TimeLimitWrapper, __pyx_k_TimeLimitWrapper, sizeof(__pyx_k_TimeLimitWrapper), 0, 0, 1, 1},
+  {&__pyx_n_s_StochasticActionWrapper, __pyx_k_StochasticActionWrapper, sizeof(__pyx_k_StochasticActionWrapper), 0, 0, 1, 1},
+  {&__pyx_n_s_TabularEnvWrapper, __pyx_k_TabularEnvWrapper, sizeof(__pyx_k_TabularEnvWrapper), 0, 0, 1, 1},
   {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
   {&__pyx_kp_s_Unable_to_convert_item_to_object, __pyx_k_Unable_to_convert_item_to_object, sizeof(__pyx_k_Unable_to_convert_item_to_object), 0, 0, 1, 0},
   {&__pyx_n_s_ValueError, __pyx_k_ValueError, sizeof(__pyx_k_ValueError), 0, 0, 1, 1},
@@ -20392,7 +19560,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_dtype_is_object, __pyx_k_dtype_is_object, sizeof(__pyx_k_dtype_is_object), 0, 0, 1, 1},
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
   {&__pyx_n_s_enumerate, __pyx_k_enumerate, sizeof(__pyx_k_enumerate), 0, 0, 1, 1},
-  {&__pyx_n_s_env, __pyx_k_env, sizeof(__pyx_k_env), 0, 0, 1, 1},
   {&__pyx_n_s_error, __pyx_k_error, sizeof(__pyx_k_error), 0, 0, 1, 1},
   {&__pyx_n_s_flags, __pyx_k_flags, sizeof(__pyx_k_flags), 0, 0, 1, 1},
   {&__pyx_n_s_format, __pyx_k_format, sizeof(__pyx_k_format), 0, 0, 1, 1},
@@ -20403,7 +19570,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_got_differing_extents_in_dimensi, __pyx_k_got_differing_extents_in_dimensi, sizeof(__pyx_k_got_differing_extents_in_dimensi), 0, 0, 1, 0},
   {&__pyx_n_s_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
-  {&__pyx_n_s_init, __pyx_k_init, sizeof(__pyx_k_init), 0, 0, 1, 1},
   {&__pyx_n_s_itemsize, __pyx_k_itemsize, sizeof(__pyx_k_itemsize), 0, 0, 1, 1},
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_iteritems, __pyx_k_iteritems, sizeof(__pyx_k_iteritems), 0, 0, 1, 1},
@@ -20414,6 +19580,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_name_2, __pyx_k_name_2, sizeof(__pyx_k_name_2), 0, 0, 1, 1},
   {&__pyx_n_s_ndim, __pyx_k_ndim, sizeof(__pyx_k_ndim), 0, 0, 1, 1},
   {&__pyx_n_s_new, __pyx_k_new, sizeof(__pyx_k_new), 0, 0, 1, 1},
+  {&__pyx_n_s_next_state, __pyx_k_next_state, sizeof(__pyx_k_next_state), 0, 0, 1, 1},
   {&__pyx_kp_s_no_default___reduce___due_to_non, __pyx_k_no_default___reduce___due_to_non, sizeof(__pyx_k_no_default___reduce___due_to_non), 0, 0, 1, 0},
   {&__pyx_n_s_obj, __pyx_k_obj, sizeof(__pyx_k_obj), 0, 0, 1, 1},
   {&__pyx_n_s_observation, __pyx_k_observation, sizeof(__pyx_k_observation), 0, 0, 1, 1},
@@ -20426,15 +19593,16 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_pyx_state, __pyx_k_pyx_state, sizeof(__pyx_k_pyx_state), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_type, __pyx_k_pyx_type, sizeof(__pyx_k_pyx_type), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_unpickle_Enum, __pyx_k_pyx_unpickle_Enum, sizeof(__pyx_k_pyx_unpickle_Enum), 0, 0, 1, 1},
-  {&__pyx_n_s_pyx_unpickle_TimeLimitWrapper, __pyx_k_pyx_unpickle_TimeLimitWrapper, sizeof(__pyx_k_pyx_unpickle_TimeLimitWrapper), 0, 0, 1, 1},
+  {&__pyx_n_s_pyx_unpickle_TabularEnvWrapper, __pyx_k_pyx_unpickle_TabularEnvWrapper, sizeof(__pyx_k_pyx_unpickle_TabularEnvWrapper), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_reduce, __pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_cython, __pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
+  {&__pyx_n_s_render, __pyx_k_render, sizeof(__pyx_k_render), 0, 0, 1, 1},
   {&__pyx_n_s_reset_state, __pyx_k_reset_state, sizeof(__pyx_k_reset_state), 0, 0, 1, 1},
   {&__pyx_n_s_reward, __pyx_k_reward, sizeof(__pyx_k_reward), 0, 0, 1, 1},
-  {&__pyx_n_s_rlil_diag_q_envs_time_limit_wrap, __pyx_k_rlil_diag_q_envs_time_limit_wrap, sizeof(__pyx_k_rlil_diag_q_envs_time_limit_wrap), 0, 0, 1, 1},
+  {&__pyx_n_s_rlil_diag_q_tabular_env_wrapper, __pyx_k_rlil_diag_q_tabular_env_wrapper, sizeof(__pyx_k_rlil_diag_q_tabular_env_wrapper), 0, 0, 1, 1},
   {&__pyx_n_s_set_state, __pyx_k_set_state, sizeof(__pyx_k_set_state), 0, 0, 1, 1},
   {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
   {&__pyx_n_s_setstate_cython, __pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 0, 1, 1},
@@ -20450,22 +19618,15 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_strided_and_indirect, __pyx_k_strided_and_indirect, sizeof(__pyx_k_strided_and_indirect), 0, 0, 1, 0},
   {&__pyx_kp_s_stringsource, __pyx_k_stringsource, sizeof(__pyx_k_stringsource), 0, 0, 1, 0},
   {&__pyx_n_s_struct, __pyx_k_struct, sizeof(__pyx_k_struct), 0, 0, 1, 1},
-  {&__pyx_n_s_super, __pyx_k_super, sizeof(__pyx_k_super), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
-  {&__pyx_n_s_time, __pyx_k_time, sizeof(__pyx_k_time), 0, 0, 1, 1},
-  {&__pyx_n_s_time_limit, __pyx_k_time_limit, sizeof(__pyx_k_time_limit), 0, 0, 1, 1},
   {&__pyx_kp_s_unable_to_allocate_array_data, __pyx_k_unable_to_allocate_array_data, sizeof(__pyx_k_unable_to_allocate_array_data), 0, 0, 1, 0},
   {&__pyx_kp_s_unable_to_allocate_shape_and_str, __pyx_k_unable_to_allocate_shape_and_str, sizeof(__pyx_k_unable_to_allocate_shape_and_str), 0, 0, 1, 0},
   {&__pyx_n_s_unpack, __pyx_k_unpack, sizeof(__pyx_k_unpack), 0, 0, 1, 1},
-  {&__pyx_n_s_unwrap_state, __pyx_k_unwrap_state, sizeof(__pyx_k_unwrap_state), 0, 0, 1, 1},
   {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
-  {&__pyx_n_s_wrap_state, __pyx_k_wrap_state, sizeof(__pyx_k_wrap_state), 0, 0, 1, 1},
-  {&__pyx_n_s_wrapped_next_state, __pyx_k_wrapped_next_state, sizeof(__pyx_k_wrapped_next_state), 0, 0, 1, 1},
-  {&__pyx_n_s_wrapped_state, __pyx_k_wrapped_state, sizeof(__pyx_k_wrapped_state), 0, 0, 1, 1},
+  {&__pyx_n_s_wrapped_env, __pyx_k_wrapped_env, sizeof(__pyx_k_wrapped_env), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_super = __Pyx_GetBuiltinName(__pyx_n_s_super); if (!__pyx_builtin_super) __PYX_ERR(0, 10, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(2, 14, __pyx_L1_error)
   __pyx_builtin_KeyError = __Pyx_GetBuiltinName(__pyx_n_s_KeyError); if (!__pyx_builtin_KeyError) __PYX_ERR(2, 18, __pyx_L1_error)
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(2, 19, __pyx_L1_error)
@@ -20710,14 +19871,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__21);
 
   /* "(tree fragment)":1
- * def __pyx_unpickle_TimeLimitWrapper(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_TabularEnvWrapper(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
   __pyx_tuple__22 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__22)) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
-  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_TimeLimitWrapper, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __pyx_codeobj__23 = (PyObject*)__Pyx_PyCode_New(3, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__22, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_TabularEnvWrapper, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__23)) __PYX_ERR(2, 1, __pyx_L1_error)
 
   /* "View.MemoryView":286
  *         return self.name
@@ -20794,7 +19955,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_int_86914018 = PyInt_FromLong(86914018L); if (unlikely(!__pyx_int_86914018)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_171164858 = PyInt_FromLong(171164858L); if (unlikely(!__pyx_int_171164858)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_184977713 = PyInt_FromLong(184977713L); if (unlikely(!__pyx_int_184977713)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_neg_1 = PyInt_FromLong(-1); if (unlikely(!__pyx_int_neg_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
@@ -20847,34 +20008,59 @@ static int __Pyx_modinit_type_init_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  __pyx_t_1 = PyImport_ImportModule("rlil.diag_q.envs.env_wrapper"); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("rlil.diag_q.tabular.tabular_env"); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.env_wrapper", "TabularEnvWrapper", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper = &__pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper;
-  __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.__pyx_base = *__pyx_vtabptr_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper;
-  __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.__pyx_base.__pyx_base.transitions_cy = (std::map<int,double>  (*)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int))__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_transitions_cy;
-  __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.__pyx_base.__pyx_base.reward = (double (*)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int, int, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_reward;
-  __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.__pyx_base.__pyx_base.observation = (PyObject *(*)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_observation;
-  __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.__pyx_base.__pyx_base.step_state = (struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep (*)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_step_state;
-  __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.__pyx_base.__pyx_base.reset_state = (int (*)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_reset_state;
-  __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.__pyx_base.__pyx_base.set_state = (PyObject *(*)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_set_state;
-  __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.__pyx_base.__pyx_base.get_state = (int (*)(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv *, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_get_state;
-  __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.unwrap_state = (__pyx_ctuple_int__and_int (*)(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *, int, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_unwrap_state;
-  __pyx_vtable_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.wrap_state = (int (*)(struct __pyx_obj_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper *, int, int, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_4envs_18time_limit_wrapper_16TimeLimitWrapper_wrap_state;
-  __pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.tp_base = __pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_TabularEnvWrapper;
-  if (PyType_Ready(&__pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.tabular.tabular_env", "TabularEnv", sizeof(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv = (struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper = &__pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.__pyx_base = *__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.__pyx_base.transitions_cy = (std::map<int,double>  (*)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int))__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_transitions_cy;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.__pyx_base.reward = (double (*)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int, int, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_reward;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.__pyx_base.observation = (PyObject *(*)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_observation;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.__pyx_base.step_state = (struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep (*)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_step_state;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.__pyx_base.reset_state = (int (*)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_reset_state;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.__pyx_base.set_state = (PyObject *(*)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_set_state;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.__pyx_base.get_state = (int (*)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_get_state;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.__pyx_base.render = (PyObject *(*)(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv *, int __pyx_skip_dispatch))__pyx_f_4rlil_6diag_q_7tabular_11env_wrapper_17TabularEnvWrapper_render;
+  __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.tp_base = __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_TabularEnv;
+  if (PyType_Ready(&__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
-  __pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.tp_print = 0;
+  __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.tp_print = 0;
   #endif
-  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.tp_dictoffset && __pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.tp_getattro == PyObject_GenericGetAttr)) {
-    __pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.tp_dictoffset && __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (__Pyx_SetVtable(__pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper.tp_dict, __pyx_vtabptr_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_TimeLimitWrapper, (PyObject *)&__pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
-  __pyx_ptype_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper = &__pyx_type_4rlil_6diag_q_4envs_18time_limit_wrapper_TimeLimitWrapper;
+  if (__Pyx_SetVtable(__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper.tp_dict, __pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_TabularEnvWrapper, (PyObject *)&__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper) < 0) __PYX_ERR(0, 8, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper = &__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper;
+  __pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper = &__pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper.__pyx_base = *__pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper;
+  __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper.tp_base = __pyx_ptype_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper;
+  if (PyType_Ready(&__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper) < 0) __PYX_ERR(1, 6, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper.tp_dictoffset && __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (__Pyx_SetVtable(__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper.tp_dict, __pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper) < 0) __PYX_ERR(1, 6, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_AbsorbingStateWrapper, (PyObject *)&__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper) < 0) __PYX_ERR(1, 6, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper = &__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_AbsorbingStateWrapper;
+  __pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper = &__pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper;
+  __pyx_vtable_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper.__pyx_base = *__pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper;
+  __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper.tp_base = __pyx_ptype_4rlil_6diag_q_7tabular_11env_wrapper_TabularEnvWrapper;
+  if (PyType_Ready(&__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper) < 0) __PYX_ERR(1, 10, __pyx_L1_error)
+  #if PY_VERSION_HEX < 0x030800B1
+  __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper.tp_print = 0;
+  #endif
+  if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper.tp_dictoffset && __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper.tp_getattro == PyObject_GenericGetAttr)) {
+    __pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper.tp_getattro = __Pyx_PyObject_GenericGetAttr;
+  }
+  if (__Pyx_SetVtable(__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper.tp_dict, __pyx_vtabptr_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper) < 0) __PYX_ERR(1, 10, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_StochasticActionWrapper, (PyObject *)&__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper) < 0) __PYX_ERR(1, 10, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper = &__pyx_type_4rlil_6diag_q_7tabular_11env_wrapper_StochasticActionWrapper;
   __pyx_vtabptr_array = &__pyx_vtable_array;
   __pyx_vtable_array.get_memview = (PyObject *(*)(struct __pyx_array_obj *))__pyx_array_get_memview;
   if (PyType_Ready(&__pyx_type___pyx_array) < 0) __PYX_ERR(2, 105, __pyx_L1_error)
@@ -20943,32 +20129,20 @@ static int __Pyx_modinit_type_import_code(void) {
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_import_code", 0);
   /*--- Type import code ---*/
-  __pyx_t_1 = PyImport_ImportModule("rlil.diag_q.envs.tabular_env"); if (unlikely(!__pyx_t_1)) __PYX_ERR(3, 10, __pyx_L1_error)
+  __pyx_t_1 = PyImport_ImportModule("rlil.diag_q.tabular.tabular_env"); if (unlikely(!__pyx_t_1)) __PYX_ERR(3, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.tabular_env", "TabularEnv", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_TabularEnv), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv) __PYX_ERR(3, 10, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_TabularEnv = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_TabularEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_TabularEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_TabularEnv)) __PYX_ERR(3, 10, __pyx_L1_error)
-  __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.tabular_env", "CliffwalkEnv", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv) __PYX_ERR(3, 32, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_CliffwalkEnv)) __PYX_ERR(3, 32, __pyx_L1_error)
-  __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.tabular_env", "RandomTabularEnv", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv) __PYX_ERR(3, 35, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_RandomTabularEnv)) __PYX_ERR(3, 35, __pyx_L1_error)
-  __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.tabular_env", "InvertedPendulum", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum) __PYX_ERR(3, 45, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_InvertedPendulum)) __PYX_ERR(3, 45, __pyx_L1_error)
-  __pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_MountainCar = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.tabular_env", "MountainCar", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11tabular_env_MountainCar), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_MountainCar) __PYX_ERR(3, 73, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_MountainCar = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11tabular_env_MountainCar*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11tabular_env_MountainCar->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11tabular_env_MountainCar)) __PYX_ERR(3, 73, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyImport_ImportModule("rlil.diag_q.envs.env_wrapper"); if (unlikely(!__pyx_t_1)) __PYX_ERR(4, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  __pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.env_wrapper", "AbsorbingStateWrapper", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper) __PYX_ERR(4, 6, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11env_wrapper_AbsorbingStateWrapper)) __PYX_ERR(4, 6, __pyx_L1_error)
-  __pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.envs.env_wrapper", "StochasticActionWrapper", sizeof(struct __pyx_obj_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper), __Pyx_ImportType_CheckSize_Warn);
-   if (!__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper) __PYX_ERR(4, 10, __pyx_L1_error)
-  __pyx_vtabptr_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper = (struct __pyx_vtabstruct_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_4envs_11env_wrapper_StochasticActionWrapper)) __PYX_ERR(4, 10, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.tabular.tabular_env", "CliffwalkEnv", sizeof(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv) __PYX_ERR(3, 32, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv = (struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_CliffwalkEnv)) __PYX_ERR(3, 32, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.tabular.tabular_env", "RandomTabularEnv", sizeof(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv) __PYX_ERR(3, 35, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv = (struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_RandomTabularEnv)) __PYX_ERR(3, 35, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.tabular.tabular_env", "InvertedPendulum", sizeof(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum) __PYX_ERR(3, 45, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum = (struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_InvertedPendulum)) __PYX_ERR(3, 45, __pyx_L1_error)
+  __pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_MountainCar = __Pyx_ImportType(__pyx_t_1, "rlil.diag_q.tabular.tabular_env", "MountainCar", sizeof(struct __pyx_obj_4rlil_6diag_q_7tabular_11tabular_env_MountainCar), __Pyx_ImportType_CheckSize_Warn);
+   if (!__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_MountainCar) __PYX_ERR(3, 73, __pyx_L1_error)
+  __pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_MountainCar = (struct __pyx_vtabstruct_4rlil_6diag_q_7tabular_11tabular_env_MountainCar*)__Pyx_GetVtable(__pyx_ptype_4rlil_6diag_q_7tabular_11tabular_env_MountainCar->tp_dict); if (unlikely(!__pyx_vtabptr_4rlil_6diag_q_7tabular_11tabular_env_MountainCar)) __PYX_ERR(3, 73, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -21013,11 +20187,11 @@ static int __Pyx_modinit_function_import_code(void) {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC inittime_limit_wrapper(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC inittime_limit_wrapper(void)
+__Pyx_PyMODINIT_FUNC initenv_wrapper(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initenv_wrapper(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_time_limit_wrapper(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_time_limit_wrapper(void)
+__Pyx_PyMODINIT_FUNC PyInit_env_wrapper(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_env_wrapper(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -21084,7 +20258,7 @@ bad:
 }
 
 
-static CYTHON_SMALL_CODE int __pyx_pymod_exec_time_limit_wrapper(PyObject *__pyx_pyinit_module)
+static CYTHON_SMALL_CODE int __pyx_pymod_exec_env_wrapper(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -21097,7 +20271,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_time_limit_wrapper(PyObject *__pyx
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
     if (__pyx_m == __pyx_pyinit_module) return 0;
-    PyErr_SetString(PyExc_RuntimeError, "Module 'time_limit_wrapper' has already been imported. Re-initialisation is not supported.");
+    PyErr_SetString(PyExc_RuntimeError, "Module 'env_wrapper' has already been imported. Re-initialisation is not supported.");
     return -1;
   }
   #elif PY_MAJOR_VERSION >= 3
@@ -21112,7 +20286,7 @@ if (!__Pyx_RefNanny) {
       Py_FatalError("failed to import 'refnanny' module");
 }
 #endif
-  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_time_limit_wrapper(void)", 0);
+  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_env_wrapper(void)", 0);
   if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #ifdef __Pxy_PyFrame_Initialize_Offsets
   __Pxy_PyFrame_Initialize_Offsets();
@@ -21151,7 +20325,7 @@ if (!__Pyx_RefNanny) {
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("time_limit_wrapper", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("env_wrapper", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -21169,14 +20343,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_rlil__diag_q__envs__time_limit_wrapper) {
+  if (__pyx_module_is_main_rlil__diag_q__tabular__env_wrapper) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name_2, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "rlil.diag_q.envs.time_limit_wrapper")) {
-      if (unlikely(PyDict_SetItemString(modules, "rlil.diag_q.envs.time_limit_wrapper", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "rlil.diag_q.tabular.env_wrapper")) {
+      if (unlikely(PyDict_SetItemString(modules, "rlil.diag_q.tabular.env_wrapper", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -21198,19 +20372,19 @@ if (!__Pyx_RefNanny) {
   #endif
 
   /* "(tree fragment)":1
- * def __pyx_unpickle_TimeLimitWrapper(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
+ * def __pyx_unpickle_TabularEnvWrapper(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4rlil_6diag_q_4envs_18time_limit_wrapper_1__pyx_unpickle_TimeLimitWrapper, NULL, __pyx_n_s_rlil_diag_q_envs_time_limit_wrap); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 1, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_4rlil_6diag_q_7tabular_11env_wrapper_1__pyx_unpickle_TabularEnvWrapper, NULL, __pyx_n_s_rlil_diag_q_tabular_env_wrapper); if (unlikely(!__pyx_t_1)) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_TimeLimitWrapper, __pyx_t_1) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_TabularEnvWrapper, __pyx_t_1) < 0) __PYX_ERR(2, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "rlil/diag_q/envs/time_limit_wrapper.pyx":1
+  /* "rlil/diag_q/tabular/env_wrapper.pyx":1
  * # distutils: language=c++             # <<<<<<<<<<<<<<
+ * from libcpp.map cimport map, pair
  * 
- * from cython.operator cimport dereference, preincrement
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
@@ -21377,11 +20551,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init rlil.diag_q.envs.time_limit_wrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init rlil.diag_q.tabular.env_wrapper", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init rlil.diag_q.envs.time_limit_wrapper");
+    PyErr_SetString(PyExc_ImportError, "init rlil.diag_q.tabular.env_wrapper");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -21411,60 +20585,6 @@ end:
     return (__Pyx_RefNannyAPIStruct *)r;
 }
 #endif
-
-/* PyObjectGetAttrStr */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
-    PyTypeObject* tp = Py_TYPE(obj);
-    if (likely(tp->tp_getattro))
-        return tp->tp_getattro(obj, attr_name);
-#if PY_MAJOR_VERSION < 3
-    if (likely(tp->tp_getattr))
-        return tp->tp_getattr(obj, PyString_AS_STRING(attr_name));
-#endif
-    return PyObject_GetAttr(obj, attr_name);
-}
-#endif
-
-/* GetBuiltinName */
-static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
-    PyObject* result = __Pyx_PyObject_GetAttrStr(__pyx_b, name);
-    if (unlikely(!result)) {
-        PyErr_Format(PyExc_NameError,
-#if PY_MAJOR_VERSION >= 3
-            "name '%U' is not defined", name);
-#else
-            "name '%.200s' is not defined", PyString_AS_STRING(name));
-#endif
-    }
-    return result;
-}
-
-/* RaiseArgTupleInvalid */
-static void __Pyx_RaiseArgtupleInvalid(
-    const char* func_name,
-    int exact,
-    Py_ssize_t num_min,
-    Py_ssize_t num_max,
-    Py_ssize_t num_found)
-{
-    Py_ssize_t num_expected;
-    const char *more_or_less;
-    if (num_found < num_min) {
-        num_expected = num_min;
-        more_or_less = "at least";
-    } else {
-        num_expected = num_max;
-        more_or_less = "at most";
-    }
-    if (exact) {
-        more_or_less = "exactly";
-    }
-    PyErr_Format(PyExc_TypeError,
-                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
-                 func_name, more_or_less, num_expected,
-                 (num_expected == 1) ? "" : "s", num_found);
-}
 
 /* RaiseDoubleKeywords */
 static void __Pyx_RaiseDoubleKeywordsError(
@@ -21582,6 +20702,32 @@ bad:
     return -1;
 }
 
+/* RaiseArgTupleInvalid */
+static void __Pyx_RaiseArgtupleInvalid(
+    const char* func_name,
+    int exact,
+    Py_ssize_t num_min,
+    Py_ssize_t num_max,
+    Py_ssize_t num_found)
+{
+    Py_ssize_t num_expected;
+    const char *more_or_less;
+    if (num_found < num_min) {
+        num_expected = num_min;
+        more_or_less = "at least";
+    } else {
+        num_expected = num_max;
+        more_or_less = "at most";
+    }
+    if (exact) {
+        more_or_less = "exactly";
+    }
+    PyErr_Format(PyExc_TypeError,
+                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                 func_name, more_or_less, num_expected,
+                 (num_expected == 1) ? "" : "s", num_found);
+}
+
 /* ArgTypeTest */
 static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *name, int exact)
 {
@@ -21603,46 +20749,43 @@ static int __Pyx__ArgTypeTest(PyObject *obj, PyTypeObject *type, const char *nam
     return 0;
 }
 
-/* PyObjectCall */
+/* PyDictVersioning */
+#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj) {
+    PyObject *dict = Py_TYPE(obj)->tp_dict;
+    return likely(dict) ? __PYX_GET_DICT_VERSION(dict) : 0;
+}
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj) {
+    PyObject **dictptr = NULL;
+    Py_ssize_t offset = Py_TYPE(obj)->tp_dictoffset;
+    if (offset) {
 #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
-    PyObject *result;
-    ternaryfunc call = func->ob_type->tp_call;
-    if (unlikely(!call))
-        return PyObject_Call(func, arg, kw);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = (*call)(func, arg, kw);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
+        dictptr = (likely(offset > 0)) ? (PyObject **) ((char *)obj + offset) : _PyObject_GetDictPtr(obj);
+#else
+        dictptr = _PyObject_GetDictPtr(obj);
+#endif
     }
-    return result;
+    return (dictptr && *dictptr) ? __PYX_GET_DICT_VERSION(*dictptr) : 0;
+}
+static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version) {
+    PyObject *dict = Py_TYPE(obj)->tp_dict;
+    if (unlikely(!dict) || unlikely(tp_dict_version != __PYX_GET_DICT_VERSION(dict)))
+        return 0;
+    return obj_dict_version == __Pyx_get_object_dict_version(obj);
 }
 #endif
 
-/* PyCFunctionFastCall */
-#if CYTHON_FAST_PYCCALL
-static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
-    PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
-    PyCFunction meth = PyCFunction_GET_FUNCTION(func);
-    PyObject *self = PyCFunction_GET_SELF(func);
-    int flags = PyCFunction_GET_FLAGS(func);
-    assert(PyCFunction_Check(func));
-    assert(METH_FASTCALL == (flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_KEYWORDS | METH_STACKLESS)));
-    assert(nargs >= 0);
-    assert(nargs == 0 || args != NULL);
-    /* _PyCFunction_FastCallDict() must not be called with an exception set,
-       because it may clear it (directly or indirectly) and so the
-       caller loses its exception */
-    assert(!PyErr_Occurred());
-    if ((PY_VERSION_HEX < 0x030700A0) || unlikely(flags & METH_KEYWORDS)) {
-        return (*((__Pyx_PyCFunctionFastWithKeywords)(void*)meth)) (self, args, nargs, NULL);
-    } else {
-        return (*((__Pyx_PyCFunctionFast)(void*)meth)) (self, args, nargs);
-    }
+/* PyObjectGetAttrStr */
+#if CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
+    PyTypeObject* tp = Py_TYPE(obj);
+    if (likely(tp->tp_getattro))
+        return tp->tp_getattro(obj, attr_name);
+#if PY_MAJOR_VERSION < 3
+    if (likely(tp->tp_getattr))
+        return tp->tp_getattr(obj, PyString_AS_STRING(attr_name));
+#endif
+    return PyObject_GetAttr(obj, attr_name);
 }
 #endif
 
@@ -21765,6 +20908,115 @@ done:
 #endif
 #endif
 
+/* PyCFunctionFastCall */
+#if CYTHON_FAST_PYCCALL
+static CYTHON_INLINE PyObject * __Pyx_PyCFunction_FastCall(PyObject *func_obj, PyObject **args, Py_ssize_t nargs) {
+    PyCFunctionObject *func = (PyCFunctionObject*)func_obj;
+    PyCFunction meth = PyCFunction_GET_FUNCTION(func);
+    PyObject *self = PyCFunction_GET_SELF(func);
+    int flags = PyCFunction_GET_FLAGS(func);
+    assert(PyCFunction_Check(func));
+    assert(METH_FASTCALL == (flags & ~(METH_CLASS | METH_STATIC | METH_COEXIST | METH_KEYWORDS | METH_STACKLESS)));
+    assert(nargs >= 0);
+    assert(nargs == 0 || args != NULL);
+    /* _PyCFunction_FastCallDict() must not be called with an exception set,
+       because it may clear it (directly or indirectly) and so the
+       caller loses its exception */
+    assert(!PyErr_Occurred());
+    if ((PY_VERSION_HEX < 0x030700A0) || unlikely(flags & METH_KEYWORDS)) {
+        return (*((__Pyx_PyCFunctionFastWithKeywords)(void*)meth)) (self, args, nargs, NULL);
+    } else {
+        return (*((__Pyx_PyCFunctionFast)(void*)meth)) (self, args, nargs);
+    }
+}
+#endif
+
+/* PyObjectCall */
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    PyObject *result;
+    ternaryfunc call = func->ob_type->tp_call;
+    if (unlikely(!call))
+        return PyObject_Call(func, arg, kw);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = (*call)(func, arg, kw);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
+}
+#endif
+
+/* PyErrFetchRestore */
+#if CYTHON_FAST_THREAD_STATE
+static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    tmp_type = tstate->curexc_type;
+    tmp_value = tstate->curexc_value;
+    tmp_tb = tstate->curexc_traceback;
+    tstate->curexc_type = type;
+    tstate->curexc_value = value;
+    tstate->curexc_traceback = tb;
+    Py_XDECREF(tmp_type);
+    Py_XDECREF(tmp_value);
+    Py_XDECREF(tmp_tb);
+}
+static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
+    *type = tstate->curexc_type;
+    *value = tstate->curexc_value;
+    *tb = tstate->curexc_traceback;
+    tstate->curexc_type = 0;
+    tstate->curexc_value = 0;
+    tstate->curexc_traceback = 0;
+}
+#endif
+
+/* WriteUnraisableException */
+static void __Pyx_WriteUnraisable(const char *name, CYTHON_UNUSED int clineno,
+                                  CYTHON_UNUSED int lineno, CYTHON_UNUSED const char *filename,
+                                  int full_traceback, CYTHON_UNUSED int nogil) {
+    PyObject *old_exc, *old_val, *old_tb;
+    PyObject *ctx;
+    __Pyx_PyThreadState_declare
+#ifdef WITH_THREAD
+    PyGILState_STATE state;
+    if (nogil)
+        state = PyGILState_Ensure();
+#ifdef _MSC_VER
+    else state = (PyGILState_STATE)-1;
+#endif
+#endif
+    __Pyx_PyThreadState_assign
+    __Pyx_ErrFetch(&old_exc, &old_val, &old_tb);
+    if (full_traceback) {
+        Py_XINCREF(old_exc);
+        Py_XINCREF(old_val);
+        Py_XINCREF(old_tb);
+        __Pyx_ErrRestore(old_exc, old_val, old_tb);
+        PyErr_PrintEx(1);
+    }
+    #if PY_MAJOR_VERSION < 3
+    ctx = PyString_FromString(name);
+    #else
+    ctx = PyUnicode_FromString(name);
+    #endif
+    __Pyx_ErrRestore(old_exc, old_val, old_tb);
+    if (!ctx) {
+        PyErr_WriteUnraisable(Py_None);
+    } else {
+        PyErr_WriteUnraisable(ctx);
+        Py_DECREF(ctx);
+    }
+#ifdef WITH_THREAD
+    if (nogil)
+        PyGILState_Release(state);
+#endif
+}
+
 /* PyObjectCall2Args */
 static CYTHON_UNUSED PyObject* __Pyx_PyObject_Call2Args(PyObject* function, PyObject* arg1, PyObject* arg2) {
     PyObject *args, *result = NULL;
@@ -21854,32 +21106,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallOneArg(PyObject *func, PyObjec
 }
 #endif
 
-/* PyDictVersioning */
-#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj) {
-    PyObject *dict = Py_TYPE(obj)->tp_dict;
-    return likely(dict) ? __PYX_GET_DICT_VERSION(dict) : 0;
-}
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj) {
-    PyObject **dictptr = NULL;
-    Py_ssize_t offset = Py_TYPE(obj)->tp_dictoffset;
-    if (offset) {
-#if CYTHON_COMPILING_IN_CPYTHON
-        dictptr = (likely(offset > 0)) ? (PyObject **) ((char *)obj + offset) : _PyObject_GetDictPtr(obj);
-#else
-        dictptr = _PyObject_GetDictPtr(obj);
-#endif
-    }
-    return (dictptr && *dictptr) ? __PYX_GET_DICT_VERSION(*dictptr) : 0;
-}
-static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version) {
-    PyObject *dict = Py_TYPE(obj)->tp_dict;
-    if (unlikely(!dict) || unlikely(tp_dict_version != __PYX_GET_DICT_VERSION(dict)))
-        return 0;
-    return obj_dict_version == __Pyx_get_object_dict_version(obj);
-}
-#endif
-
 /* PyObjectCallNoArg */
 #if CYTHON_COMPILING_IN_CPYTHON
 static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
@@ -21902,209 +21128,17 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_CallNoArg(PyObject *func) {
 }
 #endif
 
-/* PyErrFetchRestore */
-#if CYTHON_FAST_THREAD_STATE
-static CYTHON_INLINE void __Pyx_ErrRestoreInState(PyThreadState *tstate, PyObject *type, PyObject *value, PyObject *tb) {
-    PyObject *tmp_type, *tmp_value, *tmp_tb;
-    tmp_type = tstate->curexc_type;
-    tmp_value = tstate->curexc_value;
-    tmp_tb = tstate->curexc_traceback;
-    tstate->curexc_type = type;
-    tstate->curexc_value = value;
-    tstate->curexc_traceback = tb;
-    Py_XDECREF(tmp_type);
-    Py_XDECREF(tmp_value);
-    Py_XDECREF(tmp_tb);
-}
-static CYTHON_INLINE void __Pyx_ErrFetchInState(PyThreadState *tstate, PyObject **type, PyObject **value, PyObject **tb) {
-    *type = tstate->curexc_type;
-    *value = tstate->curexc_value;
-    *tb = tstate->curexc_traceback;
-    tstate->curexc_type = 0;
-    tstate->curexc_value = 0;
-    tstate->curexc_traceback = 0;
-}
-#endif
-
-/* WriteUnraisableException */
-static void __Pyx_WriteUnraisable(const char *name, CYTHON_UNUSED int clineno,
-                                  CYTHON_UNUSED int lineno, CYTHON_UNUSED const char *filename,
-                                  int full_traceback, CYTHON_UNUSED int nogil) {
-    PyObject *old_exc, *old_val, *old_tb;
-    PyObject *ctx;
-    __Pyx_PyThreadState_declare
-#ifdef WITH_THREAD
-    PyGILState_STATE state;
-    if (nogil)
-        state = PyGILState_Ensure();
-#ifdef _MSC_VER
-    else state = (PyGILState_STATE)-1;
-#endif
-#endif
-    __Pyx_PyThreadState_assign
-    __Pyx_ErrFetch(&old_exc, &old_val, &old_tb);
-    if (full_traceback) {
-        Py_XINCREF(old_exc);
-        Py_XINCREF(old_val);
-        Py_XINCREF(old_tb);
-        __Pyx_ErrRestore(old_exc, old_val, old_tb);
-        PyErr_PrintEx(1);
+/* ExtTypeTest */
+static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
+    if (unlikely(!type)) {
+        PyErr_SetString(PyExc_SystemError, "Missing type object");
+        return 0;
     }
-    #if PY_MAJOR_VERSION < 3
-    ctx = PyString_FromString(name);
-    #else
-    ctx = PyUnicode_FromString(name);
-    #endif
-    __Pyx_ErrRestore(old_exc, old_val, old_tb);
-    if (!ctx) {
-        PyErr_WriteUnraisable(Py_None);
-    } else {
-        PyErr_WriteUnraisable(ctx);
-        Py_DECREF(ctx);
-    }
-#ifdef WITH_THREAD
-    if (nogil)
-        PyGILState_Release(state);
-#endif
-}
-
-/* PyIntBinop */
-#if !CYTHON_COMPILING_IN_PYPY
-static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, int inplace, int zerodivision_check) {
-    (void)inplace;
-    (void)zerodivision_check;
-    #if PY_MAJOR_VERSION < 3
-    if (likely(PyInt_CheckExact(op1))) {
-        const long b = intval;
-        long x;
-        long a = PyInt_AS_LONG(op1);
-            x = (long)((unsigned long)a + b);
-            if (likely((x^a) >= 0 || (x^b) >= 0))
-                return PyInt_FromLong(x);
-            return PyLong_Type.tp_as_number->nb_add(op1, op2);
-    }
-    #endif
-    #if CYTHON_USE_PYLONG_INTERNALS
-    if (likely(PyLong_CheckExact(op1))) {
-        const long b = intval;
-        long a, x;
-#ifdef HAVE_LONG_LONG
-        const PY_LONG_LONG llb = intval;
-        PY_LONG_LONG lla, llx;
-#endif
-        const digit* digits = ((PyLongObject*)op1)->ob_digit;
-        const Py_ssize_t size = Py_SIZE(op1);
-        if (likely(__Pyx_sst_abs(size) <= 1)) {
-            a = likely(size) ? digits[0] : 0;
-            if (size == -1) a = -a;
-        } else {
-            switch (size) {
-                case -2:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-#ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
-                        lla = -(PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-#endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case 2:
-                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
-                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-#ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
-                        lla = (PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-#endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case -3:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-#ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
-                        lla = -(PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-#endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case 3:
-                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
-                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-#ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
-                        lla = (PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-#endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case -4:
-                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-#ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
-                        lla = -(PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-#endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                case 4:
-                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
-                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
-                        break;
-#ifdef HAVE_LONG_LONG
-                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
-                        lla = (PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
-                        goto long_long;
-#endif
-                    }
-                    CYTHON_FALLTHROUGH;
-                default: return PyLong_Type.tp_as_number->nb_add(op1, op2);
-            }
-        }
-                x = a + b;
-            return PyLong_FromLong(x);
-#ifdef HAVE_LONG_LONG
-        long_long:
-                llx = lla + llb;
-            return PyLong_FromLongLong(llx);
-#endif
-        
-        
-    }
-    #endif
-    if (PyFloat_CheckExact(op1)) {
-        const long b = intval;
-        double a = PyFloat_AS_DOUBLE(op1);
-            double result;
-            PyFPE_START_PROTECT("add", return NULL)
-            result = ((double)a) + (double)b;
-            PyFPE_END_PROTECT(result)
-            return PyFloat_FromDouble(result);
-    }
-    return (inplace ? PyNumber_InPlaceAdd : PyNumber_Add)(op1, op2);
-}
-#endif
-
-/* None */
-static CYTHON_INLINE int __Pyx_div_int(int a, int b) {
-    int q = a / b;
-    int r = a - q*b;
-    q -= ((r != 0) & ((r ^ b) < 0));
-    return q;
-}
-
-/* None */
-static CYTHON_INLINE int __Pyx_mod_int(int a, int b) {
-    int r = a % b;
-    r += ((r != 0) & ((r ^ b) < 0)) * b;
-    return r;
+    if (likely(__Pyx_TypeCheck(obj, type)))
+        return 1;
+    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
+                 Py_TYPE(obj)->tp_name, type->tp_name);
+    return 0;
 }
 
 /* PyErrExceptionMatches */
@@ -22158,6 +21192,20 @@ static PyObject *__Pyx_GetAttr3Default(PyObject *d) {
 static CYTHON_INLINE PyObject *__Pyx_GetAttr3(PyObject *o, PyObject *n, PyObject *d) {
     PyObject *r = __Pyx_GetAttr(o, n);
     return (likely(r)) ? r : __Pyx_GetAttr3Default(d);
+}
+
+/* GetBuiltinName */
+static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
+    PyObject* result = __Pyx_PyObject_GetAttrStr(__pyx_b, name);
+    if (unlikely(!result)) {
+        PyErr_Format(PyExc_NameError,
+#if PY_MAJOR_VERSION >= 3
+            "name '%U' is not defined", name);
+#else
+            "name '%.200s' is not defined", PyString_AS_STRING(name));
+#endif
+    }
+    return result;
 }
 
 /* GetModuleGlobalName */
@@ -22518,19 +21566,6 @@ static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, 
     }
 #endif
     return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-}
-
-/* ExtTypeTest */
-static CYTHON_INLINE int __Pyx_TypeTest(PyObject *obj, PyTypeObject *type) {
-    if (unlikely(!type)) {
-        PyErr_SetString(PyExc_SystemError, "Missing type object");
-        return 0;
-    }
-    if (likely(__Pyx_TypeCheck(obj, type)))
-        return 1;
-    PyErr_Format(PyExc_TypeError, "Cannot convert %.200s to %.200s",
-                 Py_TYPE(obj)->tp_name, type->tp_name);
-    return 0;
 }
 
 /* HasAttr */
@@ -23412,6 +22447,130 @@ static CYTHON_INLINE int __Pyx_PyErr_GivenExceptionMatches2(PyObject *err, PyObj
 }
 #endif
 
+/* PyIntBinop */
+#if !CYTHON_COMPILING_IN_PYPY
+static PyObject* __Pyx_PyInt_AddObjC(PyObject *op1, PyObject *op2, CYTHON_UNUSED long intval, int inplace, int zerodivision_check) {
+    (void)inplace;
+    (void)zerodivision_check;
+    #if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_CheckExact(op1))) {
+        const long b = intval;
+        long x;
+        long a = PyInt_AS_LONG(op1);
+            x = (long)((unsigned long)a + b);
+            if (likely((x^a) >= 0 || (x^b) >= 0))
+                return PyInt_FromLong(x);
+            return PyLong_Type.tp_as_number->nb_add(op1, op2);
+    }
+    #endif
+    #if CYTHON_USE_PYLONG_INTERNALS
+    if (likely(PyLong_CheckExact(op1))) {
+        const long b = intval;
+        long a, x;
+#ifdef HAVE_LONG_LONG
+        const PY_LONG_LONG llb = intval;
+        PY_LONG_LONG lla, llx;
+#endif
+        const digit* digits = ((PyLongObject*)op1)->ob_digit;
+        const Py_ssize_t size = Py_SIZE(op1);
+        if (likely(__Pyx_sst_abs(size) <= 1)) {
+            a = likely(size) ? digits[0] : 0;
+            if (size == -1) a = -a;
+        } else {
+            switch (size) {
+                case -2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 2:
+                    if (8 * sizeof(long) - 1 > 2 * PyLong_SHIFT) {
+                        a = (long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 2 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case -3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 3:
+                    if (8 * sizeof(long) - 1 > 3 * PyLong_SHIFT) {
+                        a = (long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 3 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((((unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case -4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
+                        lla = -(PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                case 4:
+                    if (8 * sizeof(long) - 1 > 4 * PyLong_SHIFT) {
+                        a = (long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0]));
+                        break;
+#ifdef HAVE_LONG_LONG
+                    } else if (8 * sizeof(PY_LONG_LONG) - 1 > 4 * PyLong_SHIFT) {
+                        lla = (PY_LONG_LONG) (((((((((unsigned PY_LONG_LONG)digits[3]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[2]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[1]) << PyLong_SHIFT) | (unsigned PY_LONG_LONG)digits[0]));
+                        goto long_long;
+#endif
+                    }
+                    CYTHON_FALLTHROUGH;
+                default: return PyLong_Type.tp_as_number->nb_add(op1, op2);
+            }
+        }
+                x = a + b;
+            return PyLong_FromLong(x);
+#ifdef HAVE_LONG_LONG
+        long_long:
+                llx = lla + llb;
+            return PyLong_FromLongLong(llx);
+#endif
+        
+        
+    }
+    #endif
+    if (PyFloat_CheckExact(op1)) {
+        const long b = intval;
+        double a = PyFloat_AS_DOUBLE(op1);
+            double result;
+            PyFPE_START_PROTECT("add", return NULL)
+            result = ((double)a) + (double)b;
+            PyFPE_END_PROTECT(result)
+            return PyFloat_FromDouble(result);
+    }
+    return (inplace ? PyNumber_InPlaceAdd : PyNumber_Add)(op1, op2);
+}
+#endif
+
 /* None */
 static CYTHON_INLINE void __Pyx_RaiseUnboundLocalError(const char *varname) {
     PyErr_Format(PyExc_UnboundLocalError, "local variable '%s' referenced before assignment", varname);
@@ -23974,7 +23133,7 @@ static CYTHON_INLINE PyObject* __Pyx_PyInt_From_int(int value) {
         return (target_type) value;\
     }
 
-static PyObject* __pyx_convert__to_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep(struct __pyx_t_4rlil_6diag_q_4envs_11tabular_env_TimeStep s) {
+static PyObject* __pyx_convert__to_py_struct____pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep(struct __pyx_t_4rlil_6diag_q_7tabular_11tabular_env_TimeStep s) {
   PyObject* res;
   PyObject* member;
   res = __Pyx_PyDict_NewPresized(3); if (unlikely(!res)) return NULL;
@@ -23993,54 +23152,6 @@ static PyObject* __pyx_convert__to_py_struct____pyx_t_4rlil_6diag_q_4envs_11tabu
   Py_DECREF(res);
   return NULL;
 }
-/* FromPyCTupleUtility */
-static __pyx_ctuple_int__and_int __pyx_convert__from_py___pyx_ctuple_int__and_int(PyObject * o) {
-    __pyx_ctuple_int__and_int result;
-    if (!PyTuple_Check(o) || PyTuple_GET_SIZE(o) != 2) {
-        PyErr_Format(PyExc_TypeError, "Expected %.16s of size %d, got %.200s", "a tuple", 2, Py_TYPE(o)->tp_name);
-        goto bad;
-    }
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        result.f0 = __Pyx_PyInt_As_int(PyTuple_GET_ITEM(o, 0));
-        if ((result.f0 == (int)-1) && PyErr_Occurred()) goto bad;
-        result.f1 = __Pyx_PyInt_As_int(PyTuple_GET_ITEM(o, 1));
-        if ((result.f1 == (int)-1) && PyErr_Occurred()) goto bad;
-#else
-    {
-        PyObject *item;
-        item = PySequence_ITEM(o, 0);  if (unlikely(!item)) goto bad;
-        result.f0 = __Pyx_PyInt_As_int(item);
-        Py_DECREF(item);
-        if ((result.f0 == (int)-1) && PyErr_Occurred()) goto bad;
-        item = PySequence_ITEM(o, 1);  if (unlikely(!item)) goto bad;
-        result.f1 = __Pyx_PyInt_As_int(item);
-        Py_DECREF(item);
-        if ((result.f1 == (int)-1) && PyErr_Occurred()) goto bad;
-    }
-#endif
-    return result;
-bad:
-    return result;
-}
-
-/* ToPyCTupleUtility */
-static PyObject* __pyx_convert__to_py___pyx_ctuple_int__and_int(__pyx_ctuple_int__and_int value) {
-    PyObject* item = NULL;
-    PyObject* result = PyTuple_New(2);
-    if (!result) goto bad;
-        item = __Pyx_PyInt_From_int(value.f0);
-        if (!item) goto bad;
-        PyTuple_SET_ITEM(result, 0, item);
-        item = __Pyx_PyInt_From_int(value.f1);
-        if (!item) goto bad;
-        PyTuple_SET_ITEM(result, 1, item);
-    return result;
-bad:
-    Py_XDECREF(item);
-    Py_XDECREF(result);
-    return NULL;
-}
-
 /* CIntToPy */
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
     const long neg_one = (long) ((long) 0 - (long) 1), const_zero = (long) 0;

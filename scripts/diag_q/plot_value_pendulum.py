@@ -11,7 +11,7 @@ import os
 from rlil.environments import GymEnvironment, ENVS, State, Action
 from rlil.presets import continuous
 from rlil.initializer import set_device
-from rlil.diag_q.pendulum_util import *
+from rlil.diag_q.tabular.pendulum_util import *
 matplotlib.use('Agg')
 
 

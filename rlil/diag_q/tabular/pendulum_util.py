@@ -2,8 +2,7 @@ import torch
 import numpy as np
 import os
 from scipy.special import logsumexp as sp_lse
-from rlil.diag_q.envs import (tabular_env, time_limit_wrapper)
-from rlil.diag_q.compute_q import q_iteration
+from rlil.diag_q.tabular import tabular_env, time_limit_wrapper, q_iteration
 from rlil.environments import GymEnvironment, ENVS, State, Action
 from rlil.presets import continuous
 

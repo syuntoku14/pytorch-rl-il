@@ -3,7 +3,7 @@ from .gym import GymEnvironment
 from .state import State
 from .action import Action, action_decorator, clip_action, squash_action
 from .reward_fns import *
-from rlil.diag_q.envs import tabular_env, time_limit_wrapper
+from rlil.diag_q.tabular import tabular_env, time_limit_wrapper
 import gym
 from gym.envs.registration import registry, make, spec
 
