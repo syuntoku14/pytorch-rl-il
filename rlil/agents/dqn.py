@@ -7,6 +7,7 @@ from rlil.policies import GreedyPolicy
 from rlil.environments import Action
 from .base import Agent, LazyAgent
 from copy import deepcopy
+import os
 
 
 class DQN(Agent):

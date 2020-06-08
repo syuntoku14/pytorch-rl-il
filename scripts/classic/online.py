@@ -3,7 +3,7 @@ import pybullet
 import pybullet_envs
 from rlil.environments import GymEnvironment, ENVS
 from rlil.experiments import Experiment
-from rlil.presets import get_default_args, continuous
+from rlil.presets import get_default_args, classic_control
 from rlil.initializer import get_logger, set_device, set_seed
 import torch
 import logging
@@ -12,17 +12,17 @@ import ray
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Run a continuous actions benchmark.")
+        description="Run a classic control benchmark.")
     parser.add_argument("env", help="Name of the env")
     parser.add_argument("agent",
-                        help="Name of the agent (e.g. ppo). See presets for available agents.")
+                        help="Name of the agent (e.g. dqn). See presets for available agents.")
     parser.add_argument("--device", default="cuda",
                         help="The name of the device to run the agent on (e.g. cpu, cuda, cuda:0)")
     parser.add_argument("--seed", type=int, default=0,
                         help="Random seed")
     parser.add_argument("--train_minutes", type=int, default=60,
                         help="Minutes to train.")
-    parser.add_argument("--train_steps", type=int, default=1e9,
+    parser.add_argument("--train_steps", type=int, default=20000,
                         help="Steps to train.")
     parser.add_argument("--num_workers", type=int, default=1,
                         help="Number of workers for training")
@@ -48,7 +48,7 @@ def main():
 
     # set agent
     agent_name = args.agent
-    preset = getattr(continuous, agent_name)
+    preset = getattr(classic_control, agent_name)
     buffer_args = {"n_step": 1, "prioritized": False, "use_apex": False}
     agent_fn = preset(**buffer_args)
 

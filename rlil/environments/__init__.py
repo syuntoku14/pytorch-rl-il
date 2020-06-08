@@ -75,6 +75,9 @@ __all__ = ["Environment", "State", "GymEnvironment", "Action"]
 # some example envs
 # can also enter ID directly
 ENVS = {
+    # classic control environments
+    "cartpole": "CartPole-v0",
+    "acrobot": "Acrobot-v1",
     # classic continuous environments
     "pendulum": "Pendulum-v0",
     "mountaincar": "MountainCarContinuous-v0",
