@@ -10,9 +10,6 @@ class Wrapper(Env):
     def __init__(self, env=None):
         self._wrapped_env = env
 
-    def __getattr__(self, key):
-        return getattr(self.wrapped_env, key)
-
     @property
     def wrapped_env(self):
         return self._wrapped_env
@@ -66,8 +63,8 @@ class GridObsWrapper(ObsWrapper):
     def __init__(self, env):
         super().__init__(env)
 
-    def render(self):
-        self.env.render()
+    def render(self, *args, **kwargs):
+        self.wrapped_env.render()
 
 
 class CoordinateWiseWrapper(GridObsWrapper):

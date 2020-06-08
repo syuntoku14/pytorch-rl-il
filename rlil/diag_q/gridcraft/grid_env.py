@@ -179,10 +179,7 @@ class GridEnv(gym.Env):
         self._timestep = 0
         return start_idx  # flat_to_one_hot(start_idx, len(self.gs))
 
-    def render(self, close=False, ostream=sys.stdout):
-        if close:
-            return
-
+    def render(self, ostream=sys.stdout):
         state = self.__state
         ostream.write('-'*(self.gs.width+2)+'\n')
         for h in range(self.gs.height):
