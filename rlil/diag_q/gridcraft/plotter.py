@@ -56,8 +56,8 @@ class TabularQValuePlotter(object):
         plt.figure()
         ax = plt.gca()
 
-        #normalized_values = (self.data/np.abs(np.max(self.data)))
-        normalized_values = self.data
+        # scale the color since abs value of LAVA is too large
+        normalized_values = np.where(self.data < 0, self.data*0.01, self.data)
         normalized_values = normalized_values - np.min(normalized_values)
         normalized_values = normalized_values/np.max(normalized_values)
 
