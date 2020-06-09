@@ -37,7 +37,7 @@ def spec_from_string(s, valmap=STR_MAP):
     assert np.all(rowlens == rowlens[0])
     w, h = len(rows[0]), len(rows)
 
-    gs = GridSpec(w, h)
+    gs = GridSpec(w, h, string=s)
     for i in range(h):
         for j in range(w):
             gs[j, i] = valmap[rows[i][j]]
@@ -82,10 +82,11 @@ def local_spec(map, xpnt):
 
 
 class GridSpec(object):
-    def __init__(self, w, h):
+    def __init__(self, w, h, string=""):
         self.__data = np.zeros((w, h), dtype=np.int32)
         self.__w = w
         self.__h = h
+        self.string = string
 
     def __setitem__(self, key, val):
         self.__data[key] = val

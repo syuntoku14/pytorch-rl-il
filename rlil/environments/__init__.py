@@ -71,19 +71,19 @@ register(id='HalfFrontLegsAntBulletEnv-v0',
 
 # Grid world envs
 register(id='CoordinateWiseSimpleGridEnv-v0',
-         entry_point='rlil.environments.envs.diag_q_env:CoordinateWiseSimpleGrid',
+         entry_point='rlil.diag_q.envs.diag_q_env:CoordinateWiseSimpleGrid',
          max_episode_steps=50)
 
 register(id='CoordinateWiseLavaGridEnv-v0',
-         entry_point='rlil.environments.envs.diag_q_env:CoordinateWiseLavaGrid',
+         entry_point='rlil.diag_q.envs.diag_q_env:CoordinateWiseLavaGrid',
          max_episode_steps=50)
 
 register(id='RandomObsSimpleGridEnv-v0',
-         entry_point='rlil.environments.envs.diag_q_env:RandomObsSimpleGrid',
+         entry_point='rlil.diag_q.envs.diag_q_env:RandomObsSimpleGrid',
          max_episode_steps=50)
 
 register(id='RandomObsLavaGridEnv-v0',
-         entry_point='rlil.environments.envs.diag_q_env:RandomObsLavaGrid',
+         entry_point='rlil.diag_q.envs.diag_q_env:RandomObsLavaGrid',
          max_episode_steps=50)
 
 

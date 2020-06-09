@@ -6,6 +6,7 @@ import gym.spaces
 from .grid_spec import REWARD, REWARD2, REWARD3, REWARD4, WALL, LAVA, TILES, START, RENDER_DICT
 from .utils import one_hot_to_flat, flat_to_one_hot
 
+
 ACT_NOOP = 0
 ACT_UP = 1
 ACT_DOWN = 2
@@ -98,6 +99,7 @@ class GridEnv(gym.Env):
         self.max_timesteps = max_timesteps
         self._timestep = 0
         self._true_q = None  # q_vals for debugging
+        self.qval = None
 
         # build transition matrix
         dS = self.num_states
@@ -192,6 +194,14 @@ class GridEnv(gym.Env):
                     ostream.write(RENDER_DICT[val])
             ostream.write('|\n')
         ostream.write('-' * (self.gs.width + 2)+'\n')
+
+    def set_qval(self, gamma=0.99, K=1000):
+        from .true_qvalues import dense_tabular_solver
+        self.qval = dense_tabular_solver(self.gs, {}, gamma=gamma, K=K)
+
+    def plot_qval(self, qval, return_image=False):
+        from .plotter import plot_qval
+        return plot_qval(self.gs, qval, return_image)
 
     @property
     def action_space(self):

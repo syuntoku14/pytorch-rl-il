@@ -1,11 +1,11 @@
+import io
 import itertools
-
-
 import matplotlib.cm as cm
 from matplotlib.patches import Rectangle, Polygon
-
 import numpy as np
 import matplotlib.pyplot as plt
+import PIL.Image
+from torchvision.transforms import ToTensor
 
 NOOP = np.array([[-0.1, 0.1], [-0.1, -0.1], [0.1, -0.1], [0.1, 0.1]])
 UP = np.array([[0, 0], [0.5, 0.5], [-0.5, 0.5]])
@@ -86,43 +86,28 @@ class TabularQValuePlotter(object):
         ax.set_yticks(np.arange(-1, self.h+1, 1))
         plt.grid()
 
+    def gen_image(self):
+        """Save created plot to buffer."""
+        buf = io.BytesIO()
+        plt.savefig(buf, format='jpeg')
+        buf.seek(0)
+        image = PIL.Image.open(buf)
+        image = ToTensor()(image)
+        return image
+
     def show(self):
         plt.show()
 
 
-def plot_qval(gs, q_values):
+def plot_qval(gs, q_values, return_image=False):
     import itertools
     plotter = TabularQValuePlotter(gs.width, gs.height, text_values=True)
     for i, (x, y, a) in enumerate(itertools.product(range(gs.width), range(gs.height), range(5))):
         plotter.set_value(x, gs.height-y-1, a,
                           q_values[gs.xy_to_idx((x, y)), a])
     plotter.make_plot()
-    plotter.show()
-
-
-def compute_policy_deterministic(q_values, eps_greedy=0.0):
-    policy_probs = np.zeros_like(q_values)
-    policy_probs[np.arange(policy_probs.shape[0]), np.argmax(q_values, axis=1)] = 1.0 - eps_greedy
-    policy_probs += eps_greedy / (policy_probs.shape[1])
-    return policy_probs
-
-
-def compute_visitation(env, policy, discount=1.0, T=50):
-    dS = env.num_states
-    dA = env.num_actions
-    state_visitation = np.zeros((dS, 1))
-    for (state, prob) in env.initial_state_distribution().items():
-        state_visitation[state] = prob
-    t_matrix = env.transition_matrix  # S x A x S
-    sa_visit_t = np.zeros((dS, dA, T))
-
-    norm_factor = 0.0
-    for i in range(T):
-        sa_visit = state_visitation * policy
-        cur_discount = (discount ** i)
-        sa_visit_t[:, :, i] = cur_discount * sa_visit
-        norm_factor += cur_discount
-        # sum-out (SA)S
-        new_state_visitation = np.einsum('ij,ijk->k', sa_visit, t_matrix)
-        state_visitation = np.expand_dims(new_state_visitation, axis=1)
-    return np.sum(sa_visit_t, axis=2) / norm_factor
+    if return_image:
+        return plotter.gen_image()
+    else:
+        plotter.show()
+        return None

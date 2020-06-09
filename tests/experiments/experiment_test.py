@@ -28,6 +28,9 @@ class MockWriter(Writer):
     def add_histogram(self, *args, **kwargs):
         pass
 
+    def add_image(self, *args, **kwargs):
+        pass
+
     def add_text(self, name, text, step="sample_frames"):
         pass
 

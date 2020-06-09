@@ -11,12 +11,14 @@ from tensorboard.backend.event_processing import event_accumulator
 
 @pytest.fixture()
 def init_writer():
+    interval = {"sample_frames": 10,
+                "sample_episodes": 100,
+                "train_steps": 1000}
+
     writer = ExperimentWriter(agent_name="test_agent",
                               env_name="test_env",
                               exp_info="test_exp",
-                              sample_frame_interval=10,
-                              sample_episode_interval=100,
-                              train_step_interval=1000)
+                              interval=interval)
 
     # GIVEN sample_frame_interval == 10
     # WHEN add_scalar with step="sample_frames" is called

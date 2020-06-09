@@ -8,6 +8,10 @@ from datetime import datetime
 from torch.utils.tensorboard import SummaryWriter
 from collections import defaultdict
 
+INTERVAL = {"sample_frames": 1e4,
+            "sample_episodes": 1e2,
+            "train_steps": 1e2}
+
 
 class Writer(ABC):
     log_dir = "runs"
@@ -49,22 +53,20 @@ class DummyWriter(Writer):
     def add_histogram(self, *args, **kwargs):
         pass
 
+    def add_image(self, *args, **kwargs):
+        pass
+
 
 class ExperimentWriter(SummaryWriter, Writer):
     def __init__(self, agent_name, env_name,
-                 sample_frame_interval=1e4,
-                 sample_episode_interval=1e2,
-                 train_step_interval=1e2,
+                 interval=INTERVAL,
                  exp_info="default_experiments"):
         try:
             os.mkdir("runs")
         except FileExistsError:
             pass
         self.env_name = env_name
-        self._add_scalar_interval = \
-            {"sample_frames": sample_frame_interval,
-             "sample_episodes": sample_episode_interval,
-             "train_steps": train_step_interval}
+        self._add_scalar_interval = interval
 
         # make experiment directory
         current_time = str(datetime.now())
@@ -106,14 +108,23 @@ class ExperimentWriter(SummaryWriter, Writer):
         name = self.env_name + "/" + name
         super().add_text(name, text, self._get_step_value(step))
 
-    def add_histogram(self, name, values, step="train_steps"):
-        # add histogram every self._add_scalar_interval * 100
+    def add_histogram(self, name, values, step="train_steps", interval_scale=100):
+        # add histogram every self._add_scalar_interval * interval_scale
         step_value = self._get_step_value(step)
         value_name = self.env_name + "/" + name + "/" + step
         if step_value - self._name_frame_history[value_name] \
-                >= self._add_scalar_interval[step] * 100:
+                >= self._add_scalar_interval[step] * interval_scale:
             super().add_histogram(value_name, values, self._get_step_value(step))
             self._name_frame_history[value_name] = step_value
+
+    def add_image(self, name, image, step="train_steps", interval_scale=10):
+        # add image every self._add_scalar_interval * interval_scale
+        step_value = self._get_step_value(step)
+        image_name = self.env_name + "/" + name + "/" + step
+        if step_value - self._name_frame_history[image_name] \
+                >= self._add_scalar_interval[step] * interval_scale:
+            super().add_image(image_name, image, self._get_step_value(step))
+            self._name_frame_history[image_name] = step_value
 
 
 def get_commit_hash():
