@@ -1,4 +1,5 @@
 import numpy as np
+from rlil.environments import State
 
 
 def flat_to_one_hot(val, ndim):
@@ -63,3 +64,15 @@ def compute_visitation(env, policy, discount=1.0, T=50):
         new_state_visitation = np.einsum('ij,ijk->k', sa_visit, t_matrix)
         state_visitation = np.expand_dims(new_state_visitation, axis=1)
     return np.sum(sa_visit_t, axis=2) / norm_factor
+
+
+def get_all_states(env, append_time=False):
+    # env: ObsWrapper
+    states = []
+    for s in range(env.wrapped_env.num_states):
+        s = env.wrap_obs(s)
+        if append_time:
+            s = np.hstack((s, [0]))
+        states.append(np.expand_dims(s, axis=0))
+    states = np.vstack(states)
+    return State.from_numpy(states)

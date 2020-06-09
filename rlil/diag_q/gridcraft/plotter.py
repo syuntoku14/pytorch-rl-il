@@ -90,6 +90,7 @@ class TabularQValuePlotter(object):
         """Save created plot to buffer."""
         buf = io.BytesIO()
         plt.savefig(buf, format='jpeg')
+        plt.close()
         buf.seek(0)
         image = PIL.Image.open(buf)
         image = ToTensor()(image)
@@ -110,4 +111,5 @@ def plot_qval(gs, q_values, return_image=False):
         return plotter.gen_image()
     else:
         plotter.show()
+        plt.close()
         return None

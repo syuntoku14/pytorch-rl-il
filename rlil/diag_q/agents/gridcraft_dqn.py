@@ -6,6 +6,8 @@ from rlil.initializer import (
 from rlil.policies import GreedyPolicy
 from rlil.environments import Action
 from rlil.agents import DQN
+from rlil.diag_q.gridcraft.utils import get_all_states
+from rlil.diag_q.gridcraft.wrappers import ObsWrapper
 from copy import deepcopy
 import os
 
@@ -15,13 +17,15 @@ class GridCraftDQN(DQN):
     This class is for debugging q learning using gridcraft.
     '''
 
-    def __init__(self, env, *args, **kwargs):
+    def __init__(self, env: ObsWrapper, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # compute true q values
-        self.env = env
-        self.env.set_qval(gamma=self.discount_factor, K=1000)
-        self.true_q_image = self.env.plot_qval(env.qval, return_image=True)
-        self.writer.add_text("maze", env.gs.string)
+        self.wrapped_env = env.wrapped_env
+        self.wrapped_env.set_qval(gamma=self.discount_factor, K=1000)
+        self.true_q_image = self.wrapped_env.plot_qval(
+            self.wrapped_env.qval, return_image=True)
+        self.all_states = get_all_states(env, append_time=True).to(self.device)
+        self.writer.add_text("maze", self.wrapped_env.gs.string)
         self.writer.add_image(
             "qval/true", self.true_q_image, interval_scale=-1)
 
@@ -42,4 +46,12 @@ class GridCraftDQN(DQN):
             # update epsilon greedy
             self.epsilon.update()
             self.policy.set_epsilon(self.epsilon.get())
+
+            # additional debugging info
+            if self.writer.train_steps % 100 == 0:
+                all_qvals = self.q(self.all_states).detach().cpu().numpy()
+                q_image = self.wrapped_env.plot_qval(all_qvals, return_image=True)
+                self.writer.add_image(
+                    "qval/predict", q_image, interval_scale=-1)
+
             self.writer.train_steps += 1

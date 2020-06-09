@@ -72,19 +72,19 @@ register(id='HalfFrontLegsAntBulletEnv-v0',
 # Grid world envs
 register(id='CoordinateWiseSimpleGridEnv-v0',
          entry_point='rlil.diag_q.envs.diag_q_env:CoordinateWiseSimpleGrid',
-         max_episode_steps=50)
+         max_episode_steps=300)
 
 register(id='CoordinateWiseLavaGridEnv-v0',
          entry_point='rlil.diag_q.envs.diag_q_env:CoordinateWiseLavaGrid',
-         max_episode_steps=50)
+         max_episode_steps=300)
 
 register(id='RandomObsSimpleGridEnv-v0',
          entry_point='rlil.diag_q.envs.diag_q_env:RandomObsSimpleGrid',
-         max_episode_steps=50)
+         max_episode_steps=300)
 
 register(id='RandomObsLavaGridEnv-v0',
          entry_point='rlil.diag_q.envs.diag_q_env:RandomObsLavaGrid',
-         max_episode_steps=50)
+         max_episode_steps=300)
 
 
 __all__ = ["Environment", "State", "GymEnvironment", "Action"]

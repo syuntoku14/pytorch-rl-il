@@ -14,21 +14,21 @@ from .models import fc_relu_q
 
 def gridcraft_dqn(
         # Common settings
-        discount_factor=0.99,
+        discount_factor=0.5,
         # Adam optimizer settings
         lr=1e-3,
         # Training settings
-        minibatch_size=100,
-        target_update_frequency=100,
+        minibatch_size=50,
+        target_update_frequency=20,
         # Replay buffer settings
-        replay_start_size=1000,
-        replay_buffer_size=1e7,
+        replay_start_size=300,
+        replay_buffer_size=1e5,
         prioritized=False,
         use_apex=False,
         n_step=1,
         # Exploration settings
         initial_exploration=1.,
-        final_exploration=0.,
+        final_exploration=0.0,
         final_exploration_step=10000,
 ):
     """
@@ -66,7 +66,7 @@ def gridcraft_dqn(
         set_replay_buffer(replay_buffer)
 
         return GridCraftDQN(
-            env.env.env.wrapped_env,
+            env.env.env,
             q,
             policy,
             epsilon=epsilon,
