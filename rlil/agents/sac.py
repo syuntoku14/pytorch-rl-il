@@ -3,7 +3,7 @@ import os
 from copy import deepcopy
 from rlil.environments import Action
 from rlil.initializer import (
-    get_device, get_writer, get_replay_buffer, use_apex)
+    get_device, get_writer, get_replay_buffer, use_apex, get_n_step)
 from rlil.memory import ExperienceReplayBuffer
 from rlil.nn import weighted_mse_loss
 from rlil.utils import Samples
@@ -55,6 +55,7 @@ class SAC(Agent):
         self.writer = get_writer()
         self.device = get_device()
         # hyperparameters
+        self.n_step, _ = get_n_step()
         self.discount_factor = discount_factor
         self.entropy_target = entropy_target
         self.lr_temperature = lr_temperature
@@ -83,7 +84,7 @@ class SAC(Agent):
             # Target actions come from *current* policy
             _actions, _log_probs = self.policy.no_grad(states)
             # compute targets for Q and V
-            q_targets = rewards + self.discount_factor * \
+            q_targets = rewards + (self.discount_factor**self.n_step) * \
                 self.v.target(next_states)
             v_targets = torch.min(
                 self.q_1.target(states, Action(_actions)),

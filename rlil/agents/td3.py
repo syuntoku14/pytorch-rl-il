@@ -4,7 +4,7 @@ from copy import deepcopy
 from torch.distributions.normal import Normal
 from rlil.environments import Action
 from rlil.initializer import (
-    get_device, get_writer, get_replay_buffer, use_apex)
+    get_device, get_writer, get_replay_buffer, use_apex, get_n_step)
 from rlil.memory import ExperienceReplayBuffer
 from rlil.nn import weighted_mse_loss
 from rlil.utils import Samples
@@ -63,6 +63,7 @@ class TD3(Agent):
         self.device = get_device()
         self.writer = get_writer()
         # hyperparameters
+        self.n_step, _ = get_n_step()
         self.replay_start_size = replay_start_size
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
@@ -106,7 +107,7 @@ class TD3(Agent):
 
             # train q-network
             # Trick One: clipped double q learning
-            q_targets = rewards + self.discount_factor * \
+            q_targets = rewards + (self.discount_factor**self.n_step) * \
                 torch.min(self.q_1.target(next_states, Action(next_actions)),
                           self.q_2.target(next_states, Action(next_actions)))
             q_1_values = self.q_1(states, actions)

@@ -2,7 +2,7 @@ import torch
 from rlil.nn import weighted_mse_loss
 from rlil.utils import Samples
 from rlil.initializer import (
-    get_device, get_writer, get_replay_buffer, use_apex)
+    get_device, get_writer, get_replay_buffer, use_apex, get_n_step)
 from rlil.policies import GreedyPolicy
 from rlil.environments import Action
 from .base import Agent, LazyAgent
@@ -48,6 +48,7 @@ class DQN(Agent):
         self.writer = get_writer()
         self.loss = weighted_mse_loss
         # hyperparameters
+        self.n_step, _ = get_n_step()
         self.discount_factor = discount_factor
         self.minibatch_size = minibatch_size
         self.replay_start_size = replay_start_size
@@ -72,7 +73,7 @@ class DQN(Agent):
             # forward pass
             values = self.q(states, actions)
             # compute targets
-            targets = rewards + self.discount_factor * \
+            targets = rewards + (self.discount_factor**self.n_step) * \
                 torch.max(self.q.target(next_states), dim=1)[0]
             # compute loss
             loss = self.loss(values, targets, weights)

@@ -4,7 +4,7 @@ import os
 from torch.distributions.normal import Normal
 from rlil.environments import Action
 from rlil.initializer import (
-    get_device, get_writer, get_replay_buffer, use_apex)
+    get_device, get_writer, get_replay_buffer, use_apex, get_n_step)
 from rlil.memory import ExperienceReplayBuffer
 from rlil.nn import weighted_mse_loss
 from rlil.utils import Samples
@@ -47,6 +47,7 @@ class DDPG(Agent):
         self.device = get_device()
         self.writer = get_writer()
         # hyperparameters
+        self.n_step, _ = get_n_step()
         self.replay_start_size = replay_start_size
         self.minibatch_size = minibatch_size
         self.discount_factor = discount_factor
@@ -77,7 +78,7 @@ class DDPG(Agent):
 
             # train q-network
             q_values = self.q(states, actions)
-            targets = rewards + self.discount_factor * \
+            targets = rewards + (self.discount_factor**self.n_step) * \
                 self.q.target(next_states, Action(
                     self.policy.target(next_states)))
             q_loss = weighted_mse_loss(q_values, targets, weights)

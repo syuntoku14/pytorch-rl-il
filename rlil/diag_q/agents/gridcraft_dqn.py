@@ -37,7 +37,7 @@ class GridCraftDQN(DQN):
             # forward pass
             values = self.q(states, actions)
             # compute targets
-            targets = rewards + self.discount_factor * \
+            targets = rewards + (self.discount_factor**self.n_step) * \
                 torch.max(self.q.target(next_states), dim=1)[0]
             # compute loss
             loss = self.loss(values, targets, weights)
