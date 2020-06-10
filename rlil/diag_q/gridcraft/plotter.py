@@ -52,7 +52,7 @@ class TabularQValuePlotter(object):
     def set_value(self, x, y, action, cost):
         self.data[x, y, action] = cost
 
-    def make_plot(self):
+    def make_plot(self, title=None):
         plt.figure()
         ax = plt.gca()
 
@@ -85,6 +85,8 @@ class TabularQValuePlotter(object):
         ax.set_xticks(np.arange(-1, self.w+1, 1))
         ax.set_yticks(np.arange(-1, self.h+1, 1))
         plt.grid()
+        if title is not None:
+            plt.suptitle(title, fontsize=20)
 
     def gen_image(self):
         """Save created plot to buffer."""
@@ -100,13 +102,13 @@ class TabularQValuePlotter(object):
         plt.show()
 
 
-def plot_qval(gs, q_values, return_image=False):
+def plot_grid_values(gs, q_values, title=None, return_image=False):
     import itertools
     plotter = TabularQValuePlotter(gs.width, gs.height, text_values=True)
     for i, (x, y, a) in enumerate(itertools.product(range(gs.width), range(gs.height), range(5))):
         plotter.set_value(x, gs.height-y-1, a,
                           q_values[gs.xy_to_idx((x, y)), a])
-    plotter.make_plot()
+    plotter.make_plot(title=title)
     if return_image:
         return plotter.gen_image()
     else:

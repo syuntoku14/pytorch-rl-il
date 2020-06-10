@@ -71,7 +71,7 @@ class RewardFunction(object):
         self.rew_map = rew_map
 
     def __call__(self, gridspec, s, a, ns):
-        val = gridspec[gridspec.idx_to_xy(s)]
+        val = gridspec[gridspec.idx_to_xy(ns)]
         if val in self.rew_map:
             return self.rew_map[val]
         return self.default
@@ -86,6 +86,10 @@ class GridEnv(gym.Env):
                  rew_map=None,
                  terminal_states=None,
                  default_rew=0):
+        self.env_args = {"tiles": tiles, "rew_fn": rew_fn,
+                         "teps": teps, "max_timesteps": max_timesteps,
+                         "rew_map": rew_map, "terminal_states": terminal_states,
+                         "default_rew": default_rew}
         self.num_states = len(gridspec)
         self.num_actions = 5
         self._env_args = {'teps': teps, 'max_timesteps': max_timesteps}
@@ -99,7 +103,6 @@ class GridEnv(gym.Env):
         self.max_timesteps = max_timesteps
         self._timestep = 0
         self._true_q = None  # q_vals for debugging
-        self.qval = None
 
         # build transition matrix
         dS = self.num_states
@@ -194,14 +197,6 @@ class GridEnv(gym.Env):
                     ostream.write(RENDER_DICT[val])
             ostream.write('|\n')
         ostream.write('-' * (self.gs.width + 2)+'\n')
-
-    def set_qval(self, gamma=0.99, K=1000):
-        from .true_qvalues import dense_tabular_solver
-        self.qval = dense_tabular_solver(self.gs, {}, gamma=gamma, K=K)
-
-    def plot_qval(self, qval, return_image=False):
-        from .plotter import plot_qval
-        return plot_qval(self.gs, qval, return_image)
 
     @property
     def action_space(self):

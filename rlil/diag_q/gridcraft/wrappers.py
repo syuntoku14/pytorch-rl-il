@@ -58,16 +58,21 @@ class ObsWrapper(Wrapper):
         obs = self.wrapped_env.reset()
         return self.wrap_obs(obs, info=env_info)
 
-
-class GridObsWrapper(ObsWrapper):
-    def __init__(self, env):
-        super().__init__(env)
-
     def render(self, *args, **kwargs):
         self.wrapped_env.render()
 
+    def get_all_states(self, append_time=False):
+        states = []
+        for s in range(self.wrapped_env.num_states):
+            s = self.wrap_obs(s)
+            if append_time:
+                s = np.hstack((s, [0]))
+            states.append(np.expand_dims(s, axis=0))
+        states = np.vstack(states)
+        return states
 
-class CoordinateWiseWrapper(GridObsWrapper):
+
+class CoordinateWiseWrapper(ObsWrapper):
     def __init__(self, env):
         assert isinstance(env, GridEnv)
         super().__init__(env)
@@ -96,7 +101,7 @@ class CoordinateWiseWrapper(GridObsWrapper):
             raise NotImplementedError()
 
 
-class RandomObsWrapper(GridObsWrapper):
+class RandomObsWrapper(ObsWrapper):
     def __init__(self, env, obs_dim):
         assert isinstance(env, GridEnv)
         super().__init__(env)

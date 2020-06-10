@@ -28,7 +28,7 @@ def gridcraft_dqn(
         n_step=1,
         # Exploration settings
         initial_exploration=1.,
-        final_exploration=0.0,
+        final_exploration=0.3,
         final_exploration_step=10000,
 ):
     """

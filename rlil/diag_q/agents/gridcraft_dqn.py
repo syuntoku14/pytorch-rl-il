@@ -4,10 +4,10 @@ from rlil.utils import Samples
 from rlil.initializer import (
     get_device, get_writer, get_replay_buffer, use_apex)
 from rlil.policies import GreedyPolicy
-from rlil.environments import Action
+from rlil.environments import Action, State
 from rlil.agents import DQN
-from rlil.diag_q.gridcraft.utils import get_all_states
 from rlil.diag_q.gridcraft.wrappers import ObsWrapper
+from rlil.diag_q.gridcraft.solver import ValueIterationSolver
 from copy import deepcopy
 import os
 
@@ -20,14 +20,23 @@ class GridCraftDQN(DQN):
     def __init__(self, env: ObsWrapper, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # compute true q values
-        self.wrapped_env = env.wrapped_env
-        self.wrapped_env.set_qval(gamma=self.discount_factor, K=1000)
-        self.true_q_image = self.wrapped_env.plot_qval(
-            self.wrapped_env.qval, return_image=True)
-        self.all_states = get_all_states(env, append_time=True).to(self.device)
-        self.writer.add_text("maze", self.wrapped_env.gs.string)
-        self.writer.add_image(
-            "qval/true", self.true_q_image, interval_scale=-1)
+        self.solver = ValueIterationSolver(env.wrapped_env)
+        self.solver.solve(gamma=self.discount_factor, K=1000)
+        # q image
+        self.true_q_image = self.solver.plot_values(
+            self.solver.values, title="Ground truth", return_image=True)
+        # policy image
+        true_policy = self.solver.compute_policy(self.solver.values)
+        self.true_policy_image = self.solver.plot_values(
+            true_policy, title="Ground truth", return_image=True)
+        # visitation image
+        true_visitation = self.solver.compute_visitation(true_policy)
+        self.true_visitation_image = self.solver.plot_values(
+            true_visitation, title="Ground truth", return_image=True)
+
+        self.all_states = State.from_numpy(
+            env.get_all_states(append_time=True)).to(self.device)
+        self.writer.add_text("maze", self.solver.gs.string)
 
     def train(self):
         if self.should_train():
@@ -48,10 +57,31 @@ class GridCraftDQN(DQN):
             self.policy.set_epsilon(self.epsilon.get())
 
             # additional debugging info
-            if self.writer.train_steps % 100 == 0:
+            if self.writer.train_steps % 500 == 0:
+                # plot q values
                 all_qvals = self.q(self.all_states).detach().cpu().numpy()
-                q_image = self.wrapped_env.plot_qval(all_qvals, return_image=True)
+                q_image = self.solver.plot_values(
+                    all_qvals, title="DQN", return_image=True)
+                q_image = torch.cat((self.true_q_image, q_image), dim=2)
                 self.writer.add_image(
-                    "qval/predict", q_image, interval_scale=-1)
+                    "Q", q_image, interval_scale=-1)
+
+                # plot policy
+                dqn_policy = self.solver.compute_policy(all_qvals)
+                dqn_policy_image = self.solver.plot_values(
+                    dqn_policy, title="DQN", return_image=True)
+                policy_image = torch.cat(
+                    (self.true_policy_image, dqn_policy_image), dim=2)
+                self.writer.add_image(
+                    "policy", policy_image, interval_scale=-1)
+
+                # plot visitation
+                dqn_visitation = self.solver.compute_visitation(dqn_policy)
+                dqn_visitation_image = self.solver.plot_values(
+                    dqn_visitation, title="DQN", return_image=True)
+                visitation_image = torch.cat(
+                    (self.true_visitation_image, dqn_visitation_image), dim=2)
+                self.writer.add_image(
+                    "visitation", visitation_image, interval_scale=-1)
 
             self.writer.train_steps += 1
